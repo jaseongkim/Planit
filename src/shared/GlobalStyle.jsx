@@ -14,10 +14,6 @@ const GlobalStyle = createGlobalStyle`
   body {
     overflow: hidden;
   }
-
-  html {
-    font-size: 10px;
-  }
 `;
 
 export default GlobalStyle;
