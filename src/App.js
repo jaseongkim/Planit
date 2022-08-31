@@ -1,12 +1,19 @@
+import { BrowserView, MobileView } from "react-device-detect";
 import "./App.css";
+import Brower from "./shared/Brower";
 import GlobalStyle from "./shared/GlobalStyle";
-import Router from "./shared/Router";
+import Mobile from "./shared/Mobile";
 
 function App() {
   return (
     <>
       <GlobalStyle />
-      <Router />
+      <BrowserView>
+        <Brower />
+      </BrowserView>
+      <MobileView>
+        <Mobile />
+      </MobileView>
     </>
   );
 }
