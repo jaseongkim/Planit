@@ -38,9 +38,9 @@ const onChangeHandler = (e) => {
 }
 
 const doubleCheckEmail = () => {
-  // dispatch( checkEmail({
-  //   email: signUp.email
-  // }))
+  dispatch( checkEmail({
+    email: signUp.email
+  }))
 
   alert("Checking double Check Email")
 }
@@ -58,6 +58,7 @@ const doubleCheckEmail = () => {
                     onChange={onChangeHandler}
                     required
                 />
+                   <button type="button" onClick={doubleCheckEmail}>중복확인</button>
                  <SignUpInput 
                     type="text" 
                     placeholder="닉네임을 입력해주세요" 
@@ -66,7 +67,6 @@ const doubleCheckEmail = () => {
                     onChange={onChangeHandler}
                     required 
                 />
-                <button type="button" onClick={doubleCheckEmail}>중복확인</button>
                 <SignUpInput 
                     type="password" 
                     placeholder="비밀번호를 입력해주세요" 
@@ -98,7 +98,7 @@ export default SignUp;
 
 const SignUpCon = styled.div`
   height: 100vh;
-  width: 350px;
+  width: 375px;
   margin: 0 auto;
   background-color: red;
 

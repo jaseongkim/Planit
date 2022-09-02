@@ -61,22 +61,21 @@ export const checkEmail = (data) => {
     await apis
       .checkEmail(data)
       .then((response) => {
-        console.log("Checking response ",response);
+        console.log("Hello ", response)
         if (response.data.success === false) {
-          return window.alert(response.data.error.message);
+          return window.alert(response.data.error.message)
         } else {
           return (
-            window.alert(
-              `${response.data.data.nickname}님 회원가입을 축하드립니다!`
-            ),
-            window.location.replace("/")
+            window.alert("사용이 가능한 아이디입니다"
+            )
           );
         }
       })
       .catch((error) => {
         if (error.response.status === 400) {
-          window.alert(error.response.data.message);
-        }
+          window.alert(error.response.data.message)
+        console.log("Hello")        
+      }
       });
   };
 };
