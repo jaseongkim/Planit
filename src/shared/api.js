@@ -1,12 +1,63 @@
 import axios from "axios";
-import { createDispatchHook } from "react-redux";
 
 const api = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
 });
 
-const token = localStorage.getItem("token");
-api.defaults.headers.common["authorization"] = token ? `${token}` : null;
+api.interceptors.request.use(function (config) {
+  const token = localStorage.getItem("token");
+  const refreshToken = localStorage.getItem("refreshToken");
+  const accesstokenexpiretime = localStorage.getItem("accesstokenexpiretime");
+  config.headers["Authorization"] = token ? `${token}` : null;
+  config.headers["RefreshToken"] = refreshToken ? `${refreshToken}` : null;
+  config.headers["AccessTokenExpireTime"] = accesstokenexpiretime
+    ? `${accesstokenexpiretime}`
+    : null;
+  return config;
+});
+
+api.interceptors.response.use(
+  function (response) {
+    return response;
+  },
+
+  async function (error) {
+    console.log(error);
+    if (error.response.status === 401) {
+      try {
+        const email = localStorage.getItem("email");
+        const originalRequest = error.config;
+        console.log(originalRequest);
+        const data = await api.post("/members/refresh-token", { email: email });
+        // const data = getRefreshToken({ email: email });
+        console.log(data);
+        if (data) {
+          const newToken = data.headers.authorization;
+          const newAccesstokenexpiretime = data.headers.accesstokenexpiretime;
+          localStorage.removeItem("token");
+          localStorage.removeItem("accesstokenexpiretime");
+          localStorage.setItem("token", newToken);
+          localStorage.setItem(
+            "accesstokenexpiretime",
+            newAccesstokenexpiretime
+          );
+          originalRequest.headers["Authorization"] = newToken;
+          return await api.request(originalRequest);
+        }
+      } catch (error) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("accesstokenexpiretime");
+        console.log(error);
+      }
+      return Promise.reject(error);
+    }
+    return Promise.reject(error);
+  }
+);
+
+// const getRefreshToken = async (data) => {
+//   await api.post("/members/refresh-token", data);
+// };
 
 export const apis = {
   createMember: (data) =>
@@ -27,54 +78,7 @@ export const apis = {
       "Content-Type": "application/json",
     }),
 
-  getAllMembers: () => api.get("/members"),
+  loginKakao: (code) => api.get(`/members/login/kakao/callback?code=${code}`),
 
-  getOneMemberProfile: (memberId) => api.get(`/api/profile/${memberId}`),
-
-  getAllPosts: () => api.get("/api/posts"),
-
-	getInfiniteScrollPosts: (page, size) => api.get("api/posts/infinite-scroll", {
-		params: {
-			page: page,
-			size: size,
-			sort: "createdAt,desc"
-		}
-	}),
-
-  getOnePost: (postId) => api.get(`/api/posts/${postId}`),
-
-  writePost: (data) =>
-    api.post("/api/posts", data, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    }),
-
-  editPost: (data, postId) =>
-    api.put(`/api/posts/${postId}`, data, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    }),
-
-  removePost: (postId) => api.delete(`/api/posts/${postId}`),
-
-  getCommentsByPost: (postId) => api.get(`/api/posts/${postId}/comments`),
-
-  writeComment: (data, postId) =>
-    api.post(`/api/posts/${postId}/comments`, data, {
-      "Content-type": "application/json",
-    }),
-
-  removeComment: (postId, commentId) =>
-    api.delete(`/api/posts/${postId}/comments/${commentId}`),
-
-  pressLike: (postId) => api.post(`/api/posts/${postId}/likes`),
-
-  editMyPage: (memberId, data) =>
-    api.put(`/api/profile/${memberId}`, data, {
-      "Content-Type": "multipart/form-data",
-    }),
-
-	pressFollow: (memberId) => api.post(`api/follow/${memberId}`), 
+  getCategories: () => api.get("/categories"),
 };
