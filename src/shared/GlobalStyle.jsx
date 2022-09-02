@@ -14,6 +14,10 @@ const GlobalStyle = createGlobalStyle`
   body {
     overflow: hidden;
   }
+
+  li {
+    list-style: none;
+  }
 `;
 
 export default GlobalStyle;
