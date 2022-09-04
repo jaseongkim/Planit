@@ -60,6 +60,7 @@ api.interceptors.response.use(
 // };
 
 export const apis = {
+  // SignUp
   createMember: (data) =>
     api.post("/members/register", data, {
       "Content-Type": "application/json",
@@ -73,6 +74,7 @@ export const apis = {
       params: { nickname: nickname },
     }),
 
+  // loginIn
   loginMember: (data) =>
     api.post("/members/login", data, {
       "Content-Type": "application/json",
@@ -80,5 +82,11 @@ export const apis = {
 
   loginKakao: (code) => api.get(`/members/login/kakao/callback?code=${code}`),
 
+  // Categories
   getCategories: () => api.get("/categories"),
+
+  postCategories: () => api.post("/categories"),
+
+  // Todo
+  createTodo: (data) => api.post("categories/1/todos", data)
 };

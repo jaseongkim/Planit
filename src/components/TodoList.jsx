@@ -1,69 +1,93 @@
+import React, { useState } from "react";
 import styled from "styled-components";
-import React from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { createTodoThunk } from "../redux/modules/todoSlice";
 
-const TodoList = () => {
+const TodoList = ({ formFields, setFormFields, selectedDate }) => {
 
-    const onShowMemo = () => {
-        //   console.log(document.getElementsByTagName('MemoWrap')[0])
-        }
+  // Redux : dispatch
+  const dispatch = useDispatch();
 
-    return (
-            <TodoListCon>
-            <TodoItem>
-              <TodoTitle>
-                <input type="checkbox" />
-                <div>
-                  <input type="text" defaultValue="산책하기" />
-                  <button onClick={onShowMemo}>토글버튼</button>
-                </div>
-              </TodoTitle>
-              <MemoWrap>
-                <textarea></textarea>
-                <div>
-                  <button>날짜변경</button>
-                  <button>삭제</button>
-                </div>
-              </MemoWrap>
-            </TodoItem>
-            <TodoItem>
-              <TodoTitle>
-                <input type="checkbox" />
-                <div>
-                  <input type="text" defaultValue="요가" />
-                  <button onClick={onShowMemo}>토글버튼</button>
-                </div>
-              </TodoTitle>
-              <MemoWrap>
-                <textarea></textarea>
-                <div>
-                  <button>날짜변경</button>
-                  <button>삭제</button>
-                </div>
-              </MemoWrap>
-            </TodoItem>
-            <TodoItem>
-              <TodoTitle>
-                <input type="checkbox" />
-                <div>
-                  <input type="text" defaultValue="풋살" />
-                  <button onClick={onShowMemo}>토글버튼</button>
-                </div>
-              </TodoTitle>
-              <MemoWrap>
-                <textarea></textarea>
-                <div>
-                  <button>날짜변경</button>
-                  <button>삭제</button>
-                </div>
-              </MemoWrap>
-            </TodoItem>
-          </TodoListCon>
+  // Hook
+  const [showMemo, setShowMemo] = useState(true)
+
+  // Specifying todo & memo info a new todo
+  const handleFormChange = (index, event) => {
+    let data = [...formFields];
+    data[index][event.target.name] = event.target.value;
+    setFormFields(data);
+  };
+
+  // When Outfocused, input will be disabled
+  const onCheckFocus = (index) => {
+    const parsedDate = `${selectedDate.year}년-${selectedDate.month}월-${selectedDate.day}일`;
+    dispatch(
+      createTodoThunk({
+        title: formFields[index].todo,
+        dueDate: parsedDate,
+      })
     );
+    document.getElementById(`disable${index}`).disabled = "true";
+  };
+
+  // When the button is clicked, the memo will be disappeared 
+  const onShowMemo = (index) => {
+    document.getElementById(`showMemo${index}`).style.display = (!showMemo ? "none" : "block");
+    setShowMemo(!showMemo)
+  }
+
+  return (
+    <TodoListCon>
+      {formFields.map((input, index) => {
+        return (
+          <TodoItemCon key={index}>
+            <TodoTitle>
+              <input type="checkbox" />
+              <div>
+                <input
+                  id={`disable${index}`}
+                  name="todo"
+                  type="text"
+                  placeholder="todo"
+                  value={input.todo}
+                  onChange={(event) => handleFormChange(index, event)}
+                  onBlur={() => onCheckFocus(index)}
+                />
+                <button type="button" onClick={() => onShowMemo(index)}>
+                  토글
+                </button>
+              </div>
+            </TodoTitle>
+            <MemoWrap id={`showMemo${index}`}>
+              <textarea
+                name="memo"
+                type="text"
+                placeholder="memo"
+                value={input.memo}
+                onChange={(event) => handleFormChange(index, event)}
+                //  onBlur={() => checkonFocus(index)}
+              ></textarea>
+              <div>
+                <button>날짜변경</button>
+                <button>삭제</button>
+              </div>
+            </MemoWrap>
+          </TodoItemCon>
+        );
+      })}
+    </TodoListCon>
+  );
 };
 
 export default TodoList;
 
-const TodoItem = styled.li`
+const TodoListCon = styled.ul`
+  margin-top: 10px;
+  padding: 0 10px;
+  border: 3px solid black;
+`;
+
+const TodoItemCon = styled.li`
   border: 3px solid red;
   width: 100%;
 
@@ -80,14 +104,6 @@ const TodoTitle = styled.div`
   div {
   }
 `;
-
-const TodoListCon = styled.ul`
-  margin-top: 10px;
-  padding: 0 10px;
-  border: 3px solid black;
-`;
-
-
 
 const MemoWrap = styled.div`
   display: none;
