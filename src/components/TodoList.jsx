@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { createTodoThunk } from "../redux/modules/todoSlice";
 
-const TodoList = ({ formFields, setFormFields, selectedDate }) => {
+const TodoList = ({ formFields, setFormFields, selectedDate, categId }) => {
 
   // Redux : dispatch
   const dispatch = useDispatch();
@@ -14,56 +14,69 @@ const TodoList = ({ formFields, setFormFields, selectedDate }) => {
   // Specifying todo & memo info a new todo
   const handleFormChange = (index, event) => {
     let data = [...formFields];
-    data[index][event.target.name] = event.target.value;
+    // console.log("Check data",data)
+    // Updating 0 index's formFields
+    data[categId][index][event.target.name] = event.target.value;
+    // console.log("After data index",data)
     setFormFields(data);
   };
 
   // When Outfocused, input will be disabled
-  const onCheckFocus = (index) => {
+  const onCheckFocus = (index,categId) => {
     const parsedDate = `${selectedDate.year}년-${selectedDate.month}월-${selectedDate.day}일`;
+
+    console.log("Check formField ",formFields[index][categId].todo)
     dispatch(
       createTodoThunk({
-        title: formFields[index].todo,
+        title: formFields[index][categId].todo,
         dueDate: parsedDate,
       })
     );
-    document.getElementById(`disable${index}`).disabled = "true";
+    document.getElementById(`disable${index}${categId}`).disabled = "true";
   };
 
   // When the button is clicked, the memo will be disappeared 
   const onShowMemo = (index) => {
-    document.getElementById(`showMemo${index}`).style.display = (!showMemo ? "none" : "block");
+    document.getElementById(`showMemo${index}${categId}`).style.display = (!showMemo ? "none" : "block");
     setShowMemo(!showMemo)
   }
 
   return (
     <TodoListCon>
-      {formFields.map((input, index) => {
+      {/* {console.log("TodoList render",formFields[0])} */}
+      {/* {console.log("Checking clicked id Num",categId)} */}
+     {/* {console.log("Checking categId",categId)} */}
+     {/* {console.log("Checking formFields[categId]", formFields)}  */}
+      {formFields[categId]?.map((inputs, index) => {
+        // console.log("Check inputs",inputs,"Check index",index)
         return (
-          <TodoItemCon key={index}>
-            <TodoTitle>
+          // <>
+          // {inputs.map((input) => {
+          // return(
+          <TodoItemCon key={`${index}${categId}`}>
+            <TodoTitle> 
               <input type="checkbox" />
               <div>
                 <input
-                  id={`disable${index}`}
+                  id={`disable${index}${categId}`}
                   name="todo"
                   type="text"
                   placeholder="todo"
-                  value={input.todo}
+                  value={inputs.todo}
                   onChange={(event) => handleFormChange(index, event)}
-                  onBlur={() => onCheckFocus(index)}
+                  onBlur={() => onCheckFocus(index,categId)}
                 />
                 <button type="button" onClick={() => onShowMemo(index)}>
                   토글
                 </button>
               </div>
             </TodoTitle>
-            <MemoWrap id={`showMemo${index}`}>
+            <MemoWrap id={`showMemo${index}${categId}`}>
               <textarea
                 name="memo"
                 type="text"
                 placeholder="memo"
-                value={input.memo}
+                value={inputs.memo}
                 onChange={(event) => handleFormChange(index, event)}
                 //  onBlur={() => checkonFocus(index)}
               ></textarea>
@@ -73,7 +86,11 @@ const TodoList = ({ formFields, setFormFields, selectedDate }) => {
               </div>
             </MemoWrap>
           </TodoItemCon>
-        );
+          )
+        // })
+        // } 
+        // </>
+        // );
       })}
     </TodoListCon>
   );

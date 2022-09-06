@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useState } from 'react';
 import styled from "styled-components";
 import { GoSearch, GoBell } from "react-icons/go";
 import { GiHamburgerMenu } from "react-icons/gi";
-// import Burger from "./Burger";
-// import Menu from "./Menu";
+import Burger from "./Burger";
+import Menu from "./Menu";
 
 
 const Header = () => {
+
+  // Hook : opening burgar navi
+  const [open, setOpen] = useState(false);
 
   const d = new Date();
   const date = d.getDate();
@@ -14,7 +17,7 @@ const Header = () => {
   const month = d.getMonth()+1;
 
   const weekOfMonth = Math.ceil((date - 1 - day) / 7);
-  
+
   // console.log("day is",day)
   // console.log("Month is",month)
   // console.log("WeekofMonth is", weekOfMonth)
@@ -26,10 +29,11 @@ const Header = () => {
       <HeaderIcon>
         <GoSearch></GoSearch>
         <GoBell></GoBell>
-       
-        {/* <Burger></Burger>
-        <Menu></Menu> */}
-     
+        {/* Hamburger Navi */}
+        <div>
+        <Burger open={open} setOpen={setOpen} />
+        <Menu open={open} setOpen={setOpen} />
+        </div>
         <GiHamburgerMenu></GiHamburgerMenu>
       </HeaderIcon>
     </HeaderCon>

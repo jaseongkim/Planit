@@ -33,9 +33,11 @@ const StyledMenu = styled.nav`
   padding: 2rem;
   position: absolute;
   top: 0;
-  left: 0;
+  z-index: 1000;
+  /* left: 0; */
+  right: 0;
   transition: transform 0.3s ease-in-out;
-  /* transform: translateX(200%); */
+  /* transform: translateX(100%); */
   
   @media (max-width: ${({ theme }) => theme.mobile}) {
     width: 100%;

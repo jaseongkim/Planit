@@ -19,10 +19,12 @@ const DlyTodo = () => {
     dispatch(getCategThunk());
   }, []);
 
-  // Hook
-  const [formFields, setFormFields] = useState([
-    { todo: '', memo: ''}
-  ])
+  // Hook : 2d Array formfields
+  const [formFields, setFormFields] = useState(
+    [[]]
+  )
+
+  // Hook : getting current date from the calendar
   const [selectedDate, setSelectedDate] = useState({
     year: "",
     month: "",
@@ -63,23 +65,32 @@ const DlyTodo = () => {
       day: day
     ,})
 
-    console.log("month is "+ parsedMonth)
-    console.log("day is " + day)
-    console.log("year is " + year)
   };
 
   // adding a new todo
-  const addTodo = () => {
-    setFormFields([...formFields, { todo: '',memo: ''}])
+  const addTodo = (categId) => {
+
+    if(categId===0){
+      formFields[0].push({ todo: '', memo: ''})
+    }
+    else if(categId>=1 && !formFields[categId]?.length >= 1){
+      formFields[categId] = [{ todo: '', memo: ''}]
+    }
+    else if(categId>=1 && formFields[categId].length >= 1) {
+         formFields[categId].push([{ todo: '', memo: ''}])
+    }
+
+    setFormFields([...formFields])
   }
 
   const onSubmitField = (index) => {
     let data = [...formFields];
-    console.log(data[index])
+    // console.log(data[index])
   }
 
   return(
     <>
+    {console.log(`${selectedDate.year}-${selectedDate.month}-${selectedDate.day}`)}
       <Header/>
       <div>
         <DatePicker 
@@ -91,12 +102,13 @@ const DlyTodo = () => {
         <TodoDailyStats></TodoDailyStats>
        {categories.map((categ) => {
           return( 
-           <TodoCon>
-          <button onClick={addTodo}>{categ.categoryName}</button>
+           <TodoCon key={categ.id}>
+          <button onClick={()=>addTodo(categ.id-1)}>{categ.categoryName}</button>
           <TodoList 
             formFields={formFields} 
             setFormFields={setFormFields}
             selectedDate={selectedDate}
+            categId={categ.id-1}
           >
           </TodoList>
         </TodoCon> 

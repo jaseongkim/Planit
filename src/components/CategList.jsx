@@ -2,6 +2,7 @@ import React, { useState,useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategThunk } from "../redux/modules/categorySlice.js";
+import { AiOutlinePlus } from "react-icons/ai";
 
 const CategList = () => {
   
@@ -18,7 +19,8 @@ const CategList = () => {
 
   return (
     <CategCon>
-      <h3>카테고리</h3>
+        {console.log("checking categories in categList",categories)}
+      <h3>카테고리<AiOutlinePlus onClick={()=> {alert("hello")}}></AiOutlinePlus></h3>
       {categories.map((categ) => {
         return (
           <CategWrap key={categ.id}>

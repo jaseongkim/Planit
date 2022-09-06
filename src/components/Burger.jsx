@@ -1,14 +1,19 @@
 import React from "react";
 import styled from "styled-components";
+import { bool, func } from 'prop-types';
 
-const Burger = () => {
+const Burger = ({ open, setOpen }) => {
   return (
-    <StyledBurger>
+    <StyledBurger open={open} onClick={() => setOpen(!open)}>
       <div />
       <div />
       <div />
     </StyledBurger>
-  );
+  )
+}
+Burger.propTypes = {
+  open: bool.isRequired,
+  setOpen: func.isRequired,
 };
 
 export default Burger;
