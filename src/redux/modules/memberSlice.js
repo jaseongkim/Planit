@@ -11,12 +11,7 @@ export const createMemberDB = (data) => {
         if (response.data.success === false) {
           return window.alert(response.data.error.message);
         } else {
-          return (
-            window.alert(
-              `${response.data.data.nickname}님 회원가입을 축하드립니다!`
-            ),
-            window.location.replace("/")
-          );
+          return window.location.replace("/");
         }
       })
       .catch((error) => {
@@ -61,7 +56,7 @@ export const loginMemberDB = (data) => {
         } else {
           return (
             localStorage.setItem("token", response.headers.authorization),
-            localStorage.setItem("email", response.data.data.email),
+            localStorage.setItem("memberId", response.data.data.memberId),
             localStorage.setItem("refreshToken", response.headers.refreshtoken),
             localStorage.setItem(
               "accesstokenexpiretime",

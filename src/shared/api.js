@@ -25,10 +25,14 @@ api.interceptors.response.use(
     console.log(error);
     if (error.response.status === 401) {
       try {
-        const email = localStorage.getItem("email");
+        // const email = localStorage.getItem("email");
+        const memberId = localStorage.getItem("memberId");
         const originalRequest = error.config;
         console.log(originalRequest);
-        const data = await api.post("/members/refresh-token", { email: email });
+        // const data = await api.post("/members/refresh-token", { email: email });
+        const data = await api.post("/members/refresh-token", {
+          memberId: memberId,
+        });
         // const data = getRefreshToken({ email: email });
         console.log(data);
         if (data) {
@@ -81,4 +85,12 @@ export const apis = {
   loginKakao: (code) => api.get(`/members/login/kakao/callback?code=${code}`),
 
   getCategories: () => api.get("/categories"),
+
+  recommendMember: () => api.get("/members/suggest"),
+
+  followMember: (memberId) => api.post(`/follow/${memberId}`),
+
+  followerMember: (memberId) => api.get(`/follow/${memberId}/followers`),
+
+  followingMember: (memberId) => api.get(`/follow/${memberId}/followings`),
 };
