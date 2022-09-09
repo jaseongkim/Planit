@@ -64,6 +64,7 @@ api.interceptors.response.use(
 // };
 
 export const apis = {
+  // SignUp
   createMember: (data) =>
     api.post("/members/register", data, {
       "Content-Type": "application/json",
@@ -77,6 +78,7 @@ export const apis = {
       params: { nickname: nickname },
     }),
 
+  // loginIn
   loginMember: (data) =>
     api.post("/members/login", data, {
       "Content-Type": "application/json",
@@ -93,4 +95,12 @@ export const apis = {
   followerMember: (memberId) => api.get(`/follow/${memberId}/followers`),
 
   followingMember: (memberId) => api.get(`/follow/${memberId}/followings`),
+
+  // Categories
+  getCategories: (date) => api.get(`/categories?date=2022-09-03`),
+
+  postCategories: () => api.post("/categories"),
+
+  // Todo
+  createTodo: (data) => api.post("categories/1/todos", data)
 };
