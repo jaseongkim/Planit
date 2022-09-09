@@ -20,7 +20,6 @@ const LogInPage = () => {
   };
 
   const onLoginHandler = () => {
-    console.log(member);
     dispatch(loginMemberDB(member));
   };
 

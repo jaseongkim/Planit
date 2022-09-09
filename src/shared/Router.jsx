@@ -4,7 +4,10 @@ import LogInPage from "../pages/LogInPage";
 import SignUp from "../pages/SignUp";
 import DlyTodo from "../pages/DlyTodo";
 import Kakao from "./Kakao";
+import Search from "../pages/Search";
+import Follow from "../pages/Follow";
 import Category from "../pages/Category";
+
 
 const Router = () => {
   return (
@@ -14,6 +17,8 @@ const Router = () => {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/dlytodo" element={<DlyTodo />} />
         <Route path="/kakao" element={<Kakao />} />
+        <Route path="/search" element={<Search />} />
+        <Route path="/follow" element={<Follow />} />
         <Route path="/categ" element={<Category/>}/>
       </Routes>
     </BrowserRouter>
