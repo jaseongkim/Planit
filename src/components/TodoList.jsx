@@ -3,10 +3,14 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { createTodoThunk } from "../redux/modules/todoSlice";
 
-const TodoList = ({ formFields, setFormFields, selectedDate, categId }) => {
+const TodoList = ({ formFields, setFormFields, selectedDate, categId, todos }) => {
 
   // Redux : dispatch
   const dispatch = useDispatch();
+
+  
+  console.log("Checking formFields", formFields)
+  // console.log("Checking todos",todos,"checking cateId", categId)
 
   // Hook
   const [showMemo, setShowMemo] = useState(true)
@@ -25,7 +29,7 @@ const TodoList = ({ formFields, setFormFields, selectedDate, categId }) => {
   const onCheckFocus = (index,categId) => {
     const parsedDate = `${selectedDate.year}년-${selectedDate.month}월-${selectedDate.day}일`;
 
-    console.log("Check formField ",formFields[index][categId].todo)
+    // console.log("Check formField ",formFields[index][categId].todo)
     dispatch(
       createTodoThunk({
         title: formFields[index][categId].todo,
@@ -46,6 +50,7 @@ const TodoList = ({ formFields, setFormFields, selectedDate, categId }) => {
       {/* {console.log("TodoList render",formFields[0])} */}
       {/* {console.log("Checking clicked id Num",categId)} */}
      {/* {console.log("Checking categId",categId)} */}
+     {console.log("Checking formFields", formFields)}
      {/* {console.log("Checking formFields[categId]", formFields)}  */}
       {formFields[categId]?.map((inputs, index) => {
         // console.log("Check inputs",inputs,"Check index",index)

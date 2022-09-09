@@ -25,8 +25,6 @@ const onSignupHandler = (e) => {
         nickname: signUp.nickname,
         password: signUp.password,
       }))
-
-    alert("Hello")
 }
 
 //Updating userInfo to Hook
@@ -49,6 +47,7 @@ const doubleCheckEmail = () => {
     <>
       <BrowserView>
         <SignUpCon>
+          <div>
             <form onSubmit={onSignupHandler}>
                 <SignUpInput 
                     type="text" 
@@ -85,6 +84,7 @@ const doubleCheckEmail = () => {
                 />
                 <button type="submit">회원가입</button> 
             </form>
+            </div>
         </SignUpCon>
       </BrowserView>
       <MobileView>
@@ -100,7 +100,15 @@ const SignUpCon = styled.div`
   height: 100vh;
   width: 375px;
   margin: 0 auto;
-  background-color: red;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  div{
+  
+  }
+
 
 `;
 

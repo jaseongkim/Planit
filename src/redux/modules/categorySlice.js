@@ -5,7 +5,8 @@ export const getCategThunk = createAsyncThunk(
     "category/getCategory",
     async (payload, thunkAPI) => {
       try {
-        const { data } = await apis.getCategories();
+        // console.log("Checking payload", payload)
+        const { data } = await apis.getCategories(payload);
         return thunkAPI.fulfillWithValue(data.data);
       } catch (e) {
         return thunkAPI.rejectWithValue(e.code);

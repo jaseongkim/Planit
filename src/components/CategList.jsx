@@ -20,7 +20,7 @@ const CategList = () => {
   return (
     <CategCon>
         {console.log("checking categories in categList",categories)}
-      <h3>카테고리<AiOutlinePlus onClick={()=> {alert("hello")}}></AiOutlinePlus></h3>
+      <h3>카테고리<AiOutlinePlus onClick={()=> {alert()}}></AiOutlinePlus></h3>
       {categories.map((categ) => {
         return (
           <CategWrap key={categ.id}>

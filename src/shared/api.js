@@ -83,7 +83,7 @@ export const apis = {
   loginKakao: (code) => api.get(`/members/login/kakao/callback?code=${code}`),
 
   // Categories
-  getCategories: () => api.get("/categories"),
+  getCategories: (date) => api.get(`/categories?date=2022-09-03`),
 
   postCategories: () => api.post("/categories"),
 

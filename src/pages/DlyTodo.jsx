@@ -11,18 +11,79 @@ const DlyTodo = () => {
   // Redux : dispatch
   const dispatch = useDispatch();
 
+  console.log("This is before useSelector")
   // Redux : useSelector
   const categories = useSelector((state) => state.category.categories);
+  console.log("This is after useSelector")
 
-  // useEffect
+  // Object : to get the date from the vertical calendar
+  const selectedDateObj = {
+    year: "",
+    month: "",
+    day: ""
+  }
+
+  // UseEffect : getting categories & to-do lists 
   useEffect(() => {
-    dispatch(getCategThunk());
-  }, []);
 
+    // const concatSelDate = `${selectedDateObj.year}-${selectedDateObj.month}-${selectedDateObj.day}`
+    // console.log("This is before dispatch")
+    // dispatch(getCategThunk(concatSelDate));
+    // console.log("This is after dispatch")
+    // console.log("Checking categorie in useEffect", categories)
+    console.log("Hi this is useEffect")
+  },[]);
+
+  // console.log("Checking categories", categories)
+  // console.log("Checking categ's todo", categories[0]?.todos[0].title,"Checking categ's memo", categories[0]?.todos[0].memo)
   // Hook : 2d Array formfields
   const [formFields, setFormFields] = useState(
     [[]]
   )
+  
+  for (const categ in categories){
+    // console.log("Checking categNum ", categ)
+    console.log("Checking categ", categories[categ])
+    for( const todo in categories[categ].todos){
+      // formFields[categ].push({ todo: '', memo: '' })
+      // console.log("Checking categNum ", categ)
+      // console.log("Checking todoNum ", todo)
+      // console.log("todo", categories[categ].todos[todo])
+      // console.log("todo title", categories[categ].todos[todo].title)
+      // console.log("todo memo", categories[categ].todos[todo]?.memo)
+      // console.log("Checking",categ==0)
+      
+      if( categ == 0){
+        if(categ == 1){
+          break;
+        }
+        formFields[0].push({ todo: categories[categ].todos[todo].title, memo: categories[categ].todos[todo]?.memo })
+        // console.log("Hello")
+        // console.log("Checking categ in index 0",categ)
+      }
+      
+      else if(categ >= 1){
+        if(categ == 2){
+          break;
+        }
+        // console.log("Checking categ",categ)
+        // console.log("Checkig categ", parseInt(categ))
+        console.log("checkig ", todo)
+        // console.log(typeof categ)
+        // console.log("Checkig here", categ+1)
+        // // console.log("Checking todo",todo)
+        // formFields[categ] = ([{ todo: categories[categ].todos[categ-1].title, memo: categories[categ].todos[categ-1]?.memo }])
+        formFields[categ] = ([{ todo: categories[1].todos[0].title, memo: "" }])
+        if(formFields[categ].length>=1){
+          // alert("hello")
+          // break
+        }
+      }
+      // formFields[3] = ([{ todo: categories[categ].todos[todo].title, memo: categories[categ].todos[todo]?.memo }])
+    }
+  }
+
+
 
   // Hook : getting current date from the calendar
   const [selectedDate, setSelectedDate] = useState({
@@ -59,19 +120,26 @@ const DlyTodo = () => {
     const year = strData.substring(11,15)
     const parsedMonth = parseMonth(month)
 
-    setSelectedDate({
-      year: year,
-      month: parsedMonth,
-      day: day
-    ,})
+    console.log("This is selectedDay function")
 
+    selectedDateObj.year = year
+    selectedDateObj.day = day
+    selectedDateObj.month = parsedMonth
+
+    console.log("This is before dispatch")
+    const concatSelDate = `${selectedDateObj.year}-${selectedDateObj.month}-${selectedDateObj.day}`
+    dispatch(getCategThunk(concatSelDate));
+    console.log("This is after dispatch")
   };
+  
 
-  // adding a new todo
+
+  // Adding a new todo
   const addTodo = (categId) => {
 
     if(categId===0){
       formFields[0].push({ todo: '', memo: ''})
+      // formFields[categId] = [{ todo: '', memo: ''}]
     }
     else if(categId>=1 && !formFields[categId]?.length >= 1){
       formFields[categId] = [{ todo: '', memo: ''}]
@@ -90,7 +158,7 @@ const DlyTodo = () => {
 
   return(
     <>
-    {console.log(`${selectedDate.year}-${selectedDate.month}-${selectedDate.day}`)}
+      {console.log("This is return")}
       <Header/>
       <div>
         <DatePicker 
@@ -100,15 +168,22 @@ const DlyTodo = () => {
       </div>
       <Section>
         <TodoDailyStats></TodoDailyStats>
-       {categories.map((categ) => {
+       {categories.map((input, index) => {
           return( 
-           <TodoCon key={categ.id}>
-          <button onClick={()=>addTodo(categ.id-1)}>{categ.categoryName}</button>
+           <TodoCon key={index}>
+            {/* {console.log("Checking input", input,"Checking index", index)} */}
+          <TodoBtn 
+            onClick={()=>addTodo(index)}
+            btnColor={input.categoryColor}
+            >
+            {input.categoryName}
+          </TodoBtn>
           <TodoList 
             formFields={formFields} 
             setFormFields={setFormFields}
             selectedDate={selectedDate}
-            categId={categ.id-1}
+            categId={index}
+            todos={input.todos}
           >
           </TodoList>
         </TodoCon> 
@@ -130,6 +205,11 @@ const TodoCon = styled.div`
   margin-top: 10px;
 `;
 
+const TodoBtn = styled.button`
+  background-color: ${props => props.btnColor};
+  font-size: 0.9em;
+  color: white;
+`
 
 
 

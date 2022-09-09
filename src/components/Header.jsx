@@ -25,7 +25,6 @@ const Header = () => {
   return (
     <HeaderCon>
       <h1>{month}월 {weekOfMonth}째주</h1>
-
       <HeaderIcon>
         <GoSearch></GoSearch>
         <GoBell></GoBell>
@@ -34,7 +33,6 @@ const Header = () => {
         <Burger open={open} setOpen={setOpen} />
         <Menu open={open} setOpen={setOpen} />
         </div>
-        <GiHamburgerMenu></GiHamburgerMenu>
       </HeaderIcon>
     </HeaderCon>
   );
