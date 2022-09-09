@@ -4,5 +4,9 @@ import bgright from "./background/bgright.png";
 
 //-- icons --
 import kakaologin from "./icons/kakao_login_medium_narrow.png";
+import searchIcon from "./icons/search.png";
 
-export { bgleft, bgright, kakaologin };
+//-- logos --
+import logo from "./logos/logo.png";
+
+export { bgleft, bgright, kakaologin, searchIcon, logo };
