@@ -2,9 +2,9 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LogInPage from "../pages/LogInPage";
 import SignUp from "../pages/SignUp";
-import Landing from "../pages/Landing";
-import CreTodo from "../pages/CreTodo";
+import DlyTodo from "../pages/DlyTodo";
 import Kakao from "./Kakao";
+import Category from "../pages/Category";
 
 const Router = () => {
   return (
@@ -12,9 +12,9 @@ const Router = () => {
       <Routes>
         <Route path="/" element={<LogInPage />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/landing" element={<Landing />} />
-        <Route path="/cretodo" element={<CreTodo />} />
+        <Route path="/dlytodo" element={<DlyTodo />} />
         <Route path="/kakao" element={<Kakao />} />
+        <Route path="/categ" element={<Category/>}/>
       </Routes>
     </BrowserRouter>
   );
