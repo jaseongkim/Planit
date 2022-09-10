@@ -8,7 +8,6 @@ const TodoList = ({ formFields, setFormFields, selectedDate, categId, todos }) =
   // Redux : dispatch
   const dispatch = useDispatch();
 
-  
   console.log("Checking formFields", formFields)
   // console.log("Checking todos",todos,"checking cateId", categId)
 
