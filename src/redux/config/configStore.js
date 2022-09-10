@@ -4,6 +4,8 @@ import memberSlice from "../modules/memberSlice";
 import membersSlice from "../modules/membersSlice";
 import todoSlice from "../modules/todoSlice";
 import categorySlice from "../modules/categorySlice";
+import cateSlice from "../modules/cateSlice";
+import toSlice from "../modules/toSlice";
 
 const store = configureStore({
   reducer: {
@@ -12,6 +14,8 @@ const store = configureStore({
     category: categorySlice,
     membersSlice,
     followSlice,
+    cateSlice,
+    toSlice,
   },
 });
 
