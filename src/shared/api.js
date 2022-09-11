@@ -102,5 +102,5 @@ export const apis = {
   postCategories: () => api.post("/categories"),
 
   // Todo
-  createTodo: (data) => api.post("categories/1/todos", data),
+  createTodo: (data) => api.post(`categories/${data.addTodoObj.categId}/todos`, data.addTodoObj.todoReq),
 };

@@ -1,7 +1,7 @@
 import React, { useState,useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { getCategThunk } from "../redux/modules/categorySlice.js";
+import { getCategThunk } from "../redux/modules/categTodoSlice.js";
 import { AiOutlinePlus } from "react-icons/ai";
 
 const CategList = () => {
@@ -10,7 +10,7 @@ const CategList = () => {
   const dispatch = useDispatch();
 
   // Redux : useSelector
-  const categories = useSelector((state) => state.category.categories);
+  const categories = useSelector((state) => state.categTodoSlice.categories);
 
   // useEffect
   useEffect(() => {

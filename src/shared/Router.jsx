@@ -20,7 +20,6 @@ const Router = () => {
         <Route path="/search" element={<Search />} />
         <Route path="/follow" element={<Follow />} />
         <Route path="/categ" element={<Category />} />
-        <Route path="/categ" element={<Category />} />
         <Route path="/todo" element={<Todo />} />
       </Routes>
     </BrowserRouter>

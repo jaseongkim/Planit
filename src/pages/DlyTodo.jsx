@@ -3,7 +3,8 @@ import DatePicker from "react-horizontal-datepicker";
 import Header from "../components/Header";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { getCategThunk } from "../redux/modules/categorySlice.js";
+import { getCategThunk, addMtyTodo } from "../redux/modules/categTodoSlice.js";
+import { createTodoThunk } from "../redux/modules/todoSlice.js"
 import TodoList from "../components/TodoList";
 
 const DlyTodo = () => {
@@ -13,8 +14,8 @@ const DlyTodo = () => {
 
   console.log("This is before useSelector")
   // Redux : useSelector
-  
-  const categories = useSelector((state) => state.category.categories);
+
+  const categories = useSelector((state) => state.categTodoSlice.categories);
   // console.log("Check categories", categories)
   // console.log("This is after useSelector")
 
@@ -32,16 +33,16 @@ const DlyTodo = () => {
     // setFormFields(categories);
     dispatch(getCategThunk());
     // console.log("This is after dispatch")
-    setFormFields(categories)
+    // setFormFields(categories)
     // console.log("Checking categorie in useEffect", categories)
     // console.log("Hi this is useEffect")
-  },[categories]);
+  },[]);
 
   // console.log("Checking categories", categories)
   // console.log("Checking categ's todo", categories[0]?.todos[0].title,"Checking categ's memo", categories[0]?.todos[0].memo)
 
   // Hook : 2d Array formfields
-  const [formFields, setFormFields] = useState();
+  const [todoTitle, seTodoTitle] = useState("");
 
   // for(const categ in categories){
   //   console.log("Checking categ", categories[categ])
@@ -124,30 +125,52 @@ const DlyTodo = () => {
 
 
   // Adding a new todo
-  const addTodo = (categId) => {
+  const addTodo = ({input,index}) => {
+   
+    // console.log("Checking props", input.categoryId )
+    // console.log("Checking index", index)
 
-    if(categId===0){
-      formFields[0].push({ todo: '', memo: ''})
-      // formFields[categId] = [{ todo: '', memo: ''}]
-    }
-    else if(categId>=1 && !formFields[categId]?.length >= 1){
-      formFields[categId] = [{ todo: '', memo: ''}]
-    }
-    else if(categId>=1 && formFields[categId].length >= 1) {
-         formFields[categId].push([{ todo: '', memo: ''}])
+    const categ = {
+      categID: input.categoryId, 
+      categIndex: index,
+      categReq : {
+        title : todoTitle,
+        dueDate : "2022-09-03",
+      }
     }
 
-    setFormFields([...formFields])
+    const mtyCateg = {
+      categIndex: index,
+      categReq : {
+        title : "",
+        dueDate : "2022-09-03"
+      }
+    }
+    dispatch(addMtyTodo(mtyCateg));
+    // dispatch(createTodoThunk(categ));
+
+
+    // if(categId===0){
+    //   formFields[0].push({ todo: '', memo: ''})
+    //   // formFields[categId] = [{ todo: '', memo: ''}]
+    // }
+    // else if(categId>=1 && !formFields[categId]?.length >= 1){
+    //   formFields[categId] = [{ todo: '', memo: ''}]
+    // }
+    // else if(categId>=1 && formFields[categId].length >= 1) {
+    //      formFields[categId].push([{ todo: '', memo: ''}])
+    // }
+
+    // setFormFields([...formFields])
   }
 
-  const onSubmitField = (index) => {
-    let data = [...formFields];
-    // console.log(data[index])
-  }
+  // const onSubmitField = (index) => {
+  //   let data = [...formFields];
+  //   // console.log(data[index])
+  // }
 
   return(
     <>
-      {console.log("Checking",formFields )}
       <Header/>
       <div>
         <DatePicker 
@@ -163,19 +186,21 @@ const DlyTodo = () => {
            <TodoCon key={index}>
             {/* {console.log("Checking input", input,"Checking index", index)} */}
           <TodoBtn 
-            onClick={()=>addTodo(index)}
+            onClick={()=>addTodo({input,index})}
             btnColor={input.categoryColor}
             >
             {input.categoryName}
           </TodoBtn>
           <TodoList 
-            formFields={formFields} 
-            setFormFields={setFormFields}
-            selectedDate={selectedDate}
-            categId={index}
+            // formFields={formFields} 
+            // setFormFields={setFormFields}
+            // selectedDate={selectedDate}
+            categId={input.categoryId}
             todos={input.todos}
+            categIndex={index}
           >
           </TodoList>
+          {console.log("Checking Categ", input)}
         </TodoCon> 
         )})}   
       </Section>
