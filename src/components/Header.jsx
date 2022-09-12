@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from "styled-components";
 import { GoSearch, GoBell } from "react-icons/go";
 import { GiHamburgerMenu } from "react-icons/gi";
+import {BsCalendar3} from "react-icons/bs"
 import Burger from "./Burger";
 import Menu from "./Menu";
 
@@ -26,13 +27,13 @@ const Header = () => {
     <HeaderCon>
       <h1>{month}월 {weekOfMonth}째주</h1>
       <HeaderIcon>
-        <GoSearch></GoSearch>
+        {/* <GoSearch></GoSearch> */}
+        <BsCalendar3></BsCalendar3>
         <GoBell></GoBell>
         {/* Hamburger Navi */}
-        <div>
+        
         <Burger open={open} setOpen={setOpen} />
         <Menu open={open} setOpen={setOpen} />
-        </div>
       </HeaderIcon>
     </HeaderCon>
   );

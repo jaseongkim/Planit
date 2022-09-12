@@ -40,9 +40,12 @@ const MobileWrap = styled.div`
   top: 50%;
   left: 50%;
   overflow-y: scroll;
+
+  border: 3px solid pink;
+
   transform: translate(-50%, -50%);
-  min-width: 375px;
-  width: 20%;
+  max-width: 375px;
+  width: 100%;
   height: 100vh;
   z-index: 999;
   box-shadow: 6px 0px 14px rgba(219, 219, 219, 0.39),

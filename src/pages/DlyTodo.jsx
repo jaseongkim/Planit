@@ -4,20 +4,19 @@ import Header from "../components/Header";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategThunk, addMtyTodo } from "../redux/modules/categTodoSlice.js";
-import { createTodoThunk } from "../redux/modules/todoSlice.js"
 import TodoList from "../components/TodoList";
+import Sheet from "react-modal-sheet";
 
 const DlyTodo = () => {
 
   // Redux : dispatch
   const dispatch = useDispatch();
 
-  console.log("This is before useSelector")
+  // Hook : wehther to show Modal sheet
+  const [isOpen, setOpen] = useState(false);
+ 
   // Redux : useSelector
-
   const categories = useSelector((state) => state.categTodoSlice.categories);
-  // console.log("Check categories", categories)
-  // console.log("This is after useSelector")
 
   // Object : to get the date from the vertical calendar
   const selectedDateObj = {
@@ -26,54 +25,18 @@ const DlyTodo = () => {
     day: ""
   }
 
+  const onClickedSheet = (inputs, index) => {
+    setOpen(true)
+    console.log("Checking inputs", inputs ,"Checking index", index)
+  }
+
   // UseEffect : getting categories & to-do lists 
   useEffect(() => {
-    // const concatSelDate = `${selectedDateObj.year}-${selectedDateObj.month}-${selectedDateObj.day}`
-    // console.log("This is before dispatch")
-    // setFormFields(categories);
     dispatch(getCategThunk());
-    // console.log("This is after dispatch")
-    // setFormFields(categories)
-    // console.log("Checking categorie in useEffect", categories)
-    // console.log("Hi this is useEffect")
   },[]);
 
-  // console.log("Checking categories", categories)
-  // console.log("Checking categ's todo", categories[0]?.todos[0].title,"Checking categ's memo", categories[0]?.todos[0].memo)
-
-  // Hook : 2d Array formfields
-  const [todoTitle, seTodoTitle] = useState("");
-
-  // for(const categ in categories){
-  //   console.log("Checking categ", categories[categ])
-  //   let count = 1;
-  //   for( const todo in categories[categ].todos){
-  //     // console.log("Checking categ", categ,"checking todo", todo)
-  //       if(categ == 0){
-  //         // console.log("Checking this is todo")
-  //       // if(categ == 2){
-  //       //   console.log("Checking this is todo")
-  //       //   // break;
-  //       // }
-  //       // console.log("Checking", categ, "todo", todo  )
-  //       formFields[0].push({ todo: categories[categ].todos[todo].title, memo: categories[categ].todos[todo]?.memo })
-        
-  //       // console.log("Checking", count)
-  //     }
-
-  //     else if(categ >= 1){
-  //       if(categ == count+1){
-  //         console.log("Checking ", count+1)
-  //         break;
-  //       }
-  //       console.log("checking categ", categ, "Checking todo", todo)
-  //       formFields[categ] = ([{ todo: categories[1].todos[0].title, memo: "" }])
-  //       // if(formFields[categ].length>=1){
-  //       // }
-  //     }
-  //   }
-  // }
-
+  // Hook : To get the title from TodoList
+  const [todoTitle, setTodoTitle] = useState("");
 
   // Hook : getting current date from the calendar
   const [selectedDate, setSelectedDate] = useState({
@@ -126,18 +89,6 @@ const DlyTodo = () => {
 
   // Adding a new todo
   const addTodo = ({input,index}) => {
-   
-    // console.log("Checking props", input.categoryId )
-    // console.log("Checking index", index)
-
-    const categ = {
-      categID: input.categoryId, 
-      categIndex: index,
-      categReq : {
-        title : todoTitle,
-        dueDate : "2022-09-03",
-      }
-    }
 
     const mtyCateg = {
       categIndex: index,
@@ -147,27 +98,8 @@ const DlyTodo = () => {
       }
     }
     dispatch(addMtyTodo(mtyCateg));
-    // dispatch(createTodoThunk(categ));
-
-
-    // if(categId===0){
-    //   formFields[0].push({ todo: '', memo: ''})
-    //   // formFields[categId] = [{ todo: '', memo: ''}]
-    // }
-    // else if(categId>=1 && !formFields[categId]?.length >= 1){
-    //   formFields[categId] = [{ todo: '', memo: ''}]
-    // }
-    // else if(categId>=1 && formFields[categId].length >= 1) {
-    //      formFields[categId].push([{ todo: '', memo: ''}])
-    // }
-
-    // setFormFields([...formFields])
+   
   }
-
-  // const onSubmitField = (index) => {
-  //   let data = [...formFields];
-  //   // console.log(data[index])
-  // }
 
   return(
     <>
@@ -184,7 +116,6 @@ const DlyTodo = () => {
        {categories.map((input, index) => {
           return( 
            <TodoCon key={index}>
-            {/* {console.log("Checking input", input,"Checking index", index)} */}
           <TodoBtn 
             onClick={()=>addTodo({input,index})}
             btnColor={input.categoryColor}
@@ -195,15 +126,30 @@ const DlyTodo = () => {
             // formFields={formFields} 
             // setFormFields={setFormFields}
             // selectedDate={selectedDate}
+            onClickedSheet={onClickedSheet}
             categId={input.categoryId}
             todos={input.todos}
             categIndex={index}
           >
           </TodoList>
-          {console.log("Checking Categ", input)}
+          {/* {console.log("Checking Categ", input)} */}
         </TodoCon> 
-        )})}   
+        )})}  
+      
       </Section>
+
+      <CustomSheet isOpen={isOpen} onClose={() => setOpen(false)}>
+        <CustomSheet.Container>
+          <CustomSheet.Header/>
+          <CustomSheet.Content>
+            <textarea></textarea>
+            <button>수정</button>
+            <button>삭제</button>
+          </CustomSheet.Content>
+        </CustomSheet.Container>
+
+        <Sheet.Backdrop />
+      </CustomSheet>
     </>
   );
 };
@@ -212,6 +158,7 @@ export default DlyTodo;
 
 const Section = styled.div`
   padding: 15px;
+  position: relative;
 `;
 
 const TodoDailyStats = styled.div``;
@@ -225,6 +172,34 @@ const TodoBtn = styled.button`
   font-size: 0.9em;
   color: white;
 `
+
+const CustomSheet = styled(Sheet)`
+
+  .react-modal-sheet-backdrop {
+    /* custom styles */
+    border: 3px solid #FFFFFF;
+  }
+  
+  .react-modal-sheet-container {
+    /* max-height: 300px; */
+    right: 0;
+    margin: 0 auto;
+    max-width: 375px;
+    border: 3px solid #ff0000;
+  }
+  .react-modal-sheet-header {
+    /* custom styles */
+    border: 3px solid #00FF00;
+  }
+  .react-modal-sheet-drag-indicator {
+    /* custom styles */
+    border: 3px solid #800080;
+  }
+  .react-modal-sheet-content {
+    /* custom styles */
+    border: 3px solid #ff00ff;
+  }
+`;
 
 
 
