@@ -1,53 +1,67 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategThunk } from "../redux/modules/categTodoSlice.js";
 import { AiOutlinePlus } from "react-icons/ai";
+import CategoryItem from "./CategoryItem.jsx";
 
 const CategList = () => {
-  
   // Redux : dispatch
   const dispatch = useDispatch();
 
   // Redux : useSelector
   const categories = useSelector((state) => state.categTodoSlice.categories);
 
-
+  console.log(categories);
   // useEffect
   useEffect(() => {
-    dispatch(getCategThunk());
-  }, []);
+    dispatch(getCategThunk("2022-09-05"));
+  }, [dispatch]);
 
   return (
-    <CategCon>
-        {/* {console.log("checking categories in categList",categories)} */}
-      <h3>카테고리<AiOutlinePlus onClick={()=> {alert()}}></AiOutlinePlus></h3>
-      {categories.map((categ) => {
-        return (
-          <CategWrap 
-            key={categ.categoryId}
-            categColor={categ.categoryColor}
-          >
-            <h3 
-              key={categ.categoryId}
-            >{categ.categoryName}</h3>
-          </CategWrap>
-        );
-      })}
-    </CategCon>
+    <CategoryContainer>
+      <WorkingCategory>
+        <TextWrap>일반</TextWrap>
+        {categories.map((category) => {
+          if (category.categoryStatus === "NOT_STOP") {
+            return (
+              <CategoryItem key={category.categoryId} category={category} />
+            );
+          } else {
+            return null;
+          }
+        })}
+      </WorkingCategory>
+
+      <DoneCategory>
+        <TextWrap>종료된 목표</TextWrap>
+        {categories.map((category) => {
+          if (category.categoryStatus !== "NOT_STOP") {
+            return (
+              <CategoryItem key={category.categoryId} category={category} />
+            );
+          } else {
+            return null;
+          }
+        })}
+      </DoneCategory>
+    </CategoryContainer>
   );
 };
 
 export default CategList;
 
-const CategCon = styled.div`
-  height: 25em;
+const CategoryContainer = styled.div`
+  padding: 0 24px;
 `;
 
-const CategWrap = styled.div`
- margin: 20px 0;
- h3{
-  color: ${props => props.categColor};
- }
- /* padding: 20px 0; */
-`
+const DoneCategory = styled.div``;
+
+const WorkingCategory = styled.div`
+  margin: 10px 0 10px 0;
+`;
+
+const TextWrap = styled.div`
+  font-size: ${({ theme }) => theme.fontSizes.lg};
+  color: #d6d6d6;
+`;

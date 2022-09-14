@@ -1,24 +1,14 @@
 import React from "react";
-import Header from "../components/Header";
-import styled from "styled-components";
 import CategList from "../components/CategList";
-import CategStat from "../components/CategStat";
+import CategoryHeader from "../components/CategoryHeader";
 
 const Category = () => {
   return (
     <>
-      <Header></Header>
-      <CategCon>
-        <CategList></CategList>
-        <CategStat></CategStat>
-      </CategCon>
+      <CategoryHeader />
+      <CategList />
     </>
   );
 };
 
 export default Category;
-
-const CategCon = styled.div`
-    padding: 4%
-`;
-
