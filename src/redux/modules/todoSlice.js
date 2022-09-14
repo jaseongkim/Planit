@@ -6,6 +6,7 @@ export const createTodoThunk = createAsyncThunk(
     "todo/createTodo",
     async (payload, thunkAPI) => {
       try {
+        console.log("createTodoThunk payload", payload)
         const data = await apis.createTodo(payload);
         return thunkAPI.fulfillWithValue(data.data); 
       } catch (error) {

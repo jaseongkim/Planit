@@ -52,7 +52,7 @@ export const loginMemberDB = (data) => {
       .then((response) => {
         console.log(response);
         if (response.data.success === false) {
-          return window.alert(response.data.message);
+          return window.alert("Hello");
         } else {
           return (
             localStorage.setItem("token", response.headers.authorization),
@@ -68,7 +68,7 @@ export const loginMemberDB = (data) => {
       .catch((error) => {
         if (error.response.status === 404) {
           console.log(error);
-          window.alert(error.response.data.message);
+          window.alert("hi");
         }
       });
   };

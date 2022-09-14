@@ -1,7 +1,7 @@
 import React, { useState,useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { getCategThunk } from "../redux/modules/categorySlice.js";
+import { getCategThunk } from "../redux/modules/categTodoSlice.js";
 import { AiOutlinePlus } from "react-icons/ai";
 
 const CategList = () => {
@@ -10,7 +10,8 @@ const CategList = () => {
   const dispatch = useDispatch();
 
   // Redux : useSelector
-  const categories = useSelector((state) => state.category.categories);
+  const categories = useSelector((state) => state.categTodoSlice.categories);
+
 
   // useEffect
   useEffect(() => {
@@ -19,12 +20,17 @@ const CategList = () => {
 
   return (
     <CategCon>
-        {console.log("checking categories in categList",categories)}
+        {/* {console.log("checking categories in categList",categories)} */}
       <h3>카테고리<AiOutlinePlus onClick={()=> {alert()}}></AiOutlinePlus></h3>
       {categories.map((categ) => {
         return (
-          <CategWrap key={categ.id}>
-            <h3>{categ.categoryName}</h3>
+          <CategWrap 
+            key={categ.categoryId}
+            categColor={categ.categoryColor}
+          >
+            <h3 
+              key={categ.categoryId}
+            >{categ.categoryName}</h3>
           </CategWrap>
         );
       })}
@@ -40,5 +46,8 @@ const CategCon = styled.div`
 
 const CategWrap = styled.div`
  margin: 20px 0;
+ h3{
+  color: ${props => props.categColor};
+ }
  /* padding: 20px 0; */
 `

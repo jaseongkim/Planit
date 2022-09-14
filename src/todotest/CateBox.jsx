@@ -33,7 +33,8 @@ export default function CateBox(props) {
       {todoList.map((todo) => {
         if (todo.categoryId === props.cate.cateId) {
           return <ToInput todo={todo} key={todo.allId} />;
-        } else {
+        } 
+        else {
           return null;
         }
       })}
