@@ -6,7 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import store from "./redux/config/configStore";
 import { Provider } from "react-redux";
 import { ThemeProvider } from "styled-components";
-import { theme } from "./shared/theme";
+import theme from "./shared/theme";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
