@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import styled from "styled-components";
 import KakaoLogin from "../components/KakaoLogin";
+import Button from "../element/Button";
+import LoginInput from "../element/LoginInput";
 import { loginMemberDB } from "../redux/modules/memberSlice";
-import { apis } from "../shared/api";
 
 const LogInPage = () => {
   const dispatch = useDispatch();
@@ -23,12 +25,6 @@ const LogInPage = () => {
     dispatch(loginMemberDB(member));
   };
 
-  const onCategoriseHandler = async () => {
-    await apis.getCategories().then((response) => {
-      console.log(response);
-    });
-  };
-
   const onKeyUp = (e) => {
     if (e.key === "Enter") {
       onLoginHandler();
@@ -36,30 +32,79 @@ const LogInPage = () => {
   };
 
   return (
-    <div>
-      <div>
-        <input
-          type="text"
-          name="email"
-          value={member.email}
-          onChange={onChangeHandler}
-        />
-      </div>
-      <div>
-        <input
-          type="password"
-          name="password"
-          value={member.password}
-          onChange={onChangeHandler}
-          onKeyUp={onKeyUp}
-        />
-      </div>
+    <>
+      <LoginLogo></LoginLogo>
+      <LoginInputBox>
+        <div>
+          <input
+            type="text"
+            name="email"
+            value={member.email}
+            onChange={onChangeHandler}
+          />
+        </div>
+        <div>
+          <input
+            type="password"
+            name="password"
+            value={member.password}
+            onChange={onChangeHandler}
+            onKeyUp={onKeyUp}
+          />
+        </div>
+      </LoginInputBox>
+      <LoginBtn>
+        <Button
+          _onClick={onLoginHandler}
+          width="335px"
+          height="52px"
+          borderRadius="10px"
+        >
+          로그인
+        </Button>
+        <LoginNav>
+          <div>회원가입</div>
+          <div>아이디/비밀번호찾기</div>
+        </LoginNav>
 
-      <button onClick={onLoginHandler}>로그인</button>
-      <button onClick={onCategoriseHandler}>카테고리 테스트</button>
-      <KakaoLogin />
-    </div>
+        <KakaoLogin />
+      </LoginBtn>
+    </>
   );
 };
 
 export default LogInPage;
+
+const LoginContainer = styled.div``;
+
+const LoginLogo = styled.div`
+  width: 200px;
+  height: 100px;
+  text-align: center;
+  margin: 50px auto;
+  background: red;
+`;
+
+const LoginInputBox = styled.div`
+  width: 300px;
+  height: auto;
+  text-align: center;
+  margin: 0px auto;
+  background: green;
+`;
+const LoginBtn = styled.div`
+  width: 375px;
+  height: auto;
+  text-align: center;
+  margin: 0px auto;
+  background: yellow;
+`;
+
+const LoginNav = styled.div`
+  display: flex;
+  width: 200px;
+  height: 50px;
+  text-align: center;
+  margin: 0px auto;
+  background: orange;
+`;
