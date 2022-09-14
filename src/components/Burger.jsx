@@ -19,7 +19,7 @@ Burger.propTypes = {
 export default Burger;
 
 const StyledBurger = styled.button`
-  position: absolute;
+  /* position: absolute; */
   top: 5%;
   right: 1rem;
   display: flex;
@@ -39,8 +39,8 @@ const StyledBurger = styled.button`
 
   div {
     width: 2rem;
-    height: 0.25rem;
-    background: ${({ theme }) => theme.primaryLight};
+    height: 0.3rem;
+    background: ${({ theme }) => theme.primaryDark};
     border-radius: 10px;
     transition: all 0.3s linear;
     position: relative;
