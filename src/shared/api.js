@@ -54,6 +54,8 @@ api.interceptors.response.use(
         console.log(error);
       }
       return Promise.reject(error);
+    } else if (error.response.status === 503) {
+      console.log("503 받았어요");
     }
     return Promise.reject(error);
   }
@@ -97,10 +99,22 @@ export const apis = {
   followingMember: (memberId) => api.get(`/follow/${memberId}/followings`),
 
   // Categories
-  getCategories: () => api.get(`/categories?date=2022-09-03`),
+  getCategories: (data) => api.get(`/categories?date=${data}`),
 
   postCategories: () => api.post("/categories"),
 
   // Todo
-  createTodo: (data) => api.post("categories/1/todos", data),
+  createTodo: (data) =>
+    api.post(
+      `categories/${data.addTodoObj.categId}/todos`,
+      data.addTodoObj.todoReq
+    ),
+
+  updateTodo: (data) =>
+    api.patch(
+      `categories/todos/${data.updateTodoObj.todoId}`,
+      data.updateTodoObj.todoReq
+    ),
+
+  deleteTodo: (data) => api.delete(`categories/todos/${data}`),
 };

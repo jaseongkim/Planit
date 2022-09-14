@@ -3,94 +3,71 @@ import DatePicker from "react-horizontal-datepicker";
 import Header from "../components/Header";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { getCategThunk } from "../redux/modules/categorySlice.js";
+import { getCategThunk, addMtyTodo, deleteTodoThunk } from "../redux/modules/categTodoSlice.js";
 import TodoList from "../components/TodoList";
+import Sheet from "react-modal-sheet";
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 
 const DlyTodo = () => {
 
   // Redux : dispatch
   const dispatch = useDispatch();
 
-  console.log("This is before useSelector")
-  // Redux : useSelector
-  const categories = useSelector((state) => state.category.categories);
-  console.log("This is after useSelector")
+  // Hook : whether to show Modal sheet
+  const [isOpen, setOpen] = useState(false);
 
-  // Object : to get the date from the vertical calendar
+  // Hook : To get the selected date from the calendar
+  const [dateValue, setDateValue] = useState(new Date());
+
+  // Getting the selected date from the calendar
+  const getCalendarDate = () => {
+    setDateValue()
+    // const strData = dataValue.toString()
+    // const month = strData.substring(4, 7)
+    // const day = strData.substring(8,10)
+    // const year = strData.substring(11,15)
+    
+    // console.log("Check dataValue in fun", dataValue)
+    // console.log("This is getCalendarDate func")
+    // console.log("Checking date", dataValue)
+    // console.log("Checking month", month, "day", day, "year", year)
+  }
+
+  // console.log("Check dataValue outside", dataValue)
+  // console.log("This is outside of getCalendarDate func")
+  // console.log("Checking date", dataValue)
+ 
+  // Redux : useSelector
+  const categories = useSelector((state) => state.categTodoSlice.categories);
+
+  // Object : To get the date from the vertical calendar
   const selectedDateObj = {
     year: "",
     month: "",
     day: ""
   }
 
-  // UseEffect : getting categories & to-do lists 
-  useEffect(() => {
+   // Hook : To get the clicked todo info & index from TodoList
+   const [clickedTodo, setClickedTodo] = useState({
+    todoInfo: "",
+    todoIndex: ""
+   });
 
-    // const concatSelDate = `${selectedDateObj.year}-${selectedDateObj.month}-${selectedDateObj.day}`
-    // console.log("This is before dispatch")
-    // dispatch(getCategThunk(concatSelDate));
-    // console.log("This is after dispatch")
-    // console.log("Checking categorie in useEffect", categories)
-    console.log("Hi this is useEffect")
-  },[]);
+   // Hook : To get the clicked Cagegory index
+   const [clickedCategIndex, setClickedCategIndex] = useState("")
 
-  // console.log("Checking categories", categories)
-  // console.log("Checking categ's todo", categories[0]?.todos[0].title,"Checking categ's memo", categories[0]?.todos[0].memo)
-  // Hook : 2d Array formfields
-  const [formFields, setFormFields] = useState(
-    [[]]
-  )
-  
-  for (const categ in categories){
-    // console.log("Checking categNum ", categ)
-    console.log("Checking categ", categories[categ])
-    for( const todo in categories[categ].todos){
-      // formFields[categ].push({ todo: '', memo: '' })
-      // console.log("Checking categNum ", categ)
-      // console.log("Checking todoNum ", todo)
-      // console.log("todo", categories[categ].todos[todo])
-      // console.log("todo title", categories[categ].todos[todo].title)
-      // console.log("todo memo", categories[categ].todos[todo]?.memo)
-      // console.log("Checking",categ==0)
-      
-      if( categ == 0){
-        if(categ == 1){
-          break;
-        }
-        formFields[0].push({ todo: categories[categ].todos[todo].title, memo: categories[categ].todos[todo]?.memo })
-        // console.log("Hello")
-        // console.log("Checking categ in index 0",categ)
-      }
-      
-      else if(categ >= 1){
-        if(categ == 2){
-          break;
-        }
-        // console.log("Checking categ",categ)
-        // console.log("Checkig categ", parseInt(categ))
-        console.log("checkig ", todo)
-        // console.log(typeof categ)
-        // console.log("Checkig here", categ+1)
-        // // console.log("Checking todo",todo)
-        // formFields[categ] = ([{ todo: categories[categ].todos[categ-1].title, memo: categories[categ].todos[categ-1]?.memo }])
-        formFields[categ] = ([{ todo: categories[1].todos[0].title, memo: "" }])
-        if(formFields[categ].length>=1){
-          // alert("hello")
-          // break
-        }
-      }
-      // formFields[3] = ([{ todo: categories[categ].todos[todo].title, memo: categories[categ].todos[todo]?.memo }])
-    }
+  // Function to open sheetModal & Getting clicked todo Info & index as well as the todo index
+  const onClickedSheet = (inputs, index, categIndex) => {
+    setOpen(true)
+    setClickedTodo({
+      todoInfo: inputs,
+      todoIndex: index
+    })
+    setClickedCategIndex(categIndex)
   }
-
-
-
-  // Hook : getting current date from the calendar
-  const [selectedDate, setSelectedDate] = useState({
-    year: "",
-    month: "",
-    day: ""
-  })
+  
+  console.log("This is outside of useEffect")
 
   // Function to parse string month to int month
   const parseMonth = (mm) => {
@@ -111,84 +88,146 @@ const DlyTodo = () => {
 
     return monthsShort[mm]
   }
-  
-  // Getting date from the vertical calendar
-  const selectedDay = (val) => {
-    const strData = val.toString()
+
+
+
+  // UseEffect : getting categories & to-do lists as well as date from the calendar
+  useEffect(() => {
+    console.log("Check here in useEffect" ,dateValue)
+
+    const strData = dateValue.toString()
     const month = strData.substring(4, 7)
     const day = strData.substring(8,10)
     const year = strData.substring(11,15)
     const parsedMonth = parseMonth(month)
 
-    console.log("This is selectedDay function")
+    // console.log("Check parsedDate", parsedMonth, "-", day, "-", year)
 
-    selectedDateObj.year = year
-    selectedDateObj.day = day
-    selectedDateObj.month = parsedMonth
+    const concatSelDate = `${year}-${parsedMonth}-${day}`
 
-    console.log("This is before dispatch")
-    const concatSelDate = `${selectedDateObj.year}-${selectedDateObj.month}-${selectedDateObj.day}`
-    dispatch(getCategThunk(concatSelDate));
-    console.log("This is after dispatch")
-  };
+    console.log("Check concattSelDate", concatSelDate)
+
+    dispatch(getCategThunk(concatSelDate))
+  },[dateValue]);
+
+  // Hook : getting current date from the calendar
+  const [selectedDate, setSelectedDate] = useState({
+    year: "",
+    month: "",
+    day: ""
+  })
+
   
+  
+  // Getting date from the vertical calendar
+  // const selectedDay = (val) => {
+  //   const strData = val.toString()
+  //   const month = strData.substring(4, 7)
+  //   const day = strData.substring(8,10)
+  //   const year = strData.substring(11,15)
+  //   const parsedMonth = parseMonth(month)
 
+  //   console.log("This is selectedDay function")
 
+  //   selectedDateObj.year = year
+  //   selectedDateObj.day = day
+  //   selectedDateObj.month = parsedMonth
+
+  //   console.log("This is before dispatch")
+  //   const concatSelDate = `${selectedDateObj.year}-${selectedDateObj.month}-${selectedDateObj.day}`
+  //   dispatch(getCategThunk(concatSelDate));
+  //   console.log("This is after dispatch")
+  // };
+  
   // Adding a new todo
-  const addTodo = (categId) => {
-
-    if(categId===0){
-      formFields[0].push({ todo: '', memo: ''})
-      // formFields[categId] = [{ todo: '', memo: ''}]
+  const addTodo = ({input,index}) => {
+    const mtyCateg = {
+      categIndex: index,
+      categReq : {
+        title : "",
+        dueDate : "2022-09-03"
+      }
     }
-    else if(categId>=1 && !formFields[categId]?.length >= 1){
-      formFields[categId] = [{ todo: '', memo: ''}]
-    }
-    else if(categId>=1 && formFields[categId].length >= 1) {
-         formFields[categId].push([{ todo: '', memo: ''}])
-    }
-
-    setFormFields([...formFields])
+    dispatch(addMtyTodo(mtyCateg));
+   
   }
 
-  const onSubmitField = (index) => {
-    let data = [...formFields];
-    // console.log(data[index])
+  // Enabling to edit todo by closing the modalSheet
+  const editTodo = () =>{
+    setOpen(false)
+    document.getElementById(`disable${clickedTodo.todoInfo.todoId}`).disabled = false;
+    document.getElementById(`disable${clickedTodo.todoInfo.todoId}`).focus()
+  }
+
+  // Deleting the clicked todo by closing the modalSheet
+  const deleteTodo = () =>{
+    
+    setOpen(false)
+
+    const clickedTodoId = clickedTodo.todoInfo.todoId
+
+    const deleteTodoObj = {
+      todoId: clickedTodoId,
+      todoIndex: clickedTodo.todoIndex,
+      categIndex: clickedCategIndex,
+    };
+    dispatch(deleteTodoThunk(deleteTodoObj))
   }
 
   return(
     <>
-      {console.log("This is return")}
+    {/* {console.log("Checking date in return", dataValue)} */}
+    {/* {console.log("Check detaValue in return",dataValue)} */}
+    {console.log("This is return")}
       <Header/>
       <div>
-        <DatePicker 
+        {/* <DatePicker 
           endDate={100}
-          getSelectedDay={selectedDay}>
-        </DatePicker>
+          // getSelectedDay={selectedDay}
+          >
+        </DatePicker> */}
+        <Calendar onChange={setDateValue} value={dateValue} />
       </div>
       <Section>
         <TodoDailyStats></TodoDailyStats>
        {categories.map((input, index) => {
           return( 
            <TodoCon key={index}>
-            {/* {console.log("Checking input", input,"Checking index", index)} */}
           <TodoBtn 
-            onClick={()=>addTodo(index)}
+            onClick={()=>addTodo({input,index})}
             btnColor={input.categoryColor}
-            >
+            > 
             {input.categoryName}
           </TodoBtn>
           <TodoList 
-            formFields={formFields} 
-            setFormFields={setFormFields}
-            selectedDate={selectedDate}
-            categId={index}
+            // formFields={formFields} 
+            // setFormFields={setFormFields}
+            // selectedDate={selectedDate}
+            clickedTodo={clickedTodo}
+            onClickedSheet={onClickedSheet}
+            categId={input.categoryId}
             todos={input.todos}
+            categIndex={index}
           >
           </TodoList>
         </TodoCon> 
-        )})}   
+        )})}  
+      
       </Section>
+
+      <CustomSheet isOpen={isOpen} onClose={() => setOpen(false)}>
+        <CustomSheet.Container>
+          <CustomSheet.Header/>
+          <CustomSheet.Content>
+            <div>{clickedTodo.todoInfo.title}</div>
+            <textarea></textarea>
+            <button onClick={()=>{editTodo()}}>수정</button>
+            <button onClick={()=>{deleteTodo()}}>삭제</button>
+          </CustomSheet.Content>
+        </CustomSheet.Container>
+
+        <Sheet.Backdrop />
+      </CustomSheet>
     </>
   );
 };
@@ -197,6 +236,7 @@ export default DlyTodo;
 
 const Section = styled.div`
   padding: 15px;
+  position: relative;
 `;
 
 const TodoDailyStats = styled.div``;
@@ -210,6 +250,34 @@ const TodoBtn = styled.button`
   font-size: 0.9em;
   color: white;
 `
+
+const CustomSheet = styled(Sheet)`
+
+  .react-modal-sheet-backdrop {
+    /* custom styles */
+    border: 3px solid #FFFFFF;
+  }
+  
+  .react-modal-sheet-container {
+    /* max-height: 300px; */
+    right: 0;
+    margin: 0 auto;
+    max-width: 375px;
+    border: 3px solid #ff0000;
+  }
+  .react-modal-sheet-header {
+    /* custom styles */
+    border: 3px solid #00FF00;
+  }
+  .react-modal-sheet-drag-indicator {
+    /* custom styles */
+    border: 3px solid #800080;
+  }
+  .react-modal-sheet-content {
+    /* custom styles */
+    border: 3px solid #ff00ff;
+  }
+`;
 
 
 

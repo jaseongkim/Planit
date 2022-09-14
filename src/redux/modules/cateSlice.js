@@ -9,6 +9,7 @@ const cateSlice = createSlice({
   initialState,
   reducers: {
     addCate: (state, action) => {
+      console.log("Check state", state)
       state.cate.push(action.payload);
     },
   },
