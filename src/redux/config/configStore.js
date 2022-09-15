@@ -2,7 +2,6 @@ import { configureStore } from "@reduxjs/toolkit";
 import followSlice from "../modules/followSlice";
 import memberSlice from "../modules/memberSlice";
 import membersSlice from "../modules/membersSlice";
-import todoSlice from "../modules/todoSlice";
 import categTodoSlice from "../modules/categTodoSlice";
 import cateSlice from "../modules/cateSlice";
 import toSlice from "../modules/toSlice";
@@ -10,7 +9,6 @@ import toSlice from "../modules/toSlice";
 const store = configureStore({
   reducer: {
     member: memberSlice,
-    todo: todoSlice,
     categTodoSlice,
     membersSlice,
     followSlice,
