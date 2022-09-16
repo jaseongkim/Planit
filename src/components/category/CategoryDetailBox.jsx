@@ -1,26 +1,14 @@
 import React from "react";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import {
-  createCategThunk,
-  deleteCategThunk,
-  updateCategThunk,
-} from "../../redux/modules/categTodoSlice";
+import { createCategThunk } from "../../redux/modules/categTodoSlice";
 
 export default function CategoryDetailBox() {
   const dispatch = useDispatch();
-  const categories = useSelector((state) => state.categTodoSlice.categories);
-
-  let { id } = useParams();
-
-  let categoriesDetail = categories.find(
-    (category) => category.categoryId === Number(id)
-  );
 
   const initialState = {
-    categoryName: categoriesDetail?.categoryName,
+    categoryName: "",
     categoryColor: "green",
     isPublic: "false",
     categoryStatus: "NOT_STOP",
@@ -33,20 +21,10 @@ export default function CategoryDetailBox() {
     setCategory({ ...category, [name]: value });
   };
 
-  const onDeleteHandler = () => {
-    dispatch(deleteCategThunk(id));
-  };
-
-  const onConfirmHandler = () => {
+  const onClickHandler = () => {
     console.log(category);
     setCategory(initialState);
-
-    if (categoriesDetail === undefined) {
-      dispatch(createCategThunk(category));
-    } else {
-      dispatch(updateCategThunk({ id, category }));
-      setCategory(category);
-    }
+    dispatch(createCategThunk(category));
   };
 
   return (
@@ -59,20 +37,35 @@ export default function CategoryDetailBox() {
           onChange={onChangeHandler}
         />
       </InputBox>
-      <button onClick={onDeleteHandler}>삭제하기</button>
-      <button style={{ marginLeft: "10px" }} onClick={onConfirmHandler}>
-        완료
-      </button>
+      <button>삭제</button>
+      <button onClick={onClickHandler}>완료</button>
     </CategoryContainer>
+
   );
 }
 
-const CategoryContainer = styled.div``;
+const CategoryContainer = styled.div`
+
+
+/* border: 3px solid green; */
+margin-top: 1.7em;
+height: 100%;
+button:last-child{
+    width: 5em;
+  }
+
+`;
 
 const InputBox = styled.div`
-  width: 340px;
-  height: 50px;
-  background-color: red;
-  text-align: center;
+  margin-top: 6em;
+  width: 20.8em;
+  height: 4.3em;
+  border: none;
   margin: 0 auto;
+
+  input{
+    width: 100%;
+   height: 100%;
+   border: none;
+  }
 `;
