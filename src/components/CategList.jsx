@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategThunk } from "../redux/modules/categTodoSlice.js";
-import { AiOutlinePlus } from "react-icons/ai";
 import CategoryItem from "./CategoryItem.jsx";
 
 const CategList = () => {
@@ -20,31 +19,35 @@ const CategList = () => {
 
   return (
     <CategoryContainer>
-      <WorkingCategory>
-        <TextWrap>일반</TextWrap>
-        {categories.map((category) => {
-          if (category.categoryStatus === "NOT_STOP") {
-            return (
-              <CategoryItem key={category.categoryId} category={category} />
-            );
-          } else {
-            return null;
-          }
-        })}
-      </WorkingCategory>
+      {categories.length === 0 ? null : (
+        <>
+          <WorkingCategory>
+            <TextWrap>일반</TextWrap>
+            {categories.map((category) => {
+              if (category.categoryStatus === "NOT_STOP") {
+                return (
+                  <CategoryItem key={category.categoryId} category={category} />
+                );
+              } else {
+                return null;
+              }
+            })}
+          </WorkingCategory>
 
-      <DoneCategory>
-        <TextWrap>종료된 목표</TextWrap>
-        {categories.map((category) => {
-          if (category.categoryStatus !== "NOT_STOP") {
-            return (
-              <CategoryItem key={category.categoryId} category={category} />
-            );
-          } else {
-            return null;
-          }
-        })}
-      </DoneCategory>
+          <DoneCategory>
+            <TextWrap>종료된 목표</TextWrap>
+            {categories.map((category) => {
+              if (category.categoryStatus !== "NOT_STOP") {
+                return (
+                  <CategoryItem key={category.categoryId} category={category} />
+                );
+              } else {
+                return null;
+              }
+            })}
+          </DoneCategory>
+        </>
+      )}
     </CategoryContainer>
   );
 };

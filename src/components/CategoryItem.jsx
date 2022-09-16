@@ -1,4 +1,3 @@
-import { ToastBody } from "react-bootstrap";
 import styled from "styled-components";
 
 export default function CategoryItem(props) {

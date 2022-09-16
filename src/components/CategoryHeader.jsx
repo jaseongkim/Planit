@@ -6,6 +6,8 @@ import { FiPlusCircle } from "react-icons/fi";
 export default function CategoryHeader() {
   const navigate = useNavigate();
 
+  const onPlusHandler = () => {};
+
   return (
     <HeaderWrap>
       <div onClick={() => navigate(-1)}>
