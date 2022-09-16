@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  delMtyTodo,
   onChangeTodo,
   createTodoThunk,
   updateTodoTiThunk,
@@ -38,16 +39,24 @@ const TodoList = ({
     dispatch(onChangeTodo(chgTodoObj));
   };
 
-  // When Outfocused, input will be disabled => making empty UX
-  // => if there is an input in the server, then update the pre-defined title.
-  const onCheckTiOutFocus = (index, categId, inputs) => {
-    if (inputs === undefined) {
+  // If it is an empty inputs, send dispatch data
+  // else delete the empty UX
+  const mtyTiOutFocus = (inputs, index, categId) => {
+    if (inputs.title === "") {
+      const mtyTodo = {
+        todoIndex: index,
+        categIndex: categIndex,
+      };
+      dispatch(delMtyTodo(mtyTodo));
+
+      alert("will be deleted!");
+    } else {
       const addTodoObj = {
         categId: categId,
         categIndex: categIndex,
         todoIndex: index,
         todoReq: {
-          title: todos[index].title,
+          title: inputs.title,
           dueDate: selectedDate,
         },
       };
@@ -57,26 +66,34 @@ const TodoList = ({
           addTodoObj,
         })
       );
-    } else {
-      const updateTodoTiObj = {
-        todoId: inputs.todoId,
-        categIndex: categIndex,
-        todoIndex: index,
-        todoReq: {
-          title: todos[index].title,
-          dueDate: selectedDate,
-        },
-      };
 
-      dispatch(
-        updateTodoTiThunk({
-          updateTodoTiObj,
-        })
-      );
       document.getElementById(
         `disable${clickedTodo.todoInfo.todoId}`
       ).disabled = true;
     }
+  };
+
+  // If there is an input that has been created before,
+  // update from old title to new one
+  const naMtyTiOutFocus = (inputs, index) => {
+    const updateTodoTiObj = {
+      todoId: inputs.todoId,
+      categIndex: categIndex,
+      todoIndex: index,
+      todoReq: {
+        title: inputs.title,
+        dueDate: selectedDate,
+      },
+    };
+    dispatch(
+      updateTodoTiThunk({
+        updateTodoTiObj,
+      })
+    );
+
+    document.getElementById(
+      `disable${clickedTodo.todoInfo.todoId}`
+    ).disabled = true;
   };
 
   // Changing the clicked checkbox's check status
@@ -96,6 +113,7 @@ const TodoList = ({
       dispatch(updateTodoCkThunk({ updateTodoCkObj }));
     }
   };
+
   return (
     <TodoListCon>
       {todos.map((inputs, index) => {
@@ -131,7 +149,7 @@ const TodoList = ({
                     placeholder="투두를 입력하세요"
                     value={inputs.title}
                     onChange={(event) => handleFormChange(index, event)}
-                    onBlur={() => onCheckTiOutFocus(index, categId)}
+                    onBlur={() => mtyTiOutFocus(inputs, index, categId)}
                   />
                 ) : (
                   <input
@@ -141,7 +159,7 @@ const TodoList = ({
                     placeholder="투두를 입력하세요"
                     value={inputs.title}
                     onChange={(event) => handleFormChange(index, event)}
-                    onBlur={() => onCheckTiOutFocus(index, categId, inputs)}
+                    onBlur={() => naMtyTiOutFocus(inputs, index)}
                     disabled
                   />
                 )}
@@ -192,6 +210,7 @@ const TodoTitle = styled.div`
 `;
 
 const CheckTxtboxWrap = styled.div`
+
   display: flex;
   align-items: center;
   width: calc(100% - 28px);

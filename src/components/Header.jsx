@@ -9,19 +9,6 @@ const Header = () => {
   // Hook : opening burgar navi
   const [open, setOpen] = useState(false);
 
-  const d = new Date();
-  const date = d.getDate();
-  const day = d.getDay();
-  const month = d.getMonth()+1;
-
-  const weekOfMonth = Math.ceil((date - 1 - day) / 7);
-
-  // console.log("day is",day)
-  // console.log("Month is",month)
-  // console.log("WeekofMonth is", weekOfMonth)
-
-
-
   return (
     <HeaderCon>
       <h1>{localStorage.getItem("nickname")}</h1>

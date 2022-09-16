@@ -10,6 +10,7 @@ const CategList = () => {
 
   // Redux : useSelector
   const categories = useSelector((state) => state.categTodoSlice.categories);
+
   console.log(categories);
 
   // useEffect
