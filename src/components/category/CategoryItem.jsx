@@ -11,12 +11,12 @@ export default function CategoryItem(props) {
 
   return (
     <CategoryWrap
-      categoryColor={props.category.categoryColor}
+      categoryColor={props.category?.categoryColor}
       onClick={() => {
-        onClickHandler(props.category.categoryId);
+        onClickHandler(props.category?.categoryId);
       }}
     >
-      {props.category.categoryName}
+      {props.category?.categoryName}
     </CategoryWrap>
   );
 }

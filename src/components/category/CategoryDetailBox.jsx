@@ -37,6 +37,7 @@ export default function CategoryDetailBox() {
 
   const onDeleteHandler = () => {
     dispatch(deleteCategThunk(id));
+    navigate(-1)
   };
 
   const onConfirmHandler = () => {
