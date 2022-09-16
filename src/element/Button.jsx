@@ -41,7 +41,7 @@ Button.defaultProps = {
   textAlign: "center",
 };
 
-const ElButton = styled.div`
+const ElButton = styled.button`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   padding: ${(props) => props.padding};

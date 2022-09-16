@@ -1,14 +1,29 @@
 import React from "react";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { createCategThunk } from "../../redux/modules/categTodoSlice";
 
 export default function CategoryDetailBox() {
+  const categories = useSelector((state) => state.categTodoSlice.categories);
+
+  console.log(categories);
+
+  let { id } = useParams();
+
+  console.log(id);
+
+  let categoriesDetail = categories.find(
+    (category) => category.categoryId === Number(id)
+  );
+
+  console.log(categoriesDetail);
+
   const dispatch = useDispatch();
 
   const initialState = {
-    categoryName: "",
+    categoryName: categoriesDetail?.categoryName,
     categoryColor: "green",
     isPublic: "false",
     categoryStatus: "NOT_STOP",
