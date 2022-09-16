@@ -49,8 +49,6 @@ api.interceptors.response.use(
           return await api.request(originalRequest);
         }
       } catch (error) {
-        localStorage.removeItem("token");
-        localStorage.removeItem("accesstokenexpiretime");
         console.log(error);
       }
       return Promise.reject(error);
@@ -88,8 +86,6 @@ export const apis = {
     }),
 
   loginKakao: (code) => api.get(`/members/login/kakao/callback?code=${code}`),
-
-  getCategories: () => api.get("/categories"),
 
   recommendMember: () => api.get("/members/suggest"),
 

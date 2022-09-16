@@ -72,6 +72,7 @@ const TodoList = ({ categId, todos, categIndex, onClickedSheet, clickedTodo, sel
     );
     document.getElementById(`disable${clickedTodo.todoInfo.todoId}`).disabled = true;
   }
+
   };
 
   // Changing the clicked checkbox's check status
@@ -108,7 +109,7 @@ const TodoList = ({ categId, todos, categIndex, onClickedSheet, clickedTodo, sel
              />
               :
               <input
-                id={`checkbox${inputs.todoId}`} 
+                id={`checkbox${inputs.todoId}`}
                 type="checkbox"
                 value=""
                 onChange={() => onhandleCheckBox(inputs,categIndex,index)}
@@ -136,9 +137,35 @@ const TodoList = ({ categId, todos, categIndex, onClickedSheet, clickedTodo, sel
                 onChange={(event) => handleFormChange(index, event)}
                 onBlur={() => onCheckTiOutFocus(index, categId, inputs)}
                 disabled
+
               />
-                }
-                <button type="button" onClick={() => onClickedSheet(inputs, index, categIndex)}>
+              <div>
+                {inputs.todoId === undefined ? (
+                  <input
+                    id={`disable${inputs.todoId}`}
+                    name="title"
+                    type="text"
+                    placeholder="todo"
+                    value={inputs.title}
+                    onChange={(event) => handleFormChange(index, event)}
+                    onBlur={() => onCheckFocus(index, categId)}
+                  />
+                ) : (
+                  <input
+                    id={`disable${inputs.todoId}`}
+                    name="title"
+                    type="text"
+                    placeholder="todo"
+                    value={inputs.title}
+                    onChange={(event) => handleFormChange(index, event)}
+                    onBlur={() => onCheckFocus(index, categId, inputs)}
+                    disabled
+                  />
+                )}
+                <button
+                  type="button"
+                  onClick={() => onClickedSheet(inputs, index, categIndex)}
+                >
                   토글
                 </button>
               </div>
@@ -160,7 +187,6 @@ const TodoList = ({ categId, todos, categIndex, onClickedSheet, clickedTodo, sel
           </TodoItemCon>
         );
       })}
-      
     </TodoListCon>
   );
 };
@@ -213,4 +239,3 @@ const MemoWrap = styled.div`
     }
   }
 `;
-

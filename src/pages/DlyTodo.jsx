@@ -15,7 +15,6 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 
 const DlyTodo = () => {
-
   // Redux : dispatch
   const dispatch = useDispatch();
 
@@ -25,6 +24,37 @@ const DlyTodo = () => {
   // Hook : To get the selected date from the calendar
   const [dateValue, setDateValue] = useState(new Date());
 
+  // Getting the selected date from the calendar
+  const getCalendarDate = () => {
+    setDateValue();
+    // const strData = dataValue.toString()
+    // const month = strData.substring(4, 7)
+    // const day = strData.substring(8,10)
+    // const year = strData.substring(11,15)
+
+    // console.log("Check dataValue in fun", dataValue)
+    // console.log("This is getCalendarDate func")
+    // console.log("Checking date", dataValue)
+    // console.log("Checking month", month, "day", day, "year", year)
+  };
+
+  // console.log("Check dataValue outside", dataValue)
+  // console.log("This is outside of getCalendarDate func")
+  // console.log("Checking date", dataValue)
+
+  // Redux : useSelector
+  const categories = useSelector((state) => state.categTodoSlice.categories);
+
+  // Object : To get the date from the vertical calendar
+  const selectedDateObj = {
+    year: "",
+    month: "",
+    day: "",
+  };
+
+  // Hook : To get the clicked todo info & index from TodoList
+  const [clickedTodo, setClickedTodo] = useState({
+
   // Hook : TO get the cliced Memo info from the TodoList
   const [clickedMemo, setClickedMemo] = useState("")
 
@@ -33,9 +63,16 @@ const DlyTodo = () => {
 
   // Hook : To get the clicked todo info & index from the TodoList
    const [clickedTodo, setClickedTodo] = useState({
+
     todoInfo: "",
     todoIndex: "",
   });
+
+  // Hook : To get the clicked Cagegory index
+  const [clickedCategIndex, setClickedCategIndex] = useState("");
+
+  // Function to open sheetModal & Getting clicked todo Info & index as well as the todo index
+  const onClickedSheet = (inputs, index, categIndex) => {
 
   // UseRef : To get the selected date from the calendar
   const concatSelDate = useRef();
@@ -50,9 +87,12 @@ const DlyTodo = () => {
       todoInfo: inputs,
       todoIndex: index,
     });
+  console.log("This is outside of useEffect");
+
     setClickedMemo(inputs.memo)
     setClickedCategIndex(categIndex);
   };
+
 
   // Function to parse string month to int month
   const parseMonth = (mm) => {
@@ -76,6 +116,9 @@ const DlyTodo = () => {
 
   // UseEffect : getting categories & to-do lists as well as date from the calendar
   useEffect(() => {
+
+    console.log("Check here in useEffect", dateValue);
+   
     const strData = dateValue.toString();
     const month = strData.substring(4, 7);
     const day = strData.substring(8, 10);
@@ -104,6 +147,7 @@ const DlyTodo = () => {
 
   // Enabling to edit todo by closing the modalSheet
   const clickEditTodo = () => {
+
     setOpen(false);
     document.getElementById(
       `disable${clickedTodo.todoInfo.todoId}`
@@ -112,6 +156,7 @@ const DlyTodo = () => {
   };
 
   // Deleting the clicked todo by closing the modalSheet
+
   const clickDeleteTodo = () => {
     setOpen(false);
 
@@ -122,7 +167,7 @@ const DlyTodo = () => {
       todoIndex: clickedTodo.todoIndex,
       categIndex: clickedCategIndex,
     };
-
+    
     dispatch(deleteTodoThunk(deleteTodoObj));
   };
 
@@ -193,13 +238,16 @@ const DlyTodo = () => {
             <button
               onClick={() => {
                 clickEditTodo();
+
               }}
             >
               수정
             </button>
             <button
               onClick={() => {
+
                 clickDeleteTodo();
+
               }}
             >
               삭제
