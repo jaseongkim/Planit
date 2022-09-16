@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { bgleft, bgright } from "../static/images";
+// import { bgleft, bgright } from "../static/images";
 import Router from "./Router";
 
 export default function Brower() {
@@ -20,43 +20,37 @@ const Back = styled.div`
   width: 100%;
   height: 100vh;
   overflow: hidden;
-  /* background-color: #3284ff; */
   background-color: #ffffff;
 `;
 
-const BackgroundImgLeft = styled.img`
-  position: absolute;
-  left: 0;
-  top: 0;
-`;
-const BackgroundImgRight = styled.img`
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  height: 60%;
-`;
+// const BackgroundImgLeft = styled.img`
+//   position: absolute;
+//   left: 0;
+//   top: 0;
+// `;
+// const BackgroundImgRight = styled.img`
+//   position: absolute;
+//   right: 0;
+//   bottom: 0;
+//   height: 60%;
+// `;
 
 const MobileWrap = styled.div`
-  background-color: #f5f5f5;
+  background: linear-gradient(180deg, #121212 0%, #1B60BB 70.31%, #3A83E4 82.55%, #D8E2EE 95.05%, #EEEEEE 100%);
+  // background: linear-gradient(180deg, #121212 0%, #1B60BB 70.31%, #3A83E4 82.55%, #D8E2EE 100%);
+  // background: linear-gradient(180deg, #121212 0%, #1B60BB 100%);
   position: absolute;
   top: 50%;
   left: 50%;
   overflow-y: scroll;
-
-  border: 3px solid pink;
-
   transform: translate(-50%, -50%);
-
   min-width: 375px;
-  /* width: 20%; */
   height: 100vh;
-  /* z-index: 0; */
+  padding-bottom: 100px;
   box-shadow: 6px 0px 14px rgba(219, 219, 219, 0.39),
     -26px 6px 90px rgba(73, 73, 73, 0.58);
-
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
-
   &::-webkit-scrollbar {
     display: none; /* Chrome , Safari , Opera */
   }
