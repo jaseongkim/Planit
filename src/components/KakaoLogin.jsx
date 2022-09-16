@@ -11,12 +11,17 @@ export default function KakaoLogin() {
         window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
       }}
     >
-      <img src={kakaologin} alt="kakaologin" />
+      카카오로 로그인
+      {/* <img src={kakaologin} alt="kakaologin" /> */}
     </Kakao>
   );
 }
-const Kakao = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+const Kakao = styled.button`
+  width: 100%;
+  height: 52px;
+  font-size: 18px;
+  color: #17171b;
+  background: #f2e06b;
+  border: none;
+  border-radius: 8px;
 `;
