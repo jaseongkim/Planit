@@ -123,7 +123,6 @@ const TodoList = ({
                   )}
                   <div></div>
                 </CustomCheck>
-
                 {inputs.todoId === undefined ? (
                   <input
                     id={`disable${inputs.todoId}`}
@@ -213,7 +212,7 @@ const CheckTxtboxWrap = styled.div`
       color: #fff;
     }
   }
-`
+`;
 
 const CustomCheck = styled.div`
   position: relative;

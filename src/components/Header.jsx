@@ -20,6 +20,8 @@ const Header = () => {
   // console.log("Month is",month)
   // console.log("WeekofMonth is", weekOfMonth)
 
+
+
   return (
     <HeaderCon>
       <h1>{localStorage.getItem("nickname")}</h1>
