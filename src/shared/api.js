@@ -98,7 +98,7 @@ export const apis = {
   // Categories
   getCategories: (data) => api.get(`/categories?date=${data}`),
 
-  postCategories: () => api.post("/categories"),
+  postCategories: (data) => api.post("/categories", data),
 
   // Todo
   createTodo: (data) =>
@@ -119,7 +119,7 @@ export const apis = {
       data.updateTodoCkObj.todoReq
     ),
 
-  updateTodoMemo: (data) => 
+  updateTodoMemo: (data) =>
     api.patch(
       `categories/todos/${data.updateTodoMemoObj.todoId}`,
       data.updateTodoMemoObj.todoReq

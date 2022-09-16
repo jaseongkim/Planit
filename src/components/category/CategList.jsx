@@ -19,11 +19,11 @@ const CategList = () => {
 
   return (
     <CategoryContainer>
-      {categories.length === 0 ? null : (
+      {categories?.length === 0 ? null : (
         <>
           <WorkingCategory>
             <TextWrap>일반</TextWrap>
-            {categories.map((category) => {
+            {categories?.map((category) => {
               if (category.categoryStatus === "NOT_STOP") {
                 return (
                   <CategoryItem key={category.categoryId} category={category} />
@@ -36,7 +36,7 @@ const CategList = () => {
 
           <DoneCategory>
             <TextWrap>종료된 목표</TextWrap>
-            {categories.map((category) => {
+            {categories?.map((category) => {
               if (category.categoryStatus !== "NOT_STOP") {
                 return (
                   <CategoryItem key={category.categoryId} category={category} />
