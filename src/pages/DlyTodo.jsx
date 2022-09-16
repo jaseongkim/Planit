@@ -1,7 +1,11 @@
-import React, { useState, useEffect, useRef, memo } from "react";
-import DatePicker from "react-horizontal-datepicker";
-import Header from "../components/Header";
-import styled from "styled-components";
+// React
+import React, { useState, useEffect, useRef} from "react";
+// ModalSheet
+import Sheet from "react-modal-sheet";
+// Calendar
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
+// Redux
 import { useDispatch, useSelector } from "react-redux";
 import {
   getCategThunk,
@@ -9,10 +13,12 @@ import {
   deleteTodoThunk,
   updateTodoMemoThunk
 } from "../redux/modules/categTodoSlice.js";
+// Styled-Component
+import styled from "styled-components";
+// React Component
+import Header from "../components/Header";
 import TodoList from "../components/TodoList";
-import Sheet from "react-modal-sheet";
-import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
+import Circle from "../element/Circle.jsx";
 
 const DlyTodo = () => {
 
@@ -151,11 +157,11 @@ const DlyTodo = () => {
   return (
     <>
       <Header />
-      <div>
+      <CalendarWrap>
+        <Circle></Circle>
         <Calendar onChange={setDateValue} value={dateValue} />
-      </div>
+      </CalendarWrap>
       <Section>
-        <TodoDailyStats></TodoDailyStats>
         {categories.map((input, index) => {
           return (
             <TodoCon key={index}>
@@ -165,6 +171,7 @@ const DlyTodo = () => {
               >
                 {input.categoryName}
               </TodoBtn>
+              <hr/>
               <TodoList
                 selectedDate={concatSelDate.current}
                 clickedTodo={clickedTodo}
@@ -182,14 +189,8 @@ const DlyTodo = () => {
         <CustomSheet.Container>
           <CustomSheet.Header />
           <CustomSheet.Content>
-            <div>{clickedTodo.todoInfo.title}</div>
-            <textarea 
-              name="memo"
-              value={clickedMemo}
-              onChange={onChangeMemoHandler}
-              onBlur={() => onCheckMemoOutFocus()}
-            >          
-              </textarea>
+            <ContentHeader>
+            <div className="todo-title">{clickedTodo.todoInfo.title}</div>
             <button
               onClick={() => {
                 clickEditTodo();
@@ -197,6 +198,15 @@ const DlyTodo = () => {
             >
               수정
             </button>
+            </ContentHeader>
+            <textarea 
+              name="memo"
+              value={clickedMemo}
+              onChange={onChangeMemoHandler}
+              onBlur={() => onCheckMemoOutFocus()}
+            >          
+              </textarea>
+            <ContentFooter>
             <button
               onClick={() => {
                 clickDeleteTodo();
@@ -211,6 +221,7 @@ const DlyTodo = () => {
             >
               날짜변경하기
             </button>
+            </ContentFooter>
           </CustomSheet.Content>
         </CustomSheet.Container>
 
@@ -225,12 +236,19 @@ export default DlyTodo;
 const Section = styled.div`
   padding: 15px;
   position: relative;
+  border: 3px solid blue;
 `;
 
-const TodoDailyStats = styled.div``;
+const CalendarWrap = styled.div`
+  padding: 15px;
+`;
 
 const TodoCon = styled.div`
   margin-top: 10px;
+
+  hr{
+    margin: 0.5em 0;
+  }
 `;
 
 const TodoBtn = styled.button`
@@ -250,24 +268,43 @@ const CustomSheet = styled(Sheet)`
     right: 0;
     margin: 0 auto;
     max-width: 375px;
-    border: 3px solid #ff0000;
   }
+
   .react-modal-sheet-header {
     /* custom styles */
-    border: 3px solid #00ff00;
   }
+
   .react-modal-sheet-drag-indicator {
     /* custom styles */
-    border: 3px solid #800080;
   }
+
   .react-modal-sheet-content {
     /* custom styles */
-    padding: 5%;
-    border: 3px solid #ff00ff;
+    padding: 0 5% 5% 5%;
 
-    div{
-      font-size: 1.3em;
-      font-weight: bold;
+    textarea{
+      width: 100%;
+      height: 9.5em;
+      resize: none
     }
   }
 `;
+
+const ContentHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5em;
+
+  div{
+    font-size: 1.3em;
+    font-weight: bold;
+  }
+`
+const ContentFooter = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  button:first-child{
+    margin: 1em 0
+  }
+`

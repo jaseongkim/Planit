@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export default function Button(props) {
+export default function Circle(props) {
   const {
     _onClick,
     children,
@@ -23,14 +23,14 @@ export default function Button(props) {
 
   return (
     <>
-      <ElButton {...styles} onClick={_onClick}>
+      <ElCircle {...styles} onClick={_onClick}>
         {children}
-      </ElButton>
+      </ElCircle>
     </>
   );
 }
 
-Button.defaultProps = {
+Circle.defaultProps = {
   children: null,
   _onClick: () => {},
   margin: "0px",
@@ -39,9 +39,14 @@ Button.defaultProps = {
   padding: "0px",
   borderRadius: "0px",
   textAlign: "center",
+  // display: "flex",
+  // width: "100px",
+  // height: "100px",
+  // background-color: "green",
+  // border-radius: "50%",
 };
 
-const ElButton = styled.div`
+const ElCircle = styled.button`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   padding: ${(props) => props.padding};
