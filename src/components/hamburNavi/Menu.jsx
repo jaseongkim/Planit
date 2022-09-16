@@ -11,7 +11,7 @@ const Menu = ({ open }) => {
         </a>
         <a href="/category">
           <span role="img" aria-label="price">&#x1f4b8;</span>
-          목표
+          카테고리
           </a>
         <a href="/">
           <span role="img" aria-label="contact">&#x1f4e9;</span>
