@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, memo } from "react";
 import DatePicker from "react-horizontal-datepicker";
 import Header from "../components/Header";
 import styled from "styled-components";
@@ -7,6 +7,7 @@ import {
   getCategThunk,
   addMtyTodo,
   deleteTodoThunk,
+  updateTodoMemoThunk
 } from "../redux/modules/categTodoSlice.js";
 import TodoList from "../components/TodoList";
 import Sheet from "react-modal-sheet";
@@ -53,6 +54,16 @@ const DlyTodo = () => {
 
   // Hook : To get the clicked todo info & index from TodoList
   const [clickedTodo, setClickedTodo] = useState({
+
+  // Hook : TO get the cliced Memo info from the TodoList
+  const [clickedMemo, setClickedMemo] = useState("")
+
+  // Hook : To get the clicked Cagegory index
+  const [clickedCategIndex, setClickedCategIndex] = useState("");
+
+  // Hook : To get the clicked todo info & index from the TodoList
+   const [clickedTodo, setClickedTodo] = useState({
+
     todoInfo: "",
     todoIndex: "",
   });
@@ -62,16 +73,26 @@ const DlyTodo = () => {
 
   // Function to open sheetModal & Getting clicked todo Info & index as well as the todo index
   const onClickedSheet = (inputs, index, categIndex) => {
-    console.log("나 눌렸어용");
+
+  // UseRef : To get the selected date from the calendar
+  const concatSelDate = useRef();
+
+  // Redux : useSelector
+  const categories = useSelector((state) => state.categTodoSlice.categories);
+
+  // Function to open sheetModal & Getting clicked todo Info & index as well as the todo index
+  const onClickedSheet = (inputs, index, categIndex) => {
     setOpen(true);
     setClickedTodo({
       todoInfo: inputs,
       todoIndex: index,
     });
+  console.log("This is outside of useEffect");
+
+    setClickedMemo(inputs.memo)
     setClickedCategIndex(categIndex);
   };
 
-  console.log("This is outside of useEffect");
 
   // Function to parse string month to int month
   const parseMonth = (mm) => {
@@ -95,64 +116,38 @@ const DlyTodo = () => {
 
   // UseEffect : getting categories & to-do lists as well as date from the calendar
   useEffect(() => {
-    console.log("Check here in useEffect", dateValue);
 
+    console.log("Check here in useEffect", dateValue);
+   
     const strData = dateValue.toString();
     const month = strData.substring(4, 7);
     const day = strData.substring(8, 10);
     const year = strData.substring(11, 15);
     const parsedMonth = parseMonth(month);
 
-    // console.log("Check parsedDate", parsedMonth, "-", day, "-", year)
+    concatSelDate.current = `${year}-${parsedMonth}-${day}`;
 
-    const concatSelDate = `${year}-${parsedMonth}-${day}`;
-
-    console.log("Check concattSelDate", concatSelDate);
-
-    dispatch(getCategThunk(concatSelDate));
-  }, [dateValue, dispatch]);
-
-  // Hook : getting current date from the calendar
-  const [selectedDate, setSelectedDate] = useState({
-    year: "",
-    month: "",
-    day: "",
-  });
-
-  // Getting date from the vertical calendar
-  // const selectedDay = (val) => {
-  //   const strData = val.toString()
-  //   const month = strData.substring(4, 7)
-  //   const day = strData.substring(8,10)
-  //   const year = strData.substring(11,15)
-  //   const parsedMonth = parseMonth(month)
-
-  //   console.log("This is selectedDay function")
-
-  //   selectedDateObj.year = year
-  //   selectedDateObj.day = day
-  //   selectedDateObj.month = parsedMonth
-
-  //   console.log("This is before dispatch")
-  //   const concatSelDate = `${selectedDateObj.year}-${selectedDateObj.month}-${selectedDateObj.day}`
-  //   dispatch(getCategThunk(concatSelDate));
-  //   console.log("This is after dispatch")
-  // };
+    dispatch(getCategThunk(concatSelDate.current));
+  }, [dateValue]);
 
   // Adding a new todo
   const addTodo = ({ input, index }) => {
-    const mtyCateg = {
+    if(input.todos[input.todos.length-1]?.title !== ""){
+      const mtyCateg = {
       categIndex: index,
       categReq: {
         title: "",
-        dueDate: "2022-09-03",
+        dueDate: concatSelDate.current,
       },
     };
     dispatch(addMtyTodo(mtyCateg));
+  }
+    
   };
 
   // Enabling to edit todo by closing the modalSheet
-  const editTodo = () => {
+  const clickEditTodo = () => {
+
     setOpen(false);
     document.getElementById(
       `disable${clickedTodo.todoInfo.todoId}`
@@ -161,7 +156,8 @@ const DlyTodo = () => {
   };
 
   // Deleting the clicked todo by closing the modalSheet
-  const deleteTodo = () => {
+
+  const clickDeleteTodo = () => {
     setOpen(false);
 
     const clickedTodoId = clickedTodo.todoInfo.todoId;
@@ -171,21 +167,36 @@ const DlyTodo = () => {
       todoIndex: clickedTodo.todoIndex,
       categIndex: clickedCategIndex,
     };
+    
     dispatch(deleteTodoThunk(deleteTodoObj));
   };
 
+  // Updating memo input
+  const onChangeMemoHandler = (e) => {
+    setClickedMemo(e.target.value)
+  }
+
+  // When outfocused, update todo's memo
+  const onCheckMemoOutFocus = () => {
+
+    const clickedTodoId = clickedTodo.todoInfo.todoId;
+
+    const updateTodoMemoObj = {
+      todoId: clickedTodoId,
+      todoIndex: clickedTodo.todoIndex,
+      categIndex: clickedCategIndex,
+      todoReq: {
+        memo: clickedMemo
+      }
+    };
+
+    dispatch(updateTodoMemoThunk({updateTodoMemoObj}));
+  }
+
   return (
     <>
-      {/* {console.log("Checking date in return", dataValue)} */}
-      {/* {console.log("Check detaValue in return",dataValue)} */}
-      {console.log("This is return")}
       <Header />
       <div>
-        {/* <DatePicker 
-          endDate={100}
-          // getSelectedDay={selectedDay}
-          >
-        </DatePicker> */}
         <Calendar onChange={setDateValue} value={dateValue} />
       </div>
       <Section>
@@ -200,9 +211,7 @@ const DlyTodo = () => {
                 {input.categoryName}
               </TodoBtn>
               <TodoList
-                // formFields={formFields}
-                // setFormFields={setFormFields}
-                // selectedDate={selectedDate}
+                selectedDate={concatSelDate.current}
                 clickedTodo={clickedTodo}
                 onClickedSheet={onClickedSheet}
                 categId={input.categoryId}
@@ -219,20 +228,36 @@ const DlyTodo = () => {
           <CustomSheet.Header />
           <CustomSheet.Content>
             <div>{clickedTodo.todoInfo.title}</div>
-            <textarea></textarea>
+            <textarea 
+              name="memo"
+              value={clickedMemo}
+              onChange={onChangeMemoHandler}
+              onBlur={() => onCheckMemoOutFocus()}
+            >          
+              </textarea>
             <button
               onClick={() => {
-                editTodo();
+                clickEditTodo();
+
               }}
             >
               수정
             </button>
             <button
               onClick={() => {
-                deleteTodo();
+
+                clickDeleteTodo();
+
               }}
             >
               삭제
+            </button>
+            <button
+              onClick={() => {
+                clickDeleteTodo();
+              }}
+            >
+              날짜변경하기
             </button>
           </CustomSheet.Content>
         </CustomSheet.Container>
@@ -269,7 +294,7 @@ const CustomSheet = styled(Sheet)`
   }
 
   .react-modal-sheet-container {
-    /* max-height: 300px; */
+    max-height: 400px;
     right: 0;
     margin: 0 auto;
     max-width: 375px;
@@ -285,6 +310,12 @@ const CustomSheet = styled(Sheet)`
   }
   .react-modal-sheet-content {
     /* custom styles */
+    padding: 5%;
     border: 3px solid #ff00ff;
+
+    div{
+      font-size: 1.3em;
+      font-weight: bold;
+    }
   }
 `;
