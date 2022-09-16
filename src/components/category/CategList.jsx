@@ -10,19 +10,14 @@ const CategList = () => {
 
   // Redux : useSelector
   const categories = useSelector((state) => state.categTodoSlice.categories);
-  console.log("Check outside of return")
-  console.log("Checking categories useSelector outside", categories)
 
   // useEffect
   useEffect(() => {
     dispatch(getCategThunk("2022-09-05"));
-    console.log("Checking useEffect")
   }, []);
 
   return (
     <CategoryContainer>
-      {console.log("Check in return")}
-      {console.log("Checking categList", categories)}
       {categories?.length === 0 ? null : (
         <>
           <WorkingCategory>

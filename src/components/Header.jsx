@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styled from "styled-components";
-import { GoSearch, GoBell } from "react-icons/go";
-import { GiHamburgerMenu } from "react-icons/gi";
+import { GoBell } from "react-icons/go";
 import {BsCalendar3} from "react-icons/bs"
 import Burger from "./hamburNavi/Burger";
 import Menu from "./hamburNavi/Menu";
@@ -18,12 +17,6 @@ const Header = () => {
   const month = d.getMonth()+1;
 
   const weekOfMonth = Math.ceil((date - 1 - day) / 7);
-
-  // console.log("day is",day)
-  // console.log("Month is",month)
-  // console.log("WeekofMonth is", weekOfMonth)
-
-
 
   return (
     <HeaderCon>
