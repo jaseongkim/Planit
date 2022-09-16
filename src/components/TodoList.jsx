@@ -4,12 +4,16 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   onChangeTodo,
   createTodoThunk,
-  updateTodoThunk
+  updateTodoThunk,
 } from "../redux/modules/categTodoSlice.js";
 
-
-const TodoList = ({ categId, todos, categIndex, onClickedSheet, clickedTodo }) => {
-  
+const TodoList = ({
+  categId,
+  todos,
+  categIndex,
+  onClickedSheet,
+  clickedTodo,
+}) => {
   // Redux : dispatch
   const dispatch = useDispatch();
 
@@ -38,8 +42,8 @@ const TodoList = ({ categId, todos, categIndex, onClickedSheet, clickedTodo }) =
     // const parsedDate = `${selectedDate.year}년-${selectedDate.month}월-${selectedDate.day}일`;
     // console.log("Check onFocus todo", todos[index].title);
     // console.log("Checking inputs", inputs)
-    
-    if(inputs == undefined){
+
+    if (inputs == undefined) {
       const addTodoObj = {
         categId: categId,
         categIndex: categIndex,
@@ -50,30 +54,31 @@ const TodoList = ({ categId, todos, categIndex, onClickedSheet, clickedTodo }) =
         },
       };
 
-    dispatch(
-      createTodoThunk({
-        addTodoObj,
-      })
-    );
-  }
-  else{
-    const updateTodoObj = {
-      todoId: inputs.todoId,
-      categIndex: categIndex,
-      todoIndex: index,
-      todoReq: {
-        title: todos[index].title,
-        dueDate: "2022-09-03",
-      },
+      dispatch(
+        createTodoThunk({
+          addTodoObj,
+        })
+      );
+    } else {
+      const updateTodoObj = {
+        todoId: inputs.todoId,
+        categIndex: categIndex,
+        todoIndex: index,
+        todoReq: {
+          title: todos[index].title,
+          dueDate: "2022-09-03",
+        },
+      };
+
+      dispatch(
+        updateTodoThunk({
+          updateTodoObj,
+        })
+      );
+      document.getElementById(
+        `disable${clickedTodo.todoInfo.todoId}`
+      ).disabled = true;
     }
-    
-    dispatch(
-      updateTodoThunk({
-        updateTodoObj
-      })
-    );
-    document.getElementById(`disable${clickedTodo.todoInfo.todoId}`).disabled = true;
-  }
   };
 
   // When the button is clicked, the memo will be disappeared
@@ -97,8 +102,8 @@ const TodoList = ({ categId, todos, categIndex, onClickedSheet, clickedTodo }) =
 
     // console.log(document.getElementById(`checkbox${todoId}`).checked)
     setIsChecked(!isChecked);
-    console.log("Check checkbox ", todo )
-  }
+    console.log("Check checkbox ", todo);
+  };
 
   return (
     <TodoListCon>
@@ -107,35 +112,39 @@ const TodoList = ({ categId, todos, categIndex, onClickedSheet, clickedTodo }) =
           <TodoItemCon key={`${inputs.todoId}`}>
             <TodoTitle>
               <input
-                id={`checkbox${inputs.todoId}`} 
+                id={`checkbox${inputs.todoId}`}
                 type="checkbox"
                 // onChange={() => onhandleCheckBox(inputs.todoId)}
                 onChange={() => onhandleCheckBox(inputs)}
                 checked={isChecked}
-               />
-              <div>
-                {inputs.todoId === undefined ? 
-                <input
-                  id={`disable${inputs.todoId}`}
-                  name="title"
-                  type="text"
-                  placeholder="todo"
-                  value={inputs.title}
-                  onChange={(event) => handleFormChange(index, event)}
-                  onBlur={() => onCheckFocus(index, categId)}
-                /> : 
-                <input
-                id={`disable${inputs.todoId}`}
-                name="title"
-                type="text"
-                placeholder="todo"
-                value={inputs.title}
-                onChange={(event) => handleFormChange(index, event)}
-                onBlur={() => onCheckFocus(index, categId, inputs)}
-                disabled
               />
-                }
-                <button type="button" onClick={() => onClickedSheet(inputs, index, categIndex)}>
+              <div>
+                {inputs.todoId === undefined ? (
+                  <input
+                    id={`disable${inputs.todoId}`}
+                    name="title"
+                    type="text"
+                    placeholder="todo"
+                    value={inputs.title}
+                    onChange={(event) => handleFormChange(index, event)}
+                    onBlur={() => onCheckFocus(index, categId)}
+                  />
+                ) : (
+                  <input
+                    id={`disable${inputs.todoId}`}
+                    name="title"
+                    type="text"
+                    placeholder="todo"
+                    value={inputs.title}
+                    onChange={(event) => handleFormChange(index, event)}
+                    onBlur={() => onCheckFocus(index, categId, inputs)}
+                    disabled
+                  />
+                )}
+                <button
+                  type="button"
+                  onClick={() => onClickedSheet(inputs, index, categIndex)}
+                >
                   토글
                 </button>
               </div>
@@ -157,7 +166,6 @@ const TodoList = ({ categId, todos, categIndex, onClickedSheet, clickedTodo }) =
           </TodoItemCon>
         );
       })}
-      
     </TodoListCon>
   );
 };
@@ -210,4 +218,3 @@ const MemoWrap = styled.div`
     }
   }
 `;
-
