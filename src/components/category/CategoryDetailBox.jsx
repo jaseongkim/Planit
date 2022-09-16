@@ -8,25 +8,29 @@ import {
   deleteCategThunk,
   updateCategThunk,
 } from "../../redux/modules/categTodoSlice";
+import { bgleft } from "../../static/images";
 
 export default function CategoryDetailBox() {
-
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.categTodoSlice.categories);
 
+  let [cateName, setCateName] = useState("");
   let { id } = useParams();
   let categoriesDetail = categories.find(
     (category) => category.categoryId === Number(id)
   );
 
   const initialState = {
-    categoryName: categoriesDetail?.categoryName,
-    categoryColor: "black",
-    isPublic: "false",
-    categoryStatus: "NOT_STOP",
+    categoryName: "",
+    // categoryColor: "black",
+    // isPublic: "false",
+    // categoryStatus: "NOT_STOP",
   };
+
+  if (categoriesDetail === undefined) {
+  }
 
   const [category, setCategory] = useState(initialState);
 
@@ -37,7 +41,7 @@ export default function CategoryDetailBox() {
 
   const onDeleteHandler = () => {
     dispatch(deleteCategThunk(id));
-    navigate(-1)
+    navigate(-1);
   };
 
   const onConfirmHandler = () => {
@@ -45,13 +49,15 @@ export default function CategoryDetailBox() {
 
     if (categoriesDetail === undefined) {
       dispatch(createCategThunk(category));
-      navigate(-1)
+      navigate(-1);
     } else {
       dispatch(updateCategThunk({ id, category }));
       setCategory(category);
-      navigate(-1)
+      navigate(-1);
     }
   };
+
+  console.log(bgleft);
 
   return (
     <CategoryContainer>
@@ -64,25 +70,31 @@ export default function CategoryDetailBox() {
           onChange={onChangeHandler}
         />
       </InputBox>
-      {categoriesDetail === undefined ? null : <button onClick={onDeleteHandler}>삭제하기</button>}
-      {category.categoryName === undefined ? <button onClick={onDeleteHandler} disabled>완료</button> :<button onClick={onConfirmHandler}>완료</button>}
+      {categoriesDetail === undefined ? null : (
+        <button onClick={onDeleteHandler}>삭제하기</button>
+      )}
+      {category.categoryName === undefined ? (
+        <button onClick={onDeleteHandler} disabled>
+          완료
+        </button>
+      ) : (
+        <button onClick={onConfirmHandler}>완료</button>
+      )}
     </CategoryContainer>
   );
 }
 
 const CategoryContainer = styled.div`
+  border: 3px solid green;
+  margin-top: 1.7em;
+  height: 100%;
+  position: relative;
 
-border: 3px solid green;
-margin-top: 1.7em;
-height: 100%;
-position: relative;
-
-button:last-child{
-  position: absolute;
-  bottom: 10%;
-  left: 50%;
+  button:last-child {
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
   }
-
 `;
 
 const InputBox = styled.div`
@@ -92,13 +104,11 @@ const InputBox = styled.div`
   border: none;
   margin: 0 auto;
 
-  input{
+  input {
     width: 100%;
-   height: 100%;
-   border: none;
+    height: 100%;
+    border: none;
   }
 `;
 
-const CfmBtnCon = styled.div`
-  
-`
+const CfmBtnCon = styled.div``;

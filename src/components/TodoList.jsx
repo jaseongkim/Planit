@@ -147,7 +147,6 @@ const TodoList = ({
               >
                 토글
               </button>
-
             </TodoTitle>
           </TodoItemCon>
         );
@@ -178,12 +177,11 @@ const TodoTitle = styled.div`
   border: 3px solid green;
 `;
 
-
 const CheckTxtboxWrap = styled.div`
-  input:last-child{
+  input:last-child {
     margin-left: 0.5em;
   }
-`
+`;
 
 const MemoWrap = styled.div`
   display: none;
