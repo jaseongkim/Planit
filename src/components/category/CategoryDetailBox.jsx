@@ -1,14 +1,25 @@
 import React from "react";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { createCategThunk } from "../../redux/modules/categTodoSlice";
+import {
+  createCategThunk,
+  deleteCategThunk,
+  updateCategThunk,
+} from "../../redux/modules/categTodoSlice";
 
 export default function CategoryDetailBox() {
   const dispatch = useDispatch();
+  const categories = useSelector((state) => state.categTodoSlice.categories);
+
+  let { id } = useParams();
+  let categoriesDetail = categories.find(
+    (category) => category.categoryId === Number(id)
+  );
 
   const initialState = {
-    categoryName: "",
+    categoryName: categoriesDetail?.categoryName,
     categoryColor: "green",
     isPublic: "false",
     categoryStatus: "NOT_STOP",
@@ -21,14 +32,26 @@ export default function CategoryDetailBox() {
     setCategory({ ...category, [name]: value });
   };
 
-  const onClickHandler = () => {
+  const onDeleteHandler = () => {
+    dispatch(deleteCategThunk(id));
+  };
+
+  const onConfirmHandler = () => {
     console.log(category);
     setCategory(initialState);
-    dispatch(createCategThunk(category));
+
+
+    if (categoriesDetail === undefined) {
+      dispatch(createCategThunk(category));
+    } else {
+      dispatch(updateCategThunk({ id, category }));
+      setCategory(category);
+    }
   };
 
   return (
     <CategoryContainer>
+      {console.log("Check ", category)}
       <InputBox>
         <input
           type={"text"}
@@ -37,21 +60,23 @@ export default function CategoryDetailBox() {
           onChange={onChangeHandler}
         />
       </InputBox>
-      <button>삭제</button>
-      <button onClick={onClickHandler}>완료</button>
+      <button onClick={onDeleteHandler}>삭제하기</button>
+      <button onClick={onConfirmHandler}>완료</button>
     </CategoryContainer>
-
   );
 }
 
 const CategoryContainer = styled.div`
 
-
-/* border: 3px solid green; */
+border: 3px solid green;
 margin-top: 1.7em;
 height: 100%;
+position: relative;
+
 button:last-child{
-    width: 5em;
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
   }
 
 `;
@@ -69,3 +94,7 @@ const InputBox = styled.div`
    border: none;
   }
 `;
+
+const CfmBtnCon = styled.div`
+  
+`

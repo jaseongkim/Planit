@@ -45,6 +45,10 @@ const Header = () => {
 export default Header;
 
 const HeaderCon = styled.div`
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 999;
   padding: 4% 4% 2% 4%;
   display: flex;
   justify-content: space-between;
