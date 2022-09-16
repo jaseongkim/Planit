@@ -100,6 +100,10 @@ export const apis = {
 
   postCategories: (data) => api.post("/categories", data),
 
+  deleteCategories: (data) => api.delete(`/categories/${data}`),
+
+  updateCategories: (id, data) => api.patch(`/categories/${id}`, data),
+
   // Todo
   createTodo: (data) =>
     api.post(
