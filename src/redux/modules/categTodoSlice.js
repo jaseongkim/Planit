@@ -1,5 +1,4 @@
-import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
-import { GiConsoleController } from "react-icons/gi";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { apis } from "../../shared/api";
 
 // Getting all categories & todos from server
@@ -33,7 +32,7 @@ export const createCategThunk = createAsyncThunk(
       const { data } = await apis.postCategories(category);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
-      return thunkAPI.rejectWithValue(error)
+      return thunkAPI.rejectWithValue(error);
     }
   }
 );
@@ -44,9 +43,10 @@ export const deleteCategThunk = createAsyncThunk(
   async (id, thunkAPI) => {
     try {
       const { data } = await apis.deleteCategories(id);
-      console.log(data.data);
+      console.log(data);
       // return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
+      console.log(error);
       // return thunkAPI.rejectWithValue(error)
     }
   }
@@ -57,12 +57,11 @@ export const updateCategThunk = createAsyncThunk(
   "category/updateCategory",
   async (payload, thunkAPI) => {
     try {
-      console.log("id",payload.id,"category",payload.category);
       const { data } = await apis.updateCategories(
         payload.id,
         payload.category
       );
-      // console.log(data.data);
+      console.log(data);
       // return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       // return thunkAPI.rejectWithValue(error)

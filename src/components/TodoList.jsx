@@ -8,6 +8,8 @@ import {
   updateTodoTiThunk,
   updateTodoCkThunk,
 } from "../redux/modules/categTodoSlice.js";
+import {IoIosMore} from "react-icons/io";
+import {check_icon} from "../static/images";
 
 const TodoList = ({
   categId,
@@ -119,29 +121,32 @@ const TodoList = ({
           <TodoItemCon key={`${inputs.todoId}`}>
             <TodoTitle>
               <CheckTxtboxWrap>
-                {inputs.isAchieved === true ? (
-                  <input
-                    id={`checkbox${inputs.todoId}`}
-                    type="checkbox"
-                    value=""
-                    onChange={() => onhandleCheckBox(inputs, categIndex, index)}
-                    checked={true}
-                  />
-                ) : (
-                  <input
-                    id={`checkbox${inputs.todoId}`}
-                    type="checkbox"
-                    value=""
-                    onChange={() => onhandleCheckBox(inputs, categIndex, index)}
-                    checked={false}
-                  />
-                )}
+                <CustomCheck>
+                  {inputs.isAchieved === true ? (
+                    <input
+                      id={`checkbox${inputs.todoId}`}
+                      type="checkbox"
+                      value=""
+                      onChange={() => onhandleCheckBox(inputs, categIndex, index)}
+                      checked={true}
+                    />
+                  ) : ( 
+                    <input
+                      id={`checkbox${inputs.todoId}`}
+                      type="checkbox"
+                      value=""
+                      onChange={() => onhandleCheckBox(inputs, categIndex, index)}
+                      checked={false}
+                    />
+                  )}
+                  <div></div>
+                </CustomCheck>
                 {inputs.todoId === undefined ? (
                   <input
                     id={`disable${inputs.todoId}`}
                     name="title"
                     type="text"
-                    placeholder="todo"
+                    placeholder="투두를 입력하세요"
                     value={inputs.title}
                     onChange={(event) => handleFormChange(index, event)}
                     onBlur={() => mtyTiOutFocus(inputs, index, categId)}
@@ -151,7 +156,7 @@ const TodoList = ({
                     id={`disable${inputs.todoId}`}
                     name="title"
                     type="text"
-                    placeholder="todo"
+                    placeholder="투두를 입력하세요"
                     value={inputs.title}
                     onChange={(event) => handleFormChange(index, event)}
                     onBlur={() => naMtyTiOutFocus(inputs, index)}
@@ -163,7 +168,7 @@ const TodoList = ({
                 type="button"
                 onClick={() => onClickedSheet(inputs, index, categIndex)}
               >
-                토글
+                <IoIosMore></IoIosMore>
               </button>
             </TodoTitle>
           </TodoItemCon>
@@ -176,13 +181,12 @@ const TodoList = ({
 export default TodoList;
 
 const TodoListCon = styled.ul`
-  margin-top: 10px;
-  padding: 0;
-  border: 3px solid black;
+  margin: 8px 0 0;
+  padding: 8px 0;
+  border-top: 1px solid #b1bdcf;
 `;
 
 const TodoItemCon = styled.li`
-  border: 3px solid red;
   width: 100%;
   &:not(:last-child) {
     margin-bottom: 5px;
@@ -191,13 +195,74 @@ const TodoItemCon = styled.li`
 
 const TodoTitle = styled.div`
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  border: 3px solid green;
+
+  button {
+    width: 20px;
+    height: 18px;
+    line-height: 1;
+    font-size: 20px;
+    color: #d9d9d9;
+    background: transparent;
+    border: none;
+  }
 `;
 
 const CheckTxtboxWrap = styled.div`
-  input:last-child {
-    margin-left: 0.5em;
+
+  display: flex;
+  align-items: center;
+  width: calc(100% - 28px);
+
+  input[type="text"] {
+    width: calc(100% - 24px);
+    height: 28px;
+    font-size: 14px;
+    color: #fff;
+    margin-left: 8px;
+    background: transparent;
+    border: none;
+
+    &:focus {
+      border-bottom: 1px solid #b1bdcf;
+    }
+    &::placeholder {
+      color: #fff;
+    }
+  }
+`;
+
+const CustomCheck = styled.div`
+  position: relative;
+  width: 16px;
+  height: 16px;
+
+  input[type="checkbox"] {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: 10;
+
+    &:checked + div {
+      background-color: #fff;
+      background-image: url(${check_icon});
+      background-repeat: no-repeat;
+      background-position: center;
+      opacity: 100%;
+    }
+  }
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #aabce0;
+    opacity: 40%;
+    border-radius: 100px;
   }
 `;
 

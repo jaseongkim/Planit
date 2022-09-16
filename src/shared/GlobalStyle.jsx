@@ -10,9 +10,9 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     padding: 0;
     margin: 0;
-    text-decoration: none;
     outline : none;
     font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 500;
   }
 
   body {
@@ -21,6 +21,19 @@ const GlobalStyle = createGlobalStyle`
 
   li {
     list-style: none;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+    &:hover {
+      color: inherit;
+    }
+  }
+
+  button {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 500;
   }
 `;
 
