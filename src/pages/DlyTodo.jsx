@@ -11,7 +11,7 @@ import {
   getCategThunk,
   addMtyTodo,
   deleteTodoThunk,
-  updateTodoMemoThunk
+  updateTodoMemoThunk,
 } from "../redux/modules/categTodoSlice.js";
 // Styled-Component
 import styled from "styled-components";
@@ -21,7 +21,6 @@ import TodoList from "../components/TodoList";
 import Circle from "../element/Circle.jsx";
 
 const DlyTodo = () => {
-
   // Redux : dispatch
   const dispatch = useDispatch();
 
@@ -32,13 +31,13 @@ const DlyTodo = () => {
   const [dateValue, setDateValue] = useState(new Date());
 
   // Hook : TO get the cliced Memo info from the TodoList
-  const [clickedMemo, setClickedMemo] = useState("")
+  const [clickedMemo, setClickedMemo] = useState("");
 
   // Hook : To get the clicked Cagegory index
   const [clickedCategIndex, setClickedCategIndex] = useState("");
 
   // Hook : To get the clicked todo info & index from the TodoList
-   const [clickedTodo, setClickedTodo] = useState({
+  const [clickedTodo, setClickedTodo] = useState({
     todoInfo: "",
     todoIndex: "",
   });
@@ -56,7 +55,7 @@ const DlyTodo = () => {
       todoInfo: inputs,
       todoIndex: index,
     });
-    setClickedMemo(inputs.memo)
+    setClickedMemo(inputs.memo);
     setClickedCategIndex(categIndex);
   };
 
@@ -95,17 +94,16 @@ const DlyTodo = () => {
 
   // Adding a new todo
   const addTodo = ({ input, index }) => {
-    if(input.todos[input.todos.length-1]?.title !== ""){
+    if (input.todos[input.todos.length - 1]?.title !== "") {
       const mtyCateg = {
-      categIndex: index,
-      categReq: {
-        title: "",
-        dueDate: concatSelDate.current,
-      },
-    };
-    dispatch(addMtyTodo(mtyCateg));
-  }
-    
+        categIndex: index,
+        categReq: {
+          title: "",
+          dueDate: concatSelDate.current,
+        },
+      };
+      dispatch(addMtyTodo(mtyCateg));
+    }
   };
 
   // Enabling to edit todo by closing the modalSheet
@@ -134,12 +132,11 @@ const DlyTodo = () => {
 
   // Updating memo input
   const onChangeMemoHandler = (e) => {
-    setClickedMemo(e.target.value)
-  }
+    setClickedMemo(e.target.value);
+  };
 
   // When outfocused, update todo's memo
   const onCheckMemoOutFocus = () => {
-
     const clickedTodoId = clickedTodo.todoInfo.todoId;
 
     const updateTodoMemoObj = {
@@ -147,12 +144,12 @@ const DlyTodo = () => {
       todoIndex: clickedTodo.todoIndex,
       categIndex: clickedCategIndex,
       todoReq: {
-        memo: clickedMemo
-      }
+        memo: clickedMemo,
+      },
     };
 
-    dispatch(updateTodoMemoThunk({updateTodoMemoObj}));
-  }
+    dispatch(updateTodoMemoThunk({ updateTodoMemoObj }));
+  };
 
   return (
     <>
@@ -262,7 +259,6 @@ const CustomSheet = styled(Sheet)`
     /* custom styles */
     border: 3px solid #ffffff;
   }
-
   .react-modal-sheet-container {
     max-height: 400px;
     right: 0;

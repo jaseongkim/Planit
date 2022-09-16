@@ -49,8 +49,6 @@ api.interceptors.response.use(
           return await api.request(originalRequest);
         }
       } catch (error) {
-        localStorage.removeItem("token");
-        localStorage.removeItem("accesstokenexpiretime");
         console.log(error);
       }
       return Promise.reject(error);
@@ -89,8 +87,6 @@ export const apis = {
 
   loginKakao: (code) => api.get(`/members/login/kakao/callback?code=${code}`),
 
-  getCategories: () => api.get("/categories"),
-
   recommendMember: () => api.get("/members/suggest"),
 
   followMember: (memberId) => api.post(`/follow/${memberId}`),
@@ -102,7 +98,7 @@ export const apis = {
   // Categories
   getCategories: (data) => api.get(`/categories?date=${data}`),
 
-  postCategories: () => api.post("/categories"),
+  postCategories: (data) => api.post("/categories", data),
 
   // Todo
   createTodo: (data) =>
@@ -123,7 +119,7 @@ export const apis = {
       data.updateTodoCkObj.todoReq
     ),
 
-  updateTodoMemo: (data) => 
+  updateTodoMemo: (data) =>
     api.patch(
       `categories/todos/${data.updateTodoMemoObj.todoId}`,
       data.updateTodoMemoObj.todoReq

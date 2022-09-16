@@ -119,6 +119,7 @@ const TodoList = ({
                   />
                 )}
 
+
                 {inputs.todoId === undefined ? (
                   <input
                     id={`disable${inputs.todoId}`}
@@ -148,6 +149,7 @@ const TodoList = ({
               >
                 토글
               </button>
+
             </TodoTitle>
           </TodoItemCon>
         );
@@ -167,7 +169,6 @@ const TodoListCon = styled.ul`
 const TodoItemCon = styled.li`
   border: 3px solid red;
   width: 100%;
-
   &:not(:last-child) {
     margin-bottom: 5px;
   }
@@ -177,7 +178,6 @@ const TodoTitle = styled.div`
   display: flex;
   justify-content: space-between;
   border: 3px solid green;
-
 `;
 
 
@@ -189,20 +189,16 @@ const CheckTxtboxWrap = styled.div`
 
 const MemoWrap = styled.div`
   display: none;
-
   margin-top: 5px;
   padding: 5px 0;
-
   textarea {
     width: 100%;
     height: 100px;
   }
-
   div {
     display: flex;
     justify-content: flex-end;
   }
-
   button {
     &:not(:first-child) {
       margin-left: 5px;

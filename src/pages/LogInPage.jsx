@@ -5,6 +5,7 @@ import KakaoLogin from "../components/KakaoLogin";
 import Button from "../element/Button";
 import LoginInput from "../element/LoginInput";
 import { loginMemberDB } from "../redux/modules/memberSlice";
+import { apis } from "../shared/api";
 
 const LogInPage = () => {
   const dispatch = useDispatch();
