@@ -23,9 +23,11 @@ const Header = () => {
   // console.log("Month is",month)
   // console.log("WeekofMonth is", weekOfMonth)
 
+
+
   return (
     <HeaderCon>
-      <h1>{month}월 {weekOfMonth}째주</h1>
+      <h1>{localStorage.getItem("nickname")}</h1>
       <HeaderIcon>
         {/* <GoSearch></GoSearch> */}
         <BsCalendar3
