@@ -204,6 +204,13 @@ const DlyTodo = () => {
             >
               삭제
             </button>
+            <button
+              onClick={() => {
+                clickDeleteTodo();
+              }}
+            >
+              날짜변경하기
+            </button>
           </CustomSheet.Content>
         </CustomSheet.Container>
 
@@ -239,7 +246,7 @@ const CustomSheet = styled(Sheet)`
   }
 
   .react-modal-sheet-container {
-    /* max-height: 300px; */
+    max-height: 400px;
     right: 0;
     margin: 0 auto;
     max-width: 375px;
@@ -255,6 +262,12 @@ const CustomSheet = styled(Sheet)`
   }
   .react-modal-sheet-content {
     /* custom styles */
+    padding: 5%;
     border: 3px solid #ff00ff;
+
+    div{
+      font-size: 1.3em;
+      font-weight: bold;
+    }
   }
 `;

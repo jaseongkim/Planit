@@ -3,8 +3,6 @@ import followSlice from "../modules/followSlice";
 import memberSlice from "../modules/memberSlice";
 import membersSlice from "../modules/membersSlice";
 import categTodoSlice from "../modules/categTodoSlice";
-import cateSlice from "../modules/cateSlice";
-import toSlice from "../modules/toSlice";
 
 const store = configureStore({
   reducer: {
@@ -12,8 +10,6 @@ const store = configureStore({
     categTodoSlice,
     membersSlice,
     followSlice,
-    cateSlice,
-    toSlice,
   },
 });
 
