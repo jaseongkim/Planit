@@ -6,7 +6,9 @@ import { FiPlusCircle } from "react-icons/fi";
 export default function CategoryHeader() {
   const navigate = useNavigate();
 
-  const onPlusHandler = () => {};
+  const onPlusHandler = () => {
+    navigate(`/categorydetail/0`);
+  };
 
   return (
     <HeaderWrap>
@@ -14,7 +16,7 @@ export default function CategoryHeader() {
         <img src={back_arrow} alt="뒤" />
       </div>
       <NicknameDiv>목표</NicknameDiv>
-      <PlusBtn onClick={() => {}}>
+      <PlusBtn onClick={onPlusHandler}>
         <FiPlusCircle />
       </PlusBtn>
     </HeaderWrap>

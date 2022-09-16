@@ -7,6 +7,7 @@ import Kakao from "./Kakao";
 import Search from "../pages/Search";
 import Follow from "../pages/Follow";
 import Category from "../pages/Category";
+import CategoryDetail from "../pages/CategoryDetail";
 
 const Router = () => {
   return (
@@ -18,7 +19,8 @@ const Router = () => {
         <Route path="/kakao" element={<Kakao />} />
         <Route path="/search" element={<Search />} />
         <Route path="/follow" element={<Follow />} />
-        <Route path="/categ" element={<Category />} />
+        <Route path="/category" element={<Category />} />
+        <Route path="/categorydetail/:id" element={<CategoryDetail />} />
       </Routes>
     </BrowserRouter>
   );
