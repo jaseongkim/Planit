@@ -52,7 +52,7 @@ export const updateCategThunk = createAsyncThunk(
   "category/updateCategory",
   async (payload, thunkAPI) => {
     try {
-      console.log(payload.id, payload.category);
+      console.log("id",payload.id,"category",payload.category);
       const { data } = await apis.updateCategories(
         payload.id,
         payload.category
