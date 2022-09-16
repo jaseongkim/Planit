@@ -1,5 +1,5 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -10,18 +10,20 @@ import {
 } from "../../redux/modules/categTodoSlice";
 
 export default function CategoryDetailBox() {
+
+  const navigate = useNavigate();
+
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.categTodoSlice.categories);
 
   let { id } = useParams();
-
   let categoriesDetail = categories.find(
     (category) => category.categoryId === Number(id)
   );
 
   const initialState = {
     categoryName: categoriesDetail?.categoryName,
-    categoryColor: "green",
+    categoryColor: "black",
     isPublic: "false",
     categoryStatus: "NOT_STOP",
   };
@@ -35,22 +37,25 @@ export default function CategoryDetailBox() {
 
   const onDeleteHandler = () => {
     dispatch(deleteCategThunk(id));
+    navigate(-1)
   };
 
   const onConfirmHandler = () => {
-    console.log(category);
     setCategory(initialState);
 
     if (categoriesDetail === undefined) {
       dispatch(createCategThunk(category));
+      navigate(-1)
     } else {
       dispatch(updateCategThunk({ id, category }));
       setCategory(category);
+      navigate(-1)
     }
   };
 
   return (
     <CategoryContainer>
+      {console.log("Checking CategDetail", category)}
       <InputBox>
         <input
           type={"text"}
@@ -59,20 +64,41 @@ export default function CategoryDetailBox() {
           onChange={onChangeHandler}
         />
       </InputBox>
-      <button onClick={onDeleteHandler}>삭제하기</button>
-      <button style={{ marginLeft: "10px" }} onClick={onConfirmHandler}>
-        완료
-      </button>
+      {categoriesDetail === undefined ? null : <button onClick={onDeleteHandler}>삭제하기</button>}
+      {category.categoryName === undefined ? <button onClick={onDeleteHandler} disabled>완료</button> :<button onClick={onConfirmHandler}>완료</button>}
     </CategoryContainer>
   );
 }
 
-const CategoryContainer = styled.div``;
+const CategoryContainer = styled.div`
+
+border: 3px solid green;
+margin-top: 1.7em;
+height: 100%;
+position: relative;
+
+button:last-child{
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  }
+
+`;
 
 const InputBox = styled.div`
-  width: 340px;
-  height: 50px;
-  background-color: red;
-  text-align: center;
+  margin-top: 6em;
+  width: 20.8em;
+  height: 4.3em;
+  border: none;
   margin: 0 auto;
+
+  input{
+    width: 100%;
+   height: 100%;
+   border: none;
+  }
 `;
+
+const CfmBtnCon = styled.div`
+  
+`

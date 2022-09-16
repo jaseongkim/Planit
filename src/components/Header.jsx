@@ -23,9 +23,11 @@ const Header = () => {
   // console.log("Month is",month)
   // console.log("WeekofMonth is", weekOfMonth)
 
+
+
   return (
     <HeaderCon>
-      <h1>{month}월 {weekOfMonth}째주</h1>
+      <h1>{localStorage.getItem("nickname")}</h1>
       <HeaderIcon>
         {/* <GoSearch></GoSearch> */}
         <BsCalendar3
@@ -45,6 +47,10 @@ const Header = () => {
 export default Header;
 
 const HeaderCon = styled.div`
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 999;
   padding: 4% 4% 2% 4%;
   display: flex;
   justify-content: space-between;

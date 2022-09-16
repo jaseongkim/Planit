@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
+import { GiConsoleController } from "react-icons/gi";
 import { apis } from "../../shared/api";
 
 // Getting all categories & todos from server
@@ -24,18 +25,20 @@ export const getCategThunk = createAsyncThunk(
   }
 );
 
+// Adding category
 export const createCategThunk = createAsyncThunk(
   "category/createCategory",
   async (category, thunkAPI) => {
     try {
       const { data } = await apis.postCategories(category);
-      console.log(data.data);
-      // return thunkAPI.fulfillWithValue(data.data);
+      return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
-      // return thunkAPI.rejectWithValue(error)
+      return thunkAPI.rejectWithValue(error)
     }
   }
 );
+
+// deleting category
 export const deleteCategThunk = createAsyncThunk(
   "category/deleteCategory",
   async (id, thunkAPI) => {
@@ -48,16 +51,18 @@ export const deleteCategThunk = createAsyncThunk(
     }
   }
 );
+
+// updating category
 export const updateCategThunk = createAsyncThunk(
   "category/updateCategory",
   async (payload, thunkAPI) => {
     try {
-      console.log(payload.id, payload.category);
+      console.log("id",payload.id,"category",payload.category);
       const { data } = await apis.updateCategories(
         payload.id,
         payload.category
       );
-      console.log(data.data);
+      // console.log(data.data);
       // return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       // return thunkAPI.rejectWithValue(error)
@@ -175,6 +180,7 @@ const categTodoSlice = createSlice({
     },
     [getCategThunk.fulfilled]: (state, action) => {
       state.isLoading = false;
+      console.log("Checking action.payload", action.payload)
       state.categories = action.payload;
     },
     [getCategThunk.rejected]: (state, action) => {
@@ -263,6 +269,25 @@ const categTodoSlice = createSlice({
       state.categories[categIndex].todos.splice(todoIndex, 1);
     },
     [deleteTodoThunk.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+
+     // Adding category
+     [createCategThunk.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [createCategThunk.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      
+       state.categories.push(action.payload)
+      // console.log("Checking createCateg payload", action.payload)
+      // console.log("Checking state categories",current(state.categories))
+      // const categIndex = action.payload.categIndex;
+      // const todoIndex = action.payload.todoIndex;
+      // state.categories[categIndex].todos.splice(todoIndex, 1);
+    },
+    [createCategThunk.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     },

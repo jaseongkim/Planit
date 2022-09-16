@@ -118,8 +118,6 @@ const TodoList = ({
                     checked={false}
                   />
                 )}
-
-
                 {inputs.todoId === undefined ? (
                   <input
                     id={`disable${inputs.todoId}`}

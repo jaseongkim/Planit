@@ -9,9 +9,9 @@ const Menu = ({ open }) => {
           <span role="img" aria-label="about us">&#x1f481;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;</span>
           할일 
         </a>
-        <a href="/categ">
+        <a href="/category">
           <span role="img" aria-label="price">&#x1f4b8;</span>
-          목표
+          카테고리
           </a>
         <a href="/">
           <span role="img" aria-label="contact">&#x1f4e9;</span>
