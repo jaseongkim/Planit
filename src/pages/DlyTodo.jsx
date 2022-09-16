@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef} from "react";
 import Sheet from "react-modal-sheet";
 // Calendar
 import Calendar from "react-calendar";
+import moment from 'moment';
 import "react-calendar/dist/Calendar.css";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
@@ -18,7 +19,10 @@ import styled from "styled-components";
 // React Component
 import Header from "../components/Header";
 import TodoList from "../components/TodoList";
-import Circle from "../element/Circle.jsx";
+// import Circle from "../element/Circle.jsx";
+import {FiPlus} from "react-icons/fi";
+import {MdModeEdit} from "react-icons/md";
+import { achieved_icon, like_icon_on, like_icon_off } from "../static/images";
 
 const DlyTodo = () => {
   // Redux : dispatch
@@ -155,8 +159,22 @@ const DlyTodo = () => {
     <>
       <Header />
       <CalendarWrap>
-        <Circle></Circle>
-        <Calendar onChange={setDateValue} value={dateValue} />
+        {/* <Circle></Circle> */}
+        <TodoStatus>
+            <div>
+              <img src={achieved_icon} alt="achieved icon" />
+              <span>0</span>
+            </div>
+            <div>
+              <img src={like_icon_on} alt="like icon on" />
+              <span>2</span>
+            </div>
+        </TodoStatus>
+        <Calendar 
+          onChange={setDateValue} 
+          value={dateValue}
+          formatDay={(locale, date) => moment(date).format("DD")}
+        />
       </CalendarWrap>
       <Section>
         {categories.map((input, index) => {
@@ -167,8 +185,8 @@ const DlyTodo = () => {
                 btnColor={input.categoryColor}
               >
                 {input.categoryName}
+                <FiPlus></FiPlus>
               </TodoBtn>
-              <hr/>
               <TodoList
                 selectedDate={concatSelDate.current}
                 clickedTodo={clickedTodo}
@@ -184,17 +202,20 @@ const DlyTodo = () => {
 
       <CustomSheet isOpen={isOpen} onClose={() => setOpen(false)}>
         <CustomSheet.Container>
-          <CustomSheet.Header />
+          {/* <CustomSheet.Header /> */}
           <CustomSheet.Content>
             <ContentHeader>
-            <div className="todo-title">{clickedTodo.todoInfo.title}</div>
-            <button
-              onClick={() => {
-                clickEditTodo();
-              }}
-            >
-              수정
-            </button>
+              <div className="todo-edit-title-wrap">
+                <span className="todo-edit-title">{clickedTodo.todoInfo.title}</span>
+                <button
+                  onClick={() => {
+                    clickEditTodo();
+                  }}
+                >
+                  <MdModeEdit />
+                </button>
+              </div>
+              <button className="todo-edit-submit">확인</button>
             </ContentHeader>
             <textarea 
               name="memo"
@@ -204,20 +225,20 @@ const DlyTodo = () => {
             >          
               </textarea>
             <ContentFooter>
-            <button
-              onClick={() => {
-                clickDeleteTodo();
-              }}
-            >
-              삭제
-            </button>
-            <button
-              onClick={() => {
-                clickDeleteTodo();
-              }}
-            >
-              날짜변경하기
-            </button>
+              <button
+                onClick={() => {
+                  clickDeleteTodo();
+                }}
+              >
+                삭제
+              </button>
+              <button
+                onClick={() => {
+                  clickDeleteTodo();
+                }}
+              >
+                날짜변경하기
+              </button>
             </ContentFooter>
           </CustomSheet.Content>
         </CustomSheet.Container>
@@ -231,27 +252,75 @@ const DlyTodo = () => {
 export default DlyTodo;
 
 const Section = styled.div`
-  padding: 15px;
+  margin-top: 30px;
+  padding: 15px 20px;
   position: relative;
-  border: 3px solid blue;
 `;
 
 const CalendarWrap = styled.div`
-  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .react-calendar {
+    background: transparent;
+    border: none;
+
+    &__navigation__arrow {
+      color: #fff;
+    }
+    &__navigation__label__labelText {
+      color: #fff;
+      font-weight: bold;
+      font-size: 18px;
+    }
+    abbr {
+      color: #fff;
+    }
+    
+    &__tile--active {
+      background: #3185f3;
+    }
+    // &__tile--now{
+    //   background: #121212;
+    // }
+  }
+`;
+
+const TodoStatus = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 0 20px;
+  gap: 12px;
+
+  span {
+    font-weight: 400;
+    color: #fff;
+    margin-left: 5px;
+  }
 `;
 
 const TodoCon = styled.div`
-  margin-top: 10px;
-
-  hr{
-    margin: 0.5em 0;
+  &:not(:first-of-type) {
+    margin-top: 30px;
   }
 `;
 
 const TodoBtn = styled.button`
-  background-color: ${(props) => props.btnColor};
-  font-size: 0.9em;
-  color: white;
+  font-size: 18px;
+  color: #fff;
+  // background-color: ${(props) => props.btnColor};
+  background: transparent;
+  border: none;
+
+  svg {
+    color: #d9d9d9;
+    margin-left: 5px;
+  }
 `;
 
 const CustomSheet = styled(Sheet)`
@@ -260,10 +329,16 @@ const CustomSheet = styled(Sheet)`
     border: 3px solid #ffffff;
   }
   .react-modal-sheet-container {
-    max-height: 400px;
+    display: fixed;
+    bottom: 0;
+    // max-height: 290px;
+    height: auto !important;
     right: 0;
     margin: 0 auto;
     max-width: 375px;
+    width: 100%;
+    background-color: #516d93 !important;
+    padding: 24px 0 40px;
   }
 
   .react-modal-sheet-header {
@@ -277,30 +352,59 @@ const CustomSheet = styled(Sheet)`
   .react-modal-sheet-content {
     /* custom styles */
     padding: 0 5% 5% 5%;
+    // background: #516d93;
+    background: transparent;
 
     textarea{
       width: 100%;
-      height: 9.5em;
-      resize: none
+      height: 90px;
+      resize: none;
+      font-weight: 400;
+      font-size: 14px;
+      color: #fff;
+      margin: 18px 0 25px;
+      padding: 14px 16px;
+      background: rgba(170, 188, 224, 0.2);
+      border: none;
     }
   }
 `;
 
 const ContentHeader = styled.div`
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  margin-bottom: 0.5em;
+  width: 100%;
+  color: #fff;
 
-  div{
-    font-size: 1.3em;
-    font-weight: bold;
+  button {
+    color: #fff;
+    background: transparent;
+    border: none;
+  }
+
+  .todo-edit-title-wrap {
+    display: flex;
+    align-items: center;
+  }
+
+  .todo-edit-title {
+    font-weight: 600;
+    font-size: 20px;
+    margin-right: 8px;
   }
 `
 const ContentFooter = styled.div`
-  display: flex;
-  flex-direction: column;
+  button {
+    display: block;
+    font-weight: 400;
+    font-size: 14px;
+    color: #fff;
+    background: transparent;
+    border: none;
 
-  button:first-child{
-    margin: 1em 0
+    &:not(:first-child) {
+      margin-top: 12px;
+    }
   }
 `

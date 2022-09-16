@@ -61,7 +61,8 @@ export const loginMemberDB = (data) => {
             localStorage.setItem(
               "accesstokenexpiretime",
               response.headers.accesstokenexpiretime
-            )
+            ),
+            localStorage.setItem("nickname", response.data.data.nickname)
           );
         }
       })
