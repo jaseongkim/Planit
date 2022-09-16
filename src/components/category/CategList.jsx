@@ -11,14 +11,14 @@ const CategList = () => {
   // Redux : useSelector
   const categories = useSelector((state) => state.categTodoSlice.categories);
 
-  console.log("Checking", categories);
   // useEffect
   useEffect(() => {
     dispatch(getCategThunk("2022-09-05"));
-  }, [dispatch]);
+  }, []);
 
   return (
     <CategoryContainer>
+      {console.log("Checking categList", categories)}
       {categories?.length === 0 ? null : (
         <>
           <WorkingCategory>

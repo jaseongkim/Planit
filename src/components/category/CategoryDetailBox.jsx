@@ -1,5 +1,5 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -10,6 +10,9 @@ import {
 } from "../../redux/modules/categTodoSlice";
 
 export default function CategoryDetailBox() {
+
+  const navigate = useNavigate();
+
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.categTodoSlice.categories);
 
@@ -20,7 +23,7 @@ export default function CategoryDetailBox() {
 
   const initialState = {
     categoryName: categoriesDetail?.categoryName,
-    categoryColor: "green",
+    categoryColor: "black",
     isPublic: "false",
     categoryStatus: "NOT_STOP",
   };
@@ -37,21 +40,21 @@ export default function CategoryDetailBox() {
   };
 
   const onConfirmHandler = () => {
-    console.log(category);
     setCategory(initialState);
-
 
     if (categoriesDetail === undefined) {
       dispatch(createCategThunk(category));
+      navigate(-1)
     } else {
       dispatch(updateCategThunk({ id, category }));
       setCategory(category);
+      navigate(-1)
     }
   };
 
   return (
     <CategoryContainer>
-      {console.log("Check ", category)}
+      {console.log("Checking CategDetail", category)}
       <InputBox>
         <input
           type={"text"}
@@ -60,8 +63,8 @@ export default function CategoryDetailBox() {
           onChange={onChangeHandler}
         />
       </InputBox>
-      <button onClick={onDeleteHandler}>삭제하기</button>
-      <button onClick={onConfirmHandler}>완료</button>
+      {categoriesDetail === undefined ? null : <button onClick={onDeleteHandler}>삭제하기</button>}
+      {category.categoryName === undefined ? <button onClick={onDeleteHandler} disabled>완료</button> :<button onClick={onConfirmHandler}>완료</button>}
     </CategoryContainer>
   );
 }
