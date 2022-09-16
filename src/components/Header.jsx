@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { GoSearch, GoBell } from "react-icons/go";
 import { GiHamburgerMenu } from "react-icons/gi";
 import {BsCalendar3} from "react-icons/bs"
-import Burger from "./Burger";
-import Menu from "./Menu";
+import Burger from "./hamburNavi/Burger";
+import Menu from "./hamburNavi/Menu";
 
 
 const Header = () => {

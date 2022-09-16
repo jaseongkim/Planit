@@ -19,9 +19,6 @@ const TodoList = ({
   // Redux : dispatch
   const dispatch = useDispatch();
 
-  // Hook : whether to show memo
-  const [showMemo, setShowMemo] = useState(true);
-
   // Specifying todo & memo info a new todo
   const handleFormChange = (index, event) => {
     let data = [...todos];
@@ -103,25 +100,26 @@ const TodoList = ({
         return (
           <TodoItemCon key={`${inputs.todoId}`}>
             <TodoTitle>
-              {inputs.isAchieved === true ? (
-                <input
-                  id={`checkbox${inputs.todoId}`}
-                  type="checkbox"
-                  value=""
-                  onChange={() => onhandleCheckBox(inputs, categIndex, index)}
-                  checked={true}
-                />
-              ) : (
-                <input
-                  id={`checkbox${inputs.todoId}`}
-                  type="checkbox"
-                  value=""
-                  onChange={() => onhandleCheckBox(inputs, categIndex, index)}
-                  checked={false}
-                />
-              )}
+              <CheckTxtboxWrap>
+                {inputs.isAchieved === true ? (
+                  <input
+                    id={`checkbox${inputs.todoId}`}
+                    type="checkbox"
+                    value=""
+                    onChange={() => onhandleCheckBox(inputs, categIndex, index)}
+                    checked={true}
+                  />
+                ) : (
+                  <input
+                    id={`checkbox${inputs.todoId}`}
+                    type="checkbox"
+                    value=""
+                    onChange={() => onhandleCheckBox(inputs, categIndex, index)}
+                    checked={false}
+                  />
+                )}
 
-              <div>
+
                 {inputs.todoId === undefined ? (
                   <input
                     id={`disable${inputs.todoId}`}
@@ -144,28 +142,15 @@ const TodoList = ({
                     disabled
                   />
                 )}
-                <button
-                  type="button"
-                  onClick={() => onClickedSheet(inputs, index, categIndex)}
-                >
-                  토글
-                </button>
-              </div>
+              </CheckTxtboxWrap>
+              <button
+                type="button"
+                onClick={() => onClickedSheet(inputs, index, categIndex)}
+              >
+                토글
+              </button>
+
             </TodoTitle>
-            {/* <MemoWrap id={`showMemo${index}${categId}`}>
-              <textarea
-                name="memo"
-                type="text"
-                placeholder="memo"
-                value={inputs.memo}
-                // onChange={(event) => handleFormChange(index, event)}
-                //  onBlur={() => checkonFocus(index)}
-              ></textarea>
-              <div>
-                <button>날짜변경</button>
-                <button>삭제</button>
-              </div>
-            </MemoWrap> */}
           </TodoItemCon>
         );
       })}
@@ -177,7 +162,7 @@ export default TodoList;
 
 const TodoListCon = styled.ul`
   margin-top: 10px;
-  padding: 0 10px;
+  padding: 0;
   border: 3px solid black;
 `;
 
@@ -193,9 +178,14 @@ const TodoTitle = styled.div`
   display: flex;
   justify-content: space-between;
   border: 3px solid green;
-  div {
-  }
 `;
+
+
+const CheckTxtboxWrap = styled.div`
+  input:last-child{
+    margin-left: 0.5em;
+  }
+`
 
 const MemoWrap = styled.div`
   display: none;
