@@ -113,6 +113,4 @@ export const apis = {
     ),
 
   deleteTodo: (data) => api.delete(`categories/todos/${data}`),
-
-  refreshTest: (year, month) => api.get(`/todo-list/${year}/${month}`),
 };

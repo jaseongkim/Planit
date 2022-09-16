@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { getCategThunk } from "../redux/modules/categTodoSlice.js";
 import CategoryItem from "./CategoryItem.jsx";
+import { getCategThunk } from "../../redux/modules/categTodoSlice.js";
 
 const CategList = () => {
   // Redux : dispatch

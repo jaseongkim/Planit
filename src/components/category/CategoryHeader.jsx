@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { back_arrow } from "../static/images";
+import { back_arrow } from "../../static/images";
 import { FiPlusCircle } from "react-icons/fi";
 
 export default function CategoryHeader() {

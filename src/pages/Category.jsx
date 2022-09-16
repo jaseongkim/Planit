@@ -1,6 +1,6 @@
 import React from "react";
-import CategList from "../components/CategList";
-import CategoryHeader from "../components/CategoryHeader";
+import CategList from "../components/category/CategList";
+import CategoryHeader from "../components/category/CategoryHeader";
 
 const Category = () => {
   return (
