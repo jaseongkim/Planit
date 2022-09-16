@@ -10,16 +10,29 @@ export const getCategThunk = createAsyncThunk(
       const { data } = await apis.getCategories(payload);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (e) {
-      console.log("getCategThunk", e.response.data.status)
-      if(e.response.data.status === 503){
+      console.log("getCategThunk", e.response.data.status);
+      if (e.response.data.status === 503) {
         try {
-          console.log("Check here", payload)
+          console.log("Check here", payload);
           const { data } = await apis.postTodoList(payload);
-          return thunkAPI.rejectWithValue(data.data)
-        } catch (e){
-          console.log(e)
+          return thunkAPI.rejectWithValue(data.data);
+        } catch (e) {
+          console.log(e);
         }
       }
+    }
+  }
+);
+
+export const createCategThunk = createAsyncThunk(
+  "category/createCategory",
+  async (category, thunkAPI) => {
+    try {
+      const { data } = await apis.postCategories(category);
+      console.log(data.data);
+      // return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      // return thunkAPI.rejectWithValue(error)
     }
   }
 );
@@ -63,9 +76,9 @@ export const updateTodoCkThunk = createAsyncThunk(
     try {
       const { data } = await apis.updateTodoCk(payload);
       return thunkAPI.fulfillWithValue({
-         todo: data.data,
-         index: payload.updateTodoCkObj,
-       });
+        todo: data.data,
+        index: payload.updateTodoCkObj,
+      });
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -77,11 +90,11 @@ export const updateTodoMemoThunk = createAsyncThunk(
   "todo/updateTodoMemo",
   async (payload, thunkAPI) => {
     try {
-      console.log("Checy updateTodoMemoThunk", payload)
+      console.log("Checy updateTodoMemoThunk", payload);
       const { data } = await apis.updateTodoMemo(payload);
       return thunkAPI.fulfillWithValue({
-      todo: data.data,
-      index: payload.updateTodoMemoObj,
+        todo: data.data,
+        index: payload.updateTodoMemoObj,
       });
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -113,7 +126,6 @@ const categTodoSlice = createSlice({
   name: "category",
   initialState,
   reducers: {
-
     // adding empty todo when the btn get clicked
     addMtyTodo: (state, action) => {
       state.categories[action.payload.categIndex].todos.push(
@@ -129,7 +141,6 @@ const categTodoSlice = createSlice({
     },
   },
   extraReducers: {
-
     // Getting all the categories
     [getCategThunk.pending]: (state) => {
       state.isLoading = true;
@@ -177,8 +188,8 @@ const categTodoSlice = createSlice({
       state.error = action.payload;
     },
 
-     // Updating todo's Memo
-     [updateTodoMemoThunk.pending]: (state) => {
+    // Updating todo's Memo
+    [updateTodoMemoThunk.pending]: (state) => {
       state.isLoading = true;
     },
     [updateTodoMemoThunk.fulfilled]: (state, action) => {
@@ -221,7 +232,7 @@ const categTodoSlice = createSlice({
       const categIndex = action.payload.categIndex;
       const todoIndex = action.payload.todoIndex;
 
-      state.categories[categIndex].todos.splice(todoIndex,1)
+      state.categories[categIndex].todos.splice(todoIndex, 1);
     },
     [deleteTodoThunk.rejected]: (state, action) => {
       state.isLoading = false;
