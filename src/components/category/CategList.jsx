@@ -10,27 +10,28 @@ const CategList = () => {
 
   // Redux : useSelector
   const categories = useSelector((state) => state.categTodoSlice.categories);
-  console.log("Check outside of return")
-  console.log("Checking categories useSelector outside", categories)
+  console.log(categories);
 
   // useEffect
   useEffect(() => {
+    // let a = setTimeout(() => {
     dispatch(getCategThunk("2022-09-05"));
-    console.log("Checking useEffect")
-  }, []);
+    // }, 300);
+    // return () => {
+    //   clearTimeout(a);
+    // };
+  }, [dispatch]);
 
   return (
     <CategoryContainer>
-      {console.log("Check in return")}
-      {console.log("Checking categList", categories)}
       {categories?.length === 0 ? null : (
         <>
           <WorkingCategory>
             <TextWrap>일반</TextWrap>
             {categories?.map((category) => {
-              if (category?.categoryStatus === "NOT_STOP") {
+              if (category.categoryStatus === "NOT_STOP") {
                 return (
-                  <CategoryItem key={category?.categoryId} category={category} />
+                  <CategoryItem key={category.categoryId} category={category} />
                 );
               } else {
                 return null;
@@ -41,9 +42,9 @@ const CategList = () => {
           <DoneCategory>
             <TextWrap>종료된 목표</TextWrap>
             {categories?.map((category) => {
-              if (category?.categoryStatus !== "NOT_STOP") {
+              if (category.categoryStatus !== "NOT_STOP") {
                 return (
-                  <CategoryItem key={category?.categoryId} category={category} />
+                  <CategoryItem key={category.categoryId} category={category} />
                 );
               } else {
                 return null;

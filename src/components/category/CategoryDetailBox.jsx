@@ -8,7 +8,6 @@ import {
   deleteCategThunk,
   updateCategThunk,
 } from "../../redux/modules/categTodoSlice";
-import { bgleft } from "../../static/images";
 
 export default function CategoryDetailBox() {
   const navigate = useNavigate();
@@ -16,21 +15,21 @@ export default function CategoryDetailBox() {
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.categTodoSlice.categories);
 
-  let [cateName, setCateName] = useState("");
+  let categoriesDetail;
+
   let { id } = useParams();
-  let categoriesDetail = categories.find(
+
+  categoriesDetail = categories?.find(
     (category) => category.categoryId === Number(id)
   );
 
   const initialState = {
-    categoryName: "",
-    // categoryColor: "black",
-    // isPublic: "false",
-    // categoryStatus: "NOT_STOP",
+    categoryName:
+      categoriesDetail === undefined ? "" : categoriesDetail.categoryName,
+    categoryColor: "green",
+    isPublic: "false",
+    categoryStatus: "NOT_STOP",
   };
-
-  if (categoriesDetail === undefined) {
-  }
 
   const [category, setCategory] = useState(initialState);
 
@@ -45,23 +44,19 @@ export default function CategoryDetailBox() {
   };
 
   const onConfirmHandler = () => {
-    setCategory(initialState);
-
     if (categoriesDetail === undefined) {
       dispatch(createCategThunk(category));
       navigate(-1);
     } else {
       dispatch(updateCategThunk({ id, category }));
       setCategory(category);
-      navigate(-1);
+      window.location.replace("/category");
+      // navigate("/category");
     }
   };
 
-  console.log(bgleft);
-
   return (
     <CategoryContainer>
-      {console.log("Checking CategDetail", category)}
       <InputBox>
         <input
           type={"text"}
@@ -73,13 +68,7 @@ export default function CategoryDetailBox() {
       {categoriesDetail === undefined ? null : (
         <button onClick={onDeleteHandler}>삭제하기</button>
       )}
-      {category.categoryName === undefined ? (
-        <button onClick={onDeleteHandler} disabled>
-          완료
-        </button>
-      ) : (
-        <button onClick={onConfirmHandler}>완료</button>
-      )}
+      <button onClick={onConfirmHandler}>완료</button>
     </CategoryContainer>
   );
 }
@@ -110,5 +99,3 @@ const InputBox = styled.div`
     border: none;
   }
 `;
-
-const CfmBtnCon = styled.div``;
