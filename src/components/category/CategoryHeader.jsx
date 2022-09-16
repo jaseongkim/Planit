@@ -15,7 +15,7 @@ export default function CategoryHeader() {
       <div onClick={() => navigate(-1)}>
         <img src={back_arrow} alt="뒤" />
       </div>
-      <NicknameDiv>목표</NicknameDiv>
+      <NicknameDiv>카테고리</NicknameDiv>
       <PlusBtn onClick={onPlusHandler}>
         <FiPlusCircle />
       </PlusBtn>
@@ -24,14 +24,15 @@ export default function CategoryHeader() {
 }
 
 const HeaderWrap = styled.nav`
-  max-width: 375px;
+
   width: 100%;
-  height: 54px;
+  height: 4em;
   background-color: #fff;
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #e4e4e4;
+  border: 3px solid red;
 `;
 
 const NicknameDiv = styled.div`
