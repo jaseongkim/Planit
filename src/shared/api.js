@@ -22,7 +22,7 @@ api.interceptors.response.use(
   },
 
   async function (error) {
-    console.log(error);
+    // console.log(error);
     if (error.response.status === 401) {
       try {
         // const email = localStorage.getItem("email");
@@ -49,14 +49,13 @@ api.interceptors.response.use(
           return await api.request(originalRequest);
         }
       } catch (error) {
-        localStorage.removeItem("token");
-        localStorage.removeItem("accesstokenexpiretime");
         console.log(error);
       }
       return Promise.reject(error);
-    } else if (error.response.status === 503) {
-      console.log("503 받았어요");
     }
+    // else if (error.response.status === 503) {
+    //   console.log("Checking error", error)
+    // }
     return Promise.reject(error);
   }
 );
@@ -88,8 +87,6 @@ export const apis = {
 
   loginKakao: (code) => api.get(`/members/login/kakao/callback?code=${code}`),
 
-  getCategories: () => api.get("/categories"),
-
   recommendMember: () => api.get("/members/suggest"),
 
   followMember: (memberId) => api.post(`/follow/${memberId}`),
@@ -110,11 +107,26 @@ export const apis = {
       data.addTodoObj.todoReq
     ),
 
-  updateTodo: (data) =>
+  updateTodoTi: (data) =>
     api.patch(
-      `categories/todos/${data.updateTodoObj.todoId}`,
-      data.updateTodoObj.todoReq
+      `categories/todos/${data.updateTodoTiObj.todoId}`,
+      data.updateTodoTiObj.todoReq
     ),
 
-  deleteTodo: (data) => api.delete(`categories/todos/${data}`),
+  updateTodoCk: (data) =>
+    api.patch(
+      `categories/todos/${data.updateTodoCkObj.todoId}`,
+      data.updateTodoCkObj.todoReq
+    ),
+
+  updateTodoMemo: (data) => 
+    api.patch(
+      `categories/todos/${data.updateTodoMemoObj.todoId}`,
+      data.updateTodoMemoObj.todoReq
+    ),
+
+  deleteTodo: (data) => api.delete(`/categories/todos/${data}`),
+
+  // TodoList
+  postTodoList: (data) => api.post(`/todo-list/today?dueDate=${data}`),
 };

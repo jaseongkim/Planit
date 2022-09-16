@@ -28,7 +28,10 @@ const Header = () => {
       <h1>{month}월 {weekOfMonth}째주</h1>
       <HeaderIcon>
         {/* <GoSearch></GoSearch> */}
-        <BsCalendar3></BsCalendar3>
+        <BsCalendar3
+          onClick={()=> alert("hello")}
+        >
+        </BsCalendar3>
         <GoBell></GoBell>
         {/* Hamburger Navi */}
         

@@ -4,11 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   onChangeTodo,
   createTodoThunk,
-  updateTodoThunk
+  updateTodoTiThunk,
+  updateTodoCkThunk
 } from "../redux/modules/categTodoSlice.js";
 
-
-const TodoList = ({ categId, todos, categIndex, onClickedSheet, clickedTodo }) => {
+const TodoList = ({ categId, todos, categIndex, onClickedSheet, clickedTodo, selectedDate }) => {
   
   // Redux : dispatch
   const dispatch = useDispatch();
@@ -16,7 +16,7 @@ const TodoList = ({ categId, todos, categIndex, onClickedSheet, clickedTodo }) =
   // Hook : whether to show memo
   const [showMemo, setShowMemo] = useState(true);
 
-  // // Specifying todo & memo info a new todo
+  // Specifying todo & memo info a new todo
   const handleFormChange = (index, event) => {
     let data = [...todos];
 
@@ -33,20 +33,18 @@ const TodoList = ({ categId, todos, categIndex, onClickedSheet, clickedTodo }) =
     dispatch(onChangeTodo(chgTodoObj));
   };
 
-  // When Outfocused, input will be disabled
-  const onCheckFocus = (index, categId, inputs) => {
-    // const parsedDate = `${selectedDate.year}년-${selectedDate.month}월-${selectedDate.day}일`;
-    // console.log("Check onFocus todo", todos[index].title);
-    // console.log("Checking inputs", inputs)
-    
-    if(inputs == undefined){
+  // When Outfocused, input will be disabled => making empty UX
+  // => if there is an input in the server, then update the pre-defined title.
+  const onCheckTiOutFocus = (index, categId, inputs) => {
+  
+    if(inputs === undefined){
       const addTodoObj = {
         categId: categId,
         categIndex: categIndex,
         todoIndex: index,
         todoReq: {
           title: todos[index].title,
-          dueDate: "2022-09-03",
+          dueDate: selectedDate,
         },
       };
 
@@ -57,62 +55,68 @@ const TodoList = ({ categId, todos, categIndex, onClickedSheet, clickedTodo }) =
     );
   }
   else{
-    const updateTodoObj = {
+    const updateTodoTiObj = {
       todoId: inputs.todoId,
       categIndex: categIndex,
       todoIndex: index,
       todoReq: {
         title: todos[index].title,
-        dueDate: "2022-09-03",
+        dueDate: selectedDate,
       },
     }
     
     dispatch(
-      updateTodoThunk({
-        updateTodoObj
+      updateTodoTiThunk({
+        updateTodoTiObj
       })
     );
     document.getElementById(`disable${clickedTodo.todoInfo.todoId}`).disabled = true;
   }
+
   };
 
-  // When the button is clicked, the memo will be disappeared
-  // const onShowMemo = (index) => {
-  //   document.getElementById(`showMemo${index}${categId}`).style.display =
-  //     !showMemo ? "none" : "block";
-  //   setShowMemo(!showMemo);
-  // };
+  // Changing the clicked checkbox's check status
+  const onhandleCheckBox = (todo, categIndex, todoIndex) => {
+    const updateTodoCkObj = {
+      todoId: todo.todoId,
+      categIndex: categIndex,
+      todoIndex: todoIndex,
+      todoReq: {
+        isAchieved: document.getElementById(`checkbox${todo.todoId}`).checked
+      }
+    }
 
-  const [isChecked, setIsChecked] = useState(false);
-
-  const onhandleCheckBox = (todo) => {
-    // alert("Hello")
-    // console.log("Checking todoId", todoId)
-    // document.getElementById(`checkbox${todoId}`).checked
-
-    // console.log(document.getElementById(`checkbox${todoId}`).defaultChecked)
-    // alert("Hello")
-    // document.getElementById(`checkbox${todoId}`).checked = false
-    // console.log("Check", todoId)
-
-    // console.log(document.getElementById(`checkbox${todoId}`).checked)
-    setIsChecked(!isChecked);
-    console.log("Check checkbox ", todo )
+    if(document.getElementById(`checkbox${todo.todoId}`).checked === true){
+      dispatch(updateTodoCkThunk({updateTodoCkObj}));
+    }
+    else{
+      dispatch(updateTodoCkThunk({updateTodoCkObj}));
+    }
   }
-
   return (
     <TodoListCon>
       {todos.map((inputs, index) => {
         return (
           <TodoItemCon key={`${inputs.todoId}`}>
             <TodoTitle>
+              {inputs.isAchieved === true ?
               <input
-                id={`checkbox${inputs.todoId}`} 
+              id={`checkbox${inputs.todoId}`} 
+              type="checkbox"
+              value=""
+              onChange={() => onhandleCheckBox(inputs,categIndex,index)}
+              checked={true}
+             />
+              :
+              <input
+                id={`checkbox${inputs.todoId}`}
                 type="checkbox"
-                // onChange={() => onhandleCheckBox(inputs.todoId)}
-                onChange={() => onhandleCheckBox(inputs)}
-                checked={isChecked}
+                value=""
+                onChange={() => onhandleCheckBox(inputs,categIndex,index)}
+                checked={false}
                />
+              }
+              
               <div>
                 {inputs.todoId === undefined ? 
                 <input
@@ -122,7 +126,7 @@ const TodoList = ({ categId, todos, categIndex, onClickedSheet, clickedTodo }) =
                   placeholder="todo"
                   value={inputs.title}
                   onChange={(event) => handleFormChange(index, event)}
-                  onBlur={() => onCheckFocus(index, categId)}
+                  onBlur={() => onCheckTiOutFocus(index, categId)}
                 /> : 
                 <input
                 id={`disable${inputs.todoId}`}
@@ -131,11 +135,37 @@ const TodoList = ({ categId, todos, categIndex, onClickedSheet, clickedTodo }) =
                 placeholder="todo"
                 value={inputs.title}
                 onChange={(event) => handleFormChange(index, event)}
-                onBlur={() => onCheckFocus(index, categId, inputs)}
+                onBlur={() => onCheckTiOutFocus(index, categId, inputs)}
                 disabled
+
               />
-                }
-                <button type="button" onClick={() => onClickedSheet(inputs, index, categIndex)}>
+              <div>
+                {inputs.todoId === undefined ? (
+                  <input
+                    id={`disable${inputs.todoId}`}
+                    name="title"
+                    type="text"
+                    placeholder="todo"
+                    value={inputs.title}
+                    onChange={(event) => handleFormChange(index, event)}
+                    onBlur={() => onCheckFocus(index, categId)}
+                  />
+                ) : (
+                  <input
+                    id={`disable${inputs.todoId}`}
+                    name="title"
+                    type="text"
+                    placeholder="todo"
+                    value={inputs.title}
+                    onChange={(event) => handleFormChange(index, event)}
+                    onBlur={() => onCheckFocus(index, categId, inputs)}
+                    disabled
+                  />
+                )}
+                <button
+                  type="button"
+                  onClick={() => onClickedSheet(inputs, index, categIndex)}
+                >
                   토글
                 </button>
               </div>
@@ -157,7 +187,6 @@ const TodoList = ({ categId, todos, categIndex, onClickedSheet, clickedTodo }) =
           </TodoItemCon>
         );
       })}
-      
     </TodoListCon>
   );
 };
@@ -210,4 +239,3 @@ const MemoWrap = styled.div`
     }
   }
 `;
-

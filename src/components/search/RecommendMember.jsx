@@ -1,7 +1,6 @@
 import React from "react";
 import { useState } from "react";
 import styled from "styled-components";
-import { apis } from "../shared/api";
 
 export default function RecommendMember(props) {
   const [follow, setFollow] = useState(false);
