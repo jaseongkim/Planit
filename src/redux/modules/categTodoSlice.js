@@ -36,6 +36,34 @@ export const createCategThunk = createAsyncThunk(
     }
   }
 );
+export const deleteCategThunk = createAsyncThunk(
+  "category/deleteCategory",
+  async (id, thunkAPI) => {
+    try {
+      const { data } = await apis.deleteCategories(id);
+      console.log(data.data);
+      // return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      // return thunkAPI.rejectWithValue(error)
+    }
+  }
+);
+export const updateCategThunk = createAsyncThunk(
+  "category/updateCategory",
+  async (payload, thunkAPI) => {
+    try {
+      console.log(payload.id, payload.category);
+      const { data } = await apis.updateCategories(
+        payload.id,
+        payload.category
+      );
+      console.log(data.data);
+      // return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      // return thunkAPI.rejectWithValue(error)
+    }
+  }
+);
 
 // Posting the added todo to server
 export const createTodoThunk = createAsyncThunk(
