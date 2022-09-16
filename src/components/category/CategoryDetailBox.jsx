@@ -3,24 +3,21 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { createCategThunk } from "../../redux/modules/categTodoSlice";
+import {
+  createCategThunk,
+  deleteCategThunk,
+  updateCategThunk,
+} from "../../redux/modules/categTodoSlice";
 
 export default function CategoryDetailBox() {
+  const dispatch = useDispatch();
   const categories = useSelector((state) => state.categTodoSlice.categories);
 
-  console.log(categories);
-
   let { id } = useParams();
-
-  console.log(id);
 
   let categoriesDetail = categories.find(
     (category) => category.categoryId === Number(id)
   );
-
-  console.log(categoriesDetail);
-
-  const dispatch = useDispatch();
 
   const initialState = {
     categoryName: categoriesDetail?.categoryName,
@@ -36,10 +33,20 @@ export default function CategoryDetailBox() {
     setCategory({ ...category, [name]: value });
   };
 
-  const onClickHandler = () => {
+  const onDeleteHandler = () => {
+    dispatch(deleteCategThunk(id));
+  };
+
+  const onConfirmHandler = () => {
     console.log(category);
     setCategory(initialState);
-    dispatch(createCategThunk(category));
+
+    if (categoriesDetail === undefined) {
+      dispatch(createCategThunk(category));
+    } else {
+      dispatch(updateCategThunk({ id, category }));
+      setCategory(category);
+    }
   };
 
   return (
@@ -52,8 +59,10 @@ export default function CategoryDetailBox() {
           onChange={onChangeHandler}
         />
       </InputBox>
-      <button>삭제</button>
-      <button onClick={onClickHandler}>완료</button>
+      <button onClick={onDeleteHandler}>삭제하기</button>
+      <button style={{ marginLeft: "10px" }} onClick={onConfirmHandler}>
+        완료
+      </button>
     </CategoryContainer>
   );
 }
