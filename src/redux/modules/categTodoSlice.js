@@ -158,11 +158,19 @@ const categTodoSlice = createSlice({
   name: "category",
   initialState,
   reducers: {
-    // adding empty todo when the btn get clicked
+    // Adding empty todo when the btn get clicked
     addMtyTodo: (state, action) => {
       state.categories[action.payload.categIndex].todos.push(
         action.payload.categReq
       );
+    },
+
+    // Deleting empty todo when the input is outfocused
+    delMtyTodo: (state, action) => {
+      const categIndex = action.payload.categIndex;
+      const todoIndex = action.payload.todoIndex;
+
+      state.categories[categIndex].todos.splice(todoIndex, 1);
     },
 
     // onChnageTodo for the new added todo
@@ -269,28 +277,9 @@ const categTodoSlice = createSlice({
     [deleteTodoThunk.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
-    },
-
-    // Adding category
-    [createCategThunk.pending]: (state) => {
-      state.isLoading = true;
-    },
-    [createCategThunk.fulfilled]: (state, action) => {
-      state.isLoading = false;
-
-      state.categories.push(action.payload);
-      // console.log("Checking createCateg payload", action.payload)
-      // console.log("Checking state categories",current(state.categories))
-      // const categIndex = action.payload.categIndex;
-      // const todoIndex = action.payload.todoIndex;
-      // state.categories[categIndex].todos.splice(todoIndex, 1);
-    },
-    [createCategThunk.rejected]: (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload;
-    },
+    }, 
   },
 });
 
-export const { addMtyTodo, onChangeTodo } = categTodoSlice.actions;
+export const { addMtyTodo, delMtyTodo,onChangeTodo } = categTodoSlice.actions;
 export default categTodoSlice.reducer;
