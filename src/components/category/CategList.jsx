@@ -64,13 +64,17 @@ const CategoryContainer = styled.div`
   padding: 0 24px;
 `;
 
-const DoneCategory = styled.div``;
-
 const WorkingCategory = styled.div`
   margin: 10px 0 10px 0;
 `;
 
+const DoneCategory = styled.div`
+  margin-top: 80px;
+`;
+
 const TextWrap = styled.div`
-  font-size: ${({ theme }) => theme.fontSizes.lg};
-  color: #d6d6d6;
+  font-weight: 600;
+  // font-size: ${({ theme }) => theme.fontSizes.lg};
+  font-size: 14px;
+  color: #b1bdcf;
 `;

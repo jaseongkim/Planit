@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { back_arrow } from "../../static/images";
-import { FiPlusCircle } from "react-icons/fi";
+import { prev_icon } from "../../static/images";
+import {FiPlus} from "react-icons/fi";
 
 export default function CategoryHeader() {
   const navigate = useNavigate();
@@ -12,36 +12,47 @@ export default function CategoryHeader() {
 
   return (
     <HeaderWrap>
-      <div onClick={() => navigate(-1)}>
-        <img src={back_arrow} alt="뒤" />
-      </div>
-      <NicknameDiv>카테고리</NicknameDiv>
+      <HeaderTitle>
+        <button onClick={() => navigate(-1)}>
+          <img src={prev_icon} alt="뒤" />
+        </button>
+        <NicknameDiv>카테고리</NicknameDiv>
+      </HeaderTitle>
       <PlusBtn onClick={onPlusHandler}>
-        <FiPlusCircle />
+        <FiPlus />
       </PlusBtn>
     </HeaderWrap>
   );
 }
 
 const HeaderWrap = styled.nav`
-  width: 100%;
-  height: 4em;
-  background-color: #fff;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #e4e4e4;
-  border: 3px solid red;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  color: #fff;
+  padding: 40px 20px 10px;
+  background: #17171b;
+`;
+
+const HeaderTitle = styled.div`
+  display: flex;
+  align-items: center;
+
+  button {
+    background: transparent;
+    border: none;
+  }
 `;
 
 const NicknameDiv = styled.div`
-  text-align: center;
-  padding: 0 0 0 12px;
-  font-size: 20px;
   font-weight: 500;
+  font-size: 24px;
+  margin-left: 20px;
 `;
 
 const PlusBtn = styled.div`
-  margin-right: 10px;
   font-size: 20px;
 `;
