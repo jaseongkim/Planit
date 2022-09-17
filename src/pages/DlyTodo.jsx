@@ -202,7 +202,7 @@ const DlyTodo = () => {
 
       <CustomSheet isOpen={isOpen} onClose={() => setOpen(false)}>
         <CustomSheet.Container>
-          {/* <CustomSheet.Header /> */}
+          <CustomSheet.Header />
           <CustomSheet.Content>
             <ContentHeader>
               <div className="todo-edit-title-wrap">

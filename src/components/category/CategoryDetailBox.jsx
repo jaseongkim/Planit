@@ -61,43 +61,83 @@ export default function CategoryDetailBox() {
 
   return (
     <CategoryContainer>
-      <InputBox>
-        <input
-          type={"text"}
-          name="categoryName"
-          value={category.categoryName}
-          onChange={onChangeHandler}
-        />
-      </InputBox>
-      {categoriesDetail === undefined ? null : <button onClick={onDeleteHandler}>삭제하기</button>}
-      {category.categoryName === "" ? <button onClick={onDeleteHandler} disabled>완료</button> :<button onClick={onConfirmHandler}>완료</button>}
+      <CategoryWrap>
+        <InputBox>
+          <input
+            type={"text"}
+            name="categoryName"
+            value={category.categoryName}
+            onChange={onChangeHandler}
+          />
+        </InputBox>
+          <CategoryOption>
+
+              {categoriesDetail === undefined ? null : (
+                <div>
+                  <button onClick={onDeleteHandler}>카테고리 삭제하기</button>
+                </div>
+              )}
+          </CategoryOption>
+      </CategoryWrap>
+      {category.categoryName === "" ? <CategorySubmit onClick={onConfirmHandler} disabled>확인</CategorySubmit> :<CategorySubmit onClick={onConfirmHandler}>확인</CategorySubmit>}
     </CategoryContainer>
   );
 }
 
 const CategoryContainer = styled.div`
-  border: 3px solid green;
-  margin-top: 1.7em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
   height: 100%;
-  position: relative;
+  padding: 0 20px;
+`;
 
-  button:last-child {
-    position: absolute;
-    bottom: 10%;
-    left: 50%;
+const CategoryWrap = styled.div`
+  width: 100%;
+`;
+
+const CategoryOption = styled.div`
+  margin-top: 50px;
+
+  button {
+    width: 100%;
+    text-align: left;
+    font-weight: 600;
+    font-size: 16px;
+    color: #b1bdcf;
+    background: transparent;
+    padding: 14px 0;
+    border: none;
   }
 `;
 
 const InputBox = styled.div`
-  margin-top: 6em;
-  width: 20.8em;
-  height: 4.3em;
-  border: none;
-  margin: 0 auto;
-
-  input {
+  width: 100%;
+  
+  input[type="text"] {
     width: 100%;
-    height: 100%;
+    height: 50px;
+    font-weight: 400;
+    font-size: 18px;
+    color: #fff;
+    padding: 0 5px;
+    background: transparent;
     border: none;
+    border-bottom: 1px solid #e3e3e3;
+  }
+`;
+
+const CategorySubmit = styled.button`
+  width: 100%;
+  height: 52px;
+  font-size: 20px;
+  color: #fff;
+  background: #3185f3;
+  border: none;
+  border-radius: 8px;
+  
+  &::disabled {
+    background: #8b98ac;
   }
 `;
