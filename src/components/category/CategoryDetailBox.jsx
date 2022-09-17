@@ -40,17 +40,21 @@ export default function CategoryDetailBox() {
 
   const onDeleteHandler = () => {
     dispatch(deleteCategThunk(id));
-    navigate(-1);
+    navigate("/category")
+    // window.location.replace("/category");
   };
+
 
   const onConfirmHandler = () => {
     if (categoriesDetail === undefined) {
       dispatch(createCategThunk(category));
-      navigate(-1);
+      navigate("/category")
+      // window.location.replace("/category");
     } else {
       dispatch(updateCategThunk({ id, category }));
       setCategory(category);
-      window.location.replace("/category");
+      navigate("/category")
+      // window.location.replace("/category");
       // navigate("/category");
     }
   };
@@ -65,10 +69,8 @@ export default function CategoryDetailBox() {
           onChange={onChangeHandler}
         />
       </InputBox>
-      {categoriesDetail === undefined ? null : (
-        <button onClick={onDeleteHandler}>삭제하기</button>
-      )}
-      <button onClick={onConfirmHandler}>완료</button>
+      {categoriesDetail === undefined ? null : <button onClick={onDeleteHandler}>삭제하기</button>}
+      {category.categoryName === "" ? <button onClick={onDeleteHandler} disabled>완료</button> :<button onClick={onConfirmHandler}>완료</button>}
     </CategoryContainer>
   );
 }

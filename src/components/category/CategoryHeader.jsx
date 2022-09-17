@@ -2,9 +2,14 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { back_arrow } from "../../static/images";
 import { FiPlusCircle } from "react-icons/fi";
+import { useParams } from "react-router-dom";
 
 export default function CategoryHeader() {
   const navigate = useNavigate();
+
+  let { id } = useParams();
+
+  console.log("Check id", id);
 
   const onPlusHandler = () => {
     navigate(`/categorydetail/0`);
@@ -16,9 +21,11 @@ export default function CategoryHeader() {
         <img src={back_arrow} alt="뒤" />
       </div>
       <NicknameDiv>카테고리</NicknameDiv>
-      <PlusBtn onClick={onPlusHandler}>
-        <FiPlusCircle />
-      </PlusBtn>
+      {id === undefined ? 
+        <PlusBtn onClick={onPlusHandler}>
+          <FiPlusCircle />
+        </PlusBtn>
+      : null}
     </HeaderWrap>
   );
 }
@@ -36,7 +43,8 @@ const HeaderWrap = styled.nav`
 
 const NicknameDiv = styled.div`
   text-align: center;
-  padding: 0 0 0 12px;
+  /* padding: 0 0 0 12px; */
+  margin: 0 auto;
   font-size: 20px;
   font-weight: 500;
 `;

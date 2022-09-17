@@ -2,9 +2,12 @@ import React, {useState} from "react";
 import { checkEmail, createMemberDB } from "../redux/modules/memberSlice";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { BrowserView, MobileView, isBrowser, isMobile, isLegacyEdge } from 'react-device-detect';
+import { BrowserView, MobileView } from 'react-device-detect';
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
+
+const navigate = useNavigate();
 
 // Redux
 const dispatch = useDispatch();
@@ -25,6 +28,8 @@ const onSignupHandler = (e) => {
         nickname: signUp.nickname,
         password: signUp.password,
       }))
+      alert("성공적으로 회원가입되셨습니다!")
+      navigate("/")
 }
 
 //Updating userInfo to Hook

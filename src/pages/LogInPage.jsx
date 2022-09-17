@@ -5,9 +5,11 @@ import KakaoLogin from "../components/KakaoLogin";
 import Button from "../element/Button";
 import LoginInput from "../element/LoginInput";
 import { loginMemberDB } from "../redux/modules/memberSlice";
-import { apis } from "../shared/api";
+import { useNavigate } from "react-router-dom";
+
 
 const LogInPage = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const initialState = {
@@ -24,6 +26,9 @@ const LogInPage = () => {
 
   const onLoginHandler = () => {
     dispatch(loginMemberDB(member));
+    console.log("로그인이 완료되셨습니다!")
+    navigate("/dlytodo")
+
   };
 
   const onKeyUp = (e) => {
