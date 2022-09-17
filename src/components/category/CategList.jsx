@@ -15,12 +15,12 @@ const CategList = () => {
 
   // useEffect
   useEffect(() => {
-    // let a = setTimeout(() => {
+    let a = setTimeout(() => {
     dispatch(getCategThunk("2022-09-05"));
-    // }, 300);
-    // return () => {
-    //   clearTimeout(a);
-    // };
+    }, 50);
+    return () => {
+      clearTimeout(a);
+    };
   }, [dispatch]);
 
   return (

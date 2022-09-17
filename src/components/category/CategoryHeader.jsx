@@ -2,9 +2,15 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { prev_icon } from "../../static/images";
 import {FiPlus} from "react-icons/fi";
+import { useParams } from "react-router-dom";
+
 
 export default function CategoryHeader() {
   const navigate = useNavigate();
+
+  let { id } = useParams();
+
+  console.log("Check id", id);
 
   const onPlusHandler = () => {
     navigate(`/categorydetail/0`);
@@ -18,9 +24,11 @@ export default function CategoryHeader() {
         </button>
         <NicknameDiv>카테고리</NicknameDiv>
       </HeaderTitle>
-      <PlusBtn onClick={onPlusHandler}>
-        <FiPlus />
-      </PlusBtn>
+      {id === undefined ? 
+        <PlusBtn onClick={onPlusHandler}>
+          <FiPlus />
+        </PlusBtn>
+      : null}
     </HeaderWrap>
   );
 }

@@ -19,6 +19,7 @@ const TodoList = ({
   clickedTodo,
   selectedDate,
 }) => {
+  
   // Redux : dispatch
   const dispatch = useDispatch();
 
@@ -48,8 +49,6 @@ const TodoList = ({
         categIndex: categIndex,
       };
       dispatch(delMtyTodo(mtyTodo));
-
-      alert("will be deleted!");
     } else {
       const addTodoObj = {
         categId: categId,

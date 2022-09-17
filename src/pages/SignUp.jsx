@@ -3,11 +3,11 @@ import { checkEmail, createMemberDB } from "../redux/modules/memberSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { BrowserView, MobileView, isBrowser, isMobile, isLegacyEdge } from 'react-device-detect';
 import { prev_icon } from "../static/images";
 
 const SignUp = () => {
 
+  const navigate = useNavigate();
   // Redux
   const dispatch = useDispatch();
 
@@ -27,6 +27,8 @@ const SignUp = () => {
           nickname: signUp.nickname,
           password: signUp.password,
         }))
+      alert("성공적으로 회원가입되셨습니다!")
+      navigate("/")
   }
 
   //Updating userInfo to Hook
@@ -44,8 +46,6 @@ const SignUp = () => {
 
     alert("Checking double Check Email")
   }
-
-  const navigate = useNavigate();
 
   return (
     <SubContainer>

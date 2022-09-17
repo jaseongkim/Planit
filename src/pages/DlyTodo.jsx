@@ -215,7 +215,12 @@ const DlyTodo = () => {
                   <MdModeEdit />
                 </button>
               </div>
-              <button className="todo-edit-submit">확인</button>
+              <button 
+                className="todo-edit-submit"
+                onClick={() => setOpen(false)}
+              >
+                확인
+              </button>
             </ContentHeader>
             <textarea 
               name="memo"
