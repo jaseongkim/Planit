@@ -4,21 +4,31 @@ export default function Circle(props) {
   const {
     _onClick,
     children,
-    margin,
+    // margin,
+    // width,
+    // padding,
+    // borderRadius,
+    // textAlign,
+    // height,
+    display,
     width,
-    padding,
-    borderRadius,
-    textAlign,
     height,
+    backgroundColor,
+    borderRadius,
   } = props;
 
   const styles = {
-    margin: margin,
+    // margin: margin,
+    // width: width,
+    // height: height,
+    // padding: padding,
+    // borderRadius: borderRadius,
+    // textAlign: textAlign,
+    display: display,
     width: width,
     height: height,
-    padding: padding,
-    borderRadius: borderRadius,
-    textAlign: textAlign,
+    backgroundColor: backgroundColor,
+    borderRadius: borderRadius
   };
 
   return (
@@ -33,23 +43,24 @@ export default function Circle(props) {
 Circle.defaultProps = {
   children: null,
   _onClick: () => {},
-  margin: "0px",
-  width: "100%",
-  height: "0px",
-  padding: "0px",
-  borderRadius: "0px",
-  textAlign: "center",
-  // display: "flex",
-  // width: "100px",
-  // height: "100px",
-  // background-color: "green",
-  // border-radius: "50%",
+  // margin: "0px",
+  // width: "100%",
+  // height: "0px",
+  // padding: "0px",
+  // borderRadius: "0px",
+  // textAlign: "center",
+
+  display: "flex",
+  width: "100px",
+  height: "100px",
+  backgroundColor: "green",
+  borderRadius: "50%",
 };
 
-const ElCircle = styled.button`
+const ElCircle = styled.div`
+  display: ${(props) => props.display};
   width: ${(props) => props.width};
   height: ${(props) => props.height};
-  padding: ${(props) => props.padding};
-  margin: ${(props) => props.margin};
+  background-color: ${(props) => props.backgroundColor};
   border-radius: ${(props) => props.borderRadius};
 `;

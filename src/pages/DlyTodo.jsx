@@ -21,13 +21,16 @@ import Header from "../components/Header";
 import TodoList from "../components/TodoList";
 import BtmFitNavi from "../components/btmFitNaviBar/BtmFitNavi.jsx";
 
-// import Circle from "../element/Circle.jsx";
+// Element
+import Circle from "../element/Circle.jsx";
+
 // React-icons
 import {FiPlus} from "react-icons/fi";
 import {MdModeEdit} from "react-icons/md";
 import { achieved_icon, like_icon_on } from "../static/images";
 
 const DlyTodo = () => {
+
   // Redux : dispatch
   const dispatch = useDispatch();
 
@@ -160,10 +163,10 @@ const DlyTodo = () => {
 
   return (
     <>
-      <BtmFitNavi/>
+      <BtmFitNavi name='dlytodo'/>
       <Header />
+      <Circle></Circle>
       <CalendarWrap>
-        {/* <Circle></Circle> */}
         <TodoStatus>
             <div>
               <img src={achieved_icon} alt="achieved icon" />
