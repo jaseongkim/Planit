@@ -19,10 +19,13 @@ import styled from "styled-components";
 // React Component
 import Header from "../components/Header";
 import TodoList from "../components/TodoList";
+import BtmFitNavi from "../components/btmFitNaviBar/BtmFitNavi.jsx";
+
 // import Circle from "../element/Circle.jsx";
+// React-icons
 import {FiPlus} from "react-icons/fi";
 import {MdModeEdit} from "react-icons/md";
-import { achieved_icon, like_icon_on, like_icon_off } from "../static/images";
+import { achieved_icon, like_icon_on } from "../static/images";
 
 const DlyTodo = () => {
   // Redux : dispatch
@@ -157,6 +160,7 @@ const DlyTodo = () => {
 
   return (
     <>
+      <BtmFitNavi/>
       <Header />
       <CalendarWrap>
         {/* <Circle></Circle> */}
@@ -167,7 +171,7 @@ const DlyTodo = () => {
             </div>
             <div>
               <img src={like_icon_on} alt="like icon on" />
-              <span>2</span>
+              <span>0</span>
             </div>
         </TodoStatus>
         <Calendar 
