@@ -1,5 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { apis } from "../../shared/api";
+import { useNavigate } from "react-router-dom";
+
+
 
 // Getting all categories & todos from server
 // If there is no todolist, then createTodoList
@@ -61,8 +64,13 @@ export const updateCategThunk = createAsyncThunk(
         payload.id,
         payload.category
       );
-      console.log(data);
-      // return thunkAPI.fulfillWithValue(data.data);
+      const navigate = useNavigate();
+      // console.log(data);
+      // alert("Hello")
+      return (
+        console.log("data")
+      )
+      // thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       // return thunkAPI.rejectWithValue(error)
     }

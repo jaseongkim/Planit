@@ -40,7 +40,7 @@ export default function CategoryDetailBox() {
 
   const onDeleteHandler = () => {
     dispatch(deleteCategThunk(id));
-    navigate("/category")
+    // navigate("/category")
     // window.location.replace("/category");
   };
 
@@ -48,12 +48,12 @@ export default function CategoryDetailBox() {
   const onConfirmHandler = () => {
     if (categoriesDetail === undefined) {
       dispatch(createCategThunk(category));
-      navigate("/category")
+      // navigate("/category")
       // window.location.replace("/category");
     } else {
       dispatch(updateCategThunk({ id, category }));
       setCategory(category);
-      navigate("/category")
+      // navigate("/category")
       // window.location.replace("/category");
       // navigate("/category");
     }

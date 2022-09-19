@@ -20,10 +20,8 @@ import styled from "styled-components";
 import Header from "../components/Header";
 import TodoList from "../components/TodoList";
 import BtmFitNavi from "../components/btmFitNaviBar/BtmFitNavi.jsx";
-
 // Element
 import Circle from "../element/Circle.jsx";
-
 // React-icons
 import {FiPlus} from "react-icons/fi";
 import {MdModeEdit} from "react-icons/md";
@@ -163,9 +161,9 @@ const DlyTodo = () => {
 
   return (
     <>
-      <BtmFitNavi name='dlytodo'/>
+      
       <Header />
-      <Circle></Circle>
+
       <CalendarWrap>
         <TodoStatus>
             <div>
@@ -177,11 +175,12 @@ const DlyTodo = () => {
               <span>0</span>
             </div>
         </TodoStatus>
-        <Calendar 
+        {/* <Calendar 
           onChange={setDateValue} 
           value={dateValue}
           formatDay={(locale, date) => moment(date).format("DD")}
-        />
+        /> */}
+              <Circle>helo</Circle>
       </CalendarWrap>
       <Section>
         {categories.map((input, index) => {
@@ -257,6 +256,7 @@ const DlyTodo = () => {
 
         <Sheet.Backdrop />
       </CustomSheet>
+      <BtmFitNavi name='dlytodo'/>
     </>
   );
 };
