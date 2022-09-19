@@ -7,7 +7,7 @@ import {IoClose} from "react-icons/io5";
 const Burger = ({ open, setOpen }) => {
   return (
     <StyledBurger open={open} onClick={() => setOpen(!open)}>
-      {open ? <IoClose /> : <img src={burger_icon} alt="burger icon" />}
+      {open ? <IoClose style={{color: "#fff"}} /> : <img src={burger_icon} alt="burger icon" />}
     </StyledBurger>
   )
 }
