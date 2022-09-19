@@ -1,51 +1,104 @@
-import React, {useState} from "react";
-import { checkEmail, createMemberDB } from "../redux/modules/memberSlice";
+import React, { useState } from "react";
+import { createMemberDB } from "../redux/modules/memberSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { prev_icon } from "../static/images";
+import { apis } from "../shared/api";
 
 const SignUp = () => {
-
   const navigate = useNavigate();
   // Redux
   const dispatch = useDispatch();
 
+  const [btnState, setBtnState] = useState(false);
+  const [emailCheck, setEmailCheck] = useState(false);
+
   const [signUp, setSignUp] = useState({
-      email: "",
-      nickname: "",
-      password: "",
-      passwordConfirm: "",
-  })
+    email: "",
+    nickname: "",
+    password: "",
+    passwordConfirm: "",
+  });
 
   // Submitting userInfo to server
   const onSignupHandler = (e) => {
-      e.preventDefault();
-      
-      dispatch( createMemberDB({
-          email: signUp.email,
-          nickname: signUp.nickname,
-          password: signUp.password,
-        }))
-      alert("성공적으로 회원가입되셨습니다!")
-      navigate("/")
-  }
+    e.preventDefault();
+
+    if (emailCheck === false) {
+      alert("이메일 중복확인 버튼을 눌러주세요");
+      return;
+    }
+
+    if (signUp.password !== signUp.passwordConfirm) {
+      alert("비밀번호를 다시 확인해주세요");
+      setSignUp({
+        email: signUp.email,
+        nickname: signUp.nickname,
+        password: "",
+        passwordConfirm: "",
+      });
+      setBtnState(false);
+      return;
+    }
+
+    dispatch(
+      createMemberDB({
+        email: signUp.email,
+        nickname: signUp.nickname,
+        password: signUp.password,
+      })
+    );
+  };
 
   //Updating userInfo to Hook
   const onChangeHandler = (e) => {
-      const { name, value } = e.target;
-      setSignUp({ ...signUp, [name]: value });
+    const { name, value } = e.target;
+    setSignUp({ ...signUp, [name]: value });
 
-      console.log(signUp)
-  }
+    if (
+      signUp.email &&
+      signUp.nickname &&
+      signUp.password &&
+      signUp.passwordConfirm.length > 0
+    ) {
+      setBtnState(true);
+    } else {
+      setBtnState(false);
+    }
+  };
 
+  //Email Double-Check
   const doubleCheckEmail = () => {
-    dispatch( checkEmail({
-      email: signUp.email
-    }))
+    let regExp =
+      /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+    if (regExp.test(signUp.email) === false) {
+      alert("이메일 형식을 맞춰주세요");
+      setSignUp({
+        email: "",
+      });
+      return;
+    }
 
-    alert("Checking double Check Email")
-  }
+    apis
+      .checkEmail({ email: signUp.email })
+      .then((response) => {
+        console.log(response);
+        if (response.data.success === true) {
+          alert("사용 가능한 아이디입니다.");
+          setEmailCheck(true);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        if (error.response.status === 400) {
+          alert(error.response.data.message);
+          setSignUp({
+            email: "",
+          });
+        }
+      });
+  };
 
   return (
     <SubContainer>
@@ -63,61 +116,69 @@ const SignUp = () => {
             <SignUpItem>
               <span className="signup-item-title">
                 아이디
-                <button type="button" onClick={doubleCheckEmail}>중복확인</button>
+                <button type="button" onClick={doubleCheckEmail}>
+                  중복확인
+                </button>
               </span>
               <SignUpInputBox>
-                <input 
+                <input
                   type="text"
-                  placeholder="이메일을 입력하세요" 
+                  placeholder="이메일을 입력하세요"
                   name="email"
-                  value={signUp.email}
+                  value={signUp.email || ""}
                   onChange={onChangeHandler}
                   required
                 />
-                <span>사용할 수 없는 아이디 입니다.</span>
+                {emailCheck ? (
+                  <span>사용할 수 있는 아이디 입니다.</span>
+                ) : (
+                  <span>사용할 수 없는 아이디 입니다.</span>
+                )}
               </SignUpInputBox>
             </SignUpItem>
             <SignUpItem>
               <span className="signup-item-title">닉네임</span>
               <SignUpInputBox>
-                <input 
-                  type="text" 
-                  placeholder="닉네임을 입력해주세요" 
+                <input
+                  type="text"
+                  placeholder="닉네임을 입력해주세요"
                   name="nickname"
-                  value={signUp.nickname}
+                  value={signUp.nickname || ""}
                   onChange={onChangeHandler}
                   required
                 />
               </SignUpInputBox>
-            </SignUpItem>  
+            </SignUpItem>
             <SignUpItem>
               <span className="signup-item-title">비밀번호</span>
               <SignUpInputBox>
                 <input
-                  type="password" 
-                  placeholder="비밀번호를 입력해주세요" 
+                  type="password"
+                  placeholder="비밀번호를 입력해주세요"
                   name="password"
-                  value={signUp.password}
+                  value={signUp.password || ""}
                   onChange={onChangeHandler}
-                  required 
+                  required
                 />
               </SignUpInputBox>
-            </SignUpItem>     
+            </SignUpItem>
             <SignUpItem>
               <span className="signup-item-title">비밀번호 확인</span>
               <SignUpInputBox>
                 <input
-                  type="password" 
-                  placeholder="비밀번호를 다시 입력해주세요" 
+                  type="password"
+                  placeholder="비밀번호를 다시 입력해주세요"
                   name="passwordConfirm"
-                  value={signUp.passwordConfirm}
+                  value={signUp.passwordConfirm || ""}
                   onChange={onChangeHandler}
-                  required   
+                  required
                 />
               </SignUpInputBox>
             </SignUpItem>
           </SignUpList>
-          <SignUpSubmit type="submit">확인</SignUpSubmit> 
+          <SignUpSubmit type="submit" disabled={btnState ? false : true}>
+            확인
+          </SignUpSubmit>
         </form>
       </SignUpCon>
     </SubContainer>
@@ -241,8 +302,13 @@ const SignUpSubmit = styled.button`
   background: #3185f3;
   border: none;
   border-radius: 8px;
+  transition: 0.2s;
 
-  &::disbled {
-    background: #8b98ac;
+  &:active {
+    opacity: 0.7;
+  }
+
+  &:disabled {
+    opacity: 0.3;
   }
 `;
