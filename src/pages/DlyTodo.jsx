@@ -19,12 +19,16 @@ import styled from "styled-components";
 // React Component
 import Header from "../components/Header";
 import TodoList from "../components/TodoList";
-// import Circle from "../element/Circle.jsx";
+import BtmFitNavi from "../components/btmFitNaviBar/BtmFitNavi.jsx";
+// Element
+import Circle from "../element/Circle.jsx";
+// React-icons
 import {FiPlus} from "react-icons/fi";
 import {MdModeEdit} from "react-icons/md";
-import { achieved_icon, like_icon_on, like_icon_off } from "../static/images";
+import { achieved_icon, like_icon_on } from "../static/images";
 
 const DlyTodo = () => {
+
   // Redux : dispatch
   const dispatch = useDispatch();
 
@@ -157,9 +161,10 @@ const DlyTodo = () => {
 
   return (
     <>
+      
       <Header />
+
       <CalendarWrap>
-        {/* <Circle></Circle> */}
         <TodoStatus>
             <div>
               <img src={achieved_icon} alt="achieved icon" />
@@ -167,14 +172,15 @@ const DlyTodo = () => {
             </div>
             <div>
               <img src={like_icon_on} alt="like icon on" />
-              <span>2</span>
+              <span>0</span>
             </div>
         </TodoStatus>
-        <Calendar 
+        {/* <Calendar 
           onChange={setDateValue} 
           value={dateValue}
           formatDay={(locale, date) => moment(date).format("DD")}
-        />
+        /> */}
+              <Circle>helo</Circle>
       </CalendarWrap>
       <Section>
         {categories.map((input, index) => {
@@ -250,6 +256,7 @@ const DlyTodo = () => {
 
         <Sheet.Backdrop />
       </CustomSheet>
+      <BtmFitNavi name='dlytodo'/>
     </>
   );
 };

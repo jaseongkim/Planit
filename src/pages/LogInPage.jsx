@@ -27,7 +27,6 @@ const LogInPage = () => {
   const onLoginHandler = () => {
     dispatch(loginMemberDB(member));
     console.log("로그인이 완료되셨습니다!")
-    navigate("/dlytodo")
 
   };
 
