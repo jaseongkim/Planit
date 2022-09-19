@@ -11,34 +11,15 @@ export const createMemberDB = (data) => {
         if (response.data.success === false) {
           return window.alert(response.data.error.message);
         } else {
-          return window.location.replace("/");
+          return (
+            window.location.replace("/"),
+            alert("성공적으로 회원가입되셨습니다!")
+          );
         }
       })
       .catch((error) => {
         if (error.response.status === 400) {
           window.alert(error.response.data.message);
-        }
-      });
-  };
-};
-
-//Email Double-Check
-export const checkEmail = (data) => {
-  return async function () {
-    await apis
-      .checkEmail(data)
-      .then((response) => {
-        console.log("Hello ", response);
-        if (response.data.success === false) {
-          return window.alert(response.data.error.message);
-        } else {
-          return window.alert("사용이 가능한 아이디입니다");
-        }
-      })
-      .catch((error) => {
-        if (error.response.status === 400) {
-          window.alert(error.response.data.message);
-          console.log("Hello");
         }
       });
   };
@@ -63,14 +44,13 @@ export const loginMemberDB = (data) => {
               response.headers.accesstokenexpiretime
             ),
             localStorage.setItem("nickname", response.data.data.nickname),
-            window.location.replace('/dlytodo')
+            window.location.replace("/dlytodo")
           );
         }
       })
       .catch((error) => {
         if (error.response.status === 404) {
           console.log(error);
-          window.alert("hi");
         }
       });
   };
