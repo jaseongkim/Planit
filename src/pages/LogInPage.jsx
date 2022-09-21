@@ -3,13 +3,9 @@ import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import KakaoLogin from "../components/KakaoLogin";
 import Button from "../element/Button";
-import LoginInput from "../element/LoginInput";
 import { loginMemberDB } from "../redux/modules/memberSlice";
-import { useNavigate } from "react-router-dom";
-
 
 const LogInPage = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const initialState = {
@@ -26,8 +22,7 @@ const LogInPage = () => {
 
   const onLoginHandler = () => {
     dispatch(loginMemberDB(member));
-    console.log("로그인이 완료되셨습니다!")
-
+    console.log("로그인이 완료되셨습니다!");
   };
 
   const onKeyUp = (e) => {
@@ -63,9 +58,7 @@ const LogInPage = () => {
             </div>
           </LoginInputBox>
           <LoginBtn>
-            <Button _onClick={onLoginHandler}>
-              로그인
-            </Button>
+            <Button _onClick={onLoginHandler}>로그인</Button>
             <LoginNav>
               <a href="/signup">회원가입</a>
             </LoginNav>
