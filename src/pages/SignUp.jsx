@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { prev_icon } from "../static/images";
 import { apis } from "../shared/api";
+import { IoIosClose } from "react-icons/io";
+import { IoIosArrowDown } from "react-icons/io";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -13,6 +15,12 @@ const SignUp = () => {
 
   const [btnState, setBtnState] = useState(false);
   const [emailCheck, setEmailCheck] = useState(false);
+  const [passwordCheck, setPasswordCheck] = useState(false);
+  const [passwordLengthCheck, setPasswordLengthCheck] = useState(false);
+  const [passwordConfirmMessage, setPasswordConfirmMessage] = useState(false);
+  const [nickNameCheck, setnickNameCheck] = useState(false);
+  const [nickLengthCheck, setNickLengthCheck] = useState(false);
+  const [emailMessage, setEmailMessage] = useState(false);
 
   const [signUp, setSignUp] = useState({
     email: "",
@@ -51,28 +59,87 @@ const SignUp = () => {
     );
   };
 
+  const onEmailChange = (e) => {
+    const { name, value } = e.target;
+    setSignUp({ ...signUp, [name]: value });
+
+    console.log(signUp.email);
+
+    if (signUp.email.length < 1) {
+      setEmailMessage(false);
+    }
+  };
+
+  const onNickNameChange = (e) => {
+    const { name, value } = e.target;
+    setSignUp({ ...signUp, [name]: value });
+  };
+
+  const onPasswordChange = (e) => {
+    const { name, value } = e.target;
+    setSignUp({ ...signUp, [name]: value });
+
+    let passwordExp = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,20}$/i;
+    if (passwordExp.test(signUp.password) === false) {
+      setPasswordCheck(false);
+    } else {
+      setPasswordCheck(true);
+    }
+
+    if (signUp.password.length >= 10) {
+      setPasswordLengthCheck(true);
+    } else {
+      setPasswordLengthCheck(false);
+    }
+  };
+
+  const onPasswordConfirmChange = (e) => {
+    const { name, value } = e.target;
+    setSignUp({ ...signUp, [name]: value });
+
+    if (signUp.password === signUp.passwordConfirm) {
+      setPasswordConfirmMessage(true);
+    } else {
+      setPasswordConfirmMessage(false);
+    }
+  };
+
   //Updating userInfo to Hook
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
     setSignUp({ ...signUp, [name]: value });
 
-    if (
-      signUp.email &&
-      signUp.nickname &&
-      signUp.password &&
-      signUp.passwordConfirm.length > 0
-    ) {
-      setBtnState(true);
-    } else {
-      setBtnState(false);
-    }
+    // if (
+    //   signUp.email &&
+    //   signUp.nickname &&
+    //   signUp.password &&
+    //   signUp.passwordConfirm.length > 0
+    // ) {
+    //   setBtnState(true);
+    // } else {
+    //   setBtnState(false);
+    // }
+    // let nickNameExp =
+    //   /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+    // if (nickNameExp.test(signUp.nickname) === false) {
+    //   console.log("뭐지");
+    // } else {
+    //   console.log("닉네임 통과");
+    // }
+
+    // let passwordExp = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/i;
+    // if (passwordExp.test(signUp.password) === false) {
+    //   console.log("비밀번호 불통");
+    // } else {
+    //   console.log("비밀번호 통과");
+    // }
   };
 
   //Email Double-Check
   const doubleCheckEmail = () => {
-    let regExp =
+    let emailExp =
       /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
-    if (regExp.test(signUp.email) === false) {
+    if (emailExp.test(signUp.email) === false) {
       alert("이메일 형식을 맞춰주세요");
       setSignUp({
         email: "",
@@ -87,15 +154,14 @@ const SignUp = () => {
         if (response.data.success === true) {
           alert("사용 가능한 아이디입니다.");
           setEmailCheck(true);
+          setEmailMessage(true);
         }
       })
       .catch((error) => {
         console.log(error);
         if (error.response.status === 400) {
           alert(error.response.data.message);
-          setSignUp({
-            email: "",
-          });
+          setEmailMessage(true);
         }
       });
   };
@@ -126,14 +192,29 @@ const SignUp = () => {
                   placeholder="이메일을 입력하세요"
                   name="email"
                   value={signUp.email || ""}
-                  onChange={onChangeHandler}
-                  required
+                  onChange={onEmailChange}
                 />
-                {emailCheck ? (
-                  <span>사용할 수 있는 아이디 입니다.</span>
-                ) : (
-                  <span>사용할 수 없는 아이디 입니다.</span>
-                )}
+                <div
+                  style={{
+                    visibility: `${emailMessage ? "visible" : "hidden"}`,
+                  }}
+                >
+                  {emailCheck ? (
+                    <span style={{ color: "green" }}>
+                      <IoIosArrowDown style={{ marginRight: "3px" }} />
+                      사용 가능한 아이디 입니다.
+                    </span>
+                  ) : (
+                    <span
+                      style={{
+                        color: "red",
+                      }}
+                    >
+                      <IoIosClose style={{ marginRight: "3px" }} />
+                      사용 할 수 없는 아이디 입니다.
+                    </span>
+                  )}
+                </div>
               </SignUpInputBox>
             </SignUpItem>
             <SignUpItem>
@@ -144,9 +225,16 @@ const SignUp = () => {
                   placeholder="닉네임을 입력해주세요"
                   name="nickname"
                   value={signUp.nickname || ""}
-                  onChange={onChangeHandler}
-                  required
+                  onChange={onNickNameChange}
                 />
+                <span className="signup-item1" style={{ color: "gray" }}>
+                  <IoIosArrowDown style={{ marginRight: "3px" }} />
+                  한글/영문/숫자 사용
+                </span>
+                <span className="signup-item2" style={{ color: "gray" }}>
+                  <IoIosArrowDown style={{ marginRight: "3px" }} />
+                  2-9자 사용
+                </span>
               </SignUpInputBox>
             </SignUpItem>
             <SignUpItem>
@@ -157,9 +245,31 @@ const SignUp = () => {
                   placeholder="비밀번호를 입력해주세요"
                   name="password"
                   value={signUp.password || ""}
-                  onChange={onChangeHandler}
-                  required
+                  onChange={onPasswordChange}
+                  autoComplete="off"
                 />
+                {passwordCheck ? (
+                  <span className="signup-item1" style={{ color: "green" }}>
+                    <IoIosArrowDown style={{ marginRight: "3px" }} />
+                    영문/숫자/특수문자 중 2종류 이상 사용
+                  </span>
+                ) : (
+                  <span className="signup-item1" style={{ color: "gray" }}>
+                    <IoIosArrowDown style={{ marginRight: "3px" }} />
+                    영문/숫자/특수문자 중 2종류 이상 사용
+                  </span>
+                )}
+                {passwordLengthCheck ? (
+                  <span className="signup-item2" style={{ color: "green" }}>
+                    <IoIosArrowDown style={{ marginRight: "3px" }} />
+                    10자 이상으로 사용
+                  </span>
+                ) : (
+                  <span className="signup-item2" style={{ color: "gray" }}>
+                    <IoIosArrowDown style={{ marginRight: "3px" }} />
+                    10자 이상으로 사용
+                  </span>
+                )}
               </SignUpInputBox>
             </SignUpItem>
             <SignUpItem>
@@ -170,9 +280,26 @@ const SignUp = () => {
                   placeholder="비밀번호를 다시 입력해주세요"
                   name="passwordConfirm"
                   value={signUp.passwordConfirm || ""}
-                  onChange={onChangeHandler}
-                  required
+                  onChange={onPasswordConfirmChange}
+                  autoComplete="off"
                 />
+                <div
+                  style={{
+                    visibility: `${btnState ? "visible" : "visible"}`,
+                  }}
+                >
+                  {passwordConfirmMessage ? (
+                    <span style={{ color: "green" }}>
+                      <IoIosArrowDown style={{ marginRight: "3px" }} />
+                      비밀번호가 일치합니다.
+                    </span>
+                  ) : (
+                    <span style={{ color: "red" }}>
+                      <IoIosArrowDown style={{ marginRight: "3px" }} />
+                      비밀번호가 일치하지 않습니다.
+                    </span>
+                  )}
+                </div>
               </SignUpInputBox>
             </SignUpItem>
           </SignUpList>
@@ -289,6 +416,21 @@ const SignUpInputBox = styled.div`
     display: block;
     position: absolute;
     bottom: -30px;
+    width: 100%;
+    font-size: 12px;
+  }
+
+  .signup-item1 {
+    display: block;
+    position: absolute;
+    bottom: -30px;
+    width: 100%;
+    font-size: 12px;
+  }
+  .signup-item2 {
+    display: block;
+    position: absolute;
+    bottom: -50px;
     width: 100%;
     font-size: 12px;
   }
