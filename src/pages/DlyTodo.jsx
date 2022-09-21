@@ -1,10 +1,10 @@
 // React
-import React, { useState, useEffect, useRef} from "react";
+import React, { useState, useEffect, useRef } from "react";
 // ModalSheet
 import Sheet from "react-modal-sheet";
 // Calendar
 import Calendar from "react-calendar";
-import moment from 'moment';
+import moment from "moment";
 import "react-calendar/dist/Calendar.css";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
@@ -20,15 +20,15 @@ import styled from "styled-components";
 import Header from "../components/Header";
 import TodoList from "../components/TodoList";
 import BtmFitNavi from "../components/btmFitNaviBar/BtmFitNavi.jsx";
+import DayMover from "../components/dateMover/DayMover.jsx";
 // Element
 import Circle from "../element/Circle.jsx";
 // React-icons
-import {FiPlus} from "react-icons/fi";
-import {MdModeEdit} from "react-icons/md";
+import { FiPlus } from "react-icons/fi";
+import { MdModeEdit } from "react-icons/md";
 import { achieved_icon, like_icon_on } from "../static/images";
 
 const DlyTodo = () => {
-
   // Redux : dispatch
   const dispatch = useDispatch();
 
@@ -49,6 +49,9 @@ const DlyTodo = () => {
     todoInfo: "",
     todoIndex: "",
   });
+
+  // Hook : Switching between the process planet & calendar
+  const [showCalendar, setShowCalendar] = useState(false);
 
   // UseRef : To get the selected date from the calendar
   const concatSelDate = useRef();
@@ -102,15 +105,18 @@ const DlyTodo = () => {
 
   // Adding a new todo
   const addTodo = ({ input, index }) => {
+    console.log("Checking input", input);
     if (input.todos[input.todos.length - 1]?.title !== "") {
       const mtyCateg = {
         categIndex: index,
         categReq: {
+          todoListId: input.categoryId + 1,
           title: "",
           dueDate: concatSelDate.current,
         },
       };
       dispatch(addMtyTodo(mtyCateg));
+      console.log("Checking here", document.getElementById("disable133"));
     }
   };
 
@@ -160,27 +166,38 @@ const DlyTodo = () => {
   };
 
   return (
-    <>
-      
-      <Header />
-
-      <CalendarWrap>
+    <StyDlyTodoCon>
+      <Header showCalendar={showCalendar} setShowCalendar={setShowCalendar} />
+      <StyHeader>
+        <DayMover />
         <TodoStatus>
-            <div>
-              <img src={achieved_icon} alt="achieved icon" />
-              <span>0</span>
-            </div>
-            <div>
-              <img src={like_icon_on} alt="like icon on" />
-              <span>0</span>
-            </div>
+          <div>
+            <img src={achieved_icon} alt="achieved icon" />
+            <span>0</span>
+          </div>
+          <div>
+            <img src={like_icon_on} alt="like icon on" />
+            <span>0</span>
+          </div>
         </TodoStatus>
+      </StyHeader>
+      <CalendarWrap>
+        {showCalendar ? (
+          <Calendar
+            onChange={setDateValue}
+            value={dateValue}
+            formatDay={(locale, date) => moment(date).format("DD")}
+          />
+        ) : (
+          <Circle>helo</Circle>
+        )}
         {/* <Calendar 
           onChange={setDateValue} 
           value={dateValue}
           formatDay={(locale, date) => moment(date).format("DD")}
         /> */}
-              <Circle>helo</Circle>
+        {/* {console.log("Checking showCalendar in DlyTodo", showCalendar)}
+              <Circle>helo</Circle> */}
       </CalendarWrap>
       <Section>
         {categories.map((input, index) => {
@@ -212,7 +229,9 @@ const DlyTodo = () => {
           <CustomSheet.Content>
             <ContentHeader>
               <div className="todo-edit-title-wrap">
-                <span className="todo-edit-title">{clickedTodo.todoInfo.title}</span>
+                <span className="todo-edit-title">
+                  {clickedTodo.todoInfo.title}
+                </span>
                 <button
                   onClick={() => {
                     clickEditTodo();
@@ -221,20 +240,19 @@ const DlyTodo = () => {
                   <MdModeEdit />
                 </button>
               </div>
-              <button 
+              <button
                 className="todo-edit-submit"
                 onClick={() => setOpen(false)}
               >
                 확인
               </button>
             </ContentHeader>
-            <textarea 
+            <textarea
               name="memo"
               value={clickedMemo}
               onChange={onChangeMemoHandler}
               onBlur={() => onCheckMemoOutFocus()}
-            >          
-              </textarea>
+            ></textarea>
             <ContentFooter>
               <button
                 onClick={() => {
@@ -256,16 +274,24 @@ const DlyTodo = () => {
 
         <Sheet.Backdrop />
       </CustomSheet>
-      <BtmFitNavi name='dlytodo'/>
-    </>
+      <BtmFitNavi name="dlytodo" />
+    </StyDlyTodoCon>
   );
 };
 
 export default DlyTodo;
 
+const StyDlyTodoCon = styled.div`
+  padding: 15px;
+`;
+const StyHeader = styled.div`
+  display: flex;
+  margin: 3% 0;
+`;
+
 const Section = styled.div`
   margin-top: 30px;
-  padding: 15px 20px;
+  /* padding: 15px 20px; */
   position: relative;
 `;
 
@@ -290,7 +316,7 @@ const CalendarWrap = styled.div`
     abbr {
       color: #fff;
     }
-    
+
     &__tile--active {
       background: #3185f3;
     }
@@ -305,8 +331,8 @@ const TodoStatus = styled.div`
   align-items: center;
   justify-content: flex-end;
   width: 100%;
-  margin-bottom: 20px;
-  padding: 0 20px;
+  /* margin-bottom: 20px; */
+  /* padding: 0 20px; */
   gap: 12px;
 
   span {
@@ -367,7 +393,7 @@ const CustomSheet = styled(Sheet)`
     // background: #516d93;
     background: transparent;
 
-    textarea{
+    textarea {
       width: 100%;
       height: 90px;
       resize: none;
@@ -405,7 +431,7 @@ const ContentHeader = styled.div`
     font-size: 20px;
     margin-right: 8px;
   }
-`
+`;
 const ContentFooter = styled.div`
   button {
     display: block;
@@ -419,4 +445,4 @@ const ContentFooter = styled.div`
       margin-top: 12px;
     }
   }
-`
+`;

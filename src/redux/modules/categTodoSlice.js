@@ -64,12 +64,9 @@ export const updateCategThunk = createAsyncThunk(
         payload.id,
         payload.category
       );
-      const navigate = useNavigate();
-      // console.log(data);
-      // alert("Hello")
-      return (
-        console.log("data")
-      )
+      // return (
+      //   console.log("data")
+      // )
       // thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       // return thunkAPI.rejectWithValue(error)

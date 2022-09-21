@@ -23,13 +23,13 @@ const StyledMenu = styled.nav`
   /* justify-content: center; */
   position: absolute;
   top: 0;
-  right: 0;
+  right: -20px;
   width: 70%;
   height: 100vh;
   padding: 80px 30px;
   background: #17171b;
   transition: transform 0.3s ease-in-out;
-  transform: ${({ open }) => open ? 'translateX(0)' : 'translateX(102%)'};
+  transform: ${({ open }) => open ? 'translateX(0)' : 'translateX(110%)'};
   z-index: 1000;
   
   @media (max-width: ${({ theme }) => theme.mobile}) {

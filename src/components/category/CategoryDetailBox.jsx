@@ -10,6 +10,7 @@ import {
 } from "../../redux/modules/categTodoSlice";
 
 export default function CategoryDetailBox() {
+  
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
