@@ -51,6 +51,7 @@ const SignUp = () => {
 
     if (email.length <= 0) {
       setIsEmail(false);
+      setEmailMessage(false);
     }
 
     if (email !== emailConfirm) {
