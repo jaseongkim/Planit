@@ -7,19 +7,22 @@ import { prev_icon } from "../static/images";
 import { apis } from "../shared/api";
 import { IoIosClose } from "react-icons/io";
 import { IoIosArrowDown } from "react-icons/io";
+import { useEffect } from "react";
 
 const SignUp = () => {
   const navigate = useNavigate();
   // Redux
   const dispatch = useDispatch();
 
-  const [btnState, setBtnState] = useState(false);
-  const [emailCheck, setEmailCheck] = useState(false);
-  const [passwordCheck, setPasswordCheck] = useState(false);
-  const [passwordLengthCheck, setPasswordLengthCheck] = useState(false);
-  const [passwordConfirmMessage, setPasswordConfirmMessage] = useState(false);
-  const [nickNameCheck, setnickNameCheck] = useState(false);
-  const [nickLengthCheck, setNickLengthCheck] = useState(false);
+  //유효성 검사
+  const [isEmail, setIsEmail] = useState(false);
+  const [isNickName, setIsNickName] = useState(false);
+  const [isNickNameLength, setIsNickNameLength] = useState(false);
+  const [isPassword, setIsPassword] = useState(false);
+  const [isPasswordLength, setIsPasswordLength] = useState(false);
+  const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
+
+  // 확인 메세지
   const [emailMessage, setEmailMessage] = useState(false);
 
   const [signUp, setSignUp] = useState({
@@ -33,23 +36,6 @@ const SignUp = () => {
   const onSignupHandler = (e) => {
     e.preventDefault();
 
-    if (emailCheck === false) {
-      alert("이메일 중복확인 버튼을 눌러주세요");
-      return;
-    }
-
-    if (signUp.password !== signUp.passwordConfirm) {
-      alert("비밀번호를 다시 확인해주세요");
-      setSignUp({
-        email: signUp.email,
-        nickname: signUp.nickname,
-        password: "",
-        passwordConfirm: "",
-      });
-      setBtnState(false);
-      return;
-    }
-
     dispatch(
       createMemberDB({
         email: signUp.email,
@@ -59,37 +45,51 @@ const SignUp = () => {
     );
   };
 
+  // 이메일 입력
   const onEmailChange = (e) => {
     const { name, value } = e.target;
     setSignUp({ ...signUp, [name]: value });
-
-    console.log(signUp.email);
-
-    if (signUp.email.length < 1) {
-      setEmailMessage(false);
-    }
   };
 
+  // 닉네임 정규식
+  let nickNameExp = /^([a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]).{0,}$/i;
+
+  // 닉네임 입력
   const onNickNameChange = (e) => {
     const { name, value } = e.target;
     setSignUp({ ...signUp, [name]: value });
+
+    if (nickNameExp.test(signUp.nickname) === false) {
+      setIsNickName(false);
+    } else {
+      setIsNickName(true);
+    }
+
+    if (signUp.nickname.length >= 2 && signUp.nickname.length <= 9) {
+      setIsNickNameLength(true);
+    } else {
+      setIsNickNameLength(false);
+    }
   };
 
+  // 비밀번호 정규식
+  let passwordExp =
+    /^(?!((?:[A-Za-z]+)|(?:[~!@#$%^&*()_+=]+)|(?:[0-9]+))$)[A-Za-z\d~!@#$%^&*()_+=]{10,}$/i;
+
+  // 비밀번호 입력
   const onPasswordChange = (e) => {
     const { name, value } = e.target;
     setSignUp({ ...signUp, [name]: value });
-
-    let passwordExp = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,20}$/i;
     if (passwordExp.test(signUp.password) === false) {
-      setPasswordCheck(false);
+      setIsPassword(false);
     } else {
-      setPasswordCheck(true);
+      setIsPassword(true);
     }
 
-    if (signUp.password.length >= 10) {
-      setPasswordLengthCheck(true);
+    if (signUp.password.length >= 10 && signUp.password.length <= 20) {
+      setIsPasswordLength(true);
     } else {
-      setPasswordLengthCheck(false);
+      setIsPasswordLength(false);
     }
   };
 
@@ -98,41 +98,10 @@ const SignUp = () => {
     setSignUp({ ...signUp, [name]: value });
 
     if (signUp.password === signUp.passwordConfirm) {
-      setPasswordConfirmMessage(true);
+      setIsPasswordConfirm(true);
     } else {
-      setPasswordConfirmMessage(false);
+      setIsPasswordConfirm(false);
     }
-  };
-
-  //Updating userInfo to Hook
-  const onChangeHandler = (e) => {
-    const { name, value } = e.target;
-    setSignUp({ ...signUp, [name]: value });
-
-    // if (
-    //   signUp.email &&
-    //   signUp.nickname &&
-    //   signUp.password &&
-    //   signUp.passwordConfirm.length > 0
-    // ) {
-    //   setBtnState(true);
-    // } else {
-    //   setBtnState(false);
-    // }
-    // let nickNameExp =
-    //   /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
-    // if (nickNameExp.test(signUp.nickname) === false) {
-    //   console.log("뭐지");
-    // } else {
-    //   console.log("닉네임 통과");
-    // }
-
-    // let passwordExp = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/i;
-    // if (passwordExp.test(signUp.password) === false) {
-    //   console.log("비밀번호 불통");
-    // } else {
-    //   console.log("비밀번호 통과");
-    // }
   };
 
   //Email Double-Check
@@ -140,10 +109,10 @@ const SignUp = () => {
     let emailExp =
       /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
     if (emailExp.test(signUp.email) === false) {
-      alert("이메일 형식을 맞춰주세요");
-      setSignUp({
-        email: "",
-      });
+      setEmailMessage(true);
+      // setSignUp({
+      //   email: "",
+      // });
       return;
     }
 
@@ -152,15 +121,14 @@ const SignUp = () => {
       .then((response) => {
         console.log(response);
         if (response.data.success === true) {
-          alert("사용 가능한 아이디입니다.");
-          setEmailCheck(true);
+          setIsEmail(true);
           setEmailMessage(true);
         }
       })
       .catch((error) => {
         console.log(error);
         if (error.response.status === 400) {
-          alert(error.response.data.message);
+          setIsEmail(false);
           setEmailMessage(true);
         }
       });
@@ -170,6 +138,7 @@ const SignUp = () => {
     <SubContainer>
       <HeaderWrap>
         <HeaderTitle>
+          {console.log(isNickName)}
           <button onClick={() => navigate(-1)}>
             <img src={prev_icon} alt="뒤" />
           </button>
@@ -194,12 +163,13 @@ const SignUp = () => {
                   value={signUp.email || ""}
                   onChange={onEmailChange}
                 />
+
                 <div
                   style={{
                     visibility: `${emailMessage ? "visible" : "hidden"}`,
                   }}
                 >
-                  {emailCheck ? (
+                  {isEmail ? (
                     <span style={{ color: "green" }}>
                       <IoIosArrowDown style={{ marginRight: "3px" }} />
                       사용 가능한 아이디 입니다.
@@ -227,14 +197,29 @@ const SignUp = () => {
                   value={signUp.nickname || ""}
                   onChange={onNickNameChange}
                 />
-                <span className="signup-item1" style={{ color: "gray" }}>
-                  <IoIosArrowDown style={{ marginRight: "3px" }} />
-                  한글/영문/숫자 사용
-                </span>
-                <span className="signup-item2" style={{ color: "gray" }}>
-                  <IoIosArrowDown style={{ marginRight: "3px" }} />
-                  2-9자 사용
-                </span>
+                {nickNameExp.test(signUp.nickname) ? (
+                  <span className="signup-item1" style={{ color: "green" }}>
+                    <IoIosArrowDown style={{ marginRight: "3px" }} />
+                    한글/영문/숫자 사용
+                  </span>
+                ) : (
+                  <span className="signup-item1" style={{ color: "gray" }}>
+                    <IoIosArrowDown style={{ marginRight: "3px" }} />
+                    한글/영문/숫자 사용
+                  </span>
+                )}
+
+                {signUp.nickname.length >= 2 && signUp.nickname.length <= 9 ? (
+                  <span className="signup-item2" style={{ color: "green" }}>
+                    <IoIosArrowDown style={{ marginRight: "3px" }} />
+                    2-9자 사용
+                  </span>
+                ) : (
+                  <span className="signup-item2" style={{ color: "gray" }}>
+                    <IoIosArrowDown style={{ marginRight: "3px" }} />
+                    2-9자 사용
+                  </span>
+                )}
               </SignUpInputBox>
             </SignUpItem>
             <SignUpItem>
@@ -248,7 +233,7 @@ const SignUp = () => {
                   onChange={onPasswordChange}
                   autoComplete="off"
                 />
-                {passwordCheck ? (
+                {passwordExp.test(signUp.password) ? (
                   <span className="signup-item1" style={{ color: "green" }}>
                     <IoIosArrowDown style={{ marginRight: "3px" }} />
                     영문/숫자/특수문자 중 2종류 이상 사용
@@ -259,7 +244,9 @@ const SignUp = () => {
                     영문/숫자/특수문자 중 2종류 이상 사용
                   </span>
                 )}
-                {passwordLengthCheck ? (
+
+                {signUp.password.length >= 10 &&
+                signUp.password.length <= 20 ? (
                   <span className="signup-item2" style={{ color: "green" }}>
                     <IoIosArrowDown style={{ marginRight: "3px" }} />
                     10자 이상으로 사용
@@ -283,27 +270,38 @@ const SignUp = () => {
                   onChange={onPasswordConfirmChange}
                   autoComplete="off"
                 />
-                <div
-                  style={{
-                    visibility: `${btnState ? "visible" : "visible"}`,
-                  }}
-                >
-                  {passwordConfirmMessage ? (
-                    <span style={{ color: "green" }}>
-                      <IoIosArrowDown style={{ marginRight: "3px" }} />
-                      비밀번호가 일치합니다.
-                    </span>
-                  ) : (
-                    <span style={{ color: "red" }}>
-                      <IoIosArrowDown style={{ marginRight: "3px" }} />
-                      비밀번호가 일치하지 않습니다.
-                    </span>
-                  )}
-                </div>
+
+                {signUp.passwordConfirm.length > 0 && (
+                  <div>
+                    {signUp.password === signUp.passwordConfirm ? (
+                      <span style={{ color: "green" }}>
+                        <IoIosArrowDown style={{ marginRight: "3px" }} />
+                        비밀번호가 일치합니다.
+                      </span>
+                    ) : (
+                      <span style={{ color: "red" }}>
+                        <IoIosArrowDown style={{ marginRight: "3px" }} />
+                        비밀번호가 일치하지 않습니다.
+                      </span>
+                    )}
+                  </div>
+                )}
               </SignUpInputBox>
             </SignUpItem>
           </SignUpList>
-          <SignUpSubmit type="submit" disabled={btnState ? false : true}>
+          <SignUpSubmit
+            type="submit"
+            disabled={
+              !(
+                isEmail &&
+                isNickName &&
+                isNickNameLength &&
+                isPassword &&
+                isPasswordLength &&
+                isPasswordConfirm
+              )
+            }
+          >
             확인
           </SignUpSubmit>
         </form>
@@ -437,6 +435,7 @@ const SignUpInputBox = styled.div`
 `;
 
 const SignUpSubmit = styled.button`
+  margin-top: 100px;
   width: 100%;
   height: 52px;
   font-size: 20px;
