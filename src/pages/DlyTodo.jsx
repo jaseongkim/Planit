@@ -59,6 +59,7 @@ const DlyTodo = () => {
   // Redux : useSelector
   const categories = useSelector((state) => state.categTodoSlice.categories);
 
+
   // Function to open sheetModal & Getting clicked todo Info & index as well as the todo index
   const onClickedSheet = (inputs, index, categIndex) => {
     setOpen(true);
@@ -181,6 +182,7 @@ const DlyTodo = () => {
           </div>
         </TodoStatus>
       </StyHeader>
+      {/* <SubHeader></SubHeader> */}
       <CalendarWrap>
         {showCalendar ? (
           <Calendar

@@ -1,11 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { apis } from "../../shared/api";
 
+// Getting all planets for WklyyTodo from the server
 export const getWeekPlanetsThunk = createAsyncThunk(
-  "follower",
+  "planet/getWeekPlanetsThunk",
   async (memberId, thunkAPI) => {
     try {
-      const { data } = await apis.followerMember(memberId);
+      const { data } = await apis.getWeekPlanets(memberId);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (e) {
       return thunkAPI.rejectWithValue(e.code);
@@ -13,8 +14,9 @@ export const getWeekPlanetsThunk = createAsyncThunk(
   }
 );
 
+// Getting a planet for DlyTodo from the server
 export const getDayPlanetThunk = createAsyncThunk(
-  "following",
+  "planet/getDayPlanetsThunk",
   async (memberId, thunkAPI) => {
     try {
       const { data } = await apis.followingMember(memberId);
@@ -26,26 +28,40 @@ export const getDayPlanetThunk = createAsyncThunk(
 );
 
 const initialState = {
-  follower: [],
-  following: [],
+  planets: [],
+  planet: [],
+  isLoading: false,
+  error: null,
 };
 
 const followSlice = createSlice({
-  name: "follow",
+  name: "planet",
   initialState,
   reducers: {},
   extraReducers: {
-    [getFollowerThunk.fulfilled]: (state, action) => {
-      state.follower = action.payload;
+    [getWeekPlanetsThunk.pending]: (state) => {
+      state.isLoading = true;
     },
-    [getFollowerThunk.rejected]: () => {},
-    [getFollowerThunk.pending]: () => {},
+    [getWeekPlanetsThunk.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.planets = action.payload;
+    },
+    [getWeekPlanetsThunk.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
 
-    [getFollowingThunk.fulfilled]: (state, action) => {
-      state.following = action.payload;
+    [getDayPlanetThunk.pending]: (state) => {
+      state.isLoading = true;
     },
-    [getFollowingThunk.rejected]: () => {},
-    [getFollowingThunk.pending]: () => {},
+    [getDayPlanetThunk.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.planet = action.payload;
+    },
+    [getDayPlanetThunk.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
   },
 });
 

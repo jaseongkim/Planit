@@ -2,8 +2,6 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { apis } from "../../shared/api";
 import { useNavigate } from "react-router-dom";
 
-
-
 // Getting all categories & todos from server
 // If there is no todolist, then createTodoList
 export const getCategThunk = createAsyncThunk(
@@ -14,12 +12,12 @@ export const getCategThunk = createAsyncThunk(
       return thunkAPI.fulfillWithValue(data.data);
     } catch (e) {
       console.log("getCategThunk", e.response.data.status);
-      if (e.response.data.status === 503) {
-        try {
+      if (e.response.data.status === 404) {
+        try{
           console.log("Check here", payload);
           const { data } = await apis.postTodoList(payload);
           return thunkAPI.rejectWithValue(data.data);
-        } catch (e) {
+        }catch(e){
           console.log(e);
         }
       }
