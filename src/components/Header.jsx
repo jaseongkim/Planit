@@ -14,8 +14,6 @@ const Header = ({showCalendar,setShowCalendar }) => {
 
   let currentPath = useLocation();
 
-  console.log("Checking useParams", currentPath.pathname)
-
   // Hook : opening burgar navi
   const [open, setOpen] = useState(false);
 

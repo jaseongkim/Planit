@@ -4,22 +4,21 @@ import React from 'react';
 import styled from "styled-components";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 
-const DayMover = () => {
+const WeekMover = ({month,weekOfMonth }) => {
 
+    console.log("Month", month, "Week Of Month", weekOfMonth)
     const d = new Date()
-
-    console.log("Check dayMover",d)
 
     return(
         <StyDayCon>
         <AiOutlineLeft className="arrow"/>
-        <div>10월 2째주</div>
+        <div>{`${month}월 ${weekOfMonth}째주`}</div>
         <AiOutlineRight className="arrow"/>
         </StyDayCon>
     );
 };
 
-export default DayMover;
+export default WeekMover;
 
 const StyDayCon = styled.div`
     width: 200px;

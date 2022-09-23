@@ -4,9 +4,10 @@ import { apis } from "../../shared/api";
 // Getting all planets for WklyyTodo from the server
 export const getWeekPlanetsThunk = createAsyncThunk(
   "planet/getWeekPlanetsThunk",
-  async (memberId, thunkAPI) => {
+  async (payload, thunkAPI) => {
     try {
-      const { data } = await apis.getWeekPlanets(memberId);
+      console.log("Checck payload in getWeekPlanets", payload)
+      const { data } = await apis.getWeekPlanets(payload);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (e) {
       return thunkAPI.rejectWithValue(e.code);

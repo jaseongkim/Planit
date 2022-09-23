@@ -135,5 +135,5 @@ export const apis = {
   postTodoList: (data) => api.post(`/todo-list/today?dueDate=${data}`),
 
   // Planet
-  getWeekPlanets: (data) => api.get(`/todo-list/planet?startDate=2022-09-05`)
+  getWeekPlanets: (data) => api.get(`/todo-list/weekly?startDate=${data}`)
 };
