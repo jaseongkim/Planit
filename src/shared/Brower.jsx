@@ -40,6 +40,7 @@ const MobileWrap = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
+  overflow-x: hidden;
   overflow-y: scroll;
   transform: translate(-50%, -50%);
   min-width: 375px;

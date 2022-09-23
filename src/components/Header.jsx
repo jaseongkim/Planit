@@ -1,10 +1,18 @@
+// React 
 import React, { useState } from 'react';
+// Styled Component
 import styled from "styled-components";
+// Icon imgs
 import {calendar_icon, bell_icon} from "../static/images";
+// Hamburger Navi
 import Burger from "./hamburNavi/Burger";
 import Menu from "./hamburNavi/Menu";
+// UseParms
+import { useLocation } from "react-router-dom";
 
-const Header = () => {
+const Header = ({showCalendar,setShowCalendar }) => {
+
+  let currentPath = useLocation();
 
   // Hook : opening burgar navi
   const [open, setOpen] = useState(false);
@@ -14,7 +22,7 @@ const Header = () => {
       <h1>{localStorage.getItem("nickname")}</h1>
       <HeaderIcon>
         {/* <GoSearch></GoSearch> */}
-        <CalendarBtn onClick={()=> alert("hello")}>
+        <CalendarBtn onClick={()=> setShowCalendar(!showCalendar)}>
           <img src={calendar_icon} alt="calendar icon" />
         </CalendarBtn>
         <BellBtn>
@@ -36,7 +44,6 @@ const HeaderCon = styled.div`
   position: sticky;
   top: 0;
   color: #fff;
-  padding: 25px 20px;
   z-index: 999;
 
   h1 {

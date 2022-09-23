@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+// React
+import React, { useState, useEffect, useRef } from "react";
+// Styled Component
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
+// Redux
+import { useDispatch } from "react-redux";
 import {
   delMtyTodo,
   onChangeTodo,
@@ -8,7 +11,9 @@ import {
   updateTodoTiThunk,
   updateTodoCkThunk,
 } from "../redux/modules/categTodoSlice.js";
+// React Icons
 import {IoIosMore} from "react-icons/io";
+// Imgs
 import {check_icon} from "../static/images";
 
 const TodoList = ({
@@ -20,9 +25,16 @@ const TodoList = ({
   selectedDate,
 }) => {
   
+  // const checkedRef = useRef()
+  // const uncheckedRef = useRef()
+
   // Redux : dispatch
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    console.log("This is useEffect from the TodoList")
+  }, []);
+  
   // Specifying todo & memo info a new todo
   const handleFormChange = (index, event) => {
     let data = [...todos];
@@ -75,6 +87,7 @@ const TodoList = ({
   // If there is an input that has been created before,
   // update from old title to new one
   const naMtyTiOutFocus = (inputs, index) => {
+
     const updateTodoTiObj = {
       todoId: inputs.todoId,
       categIndex: categIndex,
@@ -97,6 +110,10 @@ const TodoList = ({
 
   // Changing the clicked checkbox's check status
   const onhandleCheckBox = (todo, categIndex, todoIndex) => {
+
+    // console.log("Checking checkedRef useRef", checkedRef.current.id)
+    // console.log("Checking uncheckRefuseRef", uncheckedRef.current.id)
+
     const updateTodoCkObj = {
       todoId: todo.todoId,
       categIndex: categIndex,
@@ -115,6 +132,7 @@ const TodoList = ({
 
   return (
     <TodoListCon>
+      {console.log("This is return in TodoList")}
       {todos.map((inputs, index) => {
         return (
           <TodoItemCon key={`${inputs.todoId}`}>
@@ -126,20 +144,23 @@ const TodoList = ({
                       id={`checkbox${inputs.todoId}`}
                       type="checkbox"
                       value=""
+                      // ref={checkedRef}
                       onChange={() => onhandleCheckBox(inputs, categIndex, index)}
-                      checked={true}
+                      // checked={true}
                     />
                   ) : ( 
                     <input
                       id={`checkbox${inputs.todoId}`}
                       type="checkbox"
                       value=""
+                      // ref={uncheckedRef}
                       onChange={() => onhandleCheckBox(inputs, categIndex, index)}
-                      checked={false}
+                      // checked={false}
                     />
                   )}
                   <div></div>
                 </CustomCheck>
+                {console.log("Check inputs", inputs)}
                 {inputs.todoId === undefined ? (
                   <input
                     id={`disable${inputs.todoId}`}
