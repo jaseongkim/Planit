@@ -87,6 +87,14 @@ export const apis = {
 
   loginKakao: (code) => api.get(`/members/login/kakao/callback?code=${code}`),
 
+  // memberupdate
+
+  memberUpdate: (data) =>
+    api.patch("/members", data, {
+      "Content-Type": "multipart/form-data",
+    }),
+
+  // follow & search
   recommendMember: () => api.get("/members/suggest"),
 
   followMember: (memberId) => api.post(`/follow/${memberId}`),
@@ -133,4 +141,7 @@ export const apis = {
 
   // TodoList
   postTodoList: (data) => api.post(`/todo-list/today?dueDate=${data}`),
+
+  // Planet
+  getWeekPlanets: (data) => api.get(`/todo-list/weekly?startDate=${data}`)
 };

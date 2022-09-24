@@ -63,6 +63,8 @@ Circle.defaultProps = {
   borderRadius: "50%",
   alignItems: "center",
   justifyContent: "center"
+
+  
 };
 
 const ElCircle = styled.div`
