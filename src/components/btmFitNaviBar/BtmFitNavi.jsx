@@ -2,14 +2,25 @@ import React, { useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
 
-const BtmFitNavi = (props) => {
+const BtmFitNavi = ({name,wkPlanets}) => {
+
+    console.log("Checking wkPlanets", wkPlanets.planets)
+
+    const currDate = new Date()
+    const parsedCurrDate = `${currDate.getFullYear()}-${String(currDate.getMonth()+1).padStart(2,'0')}-${String(currDate.getDate()).padStart(2,'0')}`
+
+    console.log("Chekcinng currentDate", parsedCurrDate)
+
+    // const currPlanet = wkPlanets.planets.find(planet => planet.dueDate === parsedCurrDate)
+
+    // console.log("Check currPlanet", currPlanet)
 
     // Navigate
     const navigate = useNavigate();
 
     // Hook : getting initial state from props & change state for the navigation
     // Depending on the state, the UX will be rendered differently
-    const [activeTabs, setActiveTabs] = useState(props.name)
+    const [activeTabs, setActiveTabs] = useState(name)
 
     // useEffect : when activeTabs gets changed, useEffect will be triggered again
     useEffect(() => {

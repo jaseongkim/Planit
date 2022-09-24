@@ -6,7 +6,6 @@ export const getWeekPlanetsThunk = createAsyncThunk(
   "planet/getWeekPlanetsThunk",
   async (payload, thunkAPI) => {
     try {
-      console.log("Checck payload in getWeekPlanets", payload)
       const { data } = await apis.getWeekPlanets(payload);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (e) {
@@ -24,6 +23,22 @@ export const getDayPlanetThunk = createAsyncThunk(
       return thunkAPI.fulfillWithValue(data.data);
     } catch (e) {
       return thunkAPI.rejectWithValue(e.code);
+    }
+  }
+);
+
+// posting today's planet type to server
+export const createPlanetThunk = createAsyncThunk(
+  "planet/getDayPlanetsThunk",
+  async (payload, thunkAPI) => {
+    try {
+      console.log("Checking payload", payload)
+      const { data } = await apis.postPlanet(payload);
+      // return thunkAPI.fulfillWithValue(data.data);
+      console.log(data.data)
+    } catch (e) {
+      // return thunkAPI.rejectWithValue(e.code);
+      console.log(e)
     }
   }
 );

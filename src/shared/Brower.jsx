@@ -36,6 +36,7 @@ const Back = styled.div`
 // `;
 
 const MobileWrap = styled.div`
+  border: 3px solid red;
   background: linear-gradient(180deg, #121212 0%, #1B60BB 70.31%, #3A83E4 82.55%, #D8E2EE 95.05%, #EEEEEE 100%);
   position: absolute;
   top: 50%;
@@ -44,6 +45,7 @@ const MobileWrap = styled.div`
   overflow-y: scroll;
   transform: translate(-50%, -50%);
   min-width: 375px;
+  max-width: 375px;
   height: 100vh;
   padding-bottom: 100px;
   box-shadow: 6px 0px 14px rgba(219, 219, 219, 0.39),

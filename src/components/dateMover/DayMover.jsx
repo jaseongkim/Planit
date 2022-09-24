@@ -1,7 +1,8 @@
+// React
 import React from 'react';
-
 // Styled-Component
 import styled from "styled-components";
+// React Icon
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 
 const DayMover = () => {

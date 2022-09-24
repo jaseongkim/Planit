@@ -8,6 +8,7 @@ import Search from "../pages/Search";
 import Follow from "../pages/Follow";
 import Category from "../pages/Category";
 import CategoryDetail from "../pages/CategoryDetail";
+import CreatePlanet from "../pages/CreatePlanet"
 import WklyTodo from "../pages/WklyTodo"
 
 const Router = () => {
@@ -17,11 +18,12 @@ const Router = () => {
         <Route path="/" element={<LogInPage />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/dlytodo" element={<DlyTodo />} />
-        <Route path="/WklyTodo" element={<WklyTodo />} />
+        <Route path="/Wklytodo" element={<WklyTodo />} />
         <Route path="/kakao" element={<Kakao />} />
         <Route path="/search" element={<Search />} />
         <Route path="/follow" element={<Follow />} />
         <Route path="/category" element={<Category />} />
+        <Route path="/createplanet" element={<CreatePlanet />} />
         <Route path="/categorydetail/:id" element={<CategoryDetail />} />
       </Routes>
     </BrowserRouter>

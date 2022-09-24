@@ -22,12 +22,12 @@ const Header = ({showCalendar,setShowCalendar }) => {
       <h1>{localStorage.getItem("nickname")}</h1>
       <HeaderIcon>
         {/* <GoSearch></GoSearch> */}
-        <CalendarBtn onClick={()=> setShowCalendar(!showCalendar)}>
+        <button onClick={()=> setShowCalendar(!showCalendar)}>
           <img src={calendar_icon} alt="calendar icon" />
-        </CalendarBtn>
-        <BellBtn>
+        </button>
+        <button>
           <img src={bell_icon} alt="bell icon" />
-        </BellBtn>  
+        </button>  
         <Burger open={open} setOpen={setOpen} />
         <Menu open={open} setOpen={setOpen} />
       </HeaderIcon>
@@ -63,9 +63,3 @@ const HeaderIcon = styled.div`
     border: none;
   }
 `;
-
-const CalendarBtn = styled.button`
-  
-`;
-
-const BellBtn = styled.button``;
