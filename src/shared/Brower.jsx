@@ -36,7 +36,14 @@ const Back = styled.div`
 // `;
 
 const MobileWrap = styled.div`
-  background: linear-gradient(180deg, #121212 0%, #1B60BB 70.31%, #3A83E4 82.55%, #D8E2EE 95.05%, #EEEEEE 100%);
+  background: linear-gradient(
+    180deg,
+    #121212 0%,
+    #1b60bb 70.31%,
+    #3a83e4 82.55%,
+    #d8e2ee 95.05%,
+    #eeeeee 100%
+  );
   position: absolute;
   top: 50%;
   left: 50%;

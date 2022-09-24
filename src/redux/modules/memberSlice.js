@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { apis } from "../../shared/api";
 
 //Sign-Up
@@ -63,6 +63,28 @@ export const kakaoLoginDB = (code) => {
     });
   };
 };
+
+export const updateMemberDB = createAsyncThunk(
+  "member/updateMemberDB",
+  async (formData, thunkAPI) => {
+    for (const keyValue of formData) console.log(keyValue);
+    // await apis
+    //   .memberUpdate(formData)
+    //   .then((response) => {
+    //     console.log(response);
+    //     // if (response.data.success === false) {
+    //     //   return window.alert(response.data.message);
+    //     // } else {
+    //     // }
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //     if (error.response.status === 400) {
+    //       alert(error.response.data.message);
+    //     }
+    //   });
+  }
+);
 
 const initialState = {
   memberlist: [],
