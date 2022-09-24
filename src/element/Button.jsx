@@ -10,6 +10,9 @@ export default function Button(props) {
     borderRadius,
     textAlign,
     height,
+    border,
+    color,
+    backgroundColor
   } = props;
 
   const styles = {
@@ -19,6 +22,9 @@ export default function Button(props) {
     padding: padding,
     borderRadius: borderRadius,
     textAlign: textAlign,
+    border: border,
+    color: color,
+    backgroundColor: backgroundColor
   };
 
   return (
@@ -47,4 +53,7 @@ const ElButton = styled.button`
   padding: ${(props) => props.padding};
   margin: ${(props) => props.margin};
   border-radius: ${(props) => props.borderRadius};
+  border: ${(props) => props.border};
+  color: ${(props) => props.color};
+  background-color: ${(props) => props.backgroundColor};
 `;
