@@ -14,6 +14,9 @@ import {
   deleteTodoThunk,
   updateTodoMemoThunk,
 } from "../redux/modules/categTodoSlice.js";
+import {
+  getDayPlanetThunk
+} from "../redux/modules/planetSlice.js";
 // Styled-Component
 import styled from "styled-components";
 // React Component
@@ -29,6 +32,7 @@ import { MdModeEdit } from "react-icons/md";
 import { achieved_icon, like_icon_on } from "../static/images";
 
 const DlyTodo = () => {
+
   // Redux : dispatch
   const dispatch = useDispatch();
 
@@ -36,7 +40,13 @@ const DlyTodo = () => {
   const [isOpen, setOpen] = useState(false);
 
   // Hook : To get the selected date from the calendar
-  const [dateValue, setDateValue] = useState(new Date());
+  var [dateValue, setDateValue] = useState(new Date());
+
+  // Var ; A Parsed date in format yyyy/mm/dd from the calendar  
+  var parsedfullDate = `${dateValue.getFullYear()}-${String(dateValue.getMonth()+1).padStart(2,'0')}-${String(dateValue.getDate()).padStart(2,'0')}`
+
+  // Var : A Parsed date in format mm월 dd일 from the calendar
+  var parsedParDate = `${String(dateValue.getMonth()+1).padStart(2,'0')}월 ${String(dateValue.getDate()).padStart(2,'0')}일`
 
   // Hook : TO get the cliced Memo info from the TodoList
   const [clickedMemo, setClickedMemo] = useState("");
@@ -56,9 +66,10 @@ const DlyTodo = () => {
   // UseRef : To get the selected date from the calendar
   const concatSelDate = useRef();
 
-  // Redux : useSelector
+  // Redux : categories useSelector 
   const categories = useSelector((state) => state.categTodoSlice.categories);
-
+  // Redux : planet useSelector 
+  const planet = useSelector((state) => state.planetSlice.planet);
 
   // Function to open sheetModal & Getting clicked todo Info & index as well as the todo index
   const onClickedSheet = (inputs, index, categIndex) => {
@@ -71,37 +82,13 @@ const DlyTodo = () => {
     setClickedCategIndex(categIndex);
   };
 
-  // Function to parse string month to int month
-  const parseMonth = (mm) => {
-    const monthsShort = {
-      Jan: "01",
-      Feb: "02",
-      Mar: "03",
-      Apr: "04",
-      May: "05",
-      Jun: "06",
-      Jul: "07",
-      Aug: "08",
-      Sep: "09",
-      Oct: "10",
-      Nov: "11",
-      Dec: "12",
-    };
-
-    return monthsShort[mm];
-  };
-
   // UseEffect : getting categories & to-do lists as well as date from the calendar
   useEffect(() => {
-    const strData = dateValue.toString();
-    const month = strData.substring(4, 7);
-    const day = strData.substring(8, 10);
-    const year = strData.substring(11, 15);
-    const parsedMonth = parseMonth(month);
 
-    concatSelDate.current = `${year}-${parsedMonth}-${day}`;
+    concatSelDate.current = parsedfullDate;
 
     dispatch(getCategThunk(concatSelDate.current));
+    dispatch(getDayPlanetThunk(concatSelDate.current))
   }, [dateValue]);
 
   // Adding a new todo
@@ -168,17 +155,18 @@ const DlyTodo = () => {
 
   return (
     <StyDlyTodoCon>
+      {console.log("Checking planet", planet)}
       <Header showCalendar={showCalendar} setShowCalendar={setShowCalendar} />
       <StyHeader>
-        <DayMover />
+        <DayMover parsedParDate={parsedParDate}/>
         <TodoStatus>
           <div>
             <img src={achieved_icon} alt="achieved icon" />
-            <span>0</span>
+            <span>{planet.achievementCnt}</span>
           </div>
           <div>
             <img src={like_icon_on} alt="like icon on" />
-            <span>0</span>
+            <span>{planet.likesCnt}</span>
           </div>
         </TodoStatus>
       </StyHeader>
@@ -191,7 +179,7 @@ const DlyTodo = () => {
             formatDay={(locale, date) => moment(date).format("DD")}
           />
         ) : (
-          <Circle>helo</Circle>
+          <Circle planetType={planet.planetType} planetLevel={planet.planetLevel}></Circle>
         )}
         {/* <Calendar 
           onChange={setDateValue} 

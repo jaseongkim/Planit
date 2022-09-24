@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 // Styled Component
 import styled from "styled-components";
+// React-Router-Dom
+import { useNavigate } from "react-router-dom";
 // React Icon
 import { AiOutlineLeft } from "react-icons/ai";
 // Planets Imgs
@@ -14,13 +16,21 @@ import { createPlanetThunk } from "../redux/modules/planetSlice";
 
 const CreatePlanet = () => {
 
+  // Navigation
+  const navigate = useNavigate();
+
   // Redux : dispatch
   const dispatch = useDispatch();
-
+  
+  // Assigning the clicked planetType 
   var planetType = ""
 
+  // Creating current date's planet type => navigate to dlytodo page
   const onClickHandler = () => {
-    dispatch(createPlanetThunk(planetType))
+    const currDate = new Date()
+    const parsedCurrDate = `${currDate.getFullYear()}-${String(currDate.getMonth()+1).padStart(2,'0')}-${String(currDate.getDate()).padStart(2,'0')}`
+    dispatch(createPlanetThunk({planetType,parsedCurrDate}))
+    navigate("/dlytodo")
   }
 
   return (

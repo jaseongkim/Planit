@@ -5,16 +5,17 @@ import styled from "styled-components";
 // React Icon
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 
-const DayMover = () => {
+const DayMover = ({parsedParDate}) => {
 
     const d = new Date()
 
-    console.log("Check dayMover",d)
+    console.log("Checking", parsedParDate)
+    // console.log("Check dayMover",d)
 
     return(
         <StyDayCon>
         <AiOutlineLeft className="arrow"/>
-        <div>10월 17일</div>
+        <div>{parsedParDate}</div>
         <AiOutlineRight className="arrow"/>
         </StyDayCon>
     );

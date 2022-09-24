@@ -1,19 +1,11 @@
+// React
 import React, { useState, useEffect} from "react";
+// React-Router-Dom
 import { useNavigate } from "react-router-dom";
+// Styled-Component
 import styled, { css } from "styled-components";
 
 const BtmFitNavi = ({name,wkPlanets}) => {
-
-    // console.log("Checking wkPlanets", wkPlanets.planets)
-
-    const currDate = new Date()
-    const parsedCurrDate = `${currDate.getFullYear()}-${String(currDate.getMonth()+1).padStart(2,'0')}-${String(currDate.getDate()).padStart(2,'0')}`
-
-    // console.log("Chekcinng currentDate", parsedCurrDate)
-
-    // const currPlanet = wkPlanets.planets.find(planet => planet.dueDate === parsedCurrDate)
-
-    // console.log("Check currPlanet", currPlanet)
 
     // Navigate
     const navigate = useNavigate();
@@ -34,6 +26,21 @@ const BtmFitNavi = ({name,wkPlanets}) => {
         }
     }, [activeTabs])
 
+    // when the day navi btn get clicked, find current date's planet
+    // if the planet's planetType is 0, navigate to creatplanet page
+    // else navigate to dlytodo page
+    const onClickDay = () =>{
+    const currDate = new Date()
+    const parsedCurrDate = `${currDate.getFullYear()}-${String(currDate.getMonth()+1).padStart(2,'0')}-${String(currDate.getDate()).padStart(2,'0')}`
+    const currPlanet = wkPlanets?.planets.find(planet => planet.dueDate === parsedCurrDate)
+
+    if(currPlanet.planetType === 0){
+        navigate("/createplanet")
+    }
+    else{
+        setActiveTabs('dlytodo')
+    }}
+
     return (
         <StyBtmNavi>
             <StyBtmTab 
@@ -46,7 +53,7 @@ const BtmFitNavi = ({name,wkPlanets}) => {
             <StyBtmTab
                 className="day" 
                 date={activeTabs}           
-                onClick={() => setActiveTabs('dlytodo')}
+                onClick={() => onClickDay()}
             >
                     Day
               </StyBtmTab>

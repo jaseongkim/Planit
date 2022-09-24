@@ -34,7 +34,7 @@ const WklyTodo = () => {
   // Getting Monday of the current week with a given date
   const getMondayOfCurrentWeek = () => {
     const today = new Date();
-    const first = today.getDate() - today.getDay() + 1;
+    const first = today.getDate() - today.getDay() + (today.getDay()===0?-6:1);
 
     // console.log("check getDate", today.getDate(), "Check getDay", today.getDay())
     // console.log("Check first", first)
@@ -79,9 +79,9 @@ const WklyTodo = () => {
         {wkPlanets.planets?.map((planet, index) => {
           return (
             <StyCircleWrap key={index}>
-                {planet.planetType !== null? 
-                <>{planet.dueDate.substring(8, 10)}<Circle planetType={planet.planetType} planetLevel={planet.planetLevel}></Circle></> 
-                : <Circle  planetType={planet.planetType} planetLevel={planet.planetLevel}>{planet.dueDate.substring(8, 10)}</Circle>}
+                {planet.planetType === null || planet.planetType === 0 ? 
+                 <Circle planetType={planet.planetType} planetLevel={planet.planetLevel}>{planet.dueDate.substring(8, 10)}</Circle>
+                :<>{planet.dueDate.substring(8, 10)}<Circle planetType={planet.planetType} planetLevel={planet.planetLevel}></Circle></>}
             </StyCircleWrap>
             // <StyWklyCircle className={`circle${index}`}></StyWklyCircle>
           );
