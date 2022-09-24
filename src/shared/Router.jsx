@@ -31,7 +31,6 @@ const Router = () => {
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/nickname" element={<NickName />} />
         <Route path="/password" element={<Password />} />
-
         <Route path="/categorydetail/:id" element={<CategoryDetail />} />
       </Routes>
     </BrowserRouter>
