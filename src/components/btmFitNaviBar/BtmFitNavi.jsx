@@ -4,12 +4,12 @@ import styled, { css } from "styled-components";
 
 const BtmFitNavi = ({name,wkPlanets}) => {
 
-    console.log("Checking wkPlanets", wkPlanets.planets)
+    // console.log("Checking wkPlanets", wkPlanets.planets)
 
     const currDate = new Date()
     const parsedCurrDate = `${currDate.getFullYear()}-${String(currDate.getMonth()+1).padStart(2,'0')}-${String(currDate.getDate()).padStart(2,'0')}`
 
-    console.log("Chekcinng currentDate", parsedCurrDate)
+    // console.log("Chekcinng currentDate", parsedCurrDate)
 
     // const currPlanet = wkPlanets.planets.find(planet => planet.dueDate === parsedCurrDate)
 
