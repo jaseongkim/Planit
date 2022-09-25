@@ -28,6 +28,9 @@ export default function Circle(props) {
     width,
     height,
     border,
+    color,
+    fontWeight,
+    fontSize,
     backgroundColor,
     borderRadius,
     alignItems,
@@ -43,6 +46,9 @@ export default function Circle(props) {
     width: width,
     height: height,
     border: border,
+    fontWeight: fontWeight,
+    fontSize: fontSize,
+    color: color,
     backgroundColor: backgroundColor,
     borderRadius: borderRadius,
     alignItems: alignItems,
@@ -71,7 +77,8 @@ Circle.defaultProps = {
   display: "flex",
   width: "100px",
   height: "100px",
-  border: "3px solid #ffffff",
+  border: "2px solid #ffffff",
+  color: "#ffffff",
   borderRadius: "50%",
   alignItems: "center",
   justifyContent: "center",
@@ -86,12 +93,17 @@ const ElCircle = styled.div`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   border: ${(props) => props.border};
+  color: ${(props) => props.color};
   background-color: ${(props) => props.backgroundColor};
   border-radius: ${(props) => props.borderRadius};
   align-items: ${(props) => props.alignItems};
   justify-content: ${(props) => props.justifyContent};
   text-align: ${(props) => props.textAlign};
+  font-size: ${(props) => props.fontSize};
+  font-weight: ${(props) => props.theme.fontWeight.Bold};
+  
 
+  
   ${(props) => {
     switch (true) {
       // Type1

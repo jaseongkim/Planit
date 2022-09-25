@@ -145,6 +145,7 @@ const StyCircleWrap = styled.div`
   position: absolute;
   text-align: center;
   color: white;
+  font-weight: ${(props) => props.theme.fontWeight.Bold};
 
   &:nth-child(1) {
     top: 10px;
