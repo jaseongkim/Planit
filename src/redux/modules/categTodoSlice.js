@@ -5,20 +5,13 @@ import { apis } from "../../shared/api";
 // If there is no todolist, then createTodoList
 export const getCategThunk = createAsyncThunk(
   "category/getCategory",
-  async (payload, thunkAPI) => {
+  async (_, thunkAPI) => {
     try {
-      const { data } = await apis.getCategories(payload);
+      const { data } = await apis.getCategories();
       return thunkAPI.fulfillWithValue(data.data);
     } catch (e) {
       console.log("getCategThunk", e.response.data.status);
       if (e.response.data.status === 404) {
-        try {
-          console.log("Check here", payload);
-          const { data } = await apis.postTodoList(payload);
-          return thunkAPI.rejectWithValue(data.data);
-        } catch (e) {
-          console.log(e);
-        }
       }
     }
   }
@@ -73,7 +66,7 @@ export const updateCategThunk = createAsyncThunk(
           console.log(response);
           if (response.data.success === false) {
           } else {
-            // return window.location.replace("/category");
+            return window.location.replace("/category");
           }
         });
     } catch (error) {}

@@ -27,7 +27,7 @@ export default function CategoryDetailBox() {
     categoryName:
       categoriesDetail === undefined ? "" : categoriesDetail.categoryName,
     categoryColor:
-      categoriesDetail === undefined ? "" : categoriesDetail.categoryColor,
+      categoriesDetail === undefined ? "#fff" : categoriesDetail.categoryColor,
     isPublic:
       categoriesDetail === undefined ? false : categoriesDetail.isPublic,
     categoryStatus:
