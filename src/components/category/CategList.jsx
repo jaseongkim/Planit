@@ -15,7 +15,7 @@ const CategList = () => {
 
   // useEffect
   useEffect(() => {
-    dispatch(getCategThunk("2022-09-05"));
+    dispatch(getCategThunk());
   }, [dispatch]);
 
   return (
