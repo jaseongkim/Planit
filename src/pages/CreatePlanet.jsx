@@ -52,19 +52,19 @@ const CreatePlanet = () => {
       <StyContent>오늘 키워갈 행성을 골라주세요.</StyContent>
       <StyPlanets>
         <button onClick={()=>{onClickPlanetHandler(1)}}>
-          <img src={A3} alt="A3" style={{opacity:opacity}} className="first"/>
+          <StyImg src={A3} alt="A3" style={{opacity:opacity}} className="first"/>
         </button>
         <button onClick={()=>{planetType=2;setOpacity(1)}}>
-          <img src={B3} alt="B3" style={{opacity:opacity}} className="second"/>
+          <StyImg src={B3} alt="B3" style={{opacity:opacity}} className="second"/>
         </button>
         <button onClick={()=>{planetType=3;setOpacity(1)}}>
-          <img src={C3} alt="C3" style={{opacity:opacity}} className="third"/>
+          <StyImg src={C3} alt="C3" style={{opacity:opacity}} className="third"/>
         </button>
         <button onClick={()=>{planetType=4;setOpacity(1)}}>
-          <img src={D3} alt="D3" style={{opacity:opacity}} className="fourth"/>
+          <StyImg src={D3} alt="D3" style={{opacity:opacity}} className="fourth"/>
         </button>
         <button onClick={()=>{planetType=5;setOpacity(1)}}>
-          <img src={E3} alt="E3" style={{opacity:opacity}} className="fifth"/>
+          <StyImg src={E3} alt="E3" style={{opacity:opacity}} className="fifth"/>
         </button>
       </StyPlanets>
       <Button
@@ -133,5 +133,9 @@ const StyPlanets = styled.div`
 
   }
 `;
+
+const StyImg = styled.img`
+    
+`
 
 
