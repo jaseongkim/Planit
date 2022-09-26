@@ -104,7 +104,9 @@ export const apis = {
   followingMember: (memberId) => api.get(`/follow/${memberId}/followings`),
 
   // Categories
-  getCategories: () => api.get(`/categories/menu`),
+  getCategories: (data) => api.get(`/categories?date=${data}`),
+
+  getCategorie: () => api.get(`/categories/menu`),
 
   postCategories: (data) => api.post("/categories", data),
 
