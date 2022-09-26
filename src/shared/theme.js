@@ -6,8 +6,8 @@ const fontSizes = {
   base: calcRem(16),
   lg: calcRem(18),
   xl: calcRem(20),
-  xxl: calcRem(22),
-  xxxl: calcRem(24),
+  xll: calcRem(22),
+  xlll: calcRem(24),
 };
 
 const lineHeight = {
@@ -16,8 +16,8 @@ const lineHeight = {
   base: "24px",
   lg: "28px",
   xl: "30px",
-  xxl: "32px",
-  xxxl: "34px",
+  xll: "32px",
+  xlll: "34px",
 };
 
 const fontWeight = {
@@ -31,9 +31,9 @@ const paddings = {
   base: calcRem(14),
   lg: calcRem(16),
   xl: calcRem(18),
-  xxl: calcRem(20),
-  xxxl: calcRem(22),
-  xxxxl: calcRem(24),
+  xll: calcRem(20),
+  xlll: calcRem(22),
+  xlv: calcRem(24),
 };
 
 const margins = {
@@ -41,9 +41,11 @@ const margins = {
   base: calcRem(10),
   lg: calcRem(12),
   xl: calcRem(14),
-  xxl: calcRem(16),
-  xxxl: calcRem(18),
-  xxxxl: calcRem(20),
+  xll: calcRem(16),
+  xlll: calcRem(18),
+  xlv: calcRem(20),
+  xv: calcRem(22),
+  xvl: calcRem(24)
 };
 
 const theme = {

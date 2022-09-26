@@ -45,17 +45,16 @@ const WklyTodo = () => {
   };
 
   const parsedDate = `${getMondayOfCurrentWeek().getFullYear()}-${
-    getMondayOfCurrentWeek().getMonth() + 1
-  }-${getMondayOfCurrentWeek().getDate()}`;
+    String(getMondayOfCurrentWeek().getMonth() + 1).padStart(2, '0')
+  }-${String(getMondayOfCurrentWeek().getDate()).padStart(2, '0')}`;
   const month = getMondayOfCurrentWeek().getMonth() + 1;
   const weekOfMonth = getWeekNumber(getMondayOfCurrentWeek());
-  console.log("Checking not parsed monday date :", getMondayOfCurrentWeek());
-  console.log("Checking monday date :", parsedDate);
-  console.log("getting Week Number :", weekOfMonth);
-  console.log("month :", month);
+//   console.log("Checking not parsed monday date :", getMondayOfCurrentWeek());
+//   console.log("Checking monday date :", parsedDate);
+//   console.log("getting Week Number :", weekOfMonth);
+//   console.log("month :", month);
 
   useEffect(() => {
-    console.log("Check useEffect here");
     dispatch(getWeekPlanetsThunk(parsedDate));
   }, []);
 
@@ -79,17 +78,16 @@ const WklyTodo = () => {
       <StyCircleCon>
         {wkPlanets.planets?.map((planet, index) => {
           return (
-        
-            <StyCircleWrap key={planet.todoListId}>
-              {planet.dueDate.substring(8, 10)}
-              <StyCircle></StyCircle>
+            <StyCircleWrap key={index}>
+                {planet.planetType !== null? 
+                <>{planet.dueDate.substring(8, 10)}<Circle planetType={planet.planetType} planetLevel={planet.planetLevel}></Circle></> 
+                : <Circle  planetType={planet.planetType} planetLevel={planet.planetLevel}>{planet.dueDate.substring(8, 10)}</Circle>}
             </StyCircleWrap>
-    
             // <StyWklyCircle className={`circle${index}`}></StyWklyCircle>
           );
         })}
       </StyCircleCon>
-      <BtmFitNavi name="WklyTodo"></BtmFitNavi>
+      <BtmFitNavi name="WklyTodo" wkPlanets={wkPlanets}></BtmFitNavi>
     </StyTodoCon>
   );
 };
@@ -151,44 +149,44 @@ const StyCircleWrap = styled.div`
   &:nth-child(1) {
     top: 10px;
     left: 30px;
-    background-color: red;
+    /* background-color: red; */
     /* transform: translate(150px,200px); */
   }
   &:nth-child(2) {
     top: 50px;
     left: 220px;
-    background-color: black;
+    /* background-color: black; */
     /* transform: translate(450px,500px); */
   }
 
   &:nth-child(3) {
     top: 180px;
     left: 110px;
-    background-color: pink;
+    /* background-color: pink; */
     /* transform: translate(450px,500px); */
   }
   &:nth-child(4) {
     top: 320px;
     left: 8px;
-    background-color: grey;
+    /* background-color: grey; */
     /* transform: translate(450px,500px); */
   }
   &:nth-child(5) {
     top: 420px;
     left: 230px;
-    background-color: purple;
+    /* background-color: purple; */
     /* transform: translate(450px,500px); */
   }
   &:nth-child(6) {
     top: 530px;
     left: 110px;
-    background-color: #cd853f;
+    /* background-color: #cd853f; */
     /* transform: translate(450px,500px); */
   }
   &:nth-child(7) {
     top: 650px;
     left: 5px;
-    background-color: maroon;
+    /* background-color: maroon; */
     /* transform: translate(450px,500px); */
   }
 `;

@@ -44,7 +44,7 @@ export const loginMemberDB = (data) => {
               response.headers.accesstokenexpiretime
             ),
             localStorage.setItem("nickname", response.data.data.nickname),
-            window.location.replace("/dlytodo")
+            window.location.replace("/wklyTodo")
           );
         }
       })

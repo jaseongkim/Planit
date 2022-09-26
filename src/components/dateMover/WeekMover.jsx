@@ -6,7 +6,7 @@ import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 
 const WeekMover = ({month,weekOfMonth }) => {
 
-    console.log("Month", month, "Week Of Month", weekOfMonth)
+    // console.log("Month", month, "Week Of Month", weekOfMonth)
     const d = new Date()
 
     return(
