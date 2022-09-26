@@ -15,10 +15,8 @@ const CategoryDetail = () => {
 export default CategoryDetail;
 
 const SubContainer = styled.div`
-  position: absolute;
   width: 100%;
   height: 100%;
-  padding: 100px 0 40px;
   overflow-y: auto;
   background: #17171b;
 `;

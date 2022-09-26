@@ -25,8 +25,7 @@ import DayMover from "../components/dateMover/DayMover.jsx";
 import Circle from "../element/Circle.jsx";
 // React-icons
 import { FiPlus } from "react-icons/fi";
-import { MdModeEdit } from "react-icons/md";
-import { achieved_icon, like_icon_on } from "../static/images";
+import { achieved_icon, like_icon_on, delete_icon, calendar_icon_gray, edit_icon } from "../static/images";
 
 const DlyTodo = () => {
   // Redux : dispatch
@@ -169,113 +168,99 @@ const DlyTodo = () => {
   return (
     <StyDlyTodoCon>
       <Header showCalendar={showCalendar} setShowCalendar={setShowCalendar} />
-      <StyHeader>
-        <DayMover />
-        <TodoStatus>
-          <div>
-            <img src={achieved_icon} alt="achieved icon" />
-            <span>0</span>
-          </div>
-          <div>
-            <img src={like_icon_on} alt="like icon on" />
-            <span>0</span>
-          </div>
-        </TodoStatus>
-      </StyHeader>
-      {/* <SubHeader></SubHeader> */}
-      <CalendarWrap>
-        {showCalendar ? (
-          <Calendar
-            onChange={setDateValue}
+      <ContentWrap>
+        <StyHeader>
+          <DayMover />
+          <TodoStatus>
+            <div>
+              <img src={achieved_icon} alt="achieved icon" />
+              <span>0</span>
+            </div>
+            <div>
+              <img src={like_icon_on} alt="like icon on" />
+              <span>0</span>
+            </div>
+          </TodoStatus>
+        </StyHeader>
+        {/* <SubHeader></SubHeader> */}
+        <CalendarWrap>
+          {showCalendar ? (
+            <Calendar
+              onChange={setDateValue}
+              value={dateValue}
+              formatDay={(locale, date) => moment(date).format("DD")}
+            />
+          ) : (
+            <CircleWrap>
+              <Circle>?</Circle>
+              <p>행성은 당일에 만들 수 있어요</p>
+            </CircleWrap>
+          )}
+          {/* <Calendar 
+            onChange={setDateValue} 
             value={dateValue}
             formatDay={(locale, date) => moment(date).format("DD")}
-          />
-        ) : (
-          <Circle>helo</Circle>
-        )}
-        {/* <Calendar 
-          onChange={setDateValue} 
-          value={dateValue}
-          formatDay={(locale, date) => moment(date).format("DD")}
-        /> */}
-        {/* {console.log("Checking showCalendar in DlyTodo", showCalendar)}
-              <Circle>helo</Circle> */}
-      </CalendarWrap>
-      <Section>
-        {categories.map((input, index) => {
-          return (
-            <TodoCon key={index}>
-              <TodoBtn
-                onClick={() => addTodo({ input, index })}
-                btnColor={input.categoryColor}
-              >
-                {input.categoryName}
-                <FiPlus></FiPlus>
-              </TodoBtn>
-              <TodoList
-                selectedDate={concatSelDate.current}
-                clickedTodo={clickedTodo}
-                onClickedSheet={onClickedSheet}
-                categId={input.categoryId}
-                todos={input.todos}
-                categIndex={index}
-              ></TodoList>
-            </TodoCon>
-          );
-        })}
-      </Section>
-
-      <CustomSheet isOpen={isOpen} onClose={() => setOpen(false)}>
-        <CustomSheet.Container>
-          <CustomSheet.Header />
-          <CustomSheet.Content>
-            <ContentHeader>
-              <div className="todo-edit-title-wrap">
-                <span className="todo-edit-title">
-                  {clickedTodo.todoInfo.title}
-                </span>
-                <button
-                  onClick={() => {
-                    clickEditTodo();
-                  }}
+          /> */}
+          {/* {console.log("Checking showCalendar in DlyTodo", showCalendar)}
+                <Circle>helo</Circle> */}
+        </CalendarWrap>
+        <Section>
+          {categories.map((input, index) => {
+            return (
+              <TodoCon key={index}>
+                <TodoBtn
+                  onClick={() => addTodo({ input, index })}
+                  btnColor={input.categoryColor}
                 >
-                  <MdModeEdit />
-                </button>
-              </div>
-              <button
-                className="todo-edit-submit"
-                onClick={() => setOpen(false)}
-              >
-                확인
-              </button>
-            </ContentHeader>
-            <textarea
-              name="memo"
-              value={clickedMemo}
-              onChange={onChangeMemoHandler}
-              onBlur={() => onCheckMemoOutFocus()}
-            ></textarea>
-            <ContentFooter>
-              <button
-                onClick={() => {
-                  clickDeleteTodo();
-                }}
-              >
-                삭제
-              </button>
-              <button
-                onClick={() => {
-                  clickDeleteTodo();
-                }}
-              >
-                날짜변경하기
-              </button>
-            </ContentFooter>
-          </CustomSheet.Content>
-        </CustomSheet.Container>
+                  {input.categoryName}
+                  <FiPlus></FiPlus>
+                </TodoBtn>
+                <TodoList
+                  selectedDate={concatSelDate.current}
+                  clickedTodo={clickedTodo}
+                  onClickedSheet={onClickedSheet}
+                  categId={input.categoryId}
+                  todos={input.todos}
+                  categIndex={index}
+                ></TodoList>
+              </TodoCon>
+            );
+          })}
+        </Section>
 
-        <Sheet.Backdrop />
-      </CustomSheet>
+        <CustomSheet isOpen={isOpen} onClose={() => setOpen(false)}>
+          <CustomSheet.Container>
+            <CustomSheet.Content>
+              <ContentHeader>
+                <EditTitleWrap>
+                  <EditTitle>{clickedTodo.todoInfo.title}</EditTitle>
+                  <button onClick={() => {clickEditTodo()}}>
+                    <img src={edit_icon} alt="수정 아이콘 이미지" />
+                  </button>
+                </EditTitleWrap>
+                <EditSubmit onClick={() => setOpen(false)}>확인</EditSubmit>
+              </ContentHeader>
+              <textarea
+                name="memo"
+                value={clickedMemo}
+                onChange={onChangeMemoHandler}
+                onBlur={() => onCheckMemoOutFocus()}
+              ></textarea>
+              <ContentFooter>
+                <button onClick={() => {clickDeleteTodo()}}>
+                  <img src={delete_icon} alt="삭제 아이콘" />
+                  삭제
+                </button>
+                <button onClick={() => {clickDeleteTodo()}}>
+                  <img src={calendar_icon_gray} alt="날짜변경 아이콘" />
+                  날짜변경하기
+                </button>
+              </ContentFooter>
+            </CustomSheet.Content>
+          </CustomSheet.Container>
+          <Sheet.Backdrop />
+        </CustomSheet>
+      </ContentWrap>
       <BtmFitNavi name="dlytodo" />
     </StyDlyTodoCon>
   );
@@ -284,17 +269,32 @@ const DlyTodo = () => {
 export default DlyTodo;
 
 const StyDlyTodoCon = styled.div`
-  padding: 15px;
+  padding-bottom: 150px;
 `;
+
 const StyHeader = styled.div`
   display: flex;
-  margin: 3% 0;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const ContentWrap = styled.div`
+  padding: 0 16px;
 `;
 
 const Section = styled.div`
+  position: relative;
   margin-top: 30px;
   /* padding: 15px 20px; */
-  position: relative;
+`;
+
+const CircleWrap = styled.div`
+  p {
+    font-weight: 400;
+    font-size: 12px;
+    color: #b1bdcf;
+    margin-top: 16px;
+  }
 `;
 
 const CalendarWrap = styled.div`
@@ -302,18 +302,14 @@ const CalendarWrap = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  height: 300px;
 
   .react-calendar {
     background: transparent;
     border: none;
 
-    &__navigation__arrow {
-      color: #fff;
-    }
-    &__navigation__label__labelText {
-      color: #fff;
-      font-weight: bold;
-      font-size: 18px;
+    &__navigation {
+      display: none;
     }
     abbr {
       color: #fff;
@@ -331,8 +327,6 @@ const CalendarWrap = styled.div`
 const TodoStatus = styled.div`
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  width: 100%;
   /* margin-bottom: 20px; */
   /* padding: 0 20px; */
   gap: 12px;
@@ -422,18 +416,28 @@ const ContentHeader = styled.div`
     background: transparent;
     border: none;
   }
+`;
 
-  .todo-edit-title-wrap {
-    display: flex;
-    align-items: center;
-  }
+const EditTitleWrap = styled.div`
+  display: flex;
+  align-items: center;
 
-  .todo-edit-title {
-    font-weight: 600;
-    font-size: 20px;
-    margin-right: 8px;
+  button {
+    margin-left: 8px;
   }
 `;
+
+const EditTitle = styled.span`
+  font-weight: 600px;
+  font-size: 20px;
+`;
+
+const EditSubmit = styled.button`
+  font-weight: 600;
+  font-size: 20px;
+  margin-right: 8px;
+`;
+
 const ContentFooter = styled.div`
   button {
     display: block;
@@ -445,6 +449,10 @@ const ContentFooter = styled.div`
 
     &:not(:first-child) {
       margin-top: 12px;
+    }
+
+    img {
+      margin-right: 8px;
     }
   }
 `;

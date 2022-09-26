@@ -4,6 +4,8 @@ import styled from "styled-components";
 import KakaoLogin from "../components/KakaoLogin";
 import Button from "../element/Button";
 import { loginMemberDB } from "../redux/modules/memberSlice";
+import { logo } from "../static/images";
+import { IoIosClose } from "react-icons/io";
 
 const LogInPage = () => {
   const dispatch = useDispatch();
@@ -35,9 +37,11 @@ const LogInPage = () => {
     <>
       <LoginContainer>
         <LoginWrap>
-          <LoginLogo>Planit</LoginLogo>
-          <LoginInputBox>
-            <div>
+          <LoginLogo>
+            <img src={logo} alt="로고 이미지" />
+          </LoginLogo>
+          <LoginInputWrap>
+            <LoginItem>
               <span>아이디</span>
               <input
                 type="text"
@@ -45,8 +49,8 @@ const LogInPage = () => {
                 value={member.email}
                 onChange={onChangeHandler}
               />
-            </div>
-            <div>
+            </LoginItem>
+            <LoginItem>
               <span>비밀번호</span>
               <input
                 type="password"
@@ -55,8 +59,12 @@ const LogInPage = () => {
                 onChange={onChangeHandler}
                 onKeyUp={onKeyUp}
               />
-            </div>
-          </LoginInputBox>
+            </LoginItem>
+          </LoginInputWrap>
+          <InvalidMsg style={{ color: "#d65a5a" }}>
+            <IoIosClose style={{ marginRight: "3px" }} />
+            이메일과 비밀번호를 확인해주세요.
+          </InvalidMsg>
           <LoginBtn>
             <Button _onClick={onLoginHandler}>로그인</Button>
             <LoginNav>
@@ -88,18 +96,16 @@ const LoginWrap = styled.div`
 
 const LoginLogo = styled.div`
   text-align: center;
-  font-family: Kefa;
-  color: #fff;
-  font-weight: 900;
-  font-size: 48px;
-  margin: 0 auto 55px;
+  margin-bottom: 70px;
 `;
 
-const LoginInputBox = styled.div`
-  div {
-    position: relative;
-  }
-  div:first-child {
+const LoginInputWrap = styled.div`
+  padding-bottom: 12px;
+`;
+
+const LoginItem = styled.div`
+  position: relative;
+  &:first-child {
     margin-bottom: 12px;
   }
   span {
@@ -121,8 +127,14 @@ const LoginInputBox = styled.div`
     border-radius: 4px;
   }
 `;
+
+const InvalidMsg = styled.span`
+  line-height: 1;
+  font-size: 12px;
+`;
+
 const LoginBtn = styled.div`
-  margin-top: 24px;
+  padding-top: 12px;
 
   button {
     height: 52px;
