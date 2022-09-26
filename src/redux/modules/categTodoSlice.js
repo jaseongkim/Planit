@@ -5,9 +5,23 @@ import { apis } from "../../shared/api";
 // If there is no todolist, then createTodoList
 export const getCategThunk = createAsyncThunk(
   "category/getCategory",
+  async (date, thunkAPI) => {
+    try {
+      const { data } = await apis.getCategories(date);
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (e) {
+      console.log("getCategThunk", e.response.data.status);
+      if (e.response.data.status === 404) {
+      }
+    }
+  }
+);
+
+export const getOnlyCategThunk = createAsyncThunk(
+  "category/getOnlyCategory",
   async (_, thunkAPI) => {
     try {
-      const { data } = await apis.getCategories();
+      const { data } = await apis.getCategorie();
       return thunkAPI.fulfillWithValue(data.data);
     } catch (e) {
       console.log("getCategThunk", e.response.data.status);
@@ -154,6 +168,7 @@ export const deleteTodoThunk = createAsyncThunk(
 
 const initialState = {
   categories: [],
+  onlyCategories: [],
   isLoading: false,
   error: null,
 };
@@ -194,6 +209,17 @@ const categTodoSlice = createSlice({
       state.categories = action.payload;
     },
     [getCategThunk.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.categories = action.payload;
+    },
+    [getOnlyCategThunk.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [getOnlyCategThunk.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.onlyCategories = action.payload;
+    },
+    [getOnlyCategThunk.rejected]: (state, action) => {
       state.isLoading = false;
       state.categories = action.payload;
     },
