@@ -110,7 +110,12 @@ export default function CategoryDetailBox() {
                 </EditTitleWrap>
                 <EditSubmit onClick={() => setOpen(false)}>확인</EditSubmit>
               </ContentHeader>
+              {/* 공개 범위 */}
               <ContentFooter>
+                
+              </ContentFooter>
+              {/* 색상 */}
+              {/* <ContentFooter>
                 <ColorList>
                   <ColorItem className="active"></ColorItem>
                   <ColorItem></ColorItem>
@@ -118,7 +123,7 @@ export default function CategoryDetailBox() {
                   <ColorItem></ColorItem>
                   <ColorItem></ColorItem>
                 </ColorList>
-              </ContentFooter>
+              </ContentFooter> */}
             </CustomSheet.Content>
           </CustomSheet.Container>
           <Sheet.Backdrop />
