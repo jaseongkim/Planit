@@ -14,6 +14,7 @@ import {
   deleteTodoThunk,
   updateTodoMemoThunk,
 } from "../redux/modules/categTodoSlice.js";
+import { getDayPlanetThunk } from "../redux/modules/planetSlice.js";
 // Styled-Component
 import styled from "styled-components";
 // React Component
@@ -25,7 +26,13 @@ import DayMover from "../components/dateMover/DayMover.jsx";
 import Circle from "../element/Circle.jsx";
 // React-icons
 import { FiPlus } from "react-icons/fi";
-import { achieved_icon, like_icon_on, delete_icon, calendar_icon_gray, edit_icon } from "../static/images";
+import {
+  achieved_icon,
+  like_icon_on,
+  delete_icon,
+  calendar_icon_gray,
+  edit_icon,
+} from "../static/images";
 
 const DlyTodo = () => {
   // Redux : dispatch
@@ -37,10 +44,23 @@ const DlyTodo = () => {
   // Hook : To get the selected date from the calendar
   const [dateValue, setDateValue] = useState(new Date());
 
-  // Hook : TO get the cliced Memo info from the TodoList
+  // Var ; A Parsed date in format yyyy/mm/dd from the calendar
+  var parsedfullDate = `${dateValue.getFullYear()}-${String(
+    dateValue.getMonth() + 1
+  ).padStart(2, "0")}-${String(dateValue.getDate()).padStart(2, "0")}`;
+
+  // Var : A Parsed date in format mm월 dd일 from the calendar
+  var parsedParDate = `${String(dateValue.getFullYear()).slice(
+    2,
+    4
+  )}년 ${String(dateValue.getMonth() + 1).padStart(2, "0")}월 ${String(
+    dateValue.getDate()
+  ).padStart(2, "0")}일`;
+
+  // Hook : To get the clicked Memo info from the TodoList
   const [clickedMemo, setClickedMemo] = useState("");
 
-  // Hook : To get the clicked Cagegory index
+  // Hook : To get the clicked category index
   const [clickedCategIndex, setClickedCategIndex] = useState("");
 
   // Hook : To get the clicked todo info & index from the TodoList
@@ -55,9 +75,11 @@ const DlyTodo = () => {
   // UseRef : To get the selected date from the calendar
   const concatSelDate = useRef();
 
-  // Redux : useSelector
+  // Redux useSelector : categories useSelector
   const categories = useSelector((state) => state.categTodoSlice.categories);
 
+  // Redux useSelector : planet useSelector
+  const planet = useSelector((state) => state.planetSlice.planet);
 
   // Function to open sheetModal & Getting clicked todo Info & index as well as the todo index
   const onClickedSheet = (inputs, index, categIndex) => {
@@ -70,37 +92,12 @@ const DlyTodo = () => {
     setClickedCategIndex(categIndex);
   };
 
-  // Function to parse string month to int month
-  const parseMonth = (mm) => {
-    const monthsShort = {
-      Jan: "01",
-      Feb: "02",
-      Mar: "03",
-      Apr: "04",
-      May: "05",
-      Jun: "06",
-      Jul: "07",
-      Aug: "08",
-      Sep: "09",
-      Oct: "10",
-      Nov: "11",
-      Dec: "12",
-    };
-
-    return monthsShort[mm];
-  };
-
-  // UseEffect : getting categories & to-do lists as well as date from the calendar
+  // UseEffect : Getting categories & to-do lists as well as date from the calendar
   useEffect(() => {
-    const strData = dateValue.toString();
-    const month = strData.substring(4, 7);
-    const day = strData.substring(8, 10);
-    const year = strData.substring(11, 15);
-    const parsedMonth = parseMonth(month);
-
-    concatSelDate.current = `${year}-${parsedMonth}-${day}`;
+    concatSelDate.current = parsedfullDate;
 
     dispatch(getCategThunk(concatSelDate.current));
+    dispatch(getDayPlanetThunk(concatSelDate.current));
   }, [dateValue]);
 
   // Adding a new todo
@@ -168,17 +165,21 @@ const DlyTodo = () => {
   return (
     <StyDlyTodoCon>
       <Header showCalendar={showCalendar} setShowCalendar={setShowCalendar} />
-      <ContentWrap>
+      <StyContentWrap>
         <StyHeader>
-          <DayMover />
+          <DayMover
+            parsedParDate={parsedParDate}
+            setDateValue={setDateValue}
+            dateValue={dateValue}
+          />
           <TodoStatus>
             <div>
               <img src={achieved_icon} alt="achieved icon" />
-              <span>0</span>
+              <span>{planet.achievementCnt}</span>
             </div>
             <div>
               <img src={like_icon_on} alt="like icon on" />
-              <span>0</span>
+              <span>{planet.likesCnt}</span>
             </div>
           </TodoStatus>
         </StyHeader>
@@ -190,19 +191,24 @@ const DlyTodo = () => {
               value={dateValue}
               formatDay={(locale, date) => moment(date).format("DD")}
             />
+          ) : planet.planetType === 0 ? (
+            <StyCircleWrap>
+              <Circle
+                planetType={planet.planetType}
+                planetLevel={planet.planetLevel}
+                margin="1em auto 1em"
+                fontSize={(props) => props.theme.fontSizes.lg}
+              >
+                ?
+              </Circle>
+              행성은 당일에 만들수 있어요
+            </StyCircleWrap>
           ) : (
-            <CircleWrap>
-              <Circle>?</Circle>
-              <p>행성은 당일에 만들 수 있어요</p>
-            </CircleWrap>
+            <Circle
+              planetType={planet.planetType}
+              planetLevel={planet.planetLevel}
+            ></Circle>
           )}
-          {/* <Calendar 
-            onChange={setDateValue} 
-            value={dateValue}
-            formatDay={(locale, date) => moment(date).format("DD")}
-          /> */}
-          {/* {console.log("Checking showCalendar in DlyTodo", showCalendar)}
-                <Circle>helo</Circle> */}
         </CalendarWrap>
         <Section>
           {categories.map((input, index) => {
@@ -227,14 +233,17 @@ const DlyTodo = () => {
             );
           })}
         </Section>
-
         <CustomSheet isOpen={isOpen} onClose={() => setOpen(false)}>
           <CustomSheet.Container>
             <CustomSheet.Content>
               <ContentHeader>
                 <EditTitleWrap>
                   <EditTitle>{clickedTodo.todoInfo.title}</EditTitle>
-                  <button onClick={() => {clickEditTodo()}}>
+                  <button
+                    onClick={() => {
+                      clickEditTodo();
+                    }}
+                  >
                     <img src={edit_icon} alt="수정 아이콘 이미지" />
                   </button>
                 </EditTitleWrap>
@@ -247,11 +256,19 @@ const DlyTodo = () => {
                 onBlur={() => onCheckMemoOutFocus()}
               ></textarea>
               <ContentFooter>
-                <button onClick={() => {clickDeleteTodo()}}>
+                <button
+                  onClick={() => {
+                    clickDeleteTodo();
+                  }}
+                >
                   <img src={delete_icon} alt="삭제 아이콘" />
                   삭제
                 </button>
-                <button onClick={() => {clickDeleteTodo()}}>
+                <button
+                  onClick={() => {
+                    clickDeleteTodo();
+                  }}
+                >
                   <img src={calendar_icon_gray} alt="날짜변경 아이콘" />
                   날짜변경하기
                 </button>
@@ -260,7 +277,7 @@ const DlyTodo = () => {
           </CustomSheet.Container>
           <Sheet.Backdrop />
         </CustomSheet>
-      </ContentWrap>
+      </StyContentWrap>
       <BtmFitNavi name="dlytodo" />
     </StyDlyTodoCon>
   );
@@ -278,7 +295,7 @@ const StyHeader = styled.div`
   justify-content: space-between;
 `;
 
-const ContentWrap = styled.div`
+const StyContentWrap = styled.div`
   padding: 0 16px;
 `;
 
@@ -286,15 +303,6 @@ const Section = styled.div`
   position: relative;
   margin-top: 30px;
   /* padding: 15px 20px; */
-`;
-
-const CircleWrap = styled.div`
-  p {
-    font-weight: 400;
-    font-size: 12px;
-    color: #b1bdcf;
-    margin-top: 16px;
-  }
 `;
 
 const CalendarWrap = styled.div`
@@ -322,6 +330,12 @@ const CalendarWrap = styled.div`
     //   background: #121212;
     // }
   }
+`;
+
+const StyCircleWrap = styled.div`
+  text-align: center;
+  color: #b1bdcf;
+  font-size: 0.75em;
 `;
 
 const TodoStatus = styled.div`
