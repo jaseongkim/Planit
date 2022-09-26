@@ -2,20 +2,20 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import CategoryItem from "./CategoryItem.jsx";
-import { getCategThunk } from "../../redux/modules/categTodoSlice.js";
+import { getOnlyCategThunk } from "../../redux/modules/categTodoSlice.js";
 
 const CategList = () => {
   // Redux : dispatch
   const dispatch = useDispatch();
 
   // Redux : useSelector
-  const categories = useSelector((state) => state.categTodoSlice.categories);
-
-  console.log(categories);
+  const categories = useSelector(
+    (state) => state.categTodoSlice.onlyCategories
+  );
 
   // useEffect
   useEffect(() => {
-    dispatch(getCategThunk("2022-09-05"));
+    dispatch(getOnlyCategThunk());
   }, [dispatch]);
 
   return (

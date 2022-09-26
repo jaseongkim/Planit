@@ -5,20 +5,27 @@ import { apis } from "../../shared/api";
 // If there is no todolist, then createTodoList
 export const getCategThunk = createAsyncThunk(
   "category/getCategory",
-  async (payload, thunkAPI) => {
+  async (date, thunkAPI) => {
     try {
-      const { data } = await apis.getCategories(payload);
+      const { data } = await apis.getCategories(date);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (e) {
       console.log("getCategThunk", e.response.data.status);
       if (e.response.data.status === 404) {
-        try {
-          console.log("Check here", payload);
-          const { data } = await apis.postTodoList(payload);
-          return thunkAPI.rejectWithValue(data.data);
-        } catch (e) {
-          console.log(e);
-        }
+      }
+    }
+  }
+);
+
+export const getOnlyCategThunk = createAsyncThunk(
+  "category/getOnlyCategory",
+  async (_, thunkAPI) => {
+    try {
+      const { data } = await apis.getOnlyCategorie();
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (e) {
+      console.log("getCategThunk", e.response.data.status);
+      if (e.response.data.status === 404) {
       }
     }
   }
@@ -73,7 +80,7 @@ export const updateCategThunk = createAsyncThunk(
           console.log(response);
           if (response.data.success === false) {
           } else {
-            // return window.location.replace("/category");
+            return window.location.replace("/category");
           }
         });
     } catch (error) {}
@@ -161,6 +168,7 @@ export const deleteTodoThunk = createAsyncThunk(
 
 const initialState = {
   categories: [],
+  onlyCategories: [],
   isLoading: false,
   error: null,
 };
@@ -204,6 +212,12 @@ const categTodoSlice = createSlice({
       state.isLoading = false;
       state.categories = action.payload;
     },
+    // Getting Only categories
+    [getOnlyCategThunk.pending]: () => {},
+    [getOnlyCategThunk.fulfilled]: (state, action) => {
+      state.onlyCategories = action.payload;
+    },
+    [getOnlyCategThunk.rejected]: () => {},
 
     // Replacing the submitted todo from server with the added todo
     [createTodoThunk.pending]: (state) => {

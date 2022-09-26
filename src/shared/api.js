@@ -106,6 +106,8 @@ export const apis = {
   // Categories
   getCategories: (data) => api.get(`/categories?date=${data}`),
 
+  getOnlyCategorie: () => api.get(`/categories/menu`),
+
   postCategories: (data) => api.post("/categories", data),
 
   deleteCategories: (data) => api.delete(`/categories/${data}`),
@@ -147,5 +149,8 @@ export const apis = {
 
   getDayPlanet: (data) => api.get(`/todo-list/daily?dueDate=${data}`),
 
-  postPlanet: (data) => api.post(`/todo-list?dueDate=${data.parsedCurrDate}&planetType=${data.planetType}`)
+  postPlanet: (data) =>
+    api.post(
+      `/todo-list?dueDate=${data.parsedCurrDate}&planetType=${data.planetType}`
+    ),
 };
