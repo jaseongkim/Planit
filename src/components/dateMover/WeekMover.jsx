@@ -9,6 +9,8 @@ const WeekMover = ({ parsedDispDate, dateValue, setDateValue }) => {
   // appending subtrack or add 1 week depending on which the button get clicked
   const currDate = new Date(dateValue);
 
+  console.log("Checking dateValue", currDate)
+
   // When clicked, subtrack 1 from the current time
   const onClickLeft = () => {
     currDate.setDate(currDate.getDate() - 7);

@@ -1,5 +1,5 @@
 // React
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 // Styled Component
 import styled from "styled-components";
 // React-Router-Dom
@@ -15,10 +15,18 @@ import { useDispatch } from "react-redux";
 import { createPlanetThunk } from "../redux/modules/planetSlice";
 
 const CreatePlanet = () => {
-  
-  const [opacity, setOpacity] = useState(0.4);
 
-  console.log("Checking", opacity)
+  // Initial Opacity object, i.e., initla Opacity object for hook
+  const initOpState = {
+    firstOpa : 0.4,
+    secondOpa : 0.4,
+    thirdOpa : 0.4,
+    fourthOpa : 0.4,
+    fifthOpa : 0.4
+  }
+  
+  // Hook : To update the clicked planet's opacity
+  const [opacity, setOpacity] = useState(initOpState);
 
   // Navigation
   const navigate = useNavigate();
@@ -26,7 +34,7 @@ const CreatePlanet = () => {
   // Redux : dispatch
   const dispatch = useDispatch();
   
-  // Assigning the clicked planetType 
+  // Assigning the clicked planetType for API
   var planetType = ""
 
   // Creating current date's planet type => navigate to dlytodo page
@@ -37,10 +45,36 @@ const CreatePlanet = () => {
     navigate("/dlytodo")
   }
 
+  // If one of planets get clicked,
+  // assigning the corresponding planetType # to planetType Var
+  // update the corresponding img's opacity from 0.4 to 1 with useState
   const onClickPlanetHandler = (type) => {
-  console.log("Checking type", type)
-  planetType=1;
-  setOpacity(1)
+  
+  if(type === 1){
+    planetType=1;
+    setOpacity({firstOpa : 1})
+    console.log("Checking ", planetType)
+  }
+  else if(type === 2){
+    planetType=2;
+    setOpacity({secondOpa: 1})
+    
+  }
+  else if(type === 3){
+    planetType=3
+    setOpacity({thirdOpa: 1})
+    console.log("Checking ", planetType)
+  }
+  else if(type === 4){
+    planetType=4
+    setOpacity({fourthOpa: 1})
+    console.log("Checking ", planetType)
+  }
+  else{
+    planetType=5
+    setOpacity({fifthOpa: 1})
+    console.log("Checking ", planetType)
+  }
   }
 
   return (
@@ -52,30 +86,43 @@ const CreatePlanet = () => {
       <StyContent>오늘 키워갈 행성을 골라주세요.</StyContent>
       <StyPlanets>
         <button onClick={()=>{onClickPlanetHandler(1)}}>
-          <StyImg src={A3} alt="A3" style={{opacity:opacity}} className="first"/>
+          <img src={A3} alt="A3" style={{opacity:opacity.firstOpa}} className="first"/>
         </button>
-        <button onClick={()=>{planetType=2;setOpacity(1)}}>
-          <StyImg src={B3} alt="B3" style={{opacity:opacity}} className="second"/>
+        <button onClick={()=>{onClickPlanetHandler(2)}}>
+          <img src={B3} alt="B3" style={{opacity:opacity.secondOpa}} className="second"/>
         </button>
-        <button onClick={()=>{planetType=3;setOpacity(1)}}>
-          <StyImg src={C3} alt="C3" style={{opacity:opacity}} className="third"/>
+        <button onClick={()=>{onClickPlanetHandler(3)}}>
+          <img src={C3} alt="C3" style={{opacity:opacity.thirdOpa}} className="third"/>
         </button>
-        <button onClick={()=>{planetType=4;setOpacity(1)}}>
-          <StyImg src={D3} alt="D3" style={{opacity:opacity}} className="fourth"/>
+        <button onClick={()=>{onClickPlanetHandler(4)}}>
+          <img src={D3} alt="D3" style={{opacity:opacity.fourthOpa}} className="fourth"/>
         </button>
-        <button onClick={()=>{planetType=5;setOpacity(1)}}>
-          <StyImg src={E3} alt="E3" style={{opacity:opacity}} className="fifth"/>
+        <button onClick={()=>{onClickPlanetHandler()}}>
+          <img src={E3} alt="E3" style={{opacity:opacity.fifthOpa}} className="fifth"/>
         </button>
       </StyPlanets>
+      {(opacity.firstOpa === 0.4 || opacity.secondOpa === 0.4 || opacity.thirdOpa === 0.4 || opacity.fourthOpa === 0.4 || opacity.fifthOpa === 0.4) ?
+        <Button
+        _onClick={()=> {onClickHandler()}}
+        height="2em"
+        border="none"
+        color="#FFFFFF"
+        backgroundColor="#3185F3"
+        >
+        확인
+      </Button>
+      : 
       <Button
         _onClick={()=> {onClickHandler()}}
         height="2em"
         border="none"
         color="#FFFFFF"
         backgroundColor="#3185F3"
-      >
+        >
         확인
       </Button>
+      }
+      
     </StyContainer>
   );
 };
@@ -120,22 +167,13 @@ const StyPlanets = styled.div`
     img {
       width: 100%;
       height: 100%;
-      
-      .first{
-        opacity: 0.4;
-      }
-      
+      opacity: 0.4;
     }
-   
-    img:hover {
+    img:hover{
       opacity: 1;
     }
-
   }
 `;
 
-const StyImg = styled.img`
-    
-`
 
 
