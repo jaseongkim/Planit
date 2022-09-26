@@ -104,7 +104,7 @@ export const apis = {
   followingMember: (memberId) => api.get(`/follow/${memberId}/followings`),
 
   // Categories
-  getCategories: (data) => api.get(`/categories?date=${data}`),
+  getCategories: () => api.get(`/categories/menu`),
 
   postCategories: (data) => api.post("/categories", data),
 
@@ -147,5 +147,8 @@ export const apis = {
 
   getDayPlanet: (data) => api.get(`/todo-list/daily?dueDate=${data}`),
 
-  postPlanet: (data) => api.post(`/todo-list?dueDate=${data.parsedCurrDate}&planetType=${data.planetType}`)
+  postPlanet: (data) =>
+    api.post(
+      `/todo-list?dueDate=${data.parsedCurrDate}&planetType=${data.planetType}`
+    ),
 };
