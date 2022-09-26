@@ -21,7 +21,7 @@ export const getOnlyCategThunk = createAsyncThunk(
   "category/getOnlyCategory",
   async (_, thunkAPI) => {
     try {
-      const { data } = await apis.getCategorie();
+      const { data } = await apis.getOnlyCategorie();
       return thunkAPI.fulfillWithValue(data.data);
     } catch (e) {
       console.log("getCategThunk", e.response.data.status);
@@ -212,17 +212,12 @@ const categTodoSlice = createSlice({
       state.isLoading = false;
       state.categories = action.payload;
     },
-    [getOnlyCategThunk.pending]: (state) => {
-      state.isLoading = true;
-    },
+    // Getting Only categories
+    [getOnlyCategThunk.pending]: () => {},
     [getOnlyCategThunk.fulfilled]: (state, action) => {
-      state.isLoading = false;
       state.onlyCategories = action.payload;
     },
-    [getOnlyCategThunk.rejected]: (state, action) => {
-      state.isLoading = false;
-      state.categories = action.payload;
-    },
+    [getOnlyCategThunk.rejected]: () => {},
 
     // Replacing the submitted todo from server with the added todo
     [createTodoThunk.pending]: (state) => {

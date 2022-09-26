@@ -106,7 +106,7 @@ export const apis = {
   // Categories
   getCategories: (data) => api.get(`/categories?date=${data}`),
 
-  getCategorie: () => api.get(`/categories/menu`),
+  getOnlyCategorie: () => api.get(`/categories/menu`),
 
   postCategories: (data) => api.post("/categories", data),
 
