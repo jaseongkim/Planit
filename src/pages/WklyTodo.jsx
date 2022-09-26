@@ -18,7 +18,10 @@ const WklyTodo = () => {
   // Redux : dispatch
   const dispatch = useDispatch();
 
-  // Redux : useSelector
+  // Hook : A date that let user to choose different date from the WeekMover
+  const [dateValue, setDateValue] = useState(new Date());
+
+  // Redux : weeklyPlants useSelector
   const wkPlanets = useSelector((state) => state.planetSlice.planets);
 
   // Getting a week of month from a given monday date
@@ -31,38 +34,45 @@ const WklyTodo = () => {
     return parseInt((weekDay - 1 + currentDate) / 7) + 1;
   };
 
-  // Getting Monday of the current week with a given date
-  const getMondayOfCurrentWeek = () => {
-    const today = new Date();
-    const first = today.getDate() - today.getDay() + 1;
+  // Getting Monday of the week with a given date
+  const getMondayOfWeek = (date) => {
+    const first =
+      date.getDate() - date.getDay() + (date.getDay() === 0 ? -6 : 1);
+    const monday = new Date(date.setDate(first));
 
-    // console.log("check getDate", today.getDate(), "Check getDay", today.getDay())
-    // console.log("Check first", first)
-
-    const monday = new Date(today.setDate(first));
-    // const parsedDate = `${monday.getFullYear()}-${monday.getMonth()+1}-${monday.getDate()}`
     return monday;
   };
 
-  const parsedDate = `${getMondayOfCurrentWeek().getFullYear()}-${
-    String(getMondayOfCurrentWeek().getMonth() + 1).padStart(2, '0')
-  }-${String(getMondayOfCurrentWeek().getDate()).padStart(2, '0')}`;
-  const month = getMondayOfCurrentWeek().getMonth() + 1;
-  const weekOfMonth = getWeekNumber(getMondayOfCurrentWeek());
-//   console.log("Checking not parsed monday date :", getMondayOfCurrentWeek());
-//   console.log("Checking monday date :", parsedDate);
-//   console.log("getting Week Number :", weekOfMonth);
-//   console.log("month :", month);
+  // Var ; A parsed date in format yyyy/mm/dd for API
+  const parsedDate = `${getMondayOfWeek(dateValue).getFullYear()}-${String(
+    getMondayOfWeek(dateValue).getMonth() + 1
+  ).padStart(2, "0")}-${String(getMondayOfWeek(dateValue).getDate()).padStart(
+    2,
+    "0"
+  )}`;
 
+  // Var ; A parsed date in format yy년 mm월 dd째주 to display on the WeekMover
+  const parsedDispDate = `${String(
+    getMondayOfWeek(dateValue).getFullYear()
+  ).slice(2, 4)}년 ${
+    getMondayOfWeek(dateValue).getMonth() + 1
+  }월 ${getWeekNumber(getMondayOfWeek(dateValue))}째주`;
+
+  // UseEffect : Getting weekly planets with its week's date
+  // when dateValue get updated, re-render WklyTodo after return
   useEffect(() => {
     dispatch(getWeekPlanetsThunk(parsedDate));
-  }, []);
+  }, [dateValue]);
 
   return (
     <StyTodoCon>
       <Header></Header>
       <StyHeader>
-        <WeekMover month={month} weekOfMonth={weekOfMonth} />
+        <WeekMover
+          parsedDispDate={parsedDispDate}
+          dateValue={dateValue}
+          setDateValue={setDateValue}
+        />
         <TodoStatus>
           <div>
             <img src={achieved_icon} alt="achieved icon" />
@@ -79,11 +89,19 @@ const WklyTodo = () => {
         {wkPlanets.planets?.map((planet, index) => {
           return (
             <StyCircleWrap key={index}>
-                {planet.planetType !== null? 
-                <>{planet.dueDate.substring(8, 10)}<Circle planetType={planet.planetType} planetLevel={planet.planetLevel}></Circle></> 
-                : <Circle  planetType={planet.planetType} planetLevel={planet.planetLevel}>{planet.dueDate.substring(8, 10)}</Circle>}
+              {planet.planetType === null || planet.planetType === 0 ? (
+                <Circle>{planet.dueDate.substring(8, 10)}</Circle>
+              ) : (
+                <>
+                  {planet.dueDate.substring(8, 10)}
+                  <Circle
+                    planetType={planet.planetType}
+                    planetLevel={planet.planetLevel}
+                    planetSize={planet.planetSize}
+                  ></Circle>
+                </>
+              )}
             </StyCircleWrap>
-            // <StyWklyCircle className={`circle${index}`}></StyWklyCircle>
           );
         })}
       </StyCircleCon>
@@ -103,8 +121,6 @@ const TodoStatus = styled.div`
   align-items: center;
   justify-content: flex-end;
   width: 100%;
-  /* margin-bottom: 20px; */
-  /* padding: 0 20px; */
   gap: 12px;
 
   span {
@@ -124,27 +140,12 @@ const StyCircleCon = styled.div`
   height: 85vh;
   position: relative;
 `;
-// const StyWklyCircle = styled.div`
-//   margin: 0 auto;
-//   display: flex;
-//   width: 100px;
-//   height: 100px;
-//   background: green;
-//   border-radius: 50%;
-//   align-items: center;
-//   justify-content: center;
-
-//   /* .circle0 {
-//     top: 150px;
-//     left: 200px;
-//     background-color: red;
-//   } */
-// `
 
 const StyCircleWrap = styled.div`
   position: absolute;
   text-align: center;
   color: white;
+  font-weight: ${(props) => props.theme.fontWeight.Bold};
 
   &:nth-child(1) {
     top: 10px;
@@ -190,4 +191,3 @@ const StyCircleWrap = styled.div`
     /* transform: translate(450px,500px); */
   }
 `;
-const StyCircle = styled.div``;

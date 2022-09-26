@@ -17,9 +17,9 @@ export const getWeekPlanetsThunk = createAsyncThunk(
 // Getting a planet for DlyTodo from the server
 export const getDayPlanetThunk = createAsyncThunk(
   "planet/getDayPlanetsThunk",
-  async (memberId, thunkAPI) => {
+  async (payload, thunkAPI) => {
     try {
-      const { data } = await apis.followingMember(memberId);
+      const { data } = await apis.getDayPlanet(payload);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (e) {
       return thunkAPI.rejectWithValue(e.code);
@@ -29,7 +29,7 @@ export const getDayPlanetThunk = createAsyncThunk(
 
 // posting today's planet type to server
 export const createPlanetThunk = createAsyncThunk(
-  "planet/getDayPlanetsThunk",
+  "planet/createPlanetThunk",
   async (payload, thunkAPI) => {
     try {
       console.log("Checking payload", payload)
@@ -55,6 +55,8 @@ const followSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
+
+    // Getting all the seven days Planets 
     [getWeekPlanetsThunk.pending]: (state) => {
       state.isLoading = true;
     },
@@ -67,6 +69,7 @@ const followSlice = createSlice({
       state.error = action.payload;
     },
 
+    // Getting one day Planet
     [getDayPlanetThunk.pending]: (state) => {
       state.isLoading = true;
     },

@@ -1,38 +1,61 @@
-import React from 'react';
+import React from "react";
 
 // Styled-Component
 import styled from "styled-components";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 
-const WeekMover = ({month,weekOfMonth }) => {
+const WeekMover = ({ parsedDispDate, dateValue, setDateValue }) => {
+  // Var: Getting a local current time
+  // appending subtrack or add 1 week depending on which the button get clicked
+  const currDate = new Date(dateValue);
 
-    // console.log("Month", month, "Week Of Month", weekOfMonth)
-    const d = new Date()
+  // When clicked, subtrack 1 from the current time
+  const onClickLeft = () => {
+    currDate.setDate(currDate.getDate() - 7);
+    setDateValue(currDate);
+  };
 
-    return(
-        <StyDayCon>
-        <AiOutlineLeft className="arrow"/>
-        <div>{`${month}월 ${weekOfMonth}째주`}</div>
-        <AiOutlineRight className="arrow"/>
-        </StyDayCon>
-    );
+  // When clicked, add 1 from the current time
+  const onClickRight = () => {
+    currDate.setDate(currDate.getDate() + 7);
+    setDateValue(currDate);
+  };
+
+  return (
+    <StyWeekCon>
+      <button>
+        <AiOutlineLeft
+          className="arrow"
+          style={{ color: "rgba(177, 189, 207, 1)", marginRight: "5px" }}
+          onClick={() => {
+            onClickLeft();
+          }}
+        />
+      </button>
+      <div>{parsedDispDate}</div>
+      <button>
+        <AiOutlineRight
+          className="arrow"
+          style={{ color: "rgba(177, 189, 207, 1)", marginLeft: "5px" }}
+          onClick={() => {
+            onClickRight();
+          }}
+        />
+      </button>
+    </StyWeekCon>
+  );
 };
 
 export default WeekMover;
 
-const StyDayCon = styled.div`
-    width: 200px;
-    display: flex;
-    color: white;
-    align-items: center;
-    
-    .arrow:first-child{
-        margin-right: 5px;
-    }
+const StyWeekCon = styled.div`
+  width: 300px;
+  display: flex;
+  color: white;
+  align-items: center;
 
-    .arrow:last-child{
-        margin-left: 5px;
-    }
-`
-
-
+  button {
+    background: transparent;
+    border: none;
+  }
+`;

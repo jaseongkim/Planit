@@ -32,7 +32,7 @@ const TodoList = ({
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("This is useEffect from the TodoList")
+    // console.log("This is useEffect from the TodoList")
   }, []);
   
   // Specifying todo & memo info a new todo
@@ -132,7 +132,7 @@ const TodoList = ({
 
   return (
     <TodoListCon>
-      {console.log("This is return in TodoList")}
+      {/* {console.log("This is return in TodoList")} */}
       {todos.map((inputs, index) => {
         return (
           <TodoItemCon key={`${inputs.todoId}`}>
