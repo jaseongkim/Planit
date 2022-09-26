@@ -196,18 +196,21 @@ const DlyTodo = () => {
               <Circle
                 planetType={planet.planetType}
                 planetLevel={planet.planetLevel}
-                margin="1em auto 1em"
                 fontSize={(props) => props.theme.fontSizes.lg}
               >
                 ?
               </Circle>
-              행성은 당일에 만들수 있어요
+              <p>행성은 당일에 만들수 있어요</p>
             </StyCircleWrap>
           ) : (
-            <Circle
-              planetType={planet.planetType}
-              planetLevel={planet.planetLevel}
-            ></Circle>
+            <StyCircleWrap>
+              <Circle
+                planetType={planet.planetType}
+                planetLevel={planet.planetLevel}
+                planetSize={planet.planetSize}
+              ></Circle>
+              <p>다음 단계까지 3개 남았어요.</p>
+            </StyCircleWrap>
           )}
         </CalendarWrap>
         <Section>
@@ -336,6 +339,10 @@ const StyCircleWrap = styled.div`
   text-align: center;
   color: #b1bdcf;
   font-size: 0.75em;
+
+  p {
+    margin-top: 16px;
+  }
 `;
 
 const TodoStatus = styled.div`
