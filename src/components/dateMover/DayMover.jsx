@@ -51,7 +51,6 @@ const DayMover = ({ parsedParDate, setDateValue, dateValue }) => {
 export default DayMover;
 
 const StyDayCon = styled.div`
-    width: 300px;
     display: flex;
     color: white;
     align-items: center;
