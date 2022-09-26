@@ -366,7 +366,7 @@ const CalendarWrap = styled.div`
         
         &::before {
           content: "";
-          position absolute;
+          position: absolute;
           top: 0;
           left: 0;
           width: 100%;
@@ -388,6 +388,7 @@ const CalendarWrap = styled.div`
       }
     }
     abbr {
+      font-weight: 400;
       color: #fff;
       text-decoration: none;
     }
@@ -400,6 +401,9 @@ const CalendarWrap = styled.div`
 
       &__weekdays {
         margin-bottom: 10px;
+        abbr {
+          font-weight: 600;
+        }
       }
 
       &__weekdays__weekday,
@@ -428,9 +432,15 @@ const CalendarWrap = styled.div`
     }
     .react-calendar__tile--now {
       background: #8b98ac !important;
+      abbr {
+        font-weight: 600;
+      }
     }
     .react-calendar__tile--active {
       background: #3185f3 !important;
+      abbr {
+        font-weight: 600;
+      }
     }
     .react-calendar__tile {
       position: relative; 
@@ -539,7 +549,6 @@ const CustomSheet = styled(Sheet)`
   .react-modal-sheet-content {
     /* custom styles */
     padding: 0 5% 5% 5%;
-    // background: #516d93;
     background: transparent;
 
     textarea {
