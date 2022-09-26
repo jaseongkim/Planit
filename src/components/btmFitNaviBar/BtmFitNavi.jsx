@@ -42,77 +42,80 @@ const BtmFitNavi = ({name,wkPlanets}) => {
     }}
 
     return (
-        <StyBtmNavi>
-            <StyBtmTab 
-                className="week"
-                date={activeTabs}
-                onClick={() => setActiveTabs('WklyTodo')}
-            >
-                    Week
-              </StyBtmTab>
-            <StyBtmTab
-                className="day" 
-                date={activeTabs}           
-                onClick={() => onClickDay()}
-            >
-                    Day
-              </StyBtmTab>
-            </StyBtmNavi>
+      <StyBtmNavi>
+        <StyBtmTabWrap>
+          <StyBtmTab 
+            className="week"
+            date={activeTabs}
+            onClick={() => setActiveTabs('WklyTodo')}>
+            Week
+          </StyBtmTab>
+          <StyBtmTab
+            className="day" 
+            date={activeTabs}           
+            onClick={() => setActiveTabs('dlytodo')}>
+            Day
+          </StyBtmTab>
+        </StyBtmTabWrap>
+      </StyBtmNavi>
     )
 }
 
 export default BtmFitNavi
 
 const StyBtmNaviBody = styled.div`
-  padding: 0;
-  box-sizing: border-box;
-  border-radius: 13px;
+  // width: 100%;
+  // height: 50px;
+  // border-radius: 13px;
 `
 
 const StyBtmNavi = styled(StyBtmNaviBody)`
-  width: 90%;
-  height: 50px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  max-width: 375px;
+  padding: 50px 16px 32px;
+  background: linear-gradient(0deg, #DBEAFF 0.01%, #8DBEFF 63.02%, rgba(119, 178, 255, 0) 98.77%);
+`
+
+const StyBtmTabWrap = styled(StyBtmNaviBody)`
   display: flex;
   align-items: center;
-  position: fixed;
-  bottom: 3%;
-  background: rgba(56, 106, 202, 0.3);
-  margin: auto;
-  left: 0;
-  right: 0;
-`
+  width: 100%;
+  padding: 2.5px;
+  background: #386ACA4D;
+  border-radius: 10px;
+`;
 
 const StyBtmTab = styled(StyBtmNaviBody)`
 ${(props) => {
     switch (props.date) {
       case "dlytodo":
         return css`
-          width: 100%;
-          height: 92%;
           display: flex;
-          justify-content: center;
           align-items: center;
-          border-radius: 12px;
+          justify-content: center;
+          width: 50%;
+          height: 35px;
+          border-radius: 8px;
               
           &.day{
             background: white;
-            width: 100%;
-            margin: 0.6%;
+            box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.12), 0px 3px 1px rgba(0, 0, 0, 0.04);
           }
         `;
       default:
         return css`
-          width: 100%;
-          height: 92%;
+          width: 50%;
+          height: 35px;
           display: flex;
           justify-content: center;
           align-items: center;
-          border-radius: 12px;
+          border-radius: 8px;
               
           &.week{
             background: white;
-            width: 100%;
-            margin: 0.6%;
+            box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.12), 0px 3px 1px rgba(0, 0, 0, 0.04);
           }
         `;
     }

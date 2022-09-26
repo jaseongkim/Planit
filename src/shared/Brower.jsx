@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 // import { bgleft, bgright } from "../static/images";
 import Router from "./Router";
@@ -15,13 +15,7 @@ export default function Brower() {
   );
 }
 
-const Back = styled.div`
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
-  background-color: #ffffff;
-`;
+const Back = styled.div``;
 
 // const BackgroundImgLeft = styled.img`
 //   position: absolute;
@@ -36,6 +30,11 @@ const Back = styled.div`
 // `;
 
 const MobileWrap = styled.div`
+  position: relative; // Header position을 sticky로 할 경우
+  max-width: 375px;
+  height: 100vh;
+  overflow-x: hidden;
+  margin: 0 auto;
   background: linear-gradient(
     180deg,
     #121212 0%,
@@ -44,16 +43,6 @@ const MobileWrap = styled.div`
     #d8e2ee 95.05%,
     #eeeeee 100%
   );
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  transform: translate(-50%, -50%);
-  min-width: 375px;
-  max-width: 375px;
-  height: 100vh;
-  padding-bottom: 100px;
   box-shadow: 6px 0px 14px rgba(219, 219, 219, 0.39),
     -26px 6px 90px rgba(73, 73, 73, 0.58);
   -ms-overflow-style: none; /* IE and Edge */

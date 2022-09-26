@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 
 const DayMover = ({ parsedParDate, setDateValue, dateValue }) => {
-    
+
   // Var: Getting a local current time
   // appending subtrack or add 1 day depending on which the button get clicked
   const currDate = new Date(dateValue);
@@ -51,13 +51,27 @@ const DayMover = ({ parsedParDate, setDateValue, dateValue }) => {
 export default DayMover;
 
 const StyDayCon = styled.div`
-  width: 300px;
-  display: flex;
-  color: white;
-  align-items: center;
+    width: 300px;
+    display: flex;
+    color: white;
+    align-items: center;
+    display: flex;
+    align-items: center;
+    
+    div {
+        font-size: 18px;
+        color: #fff;
+        margin: 0 10px;
+    }
 
-  button {
-    background: transparent;
-    border: none;
-  }
-`;
+    button {
+        width: 24px;
+        height:24px;
+        color: #fff;
+        background: transparent;
+        border: none;
+    }
+`
+
+
+

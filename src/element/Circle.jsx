@@ -27,8 +27,8 @@ export default function Circle(props) {
     display,
     width,
     height,
-    border,
     color,
+    border,
     fontWeight,
     fontSize,
     backgroundColor,
@@ -46,6 +46,7 @@ export default function Circle(props) {
     display: display,
     width: width,
     height: height,
+    color: color,
     border: border,
     fontWeight: fontWeight,
     fontSize: fontSize,
@@ -55,6 +56,7 @@ export default function Circle(props) {
     alignItems: alignItems,
     justifyContent: justifyContent,
     textAlign: textAlign,
+    fontSize: fontSize
   };
 
   return (
@@ -77,13 +79,14 @@ Circle.defaultProps = {
   _onClick: () => {},
   margin: "0 auto",
   display: "flex",
-  width: "100px",
-  height: "100px",
-  border: "2px solid #ffffff",
-  color: "#ffffff",
+  width: "76px",
+  height: "76px",
+  color: "#fff",
+  border: "1px solid #fff",
   borderRadius: "50%",
   alignItems: "center",
   justifyContent: "center",
+  fontSize: "20px",
   textAlign: "center",
 };
 
@@ -92,6 +95,7 @@ const ElCircle = styled.div`
   margin: ${(props) => props.margin};
   width: ${(props) => props.width};
   height: ${(props) => props.height};
+  color: ${(props) => props.color};
   border: ${(props) => props.border};
   color: ${(props) => props.color};
   background-color: ${(props) => props.backgroundColor};

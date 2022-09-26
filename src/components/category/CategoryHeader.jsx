@@ -37,11 +37,9 @@ const HeaderWrap = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: fixed;
-  top: 0;
   width: 100%;
   color: #fff;
-  padding: 40px 20px 10px;
+  padding: 16px;
   background: #17171b;
 `;
 
