@@ -3,7 +3,7 @@ import MainHeader from "../MainHeader";
 import { IoIosArrowDown } from "react-icons/io";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { updateMemberDB } from "../../redux/modules/memberSlice";
+import { updateNickName } from "../../redux/modules/memberSlice";
 
 export default function NickName() {
   const dispatch = useDispatch();
@@ -42,7 +42,7 @@ export default function NickName() {
 
     formData.append("data", blob);
 
-    dispatch(updateMemberDB(formData));
+    dispatch(updateNickName({ formData, nickName }));
   };
 
   return (

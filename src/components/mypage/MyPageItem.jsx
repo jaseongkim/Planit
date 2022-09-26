@@ -12,7 +12,9 @@ export default function MyPageItem(props) {
     } else if (id === 2) {
       navigate("/password");
     } else if (id === 3) {
-      console.log("로그아웃 눌림");
+      localStorage.clear();
+      alert("로그아웃 되었습니다!");
+      navigate("/");
     }
   };
 
