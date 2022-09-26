@@ -8,6 +8,7 @@ import {
   updateCategThunk,
 } from "../../redux/modules/categTodoSlice";
 import Sheet from "react-modal-sheet";
+import { select_arrow } from "../../static/images";
 
 export default function CategoryDetailBox() {
 
@@ -68,20 +69,26 @@ export default function CategoryDetailBox() {
           />
         </InputBox>
         <CategoryOption>
-          <button onClick={() => onClickedSheet()}>
-            공개 범위
-            <span>
+          <CategoryOptionItem>
+            <CategoryOptionTitle>공개 범위</CategoryOptionTitle>
+            <button onClick={() => onClickedSheet()}>
               전체공개
-            </span>
-          </button>
-          <button onClick={() => onClickedSheet()}>
-            색상
-            <span>
+              <img src={select_arrow} alt="셀렉트 화살표 아이콘" />
+            </button>
+          </CategoryOptionItem>
+          <CategoryOptionItem>
+            <CategoryOptionTitle>색상</CategoryOptionTitle>
+            <button onClick={() => onClickedSheet()}>
               <PickedColor></PickedColor>
-            </span>
-          </button>
-          <button>카테고리 종료하기</button>
-          <button>카테고리 재개하기</button>
+              <img src={select_arrow} alt="셀렉트 화살표 아이콘" />          
+            </button>
+          </CategoryOptionItem>
+          <CategoryOptionItem>
+            <button>카테고리 종료하기</button>
+          </CategoryOptionItem>
+          <CategoryOptionItem>
+            <button>카테고리 재개하기</button>
+          </CategoryOptionItem>
           {categoriesDetail === undefined ? null : (
             <button onClick={onDeleteHandler}>카테고리 삭제하기</button>
           )}
@@ -89,7 +96,7 @@ export default function CategoryDetailBox() {
       </CategoryWrap>
       {category.categoryName === "" ? <CategorySubmit onClick={onConfirmHandler} disabled>확인</CategorySubmit> :<CategorySubmit onClick={onConfirmHandler}>확인</CategorySubmit>}
 
-      {/* <CustomSheet isOpen={isOpen} onClose={() => setOpen(false)}>
+      <CustomSheet isOpen={isOpen} onClose={() => setOpen(false)}>
         <CustomSheet.Container>
           <CustomSheet.Content>
             <ContentHeader>
@@ -99,36 +106,62 @@ export default function CategoryDetailBox() {
               <EditSubmit onClick={() => setOpen(false)}>확인</EditSubmit>
             </ContentHeader>
             <ContentFooter>
-              
+              <CustomCheckList>
+                <CustomCheckItem>
+                  <label>
+                    <CustomCheck>
+                      <input
+                        type="radio"
+                        name="publicRadio"
+                        checked={true}
+                      />
+                      <div></div>
+                    </CustomCheck>
+                    <span>전체공개</span>
+                  </label>
+                </CustomCheckItem>
+                <CustomCheckItem>
+                  <label>
+                    <CustomCheck>
+                      <input
+                        type="radio"
+                        name="publicRadio"
+                      />
+                      <div></div>
+                    </CustomCheck>
+                    <span>나만보기</span>
+                  </label>
+                </CustomCheckItem>
+              </CustomCheckList>
+            </ContentFooter>
+          </CustomSheet.Content>
+        </CustomSheet.Container>
+        <Sheet.Backdrop />
+      </CustomSheet>
+
+      {/* <CustomSheet isOpen={isOpen} onClose={() => setOpen(false)}>
+        <CustomSheet.Container>
+          <CustomSheet.Content>
+            <ContentHeader>
+              <EditTitleWrap>
+                <EditTitle>색상</EditTitle>
+              </EditTitleWrap>
+              <EditSubmit onClick={() => setOpen(false)}>확인</EditSubmit>
+            </ContentHeader>
+            <ContentFooter>
+              <ColorList>
+                <ColorItem className="active"></ColorItem>
+                <ColorItem></ColorItem>
+                <ColorItem></ColorItem>
+                <ColorItem></ColorItem>
+                <ColorItem></ColorItem>
+              </ColorList>
             </ContentFooter>
           </CustomSheet.Content>
         </CustomSheet.Container>
         <Sheet.Backdrop />
       </CustomSheet> */}
-
-      <CustomSheet isOpen={isOpen} onClose={() => setOpen(false)}>
-          <CustomSheet.Container>
-            <CustomSheet.Content>
-              <ContentHeader>
-                <EditTitleWrap>
-                  <EditTitle>색상</EditTitle>
-                </EditTitleWrap>
-                <EditSubmit onClick={() => setOpen(false)}>확인</EditSubmit>
-              </ContentHeader>
-              <ContentFooter>
-                <ColorList>
-                  <ColorItem className="active"></ColorItem>
-                  <ColorItem></ColorItem>
-                  <ColorItem></ColorItem>
-                  <ColorItem></ColorItem>
-                  <ColorItem></ColorItem>
-                </ColorList>
-              </ContentFooter>
-            </CustomSheet.Content>
-          </CustomSheet.Container>
-          <Sheet.Backdrop />
-        </CustomSheet>
-
+      
     </CategoryContainer>
   );
 }
@@ -146,25 +179,35 @@ const CategoryWrap = styled.div`
 `;
 
 const CategoryOption = styled.div`
+  color: #fff;
   margin-top: 25px;
+`;
+
+const CategoryOptionItem = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
   button {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 100%;
     text-align: left;
     font-weight: 600;
     font-size: 16px;
-    color: #b1bdcf;
+    color: #fff;
     padding: 14px 0;
     background: transparent;
     border: none;
 
-    span {
-      color: #fff;
+    img {
+      margin-left: 8px;
     }
   }
+`;
+
+const CategoryOptionTitle = styled.span`
+
 `;
 
 const InputBox = styled.div`
@@ -267,6 +310,58 @@ const EditSubmit = styled.button``;
 
 const ContentFooter = styled.div`
   margin-top: 25px;
+`;
+
+const CustomCheckList = styled.div``;
+
+const CustomCheckItem = styled.div`
+  label {
+    display: flex;
+    align-items: center;
+  }
+
+  span {
+    font-size: 14px;
+    color: #fff;
+  }
+
+  &:not(:first-child) {
+    margin-top: 12px;
+  }
+`;
+
+const CustomCheck = styled.div`
+  position: relative;
+  width: 16px;
+  height: 16px;
+  margin-right: 12px;
+
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #8b98ac;
+    border-radius: 100px;
+  }
+
+  input[type="radio"] {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: 10;
+
+    &:checked + div::after {
+      content: "";
+      width: 12px;
+      height: 12px;
+      background-color: #3185f3;
+      border-radius: 100px;
+    }
+  }
 `;
 
 const ColorList = styled.div`

@@ -1,11 +1,10 @@
 import styled from "styled-components";
 import MainHeader from "../MainHeader";
-import { IoIosClose } from "react-icons/io";
 import { IoIosArrowDown } from "react-icons/io";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { updateMemberDB } from "../../redux/modules/memberSlice";
+import { updatePassword } from "../../redux/modules/memberSlice";
 
 export default function NickName() {
   const dispatch = useDispatch();
@@ -61,7 +60,7 @@ export default function NickName() {
 
     formData.append("data", blob);
 
-    dispatch(updateMemberDB(formData));
+    dispatch(updatePassword(formData));
   };
 
   return (

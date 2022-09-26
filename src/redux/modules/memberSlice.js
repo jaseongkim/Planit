@@ -64,25 +64,49 @@ export const kakaoLoginDB = (code) => {
   };
 };
 
-export const updateMemberDB = createAsyncThunk(
-  "member/updateMemberDB",
+export const updateNickName = createAsyncThunk(
+  "member/updateNickName",
+  async (payload, thunkAPI) => {
+    // for (const keyValue of payload.formData) console.log(keyValue);
+    await apis
+      .memberUpdate(payload.formData)
+      .then((response) => {
+        if (response.data.success === false) {
+          return window.alert(response.data.message);
+        } else {
+          return (
+            localStorage.removeItem("nickname"),
+            localStorage.setItem("nickname", payload.nickName),
+            window.location.replace("/mypage")
+          );
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        if (error.response.status === 400) {
+          alert(error.response.data.message);
+        }
+      });
+  }
+);
+export const updatePassword = createAsyncThunk(
+  "member/updatePassword",
   async (formData, thunkAPI) => {
-    for (const keyValue of formData) console.log(keyValue);
-    // await apis
-    //   .memberUpdate(formData)
-    //   .then((response) => {
-    //     console.log(response);
-    //     // if (response.data.success === false) {
-    //     //   return window.alert(response.data.message);
-    //     // } else {
-    //     // }
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //     if (error.response.status === 400) {
-    //       alert(error.response.data.message);
-    //     }
-    //   });
+    await apis
+      .memberUpdate(formData)
+      .then((response) => {
+        if (response.data.success === false) {
+          return window.alert(response.data.message);
+        } else {
+          return window.location.replace("/mypage");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        if (error.response.status === 400) {
+          alert(error.response.data.message);
+        }
+      });
   }
 );
 
