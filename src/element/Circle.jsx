@@ -50,13 +50,11 @@ export default function Circle(props) {
     border: border,
     fontWeight: fontWeight,
     fontSize: fontSize,
-    color: color,
     backgroundColor: backgroundColor,
     borderRadius: borderRadius,
     alignItems: alignItems,
     justifyContent: justifyContent,
     textAlign: textAlign,
-    fontSize: fontSize
   };
 
   return (
@@ -105,7 +103,7 @@ const ElCircle = styled.div`
   text-align: ${(props) => props.textAlign};
   font-size: ${(props) => props.fontSize};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
-  
+
   ${(props) => {
     switch (true) {
       // Type1
