@@ -26,6 +26,7 @@ import DayMover from "../components/dateMover/DayMover.jsx";
 import Circle from "../element/Circle.jsx";
 // React-icons
 import { FiPlus } from "react-icons/fi";
+import { prev_icon, next_icon } from "../static/images/";
 import {
   achieved_icon,
   like_icon_on,
@@ -166,53 +167,70 @@ const DlyTodo = () => {
     <StyDlyTodoCon>
       <Header showCalendar={showCalendar} setShowCalendar={setShowCalendar} />
       <StyContentWrap>
-        <StyHeader>
-          <DayMover
-            parsedParDate={parsedParDate}
-            setDateValue={setDateValue}
-            dateValue={dateValue}
-          />
-          <TodoStatus>
-            <div>
-              <img src={achieved_icon} alt="achieved icon" />
-              <span>{planet.achievementCnt}</span>
-            </div>
-            <div>
-              <img src={like_icon_on} alt="like icon on" />
-              <span>{planet.likesCnt}</span>
-            </div>
-          </TodoStatus>
-        </StyHeader>
-        {/* <SubHeader></SubHeader> */}
-        <CalendarWrap>
+        <StyContentBox>
           {showCalendar ? (
-            <Calendar
-              onChange={setDateValue}
-              value={dateValue}
-              formatDay={(locale, date) => moment(date).format("DD")}
-            />
-          ) : planet.planetType === 0 ? (
-            <StyCircleWrap>
-              <Circle
-                planetType={planet.planetType}
-                planetLevel={planet.planetLevel}
-                fontSize={(props) => props.theme.fontSizes.lg}
-              >
-                ?
-              </Circle>
-              <p>행성은 당일에 만들수 있어요</p>
-            </StyCircleWrap>
+            <CalendarWrap>
+              <StyHeader showCalendar={showCalendar}>
+                <TodoStatus>
+                  <div>
+                    <img src={achieved_icon} alt="achieved icon" />
+                    <span>{planet.achievementCnt}</span>
+                  </div>
+                  <div>
+                    <img src={like_icon_on} alt="like icon on" />
+                    <span>{planet.likesCnt}</span>
+                  </div>
+                </TodoStatus>
+              </StyHeader>
+              <Calendar
+                onChange={setDateValue}
+                value={dateValue}
+                formatDay={(locale, date) => moment(date).format("DD")}
+              />
+            </CalendarWrap>
           ) : (
             <StyCircleWrap>
-              <Circle
-                planetType={planet.planetType}
-                planetLevel={planet.planetLevel}
-                planetSize={planet.planetSize}
-              ></Circle>
-              <p>다음 단계까지 3개 남았어요.</p>
+              <StyHeader showCalendar={showCalendar}>
+                <DayMover
+                  parsedParDate={parsedParDate}
+                  setDateValue={setDateValue}
+                  dateValue={dateValue}
+                />
+                <TodoStatus>
+                  <div>
+                    <img src={achieved_icon} alt="achieved icon" />
+                    <span>{planet.achievementCnt}</span>
+                  </div>
+                  <div>
+                    <img src={like_icon_on} alt="like icon on" />
+                    <span>{planet.likesCnt}</span>
+                  </div>
+                </TodoStatus>
+              </StyHeader>
+              {planet.planetType === 0 ? (
+                <CircleBox>
+                  <Circle
+                    planetType={planet.planetType}
+                    planetLevel={planet.planetLevel}
+                    fontSize={(props) => props.theme.fontSizes.lg}
+                  >
+                    ?
+                  </Circle>
+                  <p>행성은 당일에 만들수 있어요</p>
+                </CircleBox>
+              ) : (
+                <CircleBox>
+                  <Circle
+                    planetType={planet.planetType}
+                    planetLevel={planet.planetLevel}
+                    planetSize={planet.planetSize}
+                  ></Circle>
+                  <p>다음 단계까지 3개 남았어요.</p>
+                </CircleBox>
+              )}
             </StyCircleWrap>
           )}
-        </CalendarWrap>
+        </StyContentBox>
         <Section>
           {categories.map((input, index) => {
             return (
@@ -295,17 +313,20 @@ const StyDlyTodoCon = styled.div`
 const StyHeader = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: ${({showCalendar}) => showCalendar ? 'flex-end' : 'space-between'};
+  position: absolute;
+  top: 0;
+  width: 100%;
 `;
 
 const StyContentWrap = styled.div`
   padding: 0 16px;
 `;
 
-const Section = styled.div`
+const StyContentBox = styled.div`
   position: relative;
-  margin-top: 30px;
-  /* padding: 15px 20px; */
+  height: 330px;
+  padding-top: 24px;
 `;
 
 const CalendarWrap = styled.div`
@@ -313,29 +334,124 @@ const CalendarWrap = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 300px;
+  height: 100%;
 
   .react-calendar {
     background: transparent;
     border: none;
 
     &__navigation {
-      display: none;
+      display: block;
+      position: absolute;
+      top: 0;
+      height: auto;
+      margin-bottom: 0;
+
+      &__label {
+        min-width: auto;
+        line-height: 1;
+        font-size: 18px;
+        color: #fff;
+        margin: 0 10px;
+        background: transparent !important;
+      }
+
+      &__prev-button,
+      &__next-button {
+        position: relative;
+        min-width: 24px;
+        height: 24px;
+        color: transparent;
+        background: transparent !important; 
+        
+        &::before {
+          content: "";
+          position absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-repeat: no-repeat;
+          background-position: center;
+        }
+      }
+      &__prev-button::before {
+        background-image: url(${prev_icon});
+      }
+      &__next-button::before {
+        background-image: url(${next_icon});
+      }
+
+      &__prev2-button,
+      &__next2-button {
+        display: none;
+      }
     }
     abbr {
       color: #fff;
+      text-decoration: none;
     }
+    .react-calendar__month-view {
+      &__weekdays,
+      &__days {
+        justify-content: space-between;
+        gap: 12px 20px;
+      }
 
-    &__tile--active {
-      background: #3185f3;
+      &__weekdays {
+        margin-bottom: 10px;
+      }
+
+      &__weekdays__weekday,
+      &__days__day {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        max-width: 28px;
+        height: 28px;
+        padding: 0;
+        border-radius: 100px;
+      }
+      &__weekdays__weekday {
+        font-weight: 600;
+        font-size: 14px;
+      }
+      &__days__day {
+        position: relative;
+        font-weight: 400;
+        font-size: 12px;
+      }
     }
-    // &__tile--now{
-    //   background: #121212;
-    // }
+    .react-calendar__tile:enabled:hover, 
+    .react-calendar__tile:enabled:focus {
+      background: transparent;
+    }
+    .react-calendar__tile--now {
+      background: #8b98ac !important;
+    }
+    .react-calendar__tile--active {
+      background: #3185f3 !important;
+    }
+    .react-calendar__tile {
+      position: relative; 
+
+      &.remain::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 4px;
+        height: 4px;
+        background: #3185f3 !important;
+        border-radius: 100px;
+      }
+    }
   }
 `;
 
 const StyCircleWrap = styled.div`
+  height: 100%;
   text-align: center;
   color: #b1bdcf;
   font-size: 0.75em;
@@ -348,15 +464,32 @@ const StyCircleWrap = styled.div`
 const TodoStatus = styled.div`
   display: flex;
   align-items: center;
-  /* margin-bottom: 20px; */
-  /* padding: 0 20px; */
   gap: 12px;
+
+  div {
+    display: flex;
+    align-items: center;
+  }
 
   span {
     font-weight: 400;
+    font-size: 16px;
     color: #fff;
     margin-left: 5px;
   }
+`;
+
+const CircleBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+`;
+
+const Section = styled.div`
+  position: relative;
+  margin-top: 30px;
 `;
 
 const TodoCon = styled.div`
@@ -386,7 +519,6 @@ const CustomSheet = styled(Sheet)`
   .react-modal-sheet-container {
     display: fixed;
     bottom: 0;
-    // max-height: 290px;
     height: auto !important;
     right: 0;
     margin: 0 auto;
