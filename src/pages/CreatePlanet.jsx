@@ -34,17 +34,17 @@ const CreatePlanet = () => {
   // Redux : dispatch
   const dispatch = useDispatch();
   
-  // Assigning the clicked planetType for API
-  var planetType = ""
+  // UseRef : Assigning the clicked planetType for API
+  const planetTypeRef = useRef(0);
 
   // Creating current date's planet type => navigate to dlytodo page
   const onClickHandler = () => {
 
-    console.log("Check planetType", planetType)
+    console.log("Check planetType", planetTypeRef.current)
 
     const currDate = new Date()
     const parsedCurrDate = `${currDate.getFullYear()}-${String(currDate.getMonth()+1).padStart(2,'0')}-${String(currDate.getDate()).padStart(2,'0')}`
-    dispatch(createPlanetThunk({planetType,parsedCurrDate}))
+    dispatch(createPlanetThunk({planetType: planetTypeRef.current, parsedCurrDate}))
     navigate("/dlytodo")
   }
 
@@ -52,31 +52,31 @@ const CreatePlanet = () => {
   // assigning the corresponding planetType # to planetType Var
   // update the corresponding img's opacity from 0.4 to 1 with useState
   const onClickPlanetHandler = (type) => {
-  
+
   if(type === 1){
-    planetType=1;
+    planetTypeRef.current=1;
     setOpacity({firstOpa : 1})
-    console.log("Checking ", planetType)
+    console.log("Checking ", planetTypeRef.current)
   }
   else if(type === 2){
-    planetType=2;
+    planetTypeRef.current=2;
     setOpacity({secondOpa: 1})
-    
+    console.log("Checking ", planetTypeRef.current)
   }
   else if(type === 3){
-    planetType=3
+    planetTypeRef.current=3
     setOpacity({thirdOpa: 1})
-    console.log("Checking ", planetType)
+    console.log("Checking ", planetTypeRef.current)
   }
   else if(type === 4){
-    planetType=4
+    planetTypeRef.current=4
     setOpacity({fourthOpa: 1})
-    console.log("Checking ", planetType)
+    console.log("Checking ", planetTypeRef.current)
   }
   else{
-    planetType=5
+    planetTypeRef.current=5
     setOpacity({fifthOpa: 1})
-    console.log("Checking ", planetType)
+    console.log("Checking ", planetTypeRef.current)
   }
   }
 
@@ -126,7 +126,6 @@ const CreatePlanet = () => {
         확인
       </Button>
       }
-      
     </StyContainer>
   );
 };
