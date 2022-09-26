@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 // Styled Component
 import styled from "styled-components";
 // Icon imgs
-import {calendar_icon, bell_icon, planet_icon} from "../static/images";
+import {calendar_icon, bell_icon,planet_icon} from "../static/images/";
 // Hamburger Navi
 import Burger from "./hamburNavi/Burger";
 import Menu from "./hamburNavi/Menu";
