@@ -38,6 +38,7 @@ export default function Circle(props) {
     textAlign,
     planetType,
     planetLevel,
+    planetSize,
   } = props;
 
   const styles = {
@@ -63,6 +64,7 @@ export default function Circle(props) {
         onClick={_onClick}
         planetType={planetType}
         planetLevel={planetLevel}
+        planetSize={planetSize}
       >
         {children}
       </ElCircle>
@@ -83,8 +85,6 @@ Circle.defaultProps = {
   alignItems: "center",
   justifyContent: "center",
   textAlign: "center",
-  planetType: null,
-  planetLevel: null,
 };
 
 const ElCircle = styled.div`
@@ -102,8 +102,6 @@ const ElCircle = styled.div`
   font-size: ${(props) => props.fontSize};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
   
-
-  
   ${(props) => {
     switch (true) {
       // Type1
@@ -111,21 +109,24 @@ const ElCircle = styled.div`
         return css`
           background-image: url(${A1});
           background-position: center;
-          background-size: contain;
+          background-size: ${props.planetSize}px;
+          background-repeat: no-repeat;
           border: none;
         `;
       case props.planetType === 1 && props.planetLevel === 2:
         return css`
           background-image: url(${A2});
           background-position: center;
-          background-size: contain;
+          background-size: ${props.planetSize}px;
+          background-repeat: no-repeat;
           border: none;
         `;
       case props.planetType === 1 && props.planetLevel === 3:
         return css`
           background-image: url(${A3});
           background-position: center;
-          background-size: contain;
+          background-size: ${props.planetSize}px;
+          background-repeat: no-repeat;
           border: none;
         `;
       // Type2
@@ -133,21 +134,24 @@ const ElCircle = styled.div`
         return css`
           background-image: url(${B1});
           background-position: center;
-          background-size: contain;
+          background-size: ${props.planetSize}px;
+          background-repeat: no-repeat;
           border: none;
         `;
       case props.planetType === 2 && props.planetLevel === 2:
         return css`
           background-image: url(${B2});
           background-position: center;
-          background-size: contain;
+          background-size: ${props.planetSize}px;
+          background-repeat: no-repeat;
           border: none;
         `;
       case props.planetType === 2 && props.planetLevel === 3:
         return css`
           background-image: url(${B3});
           background-position: center;
-          background-size: contain;
+          background-size: ${props.planetSize}px;
+          background-repeat: no-repeat;
           border: none;
         `;
       // Type3
@@ -155,21 +159,24 @@ const ElCircle = styled.div`
         return css`
           background-image: url(${C1});
           background-position: center;
-          background-size: contain;
+          background-size: ${props.planetSize}px;
+          background-repeat: no-repeat;
           border: none;
         `;
       case props.planetType === 3 && props.planetLevel === 2:
         return css`
           background-image: url(${C2});
           background-position: center;
-          background-size: contain;
+          background-size: ${props.planetSize}px;
+          background-repeat: no-repeat;
           border: none;
         `;
       case props.planetType === 3 && props.planetLevel === 3:
         return css`
           background-image: url(${C3});
           background-position: center;
-          background-size: contain;
+          background-size: ${props.planetSize}px;
+          background-repeat: no-repeat;
           border: none;
         `;
       // Type4
@@ -177,21 +184,24 @@ const ElCircle = styled.div`
         return css`
           background-image: url(${D1});
           background-position: center;
-          background-size: contain;
+          background-size: ${props.planetSize}px;
+          background-repeat: no-repeat;
           border: none;
         `;
       case props.planetType === 4 && props.planetLevel === 2:
         return css`
           background-image: url(${D2});
           background-position: center;
-          background-size: contain;
+          background-size: ${props.planetSize}px;
+          background-repeat: no-repeat;
           border: none;
         `;
       case props.planetType === 4 && props.planetLevel === 3:
         return css`
           background-image: url(${D3});
           background-position: center;
-          background-size: contain;
+          background-size: ${props.planetSize}px;
+          background-repeat: no-repeat;
           border: none;
         `;
 
@@ -200,21 +210,24 @@ const ElCircle = styled.div`
         return css`
           background-image: url(${E1});
           background-position: center;
-          background-size: contain;
+          background-size: ${props.planetSize}px;
+          background-repeat: no-repeat;
           border: none;
         `;
       case props.planetType === 5 && props.planetLevel === 2:
         return css`
           background-image: url(${E2});
           background-position: center;
-          background-size: contain;
+          background-size: ${props.planetSize}px;
+          background-repeat: no-repeat;
           border: none;
         `;
       case props.planetType === 5 && props.planetLevel === 3:
         return css`
           background-image: url(${E3});
           background-position: center;
-          background-size: contain;
+          background-size: ${props.planetSize}px;
+          background-repeat: no-repeat;
           border: none;
         `;
       default:

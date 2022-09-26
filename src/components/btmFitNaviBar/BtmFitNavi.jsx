@@ -14,7 +14,7 @@ const BtmFitNavi = ({name,wkPlanets}) => {
     // Depending on the state, the UX will be rendered differently
     const [activeTabs, setActiveTabs] = useState(name)
 
-    // useEffect : when activeTabs gets changed, useEffect will be triggered again
+    // UseEffect : when activeTabs gets changed, useEffect will be triggered again
     useEffect(() => {
         switch (activeTabs) {
             case 'WklyTodo':
@@ -26,15 +26,15 @@ const BtmFitNavi = ({name,wkPlanets}) => {
         }
     }, [activeTabs])
 
-    // when the day navi btn get clicked, find current date's planet
-    // if the planet's planetType is 0, navigate to creatplanet page
-    // else navigate to dlytodo page
+    // When the day navi btn get clicked, find current date's planet
+    // If the planet's planetType is 0, navigate to creatplanet page
+    // Else navigate to dlytodo page
     const onClickDay = () =>{
     const currDate = new Date()
     const parsedCurrDate = `${currDate.getFullYear()}-${String(currDate.getMonth()+1).padStart(2,'0')}-${String(currDate.getDate()).padStart(2,'0')}`
     const currPlanet = wkPlanets?.planets.find(planet => planet.dueDate === parsedCurrDate)
 
-    if(currPlanet.planetType === 0){
+    if(currPlanet?.planetType === 0){
         navigate("/createplanet")
     }
     else{

@@ -14,9 +14,7 @@ import {
   deleteTodoThunk,
   updateTodoMemoThunk,
 } from "../redux/modules/categTodoSlice.js";
-import {
-  getDayPlanetThunk
-} from "../redux/modules/planetSlice.js";
+import { getDayPlanetThunk } from "../redux/modules/planetSlice.js";
 // Styled-Component
 import styled from "styled-components";
 // React Component
@@ -32,7 +30,6 @@ import { MdModeEdit } from "react-icons/md";
 import { achieved_icon, like_icon_on } from "../static/images";
 
 const DlyTodo = () => {
-
   // Redux : dispatch
   const dispatch = useDispatch();
 
@@ -42,11 +39,18 @@ const DlyTodo = () => {
   // Hook : To get the selected date from the calendar
   const [dateValue, setDateValue] = useState(new Date());
 
-  // Var ; A Parsed date in format yyyy/mm/dd from the calendar  
-  var parsedfullDate = `${dateValue.getFullYear()}-${String(dateValue.getMonth()+1).padStart(2,'0')}-${String(dateValue.getDate()).padStart(2,'0')}`
+  // Var ; A Parsed date in format yyyy/mm/dd from the calendar
+  var parsedfullDate = `${dateValue.getFullYear()}-${String(
+    dateValue.getMonth() + 1
+  ).padStart(2, "0")}-${String(dateValue.getDate()).padStart(2, "0")}`;
 
   // Var : A Parsed date in format mm월 dd일 from the calendar
-  var parsedParDate = `${String(dateValue.getMonth()+1).padStart(2,'0')}월 ${String(dateValue.getDate()).padStart(2,'0')}일`
+  var parsedParDate = `${String(dateValue.getFullYear()).slice(
+    2,
+    4
+  )}년 ${String(dateValue.getMonth() + 1).padStart(2, "0")}월 ${String(
+    dateValue.getDate()
+  ).padStart(2, "0")}일`;
 
   // Hook : To get the clicked Memo info from the TodoList
   const [clickedMemo, setClickedMemo] = useState("");
@@ -66,10 +70,10 @@ const DlyTodo = () => {
   // UseRef : To get the selected date from the calendar
   const concatSelDate = useRef();
 
-  // Redux useSelector : categories useSelector 
+  // Redux useSelector : categories useSelector
   const categories = useSelector((state) => state.categTodoSlice.categories);
-  
-  // Redux useSelector : planet useSelector 
+
+  // Redux useSelector : planet useSelector
   const planet = useSelector((state) => state.planetSlice.planet);
 
   // Function to open sheetModal & Getting clicked todo Info & index as well as the todo index
@@ -83,13 +87,12 @@ const DlyTodo = () => {
     setClickedCategIndex(categIndex);
   };
 
-  // UseEffect : getting categories & to-do lists as well as date from the calendar
+  // UseEffect : Getting categories & to-do lists as well as date from the calendar
   useEffect(() => {
-
     concatSelDate.current = parsedfullDate;
 
     dispatch(getCategThunk(concatSelDate.current));
-    dispatch(getDayPlanetThunk(concatSelDate.current))
+    dispatch(getDayPlanetThunk(concatSelDate.current));
   }, [dateValue]);
 
   // Adding a new todo
@@ -156,10 +159,13 @@ const DlyTodo = () => {
 
   return (
     <StyDlyTodoCon>
-      {console.log("Checking planet", planet)}
       <Header showCalendar={showCalendar} setShowCalendar={setShowCalendar} />
       <StyHeader>
-        <DayMover parsedParDate={parsedParDate} setDateValue={setDateValue} dateValue={dateValue}/>
+        <DayMover
+          parsedParDate={parsedParDate}
+          setDateValue={setDateValue}
+          dateValue={dateValue}
+        />
         <TodoStatus>
           <div>
             <img src={achieved_icon} alt="achieved icon" />
@@ -173,16 +179,30 @@ const DlyTodo = () => {
       </StyHeader>
       {/* <SubHeader></SubHeader> */}
       <CalendarWrap>
-        {showCalendar ?
+        {showCalendar ? (
           <Calendar
             onChange={setDateValue}
             value={dateValue}
             formatDay={(locale, date) => moment(date).format("DD")}
           />
-        : planet.planetType === 0 ?  
-        <StyCircleWrap><Circle planetType={planet.planetType} planetLevel={planet.planetLevel} margin="1em auto 1em" fontSize={(props) => props.theme.fontSizes.lg}>?</Circle>행성은 당일에 만들수 있어요</StyCircleWrap> 
-          : <Circle planetType={planet.planetType} planetLevel={planet.planetLevel}></Circle> 
-        }
+        ) : planet.planetType === 0 ? (
+          <StyCircleWrap>
+            <Circle
+              planetType={planet.planetType}
+              planetLevel={planet.planetLevel}
+              margin="1em auto 1em"
+              fontSize={(props) => props.theme.fontSizes.lg}
+            >
+              ?
+            </Circle>
+            행성은 당일에 만들수 있어요
+          </StyCircleWrap>
+        ) : (
+          <Circle
+            planetType={planet.planetType}
+            planetLevel={planet.planetLevel}
+          ></Circle>
+        )}
       </CalendarWrap>
       <Section>
         {categories.map((input, index) => {
@@ -313,9 +333,9 @@ const CalendarWrap = styled.div`
 
 const StyCircleWrap = styled.div`
   text-align: center;
-  color: #B1BDCF;
+  color: #b1bdcf;
   font-size: 0.75em;
-`
+`;
 
 const TodoStatus = styled.div`
   display: flex;

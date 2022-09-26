@@ -15,6 +15,10 @@ import { useDispatch } from "react-redux";
 import { createPlanetThunk } from "../redux/modules/planetSlice";
 
 const CreatePlanet = () => {
+  
+  const [opacity, setOpacity] = useState(0.4);
+
+  console.log("Checking", opacity)
 
   // Navigation
   const navigate = useNavigate();
@@ -33,6 +37,12 @@ const CreatePlanet = () => {
     navigate("/dlytodo")
   }
 
+  const onClickPlanetHandler = (type) => {
+  console.log("Checking type", type)
+  planetType=1;
+  setOpacity(1)
+  }
+
   return (
     <StyContainer>
       <StyHeader>
@@ -41,20 +51,20 @@ const CreatePlanet = () => {
       </StyHeader>
       <StyContent>오늘 키워갈 행성을 골라주세요.</StyContent>
       <StyPlanets>
-        <button onClick={()=>{planetType=1}}>
-          <img src={A3} alt="A3" />
+        <button onClick={()=>{onClickPlanetHandler(1)}}>
+          <img src={A3} alt="A3" style={{opacity:opacity}} className="first"/>
         </button>
-        <button onClick={()=>{planetType=2}}>
-          <img src={B3} alt="B3" />
+        <button onClick={()=>{planetType=2;setOpacity(1)}}>
+          <img src={B3} alt="B3" style={{opacity:opacity}} className="second"/>
         </button>
-        <button onClick={()=>{planetType=3}}>
-          <img src={C3} alt="C3" />
+        <button onClick={()=>{planetType=3;setOpacity(1)}}>
+          <img src={C3} alt="C3" style={{opacity:opacity}} className="third"/>
         </button>
-        <button onClick={()=>{planetType=4}}>
-          <img src={D3} alt="D3" />
+        <button onClick={()=>{planetType=4;setOpacity(1)}}>
+          <img src={D3} alt="D3" style={{opacity:opacity}} className="fourth"/>
         </button>
-        <button onClick={()=>{planetType=5}}>
-          <img src={E3} alt="E3" />
+        <button onClick={()=>{planetType=5;setOpacity(1)}}>
+          <img src={E3} alt="E3" style={{opacity:opacity}} className="fifth"/>
         </button>
       </StyPlanets>
       <Button
@@ -99,6 +109,7 @@ const StyContent = styled.div`
   font-size: 0.93em;
   margin: 2.6em 0;
 `;
+
 const StyPlanets = styled.div`
   text-align: center;
   button {
@@ -109,6 +120,18 @@ const StyPlanets = styled.div`
     img {
       width: 100%;
       height: 100%;
+      
+      .first{
+        opacity: 0.4;
+      }
+      
     }
+   
+    img:hover {
+      opacity: 1;
+    }
+
   }
 `;
+
+

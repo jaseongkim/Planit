@@ -1,55 +1,61 @@
-import React from 'react';
+import React from "react";
 
 // Styled-Component
 import styled from "styled-components";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 
-const WeekMover = ({month,weekOfMonth }) => {
+const WeekMover = ({ parsedDispDate, dateValue, setDateValue }) => {
+  // Var: Getting a local current time
+  // appending subtrack or add 1 week depending on which the button get clicked
+  const currDate = new Date(dateValue);
 
-    // console.log("Month", month, "Week Of Month", weekOfMonth)
-    const d = new Date()
+  // When clicked, subtrack 1 from the current time
+  const onClickLeft = () => {
+    currDate.setDate(currDate.getDate() - 7);
+    setDateValue(currDate);
+  };
 
-    return(
-        <StyWeekCon>
-        <button>
-        <AiOutlineLeft 
-            className="arrow"
-            style={{color: "rgba(177, 189, 207, 1)"}}
-            onClick={()=>{alert("Hello This is left")}}
+  // When clicked, add 1 from the current time
+  const onClickRight = () => {
+    currDate.setDate(currDate.getDate() + 7);
+    setDateValue(currDate);
+  };
+
+  return (
+    <StyWeekCon>
+      <button>
+        <AiOutlineLeft
+          className="arrow"
+          style={{ color: "rgba(177, 189, 207, 1)", marginRight: "5px" }}
+          onClick={() => {
+            onClickLeft();
+          }}
         />
-        </button>
-        <div>{`${month}월 ${weekOfMonth}째주`}</div>
-        <button>
-        <AiOutlineRight 
-            className="arrow"
-            style={{color: "rgba(177, 189, 207, 1)"}}
-            onClick={()=>{alert("Hello This is right")}}
+      </button>
+      <div>{parsedDispDate}</div>
+      <button>
+        <AiOutlineRight
+          className="arrow"
+          style={{ color: "rgba(177, 189, 207, 1)", marginLeft: "5px" }}
+          onClick={() => {
+            onClickRight();
+          }}
         />
-        </button>
-        </StyWeekCon>
-    );
+      </button>
+    </StyWeekCon>
+  );
 };
 
 export default WeekMover;
 
 const StyWeekCon = styled.div`
-    width: 200px;
-    display: flex;
-    color: white;
-    align-items: center;
+  width: 300px;
+  display: flex;
+  color: white;
+  align-items: center;
 
-    button{
-        background: transparent;
-        border: none;
-    }
-    
-    .arrow:first-child{
-        margin-right: 5px;
-    }
-
-    .arrow:last-child{
-        margin-left: 5px;
-    }
-`
-
-
+  button {
+    background: transparent;
+    border: none;
+  }
+`;
