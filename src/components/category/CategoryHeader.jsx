@@ -1,34 +1,36 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { prev_icon } from "../../static/images";
-import {FiPlus} from "react-icons/fi";
+import { FiPlus } from "react-icons/fi";
 import { useParams } from "react-router-dom";
-
 
 export default function CategoryHeader() {
   const navigate = useNavigate();
 
   let { id } = useParams();
 
-  console.log("Check id", id);
-
-  const onPlusHandler = () => {
+  const onPlusHandler = (e) => {
+    e.stopPropagation();
     navigate(`/categorydetail/0`);
   };
 
   return (
     <HeaderWrap>
       <HeaderTitle>
-        <button onClick={() => navigate("/dlytodo")}>
+        <button onClick={() => navigate(-1)}>
           <img src={prev_icon} alt="뒤" />
         </button>
         <NicknameDiv>카테고리</NicknameDiv>
       </HeaderTitle>
-      {id === undefined ? 
-        <PlusBtn onClick={onPlusHandler}>
+      {id === undefined ? (
+        <PlusBtn
+          onClick={(e) => {
+            onPlusHandler(e);
+          }}
+        >
           <FiPlus />
         </PlusBtn>
-      : null}
+      ) : null}
     </HeaderWrap>
   );
 }

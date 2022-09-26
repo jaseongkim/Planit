@@ -7,10 +7,11 @@ import {
   deleteCategThunk,
   updateCategThunk,
 } from "../../redux/modules/categTodoSlice";
-import Sheet from "react-modal-sheet";
+import { select_arrow } from "../../static/images";
+import CategoryScope from "./CategoryScope";
+import CategoryColor from "./CategoryColor";
 
 export default function CategoryDetailBox() {
-
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.categTodoSlice.categories);
 
@@ -25,13 +26,19 @@ export default function CategoryDetailBox() {
   const initialState = {
     categoryName:
       categoriesDetail === undefined ? "" : categoriesDetail.categoryName,
-    categoryColor: "green",
-    isPublic: "false",
-    categoryStatus: "NOT_STOP",
+    categoryColor:
+      categoriesDetail === undefined ? "" : categoriesDetail.categoryColor,
+    isPublic:
+      categoriesDetail === undefined ? false : categoriesDetail.isPublic,
+    categoryStatus:
+      categoriesDetail === undefined
+        ? "NOT_STOP"
+        : categoriesDetail.categoryStatus,
   };
 
   const [category, setCategory] = useState(initialState);
-  const [isOpen, setOpen] = useState(false);
+  const [isScopeOpen, setScopeOpen] = useState(false);
+  const [isColorOpen, setColorOpen] = useState(false);
 
   const onChangeHandler = (event) => {
     const { name, value } = event.target;
@@ -42,9 +49,16 @@ export default function CategoryDetailBox() {
     dispatch(deleteCategThunk(id));
   };
 
+  const onUpdateHandler = () => {
+    const copy = category;
+    copy.categoryStatus = "STOP";
+    setCategory(copy);
+
+    dispatch(updateCategThunk({ id, category }));
+  };
 
   const onConfirmHandler = () => {
-    if (categoriesDetail === undefined) {
+    if (categoriesDetail === undefined && Number(id) === 0) {
       dispatch(createCategThunk(category));
     } else {
       dispatch(updateCategThunk({ id, category }));
@@ -52,8 +66,26 @@ export default function CategoryDetailBox() {
     }
   };
 
-  const onClickedSheet = () => {
-    setOpen(true);
+  const onScopeSheetOpen = () => {
+    setScopeOpen(true);
+  };
+
+  const onScopeSheetClose = (scope) => {
+    const copy = category;
+    copy.isPublic = scope;
+    setCategory(copy);
+
+    setScopeOpen(false);
+  };
+
+  const onColorSheetOpen = () => {
+    setColorOpen(true);
+  };
+  const onColorSheetClose = (color) => {
+    const copy = category;
+    copy.categoryColor = color;
+    setCategory(copy);
+    setColorOpen(false);
   };
 
   return (
@@ -61,6 +93,7 @@ export default function CategoryDetailBox() {
       <CategoryWrap>
         <InputBox>
           <input
+            style={{ color: `${category.categoryColor}` }}
             type={"text"}
             name="categoryName"
             value={category.categoryName}
@@ -68,67 +101,63 @@ export default function CategoryDetailBox() {
           />
         </InputBox>
         <CategoryOption>
-          <button onClick={() => onClickedSheet()}>
-            공개 범위
-            <span>
-              전체공개
-            </span>
-          </button>
-          <button onClick={() => onClickedSheet()}>
-            색상
-            <span>
-              <PickedColor></PickedColor>
-            </span>
-          </button>
-          <button>카테고리 종료하기</button>
-          <button>카테고리 재개하기</button>
-          {categoriesDetail === undefined ? null : (
-            <button onClick={onDeleteHandler}>카테고리 삭제하기</button>
+          <CategoryOptionItem>
+            <CategoryOptionTitle>공개 범위</CategoryOptionTitle>
+            <button onClick={onScopeSheetOpen}>
+              {category.isPublic ? "나만보기" : "전체공개"}
+              <img src={select_arrow} alt="셀렉트 화살표 아이콘" />
+            </button>
+          </CategoryOptionItem>
+          <CategoryOptionItem>
+            <CategoryOptionTitle>색상</CategoryOptionTitle>
+            <button onClick={onColorSheetOpen}>
+              <PickedColor
+                style={{ background: `${category.categoryColor}` }}
+              ></PickedColor>
+              <img src={select_arrow} alt="셀렉트 화살표 아이콘" />
+            </button>
+          </CategoryOptionItem>
+
+          {categoriesDetail === undefined ? null : category.categoryStatus ===
+            "NOT_STOP" ? (
+            <>
+              <CategoryOptionItem>
+                <button onClick={onUpdateHandler}>카테고리 종료하기</button>
+              </CategoryOptionItem>
+              <CategoryOptionItem>
+                <button onClick={onDeleteHandler}>카테고리 삭제하기</button>
+              </CategoryOptionItem>
+            </>
+          ) : (
+            <>
+              <CategoryOptionItem>
+                <button onClick={onUpdateHandler}>카테고리 재개하기</button>
+              </CategoryOptionItem>
+              <CategoryOptionItem>
+                <button onClick={onDeleteHandler}>카테고리 삭제하기</button>
+              </CategoryOptionItem>
+            </>
           )}
         </CategoryOption>
       </CategoryWrap>
-      {category.categoryName === "" ? <CategorySubmit onClick={onConfirmHandler} disabled>확인</CategorySubmit> :<CategorySubmit onClick={onConfirmHandler}>확인</CategorySubmit>}
+      {category.categoryName === "" ? (
+        <CategorySubmit onClick={onConfirmHandler} disabled>
+          확인
+        </CategorySubmit>
+      ) : (
+        <CategorySubmit onClick={onConfirmHandler}>확인</CategorySubmit>
+      )}
 
-      {/* <CustomSheet isOpen={isOpen} onClose={() => setOpen(false)}>
-        <CustomSheet.Container>
-          <CustomSheet.Content>
-            <ContentHeader>
-              <EditTitleWrap>
-                <EditTitle>공개 범위</EditTitle>
-              </EditTitleWrap>
-              <EditSubmit onClick={() => setOpen(false)}>확인</EditSubmit>
-            </ContentHeader>
-            <ContentFooter>
-              
-            </ContentFooter>
-          </CustomSheet.Content>
-        </CustomSheet.Container>
-        <Sheet.Backdrop />
-      </CustomSheet> */}
-
-      <CustomSheet isOpen={isOpen} onClose={() => setOpen(false)}>
-          <CustomSheet.Container>
-            <CustomSheet.Content>
-              <ContentHeader>
-                <EditTitleWrap>
-                  <EditTitle>색상</EditTitle>
-                </EditTitleWrap>
-                <EditSubmit onClick={() => setOpen(false)}>확인</EditSubmit>
-              </ContentHeader>
-              <ContentFooter>
-                <ColorList>
-                  <ColorItem className="active"></ColorItem>
-                  <ColorItem></ColorItem>
-                  <ColorItem></ColorItem>
-                  <ColorItem></ColorItem>
-                  <ColorItem></ColorItem>
-                </ColorList>
-              </ContentFooter>
-            </CustomSheet.Content>
-          </CustomSheet.Container>
-          <Sheet.Backdrop />
-        </CustomSheet>
-
+      <CategoryScope
+        isOpen={isScopeOpen}
+        onScopeSheetClose={onScopeSheetClose}
+        isPublic={category.isPublic}
+      />
+      <CategoryColor
+        isOpen={isColorOpen}
+        onColorSheetClose={onColorSheetClose}
+        categoryColor={category.categoryColor}
+      />
     </CategoryContainer>
   );
 }
@@ -146,26 +175,34 @@ const CategoryWrap = styled.div`
 `;
 
 const CategoryOption = styled.div`
+  color: #fff;
   margin-top: 25px;
+`;
+
+const CategoryOptionItem = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
   button {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 100%;
     text-align: left;
     font-weight: 600;
     font-size: 16px;
-    color: #b1bdcf;
+    color: #fff;
     padding: 14px 0;
     background: transparent;
     border: none;
 
-    span {
-      color: #fff;
+    img {
+      margin-left: 8px;
     }
   }
 `;
+
+const CategoryOptionTitle = styled.span``;
 
 const InputBox = styled.div`
   input[type="text"] {
@@ -194,7 +231,7 @@ const CategorySubmit = styled.button`
   color: #fff;
   background: #3185f3;
   border: none;
-  
+
   &:disabled {
     background: #8b98ac;
   }
@@ -205,109 +242,4 @@ const PickedColor = styled.div`
   height: 18px;
   border-radius: 100px;
   background: #fff;
-`;
-
-const CustomSheet = styled(Sheet)`
-  .react-modal-sheet-backdrop {
-    /* custom styles */
-    border: 3px solid #ffffff;
-  }
-  .react-modal-sheet-container {
-    display: fixed;
-    bottom: 0;
-    height: auto !important;
-    right: 0;
-    margin: 0 auto;
-    max-width: 375px;
-    width: 100%;
-    background-color: #5d646b !important;
-    padding: 24px 0 40px;
-  }
-
-  .react-modal-sheet-header {
-    /* custom styles */
-  }
-
-  .react-modal-sheet-drag-indicator {
-    /* custom styles */
-  }
-
-  .react-modal-sheet-content {
-    /* custom styles */
-    padding: 0 5% 5% 5%;
-    background: transparent;
-  }
-`;
-
-const ContentHeader = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  color: #fff;
-
-  button {
-    color: #fff;
-    background: transparent;
-    border: none;
-  }
-`;
-
-const EditTitleWrap = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const EditTitle = styled.span`
-  font-weight: 600;
-  font-size: 20px;
-`;
-
-const EditSubmit = styled.button``;
-
-const ContentFooter = styled.div`
-  margin-top: 25px;
-`;
-
-const ColorList = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 20px;
-`;
-
-const ColorItem = styled.button`
-  position: relative;
-  width: 30px;
-  height: 30px;
-  border: none;
-  border-radius: 100px;
-
-  &.active::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 25px;
-    height: 25px;
-    border: 3px solid #5d646b;
-    border-radius: 100px;
-  }
-
-  &:nth-child(1) {
-    background: #fff;
-  }
-  &:nth-child(2) {
-    background: #ffe454;
-  }
-  &:nth-child(3) {
-    background: #ff9d2b;
-  }
-  &:nth-child(4) {
-    background: #ffa4fb;
-  }
-  &:nth-child(5) {
-    background: #36EDC1;
-  }
 `;
