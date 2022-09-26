@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { apis } from "../../shared/api";
-import { useNavigate } from "react-router-dom";
 
 // Getting all categories & todos from server
 // If there is no todolist, then createTodoList
@@ -13,11 +12,11 @@ export const getCategThunk = createAsyncThunk(
     } catch (e) {
       console.log("getCategThunk", e.response.data.status);
       if (e.response.data.status === 404) {
-        try{
+        try {
           console.log("Check here", payload);
           const { data } = await apis.postTodoList(payload);
           return thunkAPI.rejectWithValue(data.data);
-        }catch(e){
+        } catch (e) {
           console.log(e);
         }
       }
@@ -30,10 +29,15 @@ export const createCategThunk = createAsyncThunk(
   "category/createCategory",
   async (category, thunkAPI) => {
     try {
-      const { data } = await apis.postCategories(category);
-      return thunkAPI.fulfillWithValue(data.data);
+      await apis.postCategories(category).then((response) => {
+        console.log(response);
+        if (response.data.success === false) {
+        } else {
+          return window.location.replace("/category");
+        }
+      });
     } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+      console.log(error);
     }
   }
 );
@@ -43,9 +47,13 @@ export const deleteCategThunk = createAsyncThunk(
   "category/deleteCategory",
   async (id, thunkAPI) => {
     try {
-      const { data } = await apis.deleteCategories(id);
-      console.log(data);
-      // return thunkAPI.fulfillWithValue(data.data);
+      await apis.deleteCategories(id).then((response) => {
+        console.log(response);
+        if (response.data.success === false) {
+        } else {
+          return window.location.replace("/category");
+        }
+      });
     } catch (error) {
       console.log(error);
       // return thunkAPI.rejectWithValue(error)
@@ -57,18 +65,18 @@ export const deleteCategThunk = createAsyncThunk(
 export const updateCategThunk = createAsyncThunk(
   "category/updateCategory",
   async (payload, thunkAPI) => {
+    console.log(payload.id, payload.category);
     try {
-      const { data } = await apis.updateCategories(
-        payload.id,
-        payload.category
-      );
-      // return (
-      //   console.log("data")
-      // )
-      // thunkAPI.fulfillWithValue(data.data);
-    } catch (error) {
-      // return thunkAPI.rejectWithValue(error)
-    }
+      await apis
+        .updateCategories(payload.id, payload.category)
+        .then((response) => {
+          console.log(response);
+          if (response.data.success === false) {
+          } else {
+            // return window.location.replace("/category");
+          }
+        });
+    } catch (error) {}
   }
 );
 
@@ -280,9 +288,9 @@ const categTodoSlice = createSlice({
     [deleteTodoThunk.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
-    }, 
+    },
   },
 });
 
-export const { addMtyTodo, delMtyTodo,onChangeTodo } = categTodoSlice.actions;
+export const { addMtyTodo, delMtyTodo, onChangeTodo } = categTodoSlice.actions;
 export default categTodoSlice.reducer;

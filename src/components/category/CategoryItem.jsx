@@ -6,7 +6,6 @@ export default function CategoryItem(props) {
   const navigate = useNavigate();
 
   const onClickHandler = (id) => {
-    console.log(id);
     navigate(`/categorydetail/${id}`);
   };
 
@@ -28,8 +27,7 @@ const CategoryWrap = styled.div`
   align-items: center;
   justify-content: space-between;
   font-size: 18px;
-  // color: ${(props) => props.categoryColor};
-  color: #fff;
+  color: ${(props) => props.categoryColor};
   margin: 10px 0;
   padding: 18px 0;
   border-bottom: 1px solid #5d646b;
