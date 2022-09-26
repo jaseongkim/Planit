@@ -12,7 +12,8 @@ export default function Button(props) {
     height,
     border,
     color,
-    backgroundColor
+    backgroundColor,
+    disabled
   } = props;
 
   const styles = {
@@ -29,7 +30,7 @@ export default function Button(props) {
 
   return (
     <>
-      <ElButton {...styles} onClick={_onClick}>
+      <ElButton {...styles} onClick={_onClick} disabled={disabled}>
         {children}
       </ElButton>
     </>

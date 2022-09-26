@@ -39,6 +39,9 @@ const CreatePlanet = () => {
 
   // Creating current date's planet type => navigate to dlytodo page
   const onClickHandler = () => {
+
+    console.log("Check planetType", planetType)
+
     const currDate = new Date()
     const parsedCurrDate = `${currDate.getFullYear()}-${String(currDate.getMonth()+1).padStart(2,'0')}-${String(currDate.getDate()).padStart(2,'0')}`
     dispatch(createPlanetThunk({planetType,parsedCurrDate}))
@@ -107,7 +110,8 @@ const CreatePlanet = () => {
         height="2em"
         border="none"
         color="#FFFFFF"
-        backgroundColor="#3185F3"
+        backgroundColor="#808080"
+        disabled
         >
         확인
       </Button>
@@ -150,6 +154,7 @@ const StyHeader = styled.div`
     margin-bottom: 0;
   }
 `;
+
 const StyContent = styled.div`
   text-align: center;
   color: #b1bdcf;
@@ -162,15 +167,9 @@ const StyPlanets = styled.div`
   button {
     background: transparent;
     border: none;
-    width: 100px;
-    height: 100px;
     img {
-      width: 100%;
-      height: 100%;
+      height: 80px;
       opacity: 0.4;
-    }
-    img:hover{
-      opacity: 1;
     }
   }
 `;
