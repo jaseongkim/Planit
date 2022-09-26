@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -11,8 +10,6 @@ import {
 import Sheet from "react-modal-sheet";
 
 export default function CategoryDetailBox() {
-  
-  const navigate = useNavigate();
 
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.categTodoSlice.categories);
@@ -43,22 +40,15 @@ export default function CategoryDetailBox() {
 
   const onDeleteHandler = () => {
     dispatch(deleteCategThunk(id));
-    // navigate("/category")
-    // window.location.replace("/category");
   };
 
 
   const onConfirmHandler = () => {
     if (categoriesDetail === undefined) {
       dispatch(createCategThunk(category));
-      // navigate("/category")
-      // window.location.replace("/category");
     } else {
       dispatch(updateCategThunk({ id, category }));
       setCategory(category);
-      // navigate("/category")
-      // window.location.replace("/category");
-      // navigate("/category");
     }
   };
 
@@ -99,23 +89,33 @@ export default function CategoryDetailBox() {
       </CategoryWrap>
       {category.categoryName === "" ? <CategorySubmit onClick={onConfirmHandler} disabled>확인</CategorySubmit> :<CategorySubmit onClick={onConfirmHandler}>확인</CategorySubmit>}
 
+      {/* <CustomSheet isOpen={isOpen} onClose={() => setOpen(false)}>
+        <CustomSheet.Container>
+          <CustomSheet.Content>
+            <ContentHeader>
+              <EditTitleWrap>
+                <EditTitle>공개 범위</EditTitle>
+              </EditTitleWrap>
+              <EditSubmit onClick={() => setOpen(false)}>확인</EditSubmit>
+            </ContentHeader>
+            <ContentFooter>
+              
+            </ContentFooter>
+          </CustomSheet.Content>
+        </CustomSheet.Container>
+        <Sheet.Backdrop />
+      </CustomSheet> */}
+
       <CustomSheet isOpen={isOpen} onClose={() => setOpen(false)}>
           <CustomSheet.Container>
             <CustomSheet.Content>
               <ContentHeader>
                 <EditTitleWrap>
-                  <EditTitle>
-                    공개 범위
-                  </EditTitle>
+                  <EditTitle>색상</EditTitle>
                 </EditTitleWrap>
                 <EditSubmit onClick={() => setOpen(false)}>확인</EditSubmit>
               </ContentHeader>
-              {/* 공개 범위 */}
               <ContentFooter>
-                
-              </ContentFooter>
-              {/* 색상 */}
-              {/* <ContentFooter>
                 <ColorList>
                   <ColorItem className="active"></ColorItem>
                   <ColorItem></ColorItem>
@@ -123,11 +123,12 @@ export default function CategoryDetailBox() {
                   <ColorItem></ColorItem>
                   <ColorItem></ColorItem>
                 </ColorList>
-              </ContentFooter> */}
+              </ContentFooter>
             </CustomSheet.Content>
           </CustomSheet.Container>
           <Sheet.Backdrop />
         </CustomSheet>
+
     </CategoryContainer>
   );
 }
