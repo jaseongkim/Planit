@@ -3,33 +3,31 @@ import { bool } from 'prop-types';
 import styled from 'styled-components';
 
 const Menu = ({ open }) => {
-    return (
-      <StyledMenu open={open}>
-        <a href="/dlytodo">할일</a>
-        <a href="/category">카테고리</a>
-        <a href="/">통계</a>
-      </StyledMenu>
-    )
-  }
-  Menu.propTypes = {
-    open: bool.isRequired,
-  }
-  export default Menu;
-
+  return (
+    <StyledMenu open={open}>
+      <a href="/dlytodo">할일</a>
+      <a href="/category">카테고리</a>
+      <a href="/">통계</a>
+    </StyledMenu>
+  )
+}
+Menu.propTypes = {
+  open: bool.isRequired,
+}
+export default Menu;
 
 const StyledMenu = styled.nav`
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
   position: absolute;
   top: 0;
-  right: -20px;
-  width: 70%;
+  right: 0;
+  width: 335px;
   height: 100vh;
   padding: 80px 30px;
   background: #17171b;
   transition: transform 0.3s ease-in-out;
-  transform: ${({ open }) => open ? 'translateX(0)' : 'translateX(110%)'};
+  transform: ${({ open }) => open ? 'translateX(0)' : 'translateX(100%)'};
   z-index: 1000;
   
   @media (max-width: ${({ theme }) => theme.mobile}) {

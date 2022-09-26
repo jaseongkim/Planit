@@ -179,18 +179,18 @@ const SignUp = () => {
                 {email.length > 0 && (
                   <div
                     style={{
-                      visibility: `${emailMessage ? "visible" : "hidden"}`,
+                      display: `${emailMessage ? "block" : "none"}`,
                     }}
                   >
                     {isEmail ? (
-                      <span style={{ color: "green" }}>
+                      <span style={{ color: "#45bd92" }}>
                         <IoIosArrowDown style={{ marginRight: "3px" }} />
                         사용 가능한 아이디 입니다.
                       </span>
                     ) : (
                       <span
                         style={{
-                          color: "red",
+                          color: "#d65a5a",
                         }}
                       >
                         <IoIosClose style={{ marginRight: "3px" }} />
@@ -212,24 +212,24 @@ const SignUp = () => {
                   onChange={onNickNameChange}
                 />
                 {isNickName ? (
-                  <span className="signup-item1" style={{ color: "green" }}>
+                  <span className="signup-item1" style={{ color: "#45bd92" }}>
                     <IoIosArrowDown style={{ marginRight: "3px" }} />
                     한글/영문/숫자 사용
                   </span>
                 ) : (
-                  <span className="signup-item1" style={{ color: "gray" }}>
+                  <span className="signup-item1" style={{ color: "#8b98ac" }}>
                     <IoIosArrowDown style={{ marginRight: "3px" }} />
                     한글/영문/숫자 사용
                   </span>
                 )}
 
                 {isNickNameLength ? (
-                  <span className="signup-item2" style={{ color: "green" }}>
+                  <span className="signup-item2" style={{ color: "#45bd92" }}>
                     <IoIosArrowDown style={{ marginRight: "3px" }} />
                     2-9자 사용
                   </span>
                 ) : (
-                  <span className="signup-item2" style={{ color: "gray" }}>
+                  <span className="signup-item2" style={{ color: "#8b98ac" }}>
                     <IoIosArrowDown style={{ marginRight: "3px" }} />
                     2-9자 사용
                   </span>
@@ -248,24 +248,24 @@ const SignUp = () => {
                   autoComplete="off"
                 />
                 {isPassword ? (
-                  <span className="signup-item1" style={{ color: "green" }}>
+                  <span className="signup-item1" style={{ color: "#45bd92" }}>
                     <IoIosArrowDown style={{ marginRight: "3px" }} />
                     영문/숫자/특수문자 중 2종류 이상 사용
                   </span>
                 ) : (
-                  <span className="signup-item1" style={{ color: "gray" }}>
+                  <span className="signup-item1" style={{ color: "#8b98ac" }}>
                     <IoIosArrowDown style={{ marginRight: "3px" }} />
                     영문/숫자/특수문자 중 2종류 이상 사용
                   </span>
                 )}
 
                 {isPasswordLength ? (
-                  <span className="signup-item2" style={{ color: "green" }}>
+                  <span className="signup-item2" style={{ color: "#45bd92" }}>
                     <IoIosArrowDown style={{ marginRight: "3px" }} />
                     10자 이상으로 사용
                   </span>
                 ) : (
-                  <span className="signup-item2" style={{ color: "gray" }}>
+                  <span className="signup-item2" style={{ color: "#8b98ac" }}>
                     <IoIosArrowDown style={{ marginRight: "3px" }} />
                     10자 이상으로 사용
                   </span>
@@ -287,12 +287,12 @@ const SignUp = () => {
                 {passwordConfirm.length > 0 && (
                   <div>
                     {isPasswordConfirm ? (
-                      <span style={{ color: "green" }}>
+                      <span style={{ color: "#45bd92" }}>
                         <IoIosArrowDown style={{ marginRight: "3px" }} />
                         비밀번호가 일치합니다.
                       </span>
                     ) : (
-                      <span style={{ color: "red" }}>
+                      <span style={{ color: "#d65a5a" }}>
                         <IoIosArrowDown style={{ marginRight: "3px" }} />
                         비밀번호가 일치하지 않습니다.
                       </span>
@@ -326,10 +326,9 @@ const SignUp = () => {
 export default SignUp;
 
 const SubContainer = styled.div`
-  position: absolute;
   width: 100%;
   height: 100%;
-  padding: 100px 0 40px;
+  padding-bottom: 70px;
   overflow-y: auto;
   background: #17171b;
 `;
@@ -338,11 +337,9 @@ const HeaderWrap = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: fixed;
-  top: 0;
   width: 100%;
   color: #fff;
-  padding: 40px 20px 10px;
+  padding: 16px;
   background: #17171b;
 `;
 
@@ -363,7 +360,7 @@ const NicknameDiv = styled.div`
 `;
 
 const SignUpCon = styled.div`
-  height: 100%;
+  margin-top: 16px;
   padding: 0 20px;
 
   form {
@@ -382,7 +379,7 @@ const SignUpItem = styled.div`
   color: #fff;
 
   &:not(:first-child) {
-    margin-top: 80px;
+    margin-top: 28px;
   }
 
   .signup-item-title {
@@ -405,8 +402,6 @@ const SignUpItem = styled.div`
 `;
 
 const SignUpInputBox = styled.div`
-  position: relative;
-
   input {
     width: 100%;
     height: 50px;
@@ -425,44 +420,26 @@ const SignUpInputBox = styled.div`
 
   span {
     display: block;
-    position: absolute;
-    bottom: -30px;
     width: 100%;
+    line-height: 1;
     font-size: 12px;
-  }
-
-  .signup-item1 {
-    display: block;
-    position: absolute;
-    bottom: -30px;
-    width: 100%;
-    font-size: 12px;
-  }
-  .signup-item2 {
-    display: block;
-    position: absolute;
-    bottom: -50px;
-    width: 100%;
-    font-size: 12px;
+    margin-top: 8px;
   }
 `;
 
 const SignUpSubmit = styled.button`
-  margin-top: 100px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
   width: 100%;
   height: 52px;
   font-size: 20px;
   color: #fff;
   background: #3185f3;
   border: none;
-  border-radius: 8px;
   transition: 0.2s;
 
-  &:active {
-    opacity: 0.7;
-  }
-
   &:disabled {
-    opacity: 0.3;
+    background: #8b98ac;
   }
 `;

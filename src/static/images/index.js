@@ -8,6 +8,7 @@ import searchIcon from "./icons/search.png";
 import back_arrow from "./icons/back_arrow.png";
 import check_icon from "./icons/check_icon.svg";
 import calendar_icon from "./icons/calendar_icon.svg";
+import calendar_icon_gray from "./icons/calendar_icon_gray.svg";
 import bell_icon from "./icons/bell_icon.svg";
 import burger_icon from "./icons/burger_icon.svg";
 import prev_icon from "./icons/prev_arrow_icon.svg";
@@ -15,6 +16,9 @@ import next_icon from "./icons/next_arrow_icon.svg";
 import achieved_icon from "./icons/achieved_icon.svg";
 import like_icon_on from "./icons/like_icon_on.svg";
 import like_icon_off from "./icons/like_icon_off.svg";
+import planet_icon from "./icons/planet_icon.svg";
+import delete_icon from "./icons/delete_icon.svg";
+import edit_icon from "./icons/edit_icon.svg";
 
 //-- planets --
 // Type 1
@@ -39,11 +43,12 @@ import E2 from "./planets/E2.png";
 import E3 from "./planets/E3.png";
 
 //-- logos --
-import logo from "./logos/logo.png";
+import logo from "./logos/logo.svg";
 
 export { bgleft, bgright, kakaologin, 
     searchIcon, logo, back_arrow, check_icon, 
-    calendar_icon, bell_icon, burger_icon, prev_icon, next_icon, 
-    achieved_icon, like_icon_on, like_icon_off,
+    calendar_icon, calendar_icon_gray, bell_icon, burger_icon, 
+    prev_icon, next_icon, achieved_icon, like_icon_on, like_icon_off, 
+    planet_icon, delete_icon, edit_icon,
     A1,A2,A3,B1,B2,B3,C1,C2,C3,D1,D2,D3,E1,E2,E3
 };

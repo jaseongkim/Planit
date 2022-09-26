@@ -13,9 +13,13 @@ const DayMover = () => {
 
     return(
         <StyDayCon>
-        <AiOutlineLeft className="arrow"/>
-        <div>10월 17일</div>
-        <AiOutlineRight className="arrow"/>
+            <button>
+                <AiOutlineLeft className="arrow"/>
+            </button>
+            <div>10월 17일</div>
+            <button>
+                <AiOutlineRight className="arrow"/>
+            </button>
         </StyDayCon>
     );
 };
@@ -23,17 +27,21 @@ const DayMover = () => {
 export default DayMover;
 
 const StyDayCon = styled.div`
-    width: 200px;
     display: flex;
-    color: white;
     align-items: center;
     
-    .arrow:first-child{
-        margin-right: 5px;
+    div {
+        font-size: 18px;
+        color: #fff;
+        margin: 0 10px;
     }
 
-    .arrow:last-child{
-        margin-left: 5px;
+    button {
+        width: 24px;
+        height:24px;
+        color: #fff;
+        background: transparent;
+        border: none;
     }
 `
 

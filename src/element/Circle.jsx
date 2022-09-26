@@ -27,11 +27,13 @@ export default function Circle(props) {
     display,
     width,
     height,
+    color,
     border,
     backgroundColor,
     borderRadius,
     alignItems,
     justifyContent,
+    fontSize,
     textAlign,
     planetType,
     planetLevel,
@@ -42,12 +44,14 @@ export default function Circle(props) {
     display: display,
     width: width,
     height: height,
+    color: color,
     border: border,
     backgroundColor: backgroundColor,
     borderRadius: borderRadius,
     alignItems: alignItems,
     justifyContent: justifyContent,
     textAlign: textAlign,
+    fontSize: fontSize
   };
 
   return (
@@ -69,12 +73,14 @@ Circle.defaultProps = {
   _onClick: () => {},
   margin: "0 auto",
   display: "flex",
-  width: "100px",
-  height: "100px",
-  border: "3px solid #ffffff",
+  width: "76px",
+  height: "76px",
+  color: "#fff",
+  border: "1px solid #fff",
   borderRadius: "50%",
   alignItems: "center",
   justifyContent: "center",
+  fontSize: "20px",
   textAlign: "center",
   planetType: null,
   planetLevel: null,
@@ -85,12 +91,14 @@ const ElCircle = styled.div`
   margin: ${(props) => props.margin};
   width: ${(props) => props.width};
   height: ${(props) => props.height};
+  color: ${(props) => props.color};
   border: ${(props) => props.border};
   background-color: ${(props) => props.backgroundColor};
   border-radius: ${(props) => props.borderRadius};
   align-items: ${(props) => props.alignItems};
   justify-content: ${(props) => props.justifyContent};
   text-align: ${(props) => props.textAlign};
+  font-size: ${(props) => props.fontSize};
 
   ${(props) => {
     switch (true) {
