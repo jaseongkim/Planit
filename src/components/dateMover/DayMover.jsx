@@ -3,7 +3,7 @@ import React from "react";
 // Styled-Component
 import styled from "styled-components";
 // React Icon
-import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
+import { prev_icon, next_icon } from "../../static/images/";
 
 const DayMover = ({ parsedParDate, setDateValue, dateValue }) => {
 
@@ -25,24 +25,24 @@ const DayMover = ({ parsedParDate, setDateValue, dateValue }) => {
 
   return (
     <StyDayCon>
-      <button>
-        <AiOutlineLeft
-          className="arrow"
-          style={{ color: "rgba(177, 189, 207, 1)", marginRight: "5px" }}
-          onClick={() => {
-            onClickLeft();
-          }}
-        />
+      <button
+        className="arrow"
+        style={{ color: "rgba(177, 189, 207, 1)", marginRight: "5px" }}
+        onClick={() => {
+          onClickLeft();
+        }}
+      >
+        <img src={prev_icon} alt="이전 아이콘 이미지" />
       </button>
       <div>{parsedParDate}</div>
-      <button>
-        <AiOutlineRight
-          className="arrow"
-          style={{ color: "rgba(177, 189, 207, 1)", marginLeft: "5px" }}
-          onClick={() => {
-            onClickRight();
-          }}
-        />
+      <button
+        className="arrow"
+        style={{ color: "rgba(177, 189, 207, 1)", marginLeft: "5px" }}
+        onClick={() => {
+          onClickRight();
+        }}
+      >
+        <img src={next_icon} alt="다음 아이콘 이미지" />
       </button>
     </StyDayCon>
   );
@@ -58,6 +58,7 @@ const StyDayCon = styled.div`
     align-items: center;
     
     div {
+        line-height: 1;
         font-size: 18px;
         color: #fff;
         margin: 0 10px;
