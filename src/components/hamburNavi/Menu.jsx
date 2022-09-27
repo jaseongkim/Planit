@@ -134,10 +134,9 @@ const StyledMenuList = styled.div`
     text-decoration: none;
     border-bottom: 1px solid #5d646b;
     transition: color 0.3s linear;
-    
-    @media (max-width: ${({ theme }) => theme.mobile}) {
-      font-size: 1.5rem;
-      text-align: center;
+
+    &:hover {
+      color: #fff;
     }
   }
 `;
