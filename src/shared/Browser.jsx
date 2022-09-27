@@ -3,15 +3,21 @@ import styled from "styled-components";
 import Stars from "../element/stars/Stars";
 // import { bgleft, bgright } from "../static/images";
 import Router from "./Router";
+import Menu from "../components/hamburNavi/Menu";
 
 export default function Brower() {
 
+  const [open, setOpen] = useState(false);
+
   return (
     <Back>
-      <MobileWrap>
-        <Router />
-      </MobileWrap>
+      <MobileWrap open={open} >
+        <Router/>
+        {/* here */}
+        <Menu open={open} setOpen={setOpen} />
+      </MobileWrap >
       <Stars></Stars>
+
     </Back>
   );
 }
@@ -32,6 +38,7 @@ const MobileWrap = styled.div`
   max-width: 370px;
   height: 100vh;
   overflow-x: hidden;
+  overflow-y: ${(props) => props.open ? "hidden" : "visible" };
   margin: 0 auto;
   /* background: linear-gradient(
     180deg,

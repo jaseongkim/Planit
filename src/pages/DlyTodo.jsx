@@ -189,7 +189,7 @@ const DlyTodo = () => {
           {showCalendar ? (
             <CalendarWrap>
               <StyHeader showCalendar={showCalendar}>
-                <TodoStatus>
+                {/* <TodoStatus>
                   <div>
                     <img src={achieved_icon} alt="achieved icon" />
                     <span>{planet.achievementCnt}</span>
@@ -198,7 +198,7 @@ const DlyTodo = () => {
                     <img src={like_icon_on} alt="like icon on" />
                     <span>{planet.likesCnt}</span>
                   </div>
-                </TodoStatus>
+                </TodoStatus> */}
               </StyHeader>
               <Calendar
                 onChange={setDateValue}
@@ -214,7 +214,7 @@ const DlyTodo = () => {
                   setDateValue={setDateValue}
                   dateValue={dateValue}
                 />
-                <TodoStatus>
+                {/* <TodoStatus>
                   <div>
                     <img src={achieved_icon} alt="achieved icon" />
                     <span>{planet.achievementCnt}</span>
@@ -223,7 +223,7 @@ const DlyTodo = () => {
                     <img src={like_icon_on} alt="like icon on" />
                     <span>{planet.likesCnt}</span>
                   </div>
-                </TodoStatus>
+                </TodoStatus> */}
               </StyHeader>
               {categories.length === 0 ? (
                 <StyStareBox>

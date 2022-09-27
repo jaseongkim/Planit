@@ -6,7 +6,7 @@ import styled from "styled-components";
 import {calendar_icon, bell_icon,planet_icon} from "../static/images/";
 // Hamburger Navi
 import Burger from "./hamburNavi/Burger";
-import Menu from "./hamburNavi/Menu";
+// import Menu from "./hamburNavi/Menu";
 // UseParms
 import { useLocation } from "react-router-dom";
 
@@ -30,7 +30,7 @@ const Header = ({showCalendar,setShowCalendar }) => {
         </button>  
         <Burger open={open} setOpen={setOpen} />
       </HeaderIcon>
-      <Menu open={open} setOpen={setOpen} />
+      {/* <Menu open={open} setOpen={setOpen} /> */}
     </HeaderCon>
   );
 };
