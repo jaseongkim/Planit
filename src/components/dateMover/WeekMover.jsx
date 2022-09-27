@@ -5,11 +5,10 @@ import styled from "styled-components";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 
 const WeekMover = ({ parsedDispDate, dateValue, setDateValue }) => {
+  
   // Var: Getting a local current time
   // appending subtrack or add 1 week depending on which the button get clicked
   const currDate = new Date(dateValue);
-
-  console.log("Checking dateValue", currDate)
 
   // When clicked, subtrack 1 from the current time
   const onClickLeft = () => {
