@@ -12,9 +12,9 @@ import {
   updateTodoCkThunk,
 } from "../redux/modules/categTodoSlice.js";
 // React Icons
-import {IoIosMore} from "react-icons/io";
+import { IoIosMore } from "react-icons/io";
 // Imgs
-import {check_icon} from "../static/images";
+import { check_icon } from "../static/images";
 
 const TodoList = ({
   categId,
@@ -23,8 +23,9 @@ const TodoList = ({
   onClickedSheet,
   clickedTodo,
   selectedDate,
+  parsedToday,
+  parsedCurrDate,
 }) => {
-  
   // const checkedRef = useRef()
   // const uncheckedRef = useRef()
 
@@ -34,7 +35,7 @@ const TodoList = ({
   useEffect(() => {
     // console.log("This is useEffect from the TodoList")
   }, []);
-  
+
   // Specifying todo & memo info a new todo
   const handleFormChange = (index, event) => {
     let data = [...todos];
@@ -51,11 +52,6 @@ const TodoList = ({
 
     dispatch(onChangeTodo(chgTodoObj));
   };
-
-  // const today = new Date();
-  // const parsedToday = `${today.getFullYear()}
-  //   -${String((today.getMonth() + 1)).padStart(2, "0")}
-  //   -${String(today.getDate()).padStart(2, "0")}`;
 
   // If it is an empty inputs, send dispatch data
   // else delete the empty UX
@@ -92,7 +88,6 @@ const TodoList = ({
   // If there is an input that has been created before,
   // update from old title to new one
   const naMtyTiOutFocus = (inputs, index) => {
-
     const updateTodoTiObj = {
       todoId: inputs.todoId,
       categIndex: categIndex,
@@ -115,7 +110,6 @@ const TodoList = ({
 
   // Changing the clicked checkbox's check status
   const onhandleCheckBox = (todo, categIndex, todoIndex) => {
-
     // console.log("Checking checkedRef useRef", checkedRef.current.id)
     // console.log("Checking uncheckRefuseRef", uncheckedRef.current.id)
 
@@ -144,26 +138,12 @@ const TodoList = ({
             <TodoTitle>
               <CheckTxtboxWrap>
                 <CustomCheck>
-                  {inputs.isAchieved === true ? (
-                    <input
-                      id={`checkbox${inputs.todoId}`}
-                      type="checkbox"
-                      value=""
-                      // ref={checkedRef}
-                      onChange={() => onhandleCheckBox(inputs, categIndex, index)}
-                      // checked={true}
-                      // checked={parsedToday !== inputs.}
-                    />
-                  ) : ( 
-                    <input
-                      id={`checkbox${inputs.todoId}`}
-                      type="checkbox"
-                      value=""
-                      // ref={uncheckedRef}
-                      onChange={() => onhandleCheckBox(inputs, categIndex, index)}
-                      // checked={false}
-                    />
-                  )}
+                  <input
+                    id={`checkbox${inputs.todoId}`}
+                    type="checkbox"
+                    onChange={() => onhandleCheckBox(inputs, categIndex, index)}
+                    disabled={parsedCurrDate < parsedToday ? true : false}
+                  />
                   <div></div>
                 </CustomCheck>
                 {console.log("Check inputs", inputs)}
@@ -237,7 +217,6 @@ const TodoTitle = styled.div`
 `;
 
 const CheckTxtboxWrap = styled.div`
-
   display: flex;
   align-items: center;
   width: calc(100% - 28px);
