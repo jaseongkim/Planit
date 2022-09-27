@@ -159,7 +159,6 @@ const DlyTodo = () => {
         memo: clickedMemo,
       },
     };
-
     dispatch(updateTodoMemoThunk({ updateTodoMemoObj }));
   };
 

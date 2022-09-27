@@ -10,10 +10,13 @@ import {
 import { select_arrow } from "../../static/images";
 import CategoryScope from "./CategoryScope";
 import CategoryColor from "./CategoryColor";
+import Modal from "../../element/Modal";
 
 export default function CategoryDetailBox() {
   const dispatch = useDispatch();
-  const categories = useSelector((state) => state.categTodoSlice.categories);
+  const categories = useSelector(
+    (state) => state.categTodoSlice.onlyCategories
+  );
 
   let categoriesDetail;
 
@@ -39,6 +42,7 @@ export default function CategoryDetailBox() {
   const [category, setCategory] = useState(initialState);
   const [isScopeOpen, setScopeOpen] = useState(false);
   const [isColorOpen, setColorOpen] = useState(false);
+  const [modal, setModal] = useState(false);
 
   const onChangeHandler = (event) => {
     const { name, value } = event.target;
@@ -50,11 +54,13 @@ export default function CategoryDetailBox() {
   };
 
   const onUpdateHandler = () => {
-    const copy = category;
-    copy.categoryStatus = "STOP";
-    setCategory(copy);
+    setModal(true);
 
-    dispatch(updateCategThunk({ id, category }));
+    // const copy = category;
+    // copy.categoryStatus = "STOP";
+    // setCategory(copy);
+
+    // dispatch(updateCategThunk({ id, category }));
   };
 
   const onConfirmHandler = () => {
@@ -90,6 +96,14 @@ export default function CategoryDetailBox() {
 
   return (
     <CategoryContainer>
+      {modal && (
+        <Modal
+          open={modal}
+          onClose={() => {
+            setModal(false);
+          }}
+        />
+      )}
       <CategoryWrap>
         <InputBox>
           <input
