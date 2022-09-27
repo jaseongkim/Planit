@@ -1,5 +1,5 @@
 // React
-import React, { useState, useContext} from "react";
+import React, { useState, useContext } from "react";
 // React Component
 import styled from "styled-components";
 import Menu from "../components/hamburNavi/Menu";
@@ -11,18 +11,16 @@ import { AppContext } from "../context";
 // import { bgleft, bgright } from "../static/images";
 
 export default function Brower() {
-
   // Context API : opening & closing burgar navi
-  const {open, setOpen} = useContext(AppContext)
+  const { open, setOpen } = useContext(AppContext);
 
   return (
     <Back>
-      <MobileWrap open={open} >
-        <Router/>
-        <Menu open={open} setOpen={setOpen}/>
-      </MobileWrap >
+      <MobileWrap open={open}>
+        <Router />
+        <Menu open={open} setOpen={setOpen} />
+      </MobileWrap>
       <Stars></Stars>
-
     </Back>
   );
 }
@@ -42,7 +40,7 @@ const MobileWrap = styled.div`
   max-width: 370px;
   height: 100vh;
   overflow-x: hidden;
-  overflow-y: ${(props) => props.open ? "hidden" : "visible" };
+  overflow-y: ${(props) => (props.open ? "hidden" : "visible")};
   margin: 0 auto;
   z-index: 10;
   box-shadow: 6px 0px 14px rgba(219, 219, 219, 0.39),

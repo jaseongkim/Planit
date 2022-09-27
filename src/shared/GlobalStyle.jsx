@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import "../static/fonts/font.css";
 
 const GlobalStyle = createGlobalStyle`
 
@@ -11,7 +12,7 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     margin: 0;
     outline : none;
-    font-family: 'Noto Sans KR', sans-serif;
+    font-family: 'PretendardVariable', sans-serif;
     font-weight: 500;
   }
 
