@@ -100,26 +100,24 @@ const CreatePlanet = () => {
         </button>
       </StyPlanets>
       {(opacity.firstOpa === 0.4 || opacity.secondOpa === 0.4 || opacity.thirdOpa === 0.4 || opacity.fourthOpa === 0.4 || opacity.fifthOpa === 0.4) ?
-        <Button
+      <StySubmitButton
         _onClick={()=> {onClickHandler()}}
         height="2em"
         border="none"
         color="#FFFFFF"
-        backgroundColor="#808080"
         disabled
-        >
+      >
         확인
-      </Button>
+      </StySubmitButton>
       : 
-      <Button
+      <StySubmitButton
         _onClick={()=> {onClickHandler()}}
         height="2em"
         border="none"
         color="#FFFFFF"
-        backgroundColor="#3185F3"
-        >
+      >
         확인
-      </Button>
+      </StySubmitButton>
       }
     </StyContainer>
   );
@@ -128,15 +126,14 @@ const CreatePlanet = () => {
 export default CreatePlanet;
 
 const StyContainer = styled.div`
-  padding: 15px;
-  top: 0;
   color: #fff;
+  padding: 0 16px;
 `;
 
 const StyHeader = styled.div`
-  position: sticky;
   display: flex;
   align-items: center;
+  padding: 16px 0;
 
   .arrow {
     margin-right: ${(props) => props.theme.margins.small};
@@ -152,21 +149,40 @@ const StyHeader = styled.div`
 const StyContent = styled.div`
   text-align: center;
   color: #b1bdcf;
-  font-size: 0.93em;
-  margin: 2.6em 0;
+  font-size: 16px;
+  margin-top: 15px;
 `;
 
 const StyPlanets = styled.div`
-  text-align: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin-top: 15px;
+
   button {
+    margin: 15px 0;
     background: transparent;
     border: none;
+
     img {
       height: 80px;
-      opacity: 0.4;
+      opacity: .4;
     }
   }
 `;
 
+const StySubmitButton = styled.button`
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  font-size: 20px;
+  color: #fff;
+  padding: 20px 0 40px;
+  background: #1671fa;
+  border: none;
+  transition: 0.2s;
 
-
+  &:disabled {
+    background: #8b98ac;
+  }
+`;

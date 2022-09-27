@@ -187,7 +187,7 @@ const StyCircleCon = styled.div`
   max-width: 375px;
   height: 100vh;
   overflow: auto;
-  /* border: 3px solid red; */
+  z-index: -1;
 `;
 
 const StyCircleWrap = styled.div`
