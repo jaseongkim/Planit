@@ -68,17 +68,13 @@ export default function CategoryColor({
 }
 
 const CustomSheet = styled(Sheet)`
-  .react-modal-sheet-backdrop {
-    /* custom styles */
-    border: 3px solid #ffffff;
-  }
   .react-modal-sheet-container {
     display: fixed;
     bottom: 0;
     height: auto !important;
     right: 0;
     margin: 0 auto;
-    max-width: 375px;
+    max-width: 640px;
     width: 100%;
     background-color: #5d646b !important;
     padding: 24px 0 40px;
