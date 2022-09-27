@@ -70,13 +70,17 @@ const StyBtmNavi = styled.div`
   left: 0;
   bottom: 0;
   width: 100%;
-  background: linear-gradient(0deg, #DBEAFF 0.01%, #8DBEFF 63.02%, rgba(119, 178, 255, 0) 98.77%);
+  background: linear-gradient(0deg, #ACD0FD 0%, #609EF3 67.71%, rgba(75, 145, 240, 0) 92.19%);
 `
 const StyBtmTabCont = styled.div`
   width: 100%;
   max-width: 375px;
   margin: 0 auto;
   padding: 50px 16px 32px;
+
+  @media(max-width: 375px) {
+    padding-top: 6.1576vw;
+  }
 `;
 
 const StyBtmTabWrap = styled.div`
