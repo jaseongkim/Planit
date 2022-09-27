@@ -26,16 +26,15 @@ export const createMemberDB = (data) => {
 };
 
 //로그인
-export const loginMemberDB = (data) => {
-  return async function () {
-    await apis
-      .loginMember(data)
-      .then((response) => {
-        console.log(response);
+export const loginMemberDB = createAsyncThunk(
+  "member/login",
+  async (payload, thunkAPI) => {
+    try {
+      await apis.loginMember(payload).then((response) => {
         if (response.data.success === false) {
-          return window.alert("Hello");
         } else {
           return (
+            thunkAPI.fulfillWithValue(false),
             localStorage.setItem("token", response.headers.authorization),
             localStorage.setItem("memberId", response.data.data.memberId),
             localStorage.setItem("refreshToken", response.headers.refreshtoken),
@@ -47,14 +46,14 @@ export const loginMemberDB = (data) => {
             window.location.replace("/wklyTodo")
           );
         }
-      })
-      .catch((error) => {
-        if (error.response.status === 404) {
-          console.log(error);
-        }
       });
-  };
-};
+    } catch (error) {
+      return thunkAPI.rejectWithValue(true);
+      // if (error.response.status === 400 || error.response.status === 404) {
+      // }
+    }
+  }
+);
 
 export const kakaoLoginDB = (code) => {
   return async function () {
@@ -89,6 +88,7 @@ export const updateNickName = createAsyncThunk(
       });
   }
 );
+
 export const updatePassword = createAsyncThunk(
   "member/updatePassword",
   async (formData, thunkAPI) => {
@@ -113,14 +113,27 @@ export const updatePassword = createAsyncThunk(
 const initialState = {
   memberlist: [],
   member: {},
+  isCheck: false,
 };
 
 const memberSlice = createSlice({
   name: "member",
   initialState,
-  reducers: {},
-  extraReducers: {},
+  reducers: {
+    setCheck: (state, action) => {
+      state.isCheck = action.payload;
+    },
+  },
+  extraReducers: {
+    [loginMemberDB.fulfilled]: (state, action) => {
+      state.isCheck = action.payload;
+    },
+    [loginMemberDB.rejected]: (state, action) => {
+      state.isCheck = action.payload;
+    },
+    [loginMemberDB.pending]: () => {},
+  },
 });
 
-// export const { } = memberSlice.actions;
+export const { setCheck } = memberSlice.actions;
 export default memberSlice.reducer;
