@@ -30,11 +30,12 @@ const BtmFitNavi = ({name,wkPlanets}) => {
     // If the planet's planetType is 0, navigate to creatplanet page
     // Else navigate to dlytodo page
     const onClickDay = () =>{
+        console.log("Checking wkPlanets", wkPlanets)
     const currDate = new Date()
     const parsedCurrDate = `${currDate.getFullYear()}-${String(currDate.getMonth()+1).padStart(2,'0')}-${String(currDate.getDate()).padStart(2,'0')}`
     const currPlanet = wkPlanets?.planets.find(planet => planet.dueDate === parsedCurrDate)
 
-    if(currPlanet?.planetType === 0){
+    if(currPlanet?.planetType === null){
         navigate("/createplanet")
     }
     else{
