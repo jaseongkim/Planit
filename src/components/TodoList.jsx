@@ -52,6 +52,11 @@ const TodoList = ({
     dispatch(onChangeTodo(chgTodoObj));
   };
 
+  // const today = new Date();
+  // const parsedToday = `${today.getFullYear()}
+  //   -${String((today.getMonth() + 1)).padStart(2, "0")}
+  //   -${String(today.getDate()).padStart(2, "0")}`;
+
   // If it is an empty inputs, send dispatch data
   // else delete the empty UX
   const mtyTiOutFocus = (inputs, index, categId) => {
@@ -147,6 +152,7 @@ const TodoList = ({
                       // ref={checkedRef}
                       onChange={() => onhandleCheckBox(inputs, categIndex, index)}
                       // checked={true}
+                      // checked={parsedToday !== inputs.}
                     />
                   ) : ( 
                     <input

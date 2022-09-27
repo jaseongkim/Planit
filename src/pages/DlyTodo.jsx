@@ -109,7 +109,7 @@ const DlyTodo = () => {
 
     dispatch(getCategThunk(concatSelDate.current));
     dispatch(getDayPlanetThunk(concatSelDate.current));
-  }, [dateValue]);
+  }, [dateValue, dispatch]);
 
   // Adding a new todo
   const addTodo = ({ input, index }) => {
@@ -178,6 +178,11 @@ const DlyTodo = () => {
     setShowModal(true);
   };
 
+  console.log("planet : ", planet);
+  // console.log("planetType : ", planet['planetType']);
+  // console.log("planetColor : ", planet['planetColor']);
+  // console.log("planetLevel : ", planet['planetColor']);
+
   return (
     <StyDlyTodoCon>
       <Header showCalendar={showCalendar} setShowCalendar={setShowCalendar} />
@@ -244,9 +249,12 @@ const DlyTodo = () => {
                 </CircleBox>
               ) : (
                 <CircleBox>
-                   <StyImg src={require(`../static/images/planets/planet${planet.planetType}${planet.planetColor}${planet.planetLevel}.png`)}
-                    planetSize={planet.planetSize}
-                  />
+                  {planet.length === 0 ? null : (
+                    <StyImg
+                      src={require(`../static/images/planets/planet${planet.planetType}${planet.planetColor}${planet.planetLevel}.png`)}
+                      planetSize={planet.planetSize}
+                    />
+                  )}
                   <p>다음 단계까지 3개 남았어요.</p>
                 </CircleBox>
               )}
@@ -546,9 +554,8 @@ const CircleBox = styled.div`
 `;
 
 const StyImg = styled.img`
-  height: ${props => props.planetSize * 1.5}px;
-`
-
+  height: ${(props) => props.planetSize * 1.5}px;
+`;
 
 const StyStareBox = styled.div`
   display: flex;
