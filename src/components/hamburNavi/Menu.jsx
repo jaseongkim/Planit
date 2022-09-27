@@ -15,25 +15,21 @@ const Menu = ({ open }) => {
             닉네임
             <img src={next_icon} alt="화살표 아이콘" />
           </a>
-          <FollowBox>
+          {/* <FollowBox>
             <button>팔로워<span>12</span></button>
             <button>팔로잉<span>12</span></button>
-          </FollowBox>
+          </FollowBox> */}
         </MyInfoWrap>
       </MyInfoInMenu>
       <StyledMenuList>
-        <a href="/dlytodo">
-          할일
-          <img src={next_icon} alt="화살표 아이콘" />
-        </a>
         <a href="/category">
           카테고리
           <img src={next_icon} alt="화살표 아이콘" />
         </a>
-        <a href="/">
+        {/* <a href="/">
           통계
           <img src={next_icon} alt="화살표 아이콘" />
-        </a>
+        </a> */}
       </StyledMenuList>
     </StyledMenu>
   )

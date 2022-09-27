@@ -21,13 +21,14 @@ const Header = ({showCalendar,setShowCalendar }) => {
     <HeaderCon>
       <h1>{localStorage.getItem("nickname")}</h1>
       <HeaderIcon>
-        {/* <GoSearch></GoSearch> */}
-        <button onClick={()=> {setShowCalendar(!showCalendar)}}>
+        {currentPath.pathname === "/WklyTodo" ? null : (
+          <button onClick={()=> {setShowCalendar(!showCalendar)}}>
           <img src={showCalendar ? planet_icon : calendar_icon} alt="calendar icon" />
-        </button>
-        <button>
+          </button>
+        )}
+        {/* <button>
           <img src={bell_icon} alt="bell icon" />
-        </button>  
+        </button> */}
         <Burger open={open} setOpen={setOpen} />
       </HeaderIcon>
       {/* <Menu open={open} setOpen={setOpen} /> */}

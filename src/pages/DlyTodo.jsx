@@ -42,7 +42,6 @@ import { D1 } from "../static/images";
 import { useNavigate } from "react-router-dom";
 
 const DlyTodo = () => {
-
   // React Router Dom
   const navigate = useNavigate();
 
@@ -189,16 +188,16 @@ const DlyTodo = () => {
           {showCalendar ? (
             <CalendarWrap>
               <StyHeader showCalendar={showCalendar}>
-                {/* <TodoStatus>
+                <TodoStatus>
                   <div>
                     <img src={achieved_icon} alt="achieved icon" />
                     <span>{planet.achievementCnt}</span>
                   </div>
-                  <div>
+                  {/* <div>
                     <img src={like_icon_on} alt="like icon on" />
                     <span>{planet.likesCnt}</span>
-                  </div>
-                </TodoStatus> */}
+                  </div> */}
+                </TodoStatus>
               </StyHeader>
               <Calendar
                 onChange={setDateValue}
@@ -214,16 +213,16 @@ const DlyTodo = () => {
                   setDateValue={setDateValue}
                   dateValue={dateValue}
                 />
-                {/* <TodoStatus>
+                <TodoStatus>
                   <div>
                     <img src={achieved_icon} alt="achieved icon" />
                     <span>{planet.achievementCnt}</span>
                   </div>
-                  <div>
+                  {/* <div>
                     <img src={like_icon_on} alt="like icon on" />
                     <span>{planet.likesCnt}</span>
-                  </div>
-                </TodoStatus> */}
+                  </div> */}
+                </TodoStatus>
               </StyHeader>
               {categories.length === 0 ? (
                 <StyStareBox>

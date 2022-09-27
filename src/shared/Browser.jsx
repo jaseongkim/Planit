@@ -40,14 +40,6 @@ const MobileWrap = styled.div`
   overflow-x: hidden;
   overflow-y: ${(props) => props.open ? "hidden" : "visible" };
   margin: 0 auto;
-  /* background: linear-gradient(
-    180deg,
-    #121212 0%,
-    #1b60bb 70.31%,
-    #3a83e4 82.55%,
-    #d8e2ee 95.05%,
-    #eeeeee 100%
-  ); */
   z-index: 10;
   box-shadow: 6px 0px 14px rgba(219, 219, 219, 0.39),
     -26px 6px 90px rgba(73, 73, 73, 0.58);
