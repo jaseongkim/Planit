@@ -159,7 +159,6 @@ const DlyTodo = () => {
         memo: clickedMemo,
       },
     };
-
     dispatch(updateTodoMemoThunk({ updateTodoMemoObj }));
   };
 
@@ -176,10 +175,10 @@ const DlyTodo = () => {
                     <img src={achieved_icon} alt="achieved icon" />
                     <span>{planet.achievementCnt}</span>
                   </div>
-                  <div>
+                  {/* <div>
                     <img src={like_icon_on} alt="like icon on" />
                     <span>{planet.likesCnt}</span>
-                  </div>
+                  </div> */}
                 </TodoStatus>
               </StyHeader>
               <Calendar
@@ -201,10 +200,10 @@ const DlyTodo = () => {
                     <img src={achieved_icon} alt="achieved icon" />
                     <span>{planet.achievementCnt}</span>
                   </div>
-                  <div>
+                  {/* <div>
                     <img src={like_icon_on} alt="like icon on" />
                     <span>{planet.likesCnt}</span>
-                  </div>
+                  </div> */}
                 </TodoStatus>
               </StyHeader>
               {planet.planetType === 0 ? (
@@ -344,6 +343,7 @@ const CalendarWrap = styled.div`
       display: block;
       position: absolute;
       top: 0;
+      left: 0;
       height: auto;
       margin-bottom: 0;
 
@@ -511,7 +511,6 @@ const TodoCon = styled.div`
 const TodoBtn = styled.button`
   font-size: 18px;
   color: #fff;
-  // background-color: ${(props) => props.btnColor};
   background: transparent;
   border: none;
 
@@ -522,17 +521,13 @@ const TodoBtn = styled.button`
 `;
 
 const CustomSheet = styled(Sheet)`
-  .react-modal-sheet-backdrop {
-    /* custom styles */
-    border: 3px solid #ffffff;
-  }
   .react-modal-sheet-container {
     display: fixed;
     bottom: 0;
     height: auto !important;
     right: 0;
     margin: 0 auto;
-    max-width: 375px;
+    max-width: 640px;
     width: 100%;
     background-color: #516d93 !important;
     padding: 24px 0 40px;
