@@ -1,30 +1,40 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import KakaoLogin from "../components/KakaoLogin";
 import Button from "../element/Button";
-import { loginMemberDB } from "../redux/modules/memberSlice";
+import { loginMemberDB, setCheck } from "../redux/modules/memberSlice";
 import { logo } from "../static/images";
 import { IoIosClose } from "react-icons/io";
 
 const LogInPage = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const check = useSelector((state) => state.member.isCheck);
+
   const dispatch = useDispatch();
 
-  const initialState = {
-    email: "",
-    password: "",
+  const onEmailHandler = (event) => {
+    const emailCurrent = event.target.value;
+    setEmail(emailCurrent);
+
+    if (emailCurrent.length <= 0) {
+      dispatch(setCheck(false));
+    }
   };
 
-  const [member, setMember] = useState(initialState);
+  const onPasswordHandler = (event) => {
+    const passwordCurrent = event.target.value;
+    setPassword(passwordCurrent);
 
-  const onChangeHandler = (event) => {
-    const { name, value } = event.target;
-    setMember({ ...member, [name]: value });
+    if (passwordCurrent.length <= 0) {
+      dispatch(setCheck(false));
+    }
   };
 
   const onLoginHandler = () => {
-    dispatch(loginMemberDB(member));
-    console.log("로그인이 완료되셨습니다!");
+    dispatch(loginMemberDB({ email: email, password: password }));
   };
 
   const onKeyUp = (e) => {
@@ -46,8 +56,8 @@ const LogInPage = () => {
               <input
                 type="text"
                 name="email"
-                value={member.email}
-                onChange={onChangeHandler}
+                value={email}
+                onChange={onEmailHandler}
               />
             </LoginItem>
             <LoginItem>
@@ -55,16 +65,20 @@ const LogInPage = () => {
               <input
                 type="password"
                 name="password"
-                value={member.password}
-                onChange={onChangeHandler}
+                value={password}
+                onChange={onPasswordHandler}
                 onKeyUp={onKeyUp}
               />
             </LoginItem>
           </LoginInputWrap>
-          <InvalidMsg style={{ color: "#d65a5a" }}>
-            <IoIosClose style={{ marginRight: "3px" }} />
-            이메일과 비밀번호를 확인해주세요.
-          </InvalidMsg>
+
+          <div style={{ display: `${check ? "block" : "none"}` }}>
+            <InvalidMsg style={{ color: "#d65a5a" }}>
+              <IoIosClose style={{ marginRight: "3px" }} />
+              이메일과 비밀번호를 확인해주세요.
+            </InvalidMsg>
+          </div>
+
           <LoginBtn>
             <Button _onClick={onLoginHandler}>로그인</Button>
             <LoginNav>
