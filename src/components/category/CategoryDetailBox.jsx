@@ -155,11 +155,11 @@ export default function CategoryDetailBox() {
         </CategoryOption>
       </CategoryWrap>
       {category.categoryName === "" ? (
-        <CategorySubmit onClick={onConfirmHandler} disabled>
+        <StySubmitButton onClick={onConfirmHandler} disabled>
           확인
-        </CategorySubmit>
+        </StySubmitButton>
       ) : (
-        <CategorySubmit onClick={onConfirmHandler}>확인</CategorySubmit>
+        <StySubmitButton onClick={onConfirmHandler}>확인</StySubmitButton>
       )}
 
       <CategoryScope
@@ -236,14 +236,14 @@ const InputBox = styled.div`
   }
 `;
 
-const CategorySubmit = styled.button`
+const StySubmitButton = styled.button`
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: 52px;
+  padding: 20px 0 40px;
   font-size: 20px;
   color: #fff;
-  background: #3185f3;
+  background: #1671fa;
   border: none;
 
   &:disabled {

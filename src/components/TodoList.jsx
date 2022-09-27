@@ -163,6 +163,7 @@ const TodoList = ({
                 {console.log("Check inputs", inputs)}
                 {inputs.todoId === undefined ? (
                   <input
+                    autoFocus
                     id={`disable${inputs.todoId}`}
                     name="title"
                     type="text"

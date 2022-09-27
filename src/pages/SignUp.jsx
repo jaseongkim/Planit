@@ -302,7 +302,7 @@ const SignUp = () => {
               </SignUpInputBox>
             </SignUpItem>
           </SignUpList>
-          <SignUpSubmit
+          <StySubmitButton
             type="submit"
             disabled={
               !(
@@ -316,7 +316,7 @@ const SignUp = () => {
             }
           >
             확인
-          </SignUpSubmit>
+          </StySubmitButton>
         </form>
       </SignUpCon>
     </SubContainer>
@@ -427,15 +427,15 @@ const SignUpInputBox = styled.div`
   }
 `;
 
-const SignUpSubmit = styled.button`
+const StySubmitButton = styled.button`
   position: absolute;
   left: 0;
   bottom: 0;
   width: 100%;
-  height: 52px;
+  padding: 20px 0 40px;
   font-size: 20px;
   color: #fff;
-  background: #3185f3;
+  background: #1671fa;
   border: none;
   transition: 0.2s;
 

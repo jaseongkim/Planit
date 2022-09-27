@@ -237,6 +237,7 @@ const DlyTodo = () => {
                 <CircleBox>
                   <Circle
                     planetType={planet.planetType}
+                    // planetSize="planet.planetSize * 1.5"
                     planetLevel={planet.planetLevel}
                     fontSize={(props) => props.theme.fontSizes.lg}
                   >
@@ -592,7 +593,7 @@ const CustomSheet = styled(Sheet)`
     height: auto !important;
     right: 0;
     margin: 0 auto;
-    max-width: 640px;
+    max-width: 375px;
     width: 100%;
     background-color: #516d93 !important;
     padding: 24px 0 40px;
