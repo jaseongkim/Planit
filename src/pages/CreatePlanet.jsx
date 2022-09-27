@@ -106,7 +106,7 @@ const CreatePlanet = () => {
       </StyPlanets>
       {(opacity.firstOpa === 0.4 || opacity.secondOpa === 0.4 || opacity.thirdOpa === 0.4 || opacity.fourthOpa === 0.4 || opacity.fifthOpa === 0.4) ?
       <StySubmitButton
-        _onClick={()=> {onClickHandler()}}
+        onClick={()=> {onClickHandler()}}
         height="2em"
         border="none"
         color="#FFFFFF"
@@ -116,7 +116,7 @@ const CreatePlanet = () => {
       </StySubmitButton>
       : 
       <StySubmitButton
-        _onClick={()=> {onClickHandler()}}
+        onClick={()=> {onClickHandler()}}
         height="2em"
         border="none"
         color="#FFFFFF"
