@@ -153,7 +153,7 @@ const TodoList = ({
                     id={`disable${inputs.todoId}`}
                     name="title"
                     type="text"
-                    placeholder="투두를 입력하세요"
+                    placeholder="할 일을 입력하세요"
                     value={inputs.title}
                     onChange={(event) => handleFormChange(index, event)}
                     onBlur={() => mtyTiOutFocus(inputs, index, categId)}
@@ -163,7 +163,7 @@ const TodoList = ({
                     id={`disable${inputs.todoId}`}
                     name="title"
                     type="text"
-                    placeholder="투두를 입력하세요"
+                    placeholder="할 일을 입력하세요"
                     value={inputs.title}
                     onChange={(event) => handleFormChange(index, event)}
                     onBlur={() => naMtyTiOutFocus(inputs, index)}

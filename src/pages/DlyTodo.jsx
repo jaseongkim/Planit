@@ -235,9 +235,13 @@ const DlyTodo = () => {
               </StyHeader>
               {categories.length === 0 ? (
                 <StyStareBox>
-                  {/* <img src={D1} alt="A1 for empty categories"></img> */}
+                  {/* {planet.length === 0 ? null : (
+                    <StyImg
+                      src={require(`../static/images/planets/planet${planet.planetType}${planet.planetColor}${planet.planetLevel}.png`)}
+                      planetSize={planet.planetSize}
+                    />
+                  )} */}
                   <p>
-                    {" "}
                     카테고리를 만들고 <br />
                     투투리스트를 작성해보세요.
                   </p>
@@ -272,10 +276,15 @@ const DlyTodo = () => {
             _onClick={() => {
               navigate("/categorydetail/0");
             }}
-            height="2em"
+            display="block"
+            width="250px"
+            height="52px"
             border="none"
+            fontSize="18px"
             color="#FFFFFF"
-            backgroundColor="#3185F3"
+            margin="0 auto"
+            backgroundColor="#3185f3"
+            borderRadius="8px"
           >
             카테고리 만들고 시작하기
           </Button>
