@@ -43,20 +43,22 @@ const BtmFitNavi = ({name,wkPlanets}) => {
 
     return (
       <StyBtmNavi>
-        <StyBtmTabWrap>
-          <StyBtmTab 
-            className="week"
-            date={activeTabs}
-            onClick={() => setActiveTabs('WklyTodo')}>
-            Week
-          </StyBtmTab>
-          <StyBtmTab
-            className="day" 
-            date={activeTabs}           
-            onClick={() => setActiveTabs('dlytodo')}>
-            Day
-          </StyBtmTab>
-        </StyBtmTabWrap>
+        <StyBtmTabCont>
+          <StyBtmTabWrap>
+            <StyBtmTab 
+              className="week"
+              date={activeTabs}
+              onClick={() => setActiveTabs('WklyTodo')}>
+              Week
+            </StyBtmTab>
+            <StyBtmTab
+              className="day" 
+              date={activeTabs}           
+              onClick={() => setActiveTabs('dlytodo')}>
+              Day
+            </StyBtmTab>
+          </StyBtmTabWrap>
+        </StyBtmTabCont>
       </StyBtmNavi>
     )
 }
@@ -71,12 +73,18 @@ const StyBtmNaviBody = styled.div`
 
 const StyBtmNavi = styled(StyBtmNaviBody)`
   position: fixed;
+  left: 0;
   bottom: 0;
   width: 100%;
-  max-width: 375px;
-  padding: 50px 16px 32px;
   background: linear-gradient(0deg, #DBEAFF 0.01%, #8DBEFF 63.02%, rgba(119, 178, 255, 0) 98.77%);
 `
+
+const StyBtmTabCont = styled(StyBtmNaviBody)`
+  width: 100%;
+  max-width: 375px;
+  margin: 0 auto;
+  padding: 50px 16px 32px;
+`;
 
 const StyBtmTabWrap = styled(StyBtmNaviBody)`
   display: flex;
@@ -121,21 +129,3 @@ ${(props) => {
     }
   }}
 `;
-
-
-
-
-// }
-//   width: 100%;
-//   height: 92%;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   border-radius: 12px;
-
-//   &.day{
-//     background: white;
-//     width: 100%;
-//     margin: 0.6%;
-//   }
-// `

@@ -20,6 +20,7 @@ import planet_icon from "./icons/planet_icon.svg";
 import delete_icon from "./icons/delete_icon.svg";
 import edit_icon from "./icons/edit_icon.svg";
 import select_arrow from "./icons/select_arrow.svg";
+import profile_default from "./icons/profile_default.svg";
 
 //-- planets --
 // Type 1
@@ -50,6 +51,6 @@ export { bgleft, bgright, kakaologin,
     searchIcon, logo, back_arrow, check_icon, 
     calendar_icon, calendar_icon_gray, bell_icon, burger_icon, 
     prev_icon, next_icon, achieved_icon, like_icon_on, like_icon_off, 
-    planet_icon, delete_icon, edit_icon, select_arrow,
+    planet_icon, delete_icon, edit_icon, select_arrow, profile_default,
     A1,A2,A3,B1,B2,B3,C1,C2,C3,D1,D2,D3,E1,E2,E3
 };
