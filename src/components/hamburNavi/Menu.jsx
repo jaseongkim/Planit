@@ -5,8 +5,8 @@ import { profile_default, next_icon } from '../../static/images';
 
 const Menu = ({ open, setOpen }) => {
   return (
-    <StyMenuCont>
-      <StyBackgroud open={open} onClick={() => setOpen(false)}></StyBackgroud>
+    <StyMenuCont open={open}>
+      <StyBackgroud onClick={() => setOpen(false)}></StyBackgroud>
       <StyledMenu open={open}>
         <MyInfoInMenu>
           <div>
@@ -49,10 +49,14 @@ const StyMenuCont = styled.div`
   top: 0;
   left: 0;
   width: 100%;
+  visibility: ${({ open }) => open ? 'visible' : 'hidden'};
+  opacity: ${({ open }) => open ? '1' : '0'};
+  transition: ${({ open }) => open ? 
+    'visibility 0s ease-in-out, opacity .3s ease-in-out' : 
+    'visibility 0s ease-in-out .2s, opacity .3s ease-in-out .2s'};
 `;
 
 const StyBackgroud = styled.div`
-  display: ${({ open }) => open ? 'block' : 'none'};
   position: absolute;
   top: 0;
   left: 0;
