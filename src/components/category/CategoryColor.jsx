@@ -74,7 +74,7 @@ const CustomSheet = styled(Sheet)`
     height: auto !important;
     right: 0;
     margin: 0 auto;
-    max-width: 640px;
+    max-width: 375px;
     width: 100%;
     background-color: #5d646b !important;
     padding: 24px 0 40px;
