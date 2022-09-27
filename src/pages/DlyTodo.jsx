@@ -235,12 +235,12 @@ const DlyTodo = () => {
               </StyHeader>
               {categories.length === 0 ? (
                 <StyStareBox>
-                  {/* {planet.length === 0 ? null : (
+                  {planet.length === 0 ? null : (
                     <StyImg
                       src={require(`../static/images/planets/planet${planet.planetType}${planet.planetColor}${planet.planetLevel}.png`)}
                       planetSize={planet.planetSize}
                     />
-                  )} */}
+                  )}
                   <p>
                     카테고리를 만들고 <br />
                     투투리스트를 작성해보세요.
@@ -347,6 +347,7 @@ const DlyTodo = () => {
                 value={clickedMemo}
                 onChange={onChangeMemoHandler}
                 onBlur={() => onCheckMemoOutFocus()}
+                disabled={parsedCurrDate < parsedToday ? true : false}
               ></textarea>
               {parsedCurrDate < parsedToday ? null : (
                 <ContentFooter>
