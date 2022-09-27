@@ -127,8 +127,10 @@ const WklyTodo = () => {
           </div> */}
         </TodoStatus>
       </StyHeader>
+      
 
       <StyCircleCon>
+        
         {wkPlanets.planets?.map((planet, index) => {
           return (
             <StyCircleWrap key={index}>
@@ -137,12 +139,9 @@ const WklyTodo = () => {
               ) : (
                 <>
                   {planet.dueDate.substring(8, 10)}
-                  {/* <Circle
-                    planetType={planet.planetType}
-                    planetLevel={planet.planetLevel}
+                  <StyImg src={require(`../static/images/planets/planet${planet.planetType}${planet.planetColor}${planet.planetLevel}.png`)}
                     planetSize={planet.planetSize}
-                  ></Circle> */}
-                  
+                  />
                 </>
               )}
             </StyCircleWrap>
@@ -241,3 +240,9 @@ const StyCircleWrap = styled.div`
     /* left: 18.9333vw; */
   }
 `;
+
+const StyImg = styled.img`
+  
+  height: ${props => props.planetSize}px;
+
+`

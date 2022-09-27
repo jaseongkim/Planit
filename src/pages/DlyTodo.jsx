@@ -36,8 +36,6 @@ import {
   calendar_icon_gray,
   edit_icon,
 } from "../static/images";
-// Planets Imgs
-import { D1 } from "../static/images";
 // React Router Dom
 import { useNavigate } from "react-router-dom";
 
@@ -226,7 +224,7 @@ const DlyTodo = () => {
               </StyHeader>
               {categories.length === 0 ? (
                 <StyStareBox>
-                  <img src={D1} alt="A1 for empty categories"></img>
+                  {/* <img src={D1} alt="A1 for empty categories"></img> */}
                   <p>
                     {" "}
                     카테고리를 만들고 <br />
@@ -237,7 +235,6 @@ const DlyTodo = () => {
                 <CircleBox>
                   <Circle
                     planetType={planet.planetType}
-                    // planetSize="planet.planetSize * 1.5"
                     planetLevel={planet.planetLevel}
                     fontSize={(props) => props.theme.fontSizes.lg}
                   >
@@ -247,11 +244,9 @@ const DlyTodo = () => {
                 </CircleBox>
               ) : (
                 <CircleBox>
-                  <Circle
-                    planetType={planet.planetType}
-                    planetLevel={planet.planetLevel}
+                   <StyImg src={require(`../static/images/planets/planet${planet.planetType}${planet.planetColor}${planet.planetLevel}.png`)}
                     planetSize={planet.planetSize}
-                  ></Circle>
+                  />
                   <p>다음 단계까지 3개 남았어요.</p>
                 </CircleBox>
               )}
@@ -549,6 +544,11 @@ const CircleBox = styled.div`
   justify-content: center;
   height: 100%;
 `;
+
+const StyImg = styled.img`
+  height: ${props => props.planetSize * 1.5}px;
+`
+
 
 const StyStareBox = styled.div`
   display: flex;

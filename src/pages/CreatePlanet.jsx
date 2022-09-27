@@ -6,10 +6,6 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 // React Icon
 import { AiOutlineLeft } from "react-icons/ai";
-// Planets Imgs
-import { A3, B3, C3, D3, E3 } from "../static/images";
-// Elments
-import Button from "../element/Button";
 // Redux
 import { useDispatch } from "react-redux";
 import { createPlanetThunk } from "../redux/modules/planetSlice";
@@ -40,12 +36,11 @@ const CreatePlanet = () => {
   // Creating current date's planet type => navigate to dlytodo page
   const onClickHandler = () => {
 
-    console.log("Check planetType", planetTypeRef.current)
-
     const currDate = new Date()
     const parsedCurrDate = `${currDate.getFullYear()}-${String(currDate.getMonth()+1).padStart(2,'0')}-${String(currDate.getDate()).padStart(2,'0')}`
     dispatch(createPlanetThunk({planetType: planetTypeRef.current, parsedCurrDate}))
-    navigate("/dlytodo")
+
+    // navigate("/dlytodo")
   }
 
   // If one of planets get clicked,
@@ -83,7 +78,7 @@ const CreatePlanet = () => {
       </StyHeader>
       <StyContent>오늘 키워갈 행성을 골라주세요.</StyContent>
       <StyPlanets>
-        <button onClick={()=>{onClickPlanetHandler(1)}}>
+        {/* <button onClick={()=>{onClickPlanetHandler(1)}}>
           <img src={A3} alt="A3" style={{opacity:opacity.firstOpa}} className="first"/>
         </button>
         <button onClick={()=>{onClickPlanetHandler(2)}}>
@@ -97,11 +92,11 @@ const CreatePlanet = () => {
         </button>
         <button onClick={()=>{onClickPlanetHandler()}}>
           <img src={E3} alt="E3" style={{opacity:opacity.fifthOpa}} className="fifth"/>
-        </button>
+        </button> */}
       </StyPlanets>
       {(opacity.firstOpa === 0.4 || opacity.secondOpa === 0.4 || opacity.thirdOpa === 0.4 || opacity.fourthOpa === 0.4 || opacity.fifthOpa === 0.4) ?
       <StySubmitButton
-        _onClick={()=> {onClickHandler()}}
+        onClick={()=> {onClickHandler()}}
         height="2em"
         border="none"
         color="#FFFFFF"
@@ -111,7 +106,7 @@ const CreatePlanet = () => {
       </StySubmitButton>
       : 
       <StySubmitButton
-        _onClick={()=> {onClickHandler()}}
+        onClick={()=> {onClickHandler()}}
         height="2em"
         border="none"
         color="#FFFFFF"
