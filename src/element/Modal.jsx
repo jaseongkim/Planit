@@ -3,16 +3,16 @@ import { useEffect } from "react";
 import styled from "styled-components";
 import ModalContainer from "./ModalContainer";
 
-export default function Modal({ onClose }) {
+export default function Modal({ onClose, children }) {
   const handleClose = () => {
     onClose?.();
   };
 
-  useEffect(() => {
-    const $body = document.querySelector("body");
-    $body.style.overflow = "hidden";
-    return () => ($body.style.overflow = "auto");
-  }, []);
+  // useEffect(() => {
+  //   const $body = document.querySelector("body");
+  //   $body.style.overflow = "hidden";
+  //   return () => ($body.style.overflow = "auto");
+  // }, []);
 
   return (
     <ModalContainer>
@@ -22,10 +22,7 @@ export default function Modal({ onClose }) {
             e.stopPropagation();
           }}
         >
-          <Contents>
-            <h1>Modal</h1>
-            <Button onClick={handleClose}>Close</Button>
-          </Contents>
+          <Contents>{children}</Contents>
         </ModalWrap>
       </Overlay>
     </ModalContainer>
@@ -55,27 +52,4 @@ const ModalWrap = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
 `;
-const Contents = styled.div`
-  /* margin: 50px 30px; */
-  h1 {
-    font-size: 30px;
-    font-weight: 600;
-    margin-bottom: 60px;
-    color: #fff;
-  }
-`;
-
-const Button = styled.button`
-  font-size: 14px;
-  padding: 10px 20px;
-  border: none;
-  background-color: #ababab;
-  border-radius: 10px;
-  color: white;
-
-  font-weight: 200;
-  cursor: pointer;
-  &:hover {
-    background-color: #898989;
-  }
-`;
+const Contents = styled.div``;
