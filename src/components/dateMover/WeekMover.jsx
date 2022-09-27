@@ -50,9 +50,8 @@ const WeekMover = ({ parsedDispDate, dateValue, setDateValue }) => {
 export default WeekMover;
 
 const StyWeekCon = styled.div`
-  width: 300px;
   display: flex;
-  color: white;
+  color: #fff;
   align-items: center;
 
   button {
