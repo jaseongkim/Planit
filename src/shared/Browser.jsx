@@ -7,7 +7,7 @@ import Menu from "../components/hamburNavi/Menu";
 
 export default function Brower() {
 
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
 
   return (
     <Back>
