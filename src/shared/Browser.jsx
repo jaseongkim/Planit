@@ -54,7 +54,7 @@ const MobileWrap = styled.div`
     display: none; /* Chrome , Safari , Opera */
   }
 
-  /* @media(max-width: 820px) {
+  @media(max-width: 375px) {
     box-shadow: none;
-  } */
+  }
 `;

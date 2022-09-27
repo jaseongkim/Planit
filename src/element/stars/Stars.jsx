@@ -69,7 +69,7 @@ const Star = styled.div`
       transform: translateY(-2000px);
     }
     to {
-      transform: translateY(-4000px);
+      transform: translateY(-2200px);
     }
   }
 `;
