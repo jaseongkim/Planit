@@ -20,4 +20,9 @@ const SubContainer = styled.div`
   padding-bottom: 70px;
   overflow-y: auto;
   background: #17171b;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none; /* Chrome , Safari , Opera */
+  }
 `;

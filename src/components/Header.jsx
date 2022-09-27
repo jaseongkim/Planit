@@ -29,8 +29,8 @@ const Header = ({showCalendar,setShowCalendar }) => {
           <img src={bell_icon} alt="bell icon" />
         </button>  
         <Burger open={open} setOpen={setOpen} />
-        <Menu open={open} setOpen={setOpen} />
       </HeaderIcon>
+      <Menu open={open} setOpen={setOpen} />
     </HeaderCon>
   );
 };
@@ -41,12 +41,9 @@ const HeaderCon = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  // position: sticky;
-  // top: 0;
   width: 100%;
-  max-width: 375px;
+  max-width: 640px;
   padding: 16px;
-  // background: ${({scrollY}) => scrollY > 0 ? '#121212' : 'transparent'};
   color: #fff;
   z-index: 999;
 
