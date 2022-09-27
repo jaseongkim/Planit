@@ -175,10 +175,10 @@ const DlyTodo = () => {
                     <img src={achieved_icon} alt="achieved icon" />
                     <span>{planet.achievementCnt}</span>
                   </div>
-                  <div>
+                  {/* <div>
                     <img src={like_icon_on} alt="like icon on" />
                     <span>{planet.likesCnt}</span>
-                  </div>
+                  </div> */}
                 </TodoStatus>
               </StyHeader>
               <Calendar
@@ -200,10 +200,10 @@ const DlyTodo = () => {
                     <img src={achieved_icon} alt="achieved icon" />
                     <span>{planet.achievementCnt}</span>
                   </div>
-                  <div>
+                  {/* <div>
                     <img src={like_icon_on} alt="like icon on" />
                     <span>{planet.likesCnt}</span>
-                  </div>
+                  </div> */}
                 </TodoStatus>
               </StyHeader>
               {planet.planetType === 0 ? (
