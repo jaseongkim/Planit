@@ -121,10 +121,10 @@ const WklyTodo = () => {
             <img src={achieved_icon} alt="achieved icon" />
             <span>{wkPlanets.weeklyTotalAchievement}</span>
           </div>
-          <div>
+          {/* <div>
             <img src={like_icon_on} alt="like icon on" />
             <span>{wkPlanets.weeklyTotalLikes}</span>
-          </div>
+          </div> */}
         </TodoStatus>
       </StyHeader>
 
