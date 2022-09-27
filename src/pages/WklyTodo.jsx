@@ -137,11 +137,12 @@ const WklyTodo = () => {
               ) : (
                 <>
                   {planet.dueDate.substring(8, 10)}
-                  <Circle
+                  {/* <Circle
                     planetType={planet.planetType}
                     planetLevel={planet.planetLevel}
                     planetSize={planet.planetSize}
-                  ></Circle>
+                  ></Circle> */}
+                  
                 </>
               )}
             </StyCircleWrap>

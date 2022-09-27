@@ -56,27 +56,22 @@ const CreatePlanet = () => {
   if(type === 1){
     planetTypeRef.current=1;
     setOpacity({firstOpa : 1})
-    console.log("Checking ", planetTypeRef.current)
   }
   else if(type === 2){
     planetTypeRef.current=2;
     setOpacity({secondOpa: 1})
-    console.log("Checking ", planetTypeRef.current)
   }
   else if(type === 3){
     planetTypeRef.current=3
     setOpacity({thirdOpa: 1})
-    console.log("Checking ", planetTypeRef.current)
   }
   else if(type === 4){
     planetTypeRef.current=4
     setOpacity({fourthOpa: 1})
-    console.log("Checking ", planetTypeRef.current)
   }
   else{
     planetTypeRef.current=5
     setOpacity({fifthOpa: 1})
-    console.log("Checking ", planetTypeRef.current)
   }
   }
 
