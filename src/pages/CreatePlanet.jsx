@@ -10,17 +10,24 @@ import { AiOutlineLeft } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { createPlanetThunk } from "../redux/modules/planetSlice";
 
-const CreatePlanet = () => {
+import {
+  planet113,
+  planet223,
+  planet333,
+  planet443,
+  planet553,
+} from "../static/images";
 
+const CreatePlanet = () => {
   // Initial Opacity object, i.e., initla Opacity object for hook
   const initOpState = {
-    firstOpa : 0.4,
-    secondOpa : 0.4,
-    thirdOpa : 0.4,
-    fourthOpa : 0.4,
-    fifthOpa : 0.4
-  }
-  
+    firstOpa: 0.4,
+    secondOpa: 0.4,
+    thirdOpa: 0.4,
+    fourthOpa: 0.4,
+    fifthOpa: 0.4,
+  };
+
   // Hook : To update the clicked planet's opacity
   const [opacity, setOpacity] = useState(initOpState);
 
@@ -29,46 +36,44 @@ const CreatePlanet = () => {
 
   // Redux : dispatch
   const dispatch = useDispatch();
-  
+
   // UseRef : Assigning the clicked planetType for API
   const planetTypeRef = useRef(0);
 
   // Creating current date's planet type => navigate to dlytodo page
   const onClickHandler = () => {
-
-    const currDate = new Date()
-    const parsedCurrDate = `${currDate.getFullYear()}-${String(currDate.getMonth()+1).padStart(2,'0')}-${String(currDate.getDate()).padStart(2,'0')}`
-    dispatch(createPlanetThunk({planetType: planetTypeRef.current, parsedCurrDate}))
+    const currDate = new Date();
+    const parsedCurrDate = `${currDate.getFullYear()}-${String(
+      currDate.getMonth() + 1
+    ).padStart(2, "0")}-${String(currDate.getDate()).padStart(2, "0")}`;
+    dispatch(
+      createPlanetThunk({ planetType: planetTypeRef.current, parsedCurrDate })
+    );
 
     // navigate("/dlytodo")
-  }
+  };
 
   // If one of planets get clicked,
   // assigning the corresponding planetType # to planetType Var
   // update the corresponding img's opacity from 0.4 to 1 with useState
   const onClickPlanetHandler = (type) => {
-
-  if(type === 1){
-    planetTypeRef.current=1;
-    setOpacity({firstOpa : 1})
-  }
-  else if(type === 2){
-    planetTypeRef.current=2;
-    setOpacity({secondOpa: 1})
-  }
-  else if(type === 3){
-    planetTypeRef.current=3
-    setOpacity({thirdOpa: 1})
-  }
-  else if(type === 4){
-    planetTypeRef.current=4
-    setOpacity({fourthOpa: 1})
-  }
-  else{
-    planetTypeRef.current=5
-    setOpacity({fifthOpa: 1})
-  }
-  }
+    if (type === 1) {
+      planetTypeRef.current = 1;
+      setOpacity({ firstOpa: 1 });
+    } else if (type === 2) {
+      planetTypeRef.current = 2;
+      setOpacity({ secondOpa: 1 });
+    } else if (type === 3) {
+      planetTypeRef.current = 3;
+      setOpacity({ thirdOpa: 1 });
+    } else if (type === 4) {
+      planetTypeRef.current = 4;
+      setOpacity({ fourthOpa: 1 });
+    } else {
+      planetTypeRef.current = 5;
+      setOpacity({ fifthOpa: 1 });
+    }
+  };
 
   return (
     <StyContainer>
@@ -78,42 +83,95 @@ const CreatePlanet = () => {
       </StyHeader>
       <StyContent>오늘 키워갈 행성을 골라주세요.</StyContent>
       <StyPlanets>
-        {/* <button onClick={()=>{onClickPlanetHandler(1)}}>
-          <img src={A3} alt="A3" style={{opacity:opacity.firstOpa}} className="first"/>
+        <button
+          onClick={() => {
+            onClickPlanetHandler(1);
+          }}
+        >
+          <img
+            src={planet113}
+            alt="planet113"
+            style={{ opacity: opacity.firstOpa }}
+            className="first"
+          />
         </button>
-        <button onClick={()=>{onClickPlanetHandler(2)}}>
-          <img src={B3} alt="B3" style={{opacity:opacity.secondOpa}} className="second"/>
+        <button
+          onClick={() => {
+            onClickPlanetHandler(2);
+          }}
+        >
+          <img
+            src={planet223}
+            alt="planet223"
+            style={{ opacity: opacity.secondOpa }}
+            className="second"
+          />
         </button>
-        <button onClick={()=>{onClickPlanetHandler(3)}}>
-          <img src={C3} alt="C3" style={{opacity:opacity.thirdOpa}} className="third"/>
+        <button
+          onClick={() => {
+            onClickPlanetHandler(3);
+          }}
+        >
+          <img
+            src={planet333}
+            alt="planet333"
+            style={{ opacity: opacity.thirdOpa }}
+            className="third"
+          />
         </button>
-        <button onClick={()=>{onClickPlanetHandler(4)}}>
-          <img src={D3} alt="D3" style={{opacity:opacity.fourthOpa}} className="fourth"/>
+        <button
+          onClick={() => {
+            onClickPlanetHandler(4);
+          }}
+        >
+          <img
+            src={planet443}
+            alt="planet443"
+            style={{ opacity: opacity.fourthOpa }}
+            className="fourth"
+          />
         </button>
-        <button onClick={()=>{onClickPlanetHandler()}}>
-          <img src={E3} alt="E3" style={{opacity:opacity.fifthOpa}} className="fifth"/>
-        </button> */}
+        <button
+          onClick={() => {
+            onClickPlanetHandler();
+          }}
+        >
+          <img
+            src={planet553}
+            alt="planet553"
+            style={{ opacity: opacity.fifthOpa }}
+            className="fifth"
+          />
+        </button>
       </StyPlanets>
-      {(opacity.firstOpa === 0.4 || opacity.secondOpa === 0.4 || opacity.thirdOpa === 0.4 || opacity.fourthOpa === 0.4 || opacity.fifthOpa === 0.4) ?
-      <StySubmitButton
-        onClick={()=> {onClickHandler()}}
-        height="2em"
-        border="none"
-        color="#FFFFFF"
-        disabled
-      >
-        확인
-      </StySubmitButton>
-      : 
-      <StySubmitButton
-        onClick={()=> {onClickHandler()}}
-        height="2em"
-        border="none"
-        color="#FFFFFF"
-      >
-        확인
-      </StySubmitButton>
-      }
+      {opacity.firstOpa === 0.4 ||
+      opacity.secondOpa === 0.4 ||
+      opacity.thirdOpa === 0.4 ||
+      opacity.fourthOpa === 0.4 ||
+      opacity.fifthOpa === 0.4 ? (
+        <StySubmitButton
+          onClick={() => {
+            onClickHandler();
+          }}
+          height="2em"
+          border="none"
+          color="#FFFFFF"
+          disabled
+        >
+          확인
+        </StySubmitButton>
+      ) : (
+        <StySubmitButton
+          onClick={() => {
+            onClickHandler();
+          }}
+          height="2em"
+          border="none"
+          color="#FFFFFF"
+        >
+          확인
+        </StySubmitButton>
+      )}
     </StyContainer>
   );
 };
@@ -160,7 +218,7 @@ const StyPlanets = styled.div`
 
     img {
       height: 80px;
-      opacity: .4;
+      opacity: 0.4;
     }
   }
 `;

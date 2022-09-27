@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Sheet from "react-modal-sheet";
 // Calendar
 import Calendar from "react-calendar";
-import moment from "moment";
+import moment, { ISO_8601 } from "moment";
 import "react-calendar/dist/Calendar.css";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
@@ -38,6 +38,7 @@ import {
 } from "../static/images";
 // React Router Dom
 import { useNavigate } from "react-router-dom";
+import { type } from "@testing-library/user-event/dist/type/index.js";
 
 const DlyTodo = () => {
   // React Router Dom
@@ -111,6 +112,16 @@ const DlyTodo = () => {
     dispatch(getDayPlanetThunk(concatSelDate.current));
   }, [dateValue, dispatch]);
 
+  const today = new Date();
+  const parsedToday = Date.parse(
+    `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(
+      2,
+      "0"
+    )}-${String(today.getDate()).padStart(2, "0")}`
+  );
+
+  const parsedCurrDate = Date.parse(concatSelDate.current);
+
   // Adding a new todo
   const addTodo = ({ input, index }) => {
     console.log("Checking input", input);
@@ -178,11 +189,6 @@ const DlyTodo = () => {
     setShowModal(true);
   };
 
-  console.log("planet : ", planet);
-  // console.log("planetType : ", planet['planetType']);
-  // console.log("planetColor : ", planet['planetColor']);
-  // console.log("planetLevel : ", planet['planetColor']);
-
   return (
     <StyDlyTodoCon>
       <Header showCalendar={showCalendar} setShowCalendar={setShowCalendar} />
@@ -229,9 +235,13 @@ const DlyTodo = () => {
               </StyHeader>
               {categories.length === 0 ? (
                 <StyStareBox>
-                  {/* <img src={D1} alt="A1 for empty categories"></img> */}
+                  {planet.length === 0 ? null : (
+                    <StyImg
+                      src={require(`../static/images/planets/planet${planet.planetType}${planet.planetColor}${planet.planetLevel}.png`)}
+                      planetSize={planet.planetSize}
+                    />
+                  )}
                   <p>
-                    {" "}
                     카테고리를 만들고 <br />
                     투투리스트를 작성해보세요.
                   </p>
@@ -266,10 +276,15 @@ const DlyTodo = () => {
             _onClick={() => {
               navigate("/categorydetail/0");
             }}
-            height="2em"
+            display="block"
+            width="250px"
+            height="52px"
             border="none"
+            fontSize="18px"
             color="#FFFFFF"
-            backgroundColor="#3185F3"
+            margin="0 auto"
+            backgroundColor="#3185f3"
+            borderRadius="8px"
           >
             카테고리 만들고 시작하기
           </Button>
@@ -278,15 +293,21 @@ const DlyTodo = () => {
             {categories.map((input, index) => {
               return (
                 <TodoCon key={index}>
-                  <TodoBtn
-                    onClick={() => addTodo({ input, index })}
-                    btnColor={input.categoryColor}
-                  >
-                    {input.categoryName}
-                    <FiPlus></FiPlus>
-                  </TodoBtn>
+                  {parsedCurrDate < parsedToday ? (
+                    <TodoBtn disabled>{input.categoryName}</TodoBtn>
+                  ) : (
+                    <TodoBtn
+                      onClick={() => addTodo({ input, index })}
+                      btnColor={input.categoryColor}
+                    >
+                      {input.categoryName}
+                      <FiPlus></FiPlus>
+                    </TodoBtn>
+                  )}
                   <TodoList
                     selectedDate={concatSelDate.current}
+                    parsedCurrDate={parsedCurrDate}
+                    parsedToday={parsedToday}
                     clickedTodo={clickedTodo}
                     onClickedSheet={onClickedSheet}
                     categId={input.categoryId}
@@ -307,13 +328,15 @@ const DlyTodo = () => {
               <ContentHeader>
                 <EditTitleWrap>
                   <EditTitle>{clickedTodo.todoInfo.title}</EditTitle>
-                  <button
-                    onClick={() => {
-                      clickEditTodo();
-                    }}
-                  >
-                    <img src={edit_icon} alt="수정 아이콘 이미지" />
-                  </button>
+                  {parsedCurrDate < parsedToday ? null : (
+                    <button
+                      onClick={() => {
+                        clickEditTodo();
+                      }}
+                    >
+                      <img src={edit_icon} alt="수정 아이콘 이미지" />
+                    </button>
+                  )}
                 </EditTitleWrap>
                 <EditSubmit onClick={() => setOpenBtmSheet(false)}>
                   확인
@@ -324,25 +347,28 @@ const DlyTodo = () => {
                 value={clickedMemo}
                 onChange={onChangeMemoHandler}
                 onBlur={() => onCheckMemoOutFocus()}
+                disabled={parsedCurrDate < parsedToday ? true : false}
               ></textarea>
-              <ContentFooter>
-                <button
-                  onClick={() => {
-                    clickDeleteTodo();
-                  }}
-                >
-                  <img src={delete_icon} alt="삭제 아이콘" />
-                  삭제
-                </button>
-                <button
-                  onClick={() => {
-                    onClickChgDateModal();
-                  }}
-                >
-                  <img src={calendar_icon_gray} alt="날짜변경 아이콘" />
-                  날짜변경하기
-                </button>
-              </ContentFooter>
+              {parsedCurrDate < parsedToday ? null : (
+                <ContentFooter>
+                  <button
+                    onClick={() => {
+                      clickDeleteTodo();
+                    }}
+                  >
+                    <img src={delete_icon} alt="삭제 아이콘" />
+                    삭제
+                  </button>
+                  <button
+                    onClick={() => {
+                      onClickChgDateModal();
+                    }}
+                  >
+                    <img src={calendar_icon_gray} alt="날짜변경 아이콘" />
+                    날짜변경하기
+                  </button>
+                </ContentFooter>
+              )}
             </CustomSheet.Content>
           </CustomSheet.Container>
           <Sheet.Backdrop />

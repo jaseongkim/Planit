@@ -4,6 +4,7 @@ export default function Button(props) {
   const {
     _onClick,
     children,
+    display,
     margin,
     width,
     padding,
@@ -13,10 +14,11 @@ export default function Button(props) {
     border,
     color,
     backgroundColor,
-    disabled
+    disabled,
   } = props;
 
   const styles = {
+    display: display,
     margin: margin,
     width: width,
     height: height,
@@ -25,7 +27,7 @@ export default function Button(props) {
     textAlign: textAlign,
     border: border,
     color: color,
-    backgroundColor: backgroundColor
+    backgroundColor: backgroundColor,
   };
 
   return (
@@ -49,6 +51,7 @@ Button.defaultProps = {
 };
 
 const ElButton = styled.button`
+  display: ${(props) => props.display};
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   padding: ${(props) => props.padding};
