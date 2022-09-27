@@ -1,20 +1,25 @@
-import React, { useState } from "react";
+// React
+import React, { useState, useContext} from "react";
+// React Component
 import styled from "styled-components";
-import Stars from "../element/stars/Stars";
-// import { bgleft, bgright } from "../static/images";
-import Router from "./Router";
 import Menu from "../components/hamburNavi/Menu";
+import Router from "./Router";
+// Icons
+import Stars from "../element/stars/Stars";
+// Context API
+import { AppContext } from "../context";
+// import { bgleft, bgright } from "../static/images";
 
 export default function Brower() {
 
-  const [open, setOpen] = useState(false);
+  // Context API : opening & closing burgar navi
+  const {open, setOpen} = useContext(AppContext)
 
   return (
     <Back>
       <MobileWrap open={open} >
         <Router/>
-        {/* here */}
-        <Menu open={open} setOpen={setOpen} />
+        <Menu open={open} setOpen={setOpen}/>
       </MobileWrap >
       <Stars></Stars>
 

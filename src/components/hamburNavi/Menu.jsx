@@ -3,35 +3,38 @@ import { bool } from 'prop-types';
 import styled from 'styled-components';
 import { profile_default, next_icon } from '../../static/images';
 
-const Menu = ({ open }) => {
+const Menu = ({ open, setOpen }) => {
   return (
-    <StyledMenu open={open}>
-      <MyInfoInMenu>
-        <div>
-          <img src={profile_default} alt="프로필 이미지" />
-        </div>
-        <MyInfoWrap>
-          <a href="/mypage">
-            닉네임
+    <StyMenuCont open={open}>
+      <StyBackgroud onClick={() => setOpen(false)}></StyBackgroud>
+      <StyledMenu open={open}>
+        <MyInfoInMenu>
+          <div>
+            <img src={profile_default} alt="프로필 이미지" />
+          </div>
+          <MyInfoWrap>
+            <a href="/mypage">
+              닉네임
+              <img src={next_icon} alt="화살표 아이콘" />
+            </a>
+            {/* <FollowBox>
+              <button>팔로워<span>12</span></button>
+              <button>팔로잉<span>12</span></button>
+            </FollowBox> */}
+          </MyInfoWrap>
+        </MyInfoInMenu>
+        <StyledMenuList>
+          <a href="/category">
+            카테고리
             <img src={next_icon} alt="화살표 아이콘" />
           </a>
-          {/* <FollowBox>
-            <button>팔로워<span>12</span></button>
-            <button>팔로잉<span>12</span></button>
-          </FollowBox> */}
-        </MyInfoWrap>
-      </MyInfoInMenu>
-      <StyledMenuList>
-        <a href="/category">
-          카테고리
-          <img src={next_icon} alt="화살표 아이콘" />
-        </a>
-        {/* <a href="/">
-          통계
-          <img src={next_icon} alt="화살표 아이콘" />
-        </a> */}
-      </StyledMenuList>
-    </StyledMenu>
+          {/* <a href="/">
+            통계
+            <img src={next_icon} alt="화살표 아이콘" />
+          </a> */}
+        </StyledMenuList>
+      </StyledMenu>
+    </StyMenuCont>
   )
 }
 Menu.propTypes = {
@@ -39,11 +42,31 @@ Menu.propTypes = {
 }
 export default Menu;
 
-const StyledMenu = styled.nav`
+const StyMenuCont = styled.div`
+  display: flex;
+  justify-content: flex-end;
   position: absolute;
   top: 0;
-  right: 0;
-  min-width: 300px;
+  left: 0;
+  width: 100%;
+  visibility: ${({ open }) => open ? 'visible' : 'hidden'};
+  opacity: ${({ open }) => open ? '1' : '0'};
+  transition: ${({ open }) => open ? 
+    'visibility 0s ease-in-out, opacity .3s ease-in-out' : 
+    'visibility 0s ease-in-out .2s, opacity .3s ease-in-out .2s'};
+`;
+
+const StyBackgroud = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #17171bcc;
+`;
+
+const StyledMenu = styled.nav`
+  width: 300px;
   height: 100vh;
   padding: 60px 20px;
   background: #2d3034;
@@ -69,6 +92,7 @@ const MyInfoWrap = styled.div`
     justify-content: space-between;
     line-height: 1;
     font-size: 20px;
+    color: #fff;
   }
 `;
 

@@ -1,21 +1,23 @@
 // React 
-import React, { useState, useEffect } from 'react';
+import React, {useContext} from 'react';
 // Styled Component
 import styled from "styled-components";
 // Icon imgs
-import {calendar_icon, bell_icon,planet_icon} from "../static/images/";
+import {calendar_icon,planet_icon} from "../static/images/";
 // Hamburger Navi
 import Burger from "./hamburNavi/Burger";
-// import Menu from "./hamburNavi/Menu";
 // UseParms
 import { useLocation } from "react-router-dom";
+// Context API
+import {AppContext} from "../context"
 
 const Header = ({showCalendar,setShowCalendar }) => {
 
+  // Getting Component's URL name
   let currentPath = useLocation();
 
-  // Hook : opening burgar navi
-  const [open, setOpen] = useState(false);
+  // // Context API : opening & closing burgar navi
+  const {open, setOpen} = useContext(AppContext)
 
   return (
     <HeaderCon>
@@ -31,7 +33,6 @@ const Header = ({showCalendar,setShowCalendar }) => {
         </button> */}
         <Burger open={open} setOpen={setOpen} />
       </HeaderIcon>
-      {/* <Menu open={open} setOpen={setOpen} /> */}
     </HeaderCon>
   );
 };
