@@ -1,6 +1,6 @@
 // React
 import React, { useState, useEffect, useRef } from "react";
-// ModalSheet
+// BottomModalSheet
 import Sheet from "react-modal-sheet";
 // Calendar
 import Calendar from "react-calendar";
@@ -22,9 +22,11 @@ import Header from "../components/Header";
 import TodoList from "../components/TodoList";
 import BtmFitNavi from "../components/btmFitNaviBar/BtmFitNavi.jsx";
 import DayMover from "../components/dateMover/DayMover.jsx";
+import ChgDateModal from "../components/chgDateModal/ChgDateModal.js";
 // Element
 import Circle from "../element/Circle.jsx";
-// React-icons
+import Button from "../element/Button.jsx";
+// React-iconsX
 import { FiPlus } from "react-icons/fi";
 import { prev_icon, next_icon } from "../static/images/";
 import {
@@ -34,13 +36,24 @@ import {
   calendar_icon_gray,
   edit_icon,
 } from "../static/images";
+// Planets Imgs
+import { D1 } from "../static/images";
+// React Router Dom
+import { useNavigate } from "react-router-dom";
 
 const DlyTodo = () => {
+
+  // React Router Dom
+  const navigate = useNavigate();
+
   // Redux : dispatch
   const dispatch = useDispatch();
 
-  // Hook : whether to show Modal sheet
-  const [isOpen, setOpen] = useState(false);
+  // Hook : whether to open the change date modal
+  const [showModal, setShowModal] = useState(false);
+
+  // Hook : whether to show bottom modal sheet
+  const [openbtmSheet, setOpenBtmSheet] = useState(false);
 
   // Hook : To get the selected date from the calendar
   const [dateValue, setDateValue] = useState(new Date());
@@ -84,7 +97,7 @@ const DlyTodo = () => {
 
   // Function to open sheetModal & Getting clicked todo Info & index as well as the todo index
   const onClickedSheet = (inputs, index, categIndex) => {
-    setOpen(true);
+    setOpenBtmSheet(true);
     setClickedTodo({
       todoInfo: inputs,
       todoIndex: index,
@@ -120,7 +133,7 @@ const DlyTodo = () => {
 
   // Enabling to edit todo by closing the modalSheet
   const clickEditTodo = () => {
-    setOpen(false);
+    setOpenBtmSheet(false);
     document.getElementById(
       `disable${clickedTodo.todoInfo.todoId}`
     ).disabled = false;
@@ -129,7 +142,7 @@ const DlyTodo = () => {
 
   // Deleting the clicked todo by closing the modalSheet
   const clickDeleteTodo = () => {
-    setOpen(false);
+    setOpenBtmSheet(false);
 
     const clickedTodoId = clickedTodo.todoInfo.todoId;
 
@@ -160,6 +173,12 @@ const DlyTodo = () => {
       },
     };
     dispatch(updateTodoMemoThunk({ updateTodoMemoObj }));
+  };
+
+  // Enabling to change todo's date with a modal that has a calendar
+  const onClickChgDateModal = () => {
+    setOpenBtmSheet(false);
+    setShowModal(true);
   };
 
   return (
@@ -206,7 +225,16 @@ const DlyTodo = () => {
                   </div>
                 </TodoStatus>
               </StyHeader>
-              {planet.planetType === 0 ? (
+              {categories.length === 0 ? (
+                <StyStareBox>
+                  <img src={D1} alt="A1 for empty categories"></img>
+                  <p>
+                    {" "}
+                    카테고리를 만들고 <br />
+                    투투리스트를 작성해보세요.
+                  </p>
+                </StyStareBox>
+              ) : planet.planetType === 0 ? (
                 <CircleBox>
                   <Circle
                     planetType={planet.planetType}
@@ -230,30 +258,47 @@ const DlyTodo = () => {
             </StyCircleWrap>
           )}
         </StyContentBox>
-        <Section>
-          {categories.map((input, index) => {
-            return (
-              <TodoCon key={index}>
-                <TodoBtn
-                  onClick={() => addTodo({ input, index })}
-                  btnColor={input.categoryColor}
-                >
-                  {input.categoryName}
-                  <FiPlus></FiPlus>
-                </TodoBtn>
-                <TodoList
-                  selectedDate={concatSelDate.current}
-                  clickedTodo={clickedTodo}
-                  onClickedSheet={onClickedSheet}
-                  categId={input.categoryId}
-                  todos={input.todos}
-                  categIndex={index}
-                ></TodoList>
-              </TodoCon>
-            );
-          })}
-        </Section>
-        <CustomSheet isOpen={isOpen} onClose={() => setOpen(false)}>
+        {categories.length === 0 ? (
+          <Button
+            _onClick={() => {
+              navigate("/categorydetail/0");
+            }}
+            height="2em"
+            border="none"
+            color="#FFFFFF"
+            backgroundColor="#3185F3"
+          >
+            카테고리 만들고 시작하기
+          </Button>
+        ) : (
+          <Section>
+            {categories.map((input, index) => {
+              return (
+                <TodoCon key={index}>
+                  <TodoBtn
+                    onClick={() => addTodo({ input, index })}
+                    btnColor={input.categoryColor}
+                  >
+                    {input.categoryName}
+                    <FiPlus></FiPlus>
+                  </TodoBtn>
+                  <TodoList
+                    selectedDate={concatSelDate.current}
+                    clickedTodo={clickedTodo}
+                    onClickedSheet={onClickedSheet}
+                    categId={input.categoryId}
+                    todos={input.todos}
+                    categIndex={index}
+                  ></TodoList>
+                </TodoCon>
+              );
+            })}
+          </Section>
+        )}
+        <CustomSheet
+          isOpen={openbtmSheet}
+          onClose={() => setOpenBtmSheet(false)}
+        >
           <CustomSheet.Container>
             <CustomSheet.Content>
               <ContentHeader>
@@ -267,7 +312,9 @@ const DlyTodo = () => {
                     <img src={edit_icon} alt="수정 아이콘 이미지" />
                   </button>
                 </EditTitleWrap>
-                <EditSubmit onClick={() => setOpen(false)}>확인</EditSubmit>
+                <EditSubmit onClick={() => setOpenBtmSheet(false)}>
+                  확인
+                </EditSubmit>
               </ContentHeader>
               <textarea
                 name="memo"
@@ -286,7 +333,7 @@ const DlyTodo = () => {
                 </button>
                 <button
                   onClick={() => {
-                    clickDeleteTodo();
+                    onClickChgDateModal();
                   }}
                 >
                   <img src={calendar_icon_gray} alt="날짜변경 아이콘" />
@@ -299,6 +346,11 @@ const DlyTodo = () => {
         </CustomSheet>
       </StyContentWrap>
       <BtmFitNavi name="dlytodo" />
+      <ChgDateModal
+        onClose={() => setShowModal(false)}
+        showModal={showModal}
+        dateValue={dateValue}
+      ></ChgDateModal>
     </StyDlyTodoCon>
   );
 };
@@ -312,7 +364,8 @@ const StyDlyTodoCon = styled.div`
 const StyHeader = styled.div`
   display: flex;
   align-items: center;
-  justify-content: ${({showCalendar}) => showCalendar ? 'flex-end' : 'space-between'};
+  justify-content: ${({ showCalendar }) =>
+    showCalendar ? "flex-end" : "space-between"};
   position: absolute;
   top: 0;
   width: 100%;
@@ -361,8 +414,8 @@ const CalendarWrap = styled.div`
         min-width: 24px;
         height: 24px;
         color: transparent;
-        background: transparent !important; 
-        
+        background: transparent !important;
+
         &::before {
           content: "";
           position: absolute;
@@ -425,7 +478,7 @@ const CalendarWrap = styled.div`
         font-size: 12px;
       }
     }
-    .react-calendar__tile:enabled:hover, 
+    .react-calendar__tile:enabled:hover,
     .react-calendar__tile:enabled:focus {
       background: transparent;
     }
@@ -442,7 +495,7 @@ const CalendarWrap = styled.div`
       }
     }
     .react-calendar__tile {
-      position: relative; 
+      position: relative;
 
       &.remain::before {
         content: "";
@@ -494,6 +547,19 @@ const CircleBox = styled.div`
   align-items: center;
   justify-content: center;
   height: 100%;
+`;
+
+const StyStareBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: ${(props) => props.theme.fontWeight.Bold};
+  height: 100%;
+
+  img {
+    height: 44px;
+  }
 `;
 
 const Section = styled.div`

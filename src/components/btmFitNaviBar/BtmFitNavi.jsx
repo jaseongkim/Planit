@@ -14,7 +14,7 @@ const BtmFitNavi = ({name,wkPlanets}) => {
     // Depending on the state, the UX will be rendered differently
     const [activeTabs, setActiveTabs] = useState(name)
 
-    // UseEffect : when activeTabs gets changed, useEffect will be triggered again
+    // UseEffect : when activeTabs get changed, useEffect will be triggered again
     useEffect(() => {
         switch (activeTabs) {
             case 'WklyTodo':
@@ -53,7 +53,7 @@ const BtmFitNavi = ({name,wkPlanets}) => {
           <StyBtmTab
             className="day" 
             date={activeTabs}           
-            onClick={() => setActiveTabs('dlytodo')}>
+            onClick={() => onClickDay()}>
             Day
           </StyBtmTab>
         </StyBtmTabWrap>
@@ -63,13 +63,7 @@ const BtmFitNavi = ({name,wkPlanets}) => {
 
 export default BtmFitNavi
 
-const StyBtmNaviBody = styled.div`
-  // width: 100%;
-  // height: 50px;
-  // border-radius: 13px;
-`
-
-const StyBtmNavi = styled(StyBtmNaviBody)`
+const StyBtmNavi = styled.div`
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -78,7 +72,7 @@ const StyBtmNavi = styled(StyBtmNaviBody)`
   background: linear-gradient(0deg, #DBEAFF 0.01%, #8DBEFF 63.02%, rgba(119, 178, 255, 0) 98.77%);
 `
 
-const StyBtmTabWrap = styled(StyBtmNaviBody)`
+const StyBtmTabWrap = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
@@ -87,7 +81,7 @@ const StyBtmTabWrap = styled(StyBtmNaviBody)`
   border-radius: 10px;
 `;
 
-const StyBtmTab = styled(StyBtmNaviBody)`
+const StyBtmTab = styled.div`
 ${(props) => {
     switch (props.date) {
       case "dlytodo":
@@ -121,21 +115,3 @@ ${(props) => {
     }
   }}
 `;
-
-
-
-
-// }
-//   width: 100%;
-//   height: 92%;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   border-radius: 12px;
-
-//   &.day{
-//     background: white;
-//     width: 100%;
-//     margin: 0.6%;
-//   }
-// `
