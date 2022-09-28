@@ -205,6 +205,7 @@ const StyCircleCon = styled.div`
   width: 100%;
   max-width: 375px;
   height: 100vh;
+  min-height: 812px;
   z-index: -1;
 `;
 
@@ -223,47 +224,57 @@ const StyCircleWrap = styled.div`
   }
 
   &:nth-child(1) {
-    /* top: 182px; */
-    left: 69px;
-    top: 22.4138vh;
-    /* left: 18.4vw; */
+    top: 200px;
+    left: 70px;
   }
   &:nth-child(2) {
-    /* top: 219px; */
-    left: 302px;
-    top: 26.9704vh;
-    /* left: 80.5333vw; */
+    top: 200px;
+    left: 310px;
   }
 
   &:nth-child(3) {
-    /* top: 311px; */
-    left: 189px;
-    top: 38.3005vh;
-    /* left: 50.4vw; */
+    top: 320px;
+    left: 200px;
   }
   &:nth-child(4) {
-    /* top: 435px; */
-    left: 71px;
-    top: 53.5714vh;
-    /* left: 18.9333vw; */
+    top: 420px;
+    left: 70px;
   }
   &:nth-child(5) {
-    /* top: 458px; */
-    left: 302px;
-    top: 56.4039vh;
-    /* left: 80.5333vw; */
+    top: 430px;
+    left: 310px;
   }
   &:nth-child(6) {
-    /* top: 553px; */
-    left: 189px;
-    top: 68.1034vh;
-    /* left: 50.4vw; */
+    top: 550px;
+    left: 200px;
   }
   &:nth-child(7) {
-    /* top: 612px; */
-    left: 71px;
-    top: 75.3695vh;
-    /* left: 18.9333vw; */
+    top: 640px;
+    left: 70px;
+  }
+
+  @media (max-width: 375px) {
+    &:nth-child(1) {
+      left: 18.6667vw;
+    }
+    &:nth-child(2) {
+      left: 82.6667vw;
+    }
+    &:nth-child(3) {
+      left: 53.3333vw;
+    }
+    &:nth-child(4) {
+      left: 18.6667vw;
+    }
+    &:nth-child(5) {
+      left: 82.6667vw;
+    }
+    &:nth-child(6) {
+      left: 53.3333vw;
+    }
+    &:nth-child(7) {
+      left: 18.6667vw;
+    }
   }
 `;
 

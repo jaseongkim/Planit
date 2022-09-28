@@ -140,7 +140,8 @@ export default function CategoryDetailBox() {
       <CategoryWrap>
         <InputBox>
           <input
-            style={{ color: `${category.categoryColor}` }}
+            maxLength={10}
+            // style={{ color: `${category.categoryColor}` }}
             type={"text"}
             name="categoryName"
             value={category.categoryName}

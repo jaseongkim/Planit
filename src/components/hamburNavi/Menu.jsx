@@ -8,7 +8,7 @@ const Menu = ({ open, setOpen }) => {
     <StyMenuCont open={open}>
       <StyBackgroud onClick={() => setOpen(false)}></StyBackgroud>
       <StyledMenu open={open}>
-        <MyInfoInMenu>
+        <MyInfoCont>
           <StyProfileImg></StyProfileImg>
           <MyInfoWrap>
             <a href="/mypage">
@@ -20,7 +20,7 @@ const Menu = ({ open, setOpen }) => {
               <button>팔로잉<span>12</span></button>
             </FollowBox> */}
           </MyInfoWrap>
-        </MyInfoInMenu>
+        </MyInfoCont>
         <StyledMenuList>
           <a href="/category">
             카테고리
@@ -74,7 +74,7 @@ const StyledMenu = styled.nav`
   z-index: 1000;
 `;
 
-const MyInfoInMenu = styled.div`
+const MyInfoCont = styled.div`
   display: flex;
   align-items: center;
   width: 100%;

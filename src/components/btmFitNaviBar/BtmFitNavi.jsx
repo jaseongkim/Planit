@@ -80,20 +80,20 @@ const StyBtmNavi = styled.div`
   width: 100%;
   background: linear-gradient(
     0deg,
-    #acd0fd 0%,
-    #609ef3 67.71%,
-    rgba(75, 145, 240, 0) 92.19%
+    #2e5c97 0%,
+    #2e5c97 50%,
+    rgba(75, 145, 240, 0) 90%
   );
+
+  @media (max-width: 425px) {
+    max-width: none;
+  }
 `;
 const StyBtmTabCont = styled.div`
   width: 100%;
   max-width: 375px;
   margin: 0 auto;
   padding: 50px 16px 32px;
-
-  @media (max-width: 375px) {
-    padding-top: 6.1576vw;
-  }
 `;
 
 const StyBtmTabWrap = styled.div`
@@ -101,7 +101,7 @@ const StyBtmTabWrap = styled.div`
   align-items: center;
   width: 100%;
   padding: 2.5px;
-  background: #386aca4d;
+  background: #95b1e689;
   border-radius: 10px;
 `;
 

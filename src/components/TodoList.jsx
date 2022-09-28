@@ -146,10 +146,11 @@ const TodoList = ({
                   />
                   <div></div>
                 </CustomCheck>
-                {console.log("Check inputs", inputs)}
+                {/* {console.log("Check inputs", inputs)} */}
                 {inputs.todoId === undefined ? (
                   <input
                     autoFocus
+                    maxLength={20}
                     id={`disable${inputs.todoId}`}
                     name="title"
                     type="text"

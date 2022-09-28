@@ -38,7 +38,6 @@ import {
 } from "../static/images";
 // React Router Dom
 import { useNavigate } from "react-router-dom";
-import { type } from "@testing-library/user-event/dist/type/index.js";
 
 const DlyTodo = () => {
   // React Router Dom
@@ -46,6 +45,12 @@ const DlyTodo = () => {
 
   // Redux : dispatch
   const dispatch = useDispatch();
+
+  // Redux useSelector : categories useSelector
+  const categories = useSelector((state) => state.categTodoSlice.categories);
+
+  // Redux useSelector : planet useSelector
+  const planet = useSelector((state) => state.planetSlice.planet);
 
   // Hook : whether to open the change date modal
   const [showModal, setShowModal] = useState(false);
@@ -55,29 +60,6 @@ const DlyTodo = () => {
 
   // Hook : To get the selected date from the calendar
   const [dateValue, setDateValue] = useState(new Date());
-
-  // Var ; A Parsed date in format yyyy/mm/dd from the calendar
-  var parsedfullDate = `${dateValue.getFullYear()}-${String(
-    dateValue.getMonth() + 1
-  ).padStart(2, "0")}-${String(dateValue.getDate()).padStart(2, "0")}`;
-
-  // Var : A Parsed date in format mm월 dd일 from the calendar
-  var parsedParDate = `${String(dateValue.getFullYear()).slice(
-    2,
-    4
-  )}년 ${String(dateValue.getMonth() + 1).padStart(2, "0")}월 ${String(
-    dateValue.getDate()
-  ).padStart(2, "0")}일`;
-
-  const parsedCurrDate = Date.parse(parsedfullDate);
-
-  const today = new Date();
-  const parsedToday = Date.parse(
-    `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(
-      2,
-      "0"
-    )}-${String(today.getDate()).padStart(2, "0")}`
-  );
 
   // Hook : To get the clicked Memo info from the TodoList
   const [clickedMemo, setClickedMemo] = useState("");
@@ -97,11 +79,32 @@ const DlyTodo = () => {
   // UseRef : To get the selected date from the calendar
   const concatSelDate = useRef();
 
-  // Redux useSelector : categories useSelector
-  const categories = useSelector((state) => state.categTodoSlice.categories);
+  // Var ; A Parsed date in format yyyy/mm/dd from the calendar
+  var parsedFullDate = `${dateValue.getFullYear()}-${String(
+    dateValue.getMonth() + 1
+  ).padStart(2, "0")}-${String(dateValue.getDate()).padStart(2, "0")}`;
 
-  // Redux useSelector : planet useSelector
-  const planet = useSelector((state) => state.planetSlice.planet);
+  // Var : A Parsed date in format mm월 dd일 from the calendar
+  var parsedParDate = `${String(dateValue.getFullYear()).slice(
+    2,
+    4
+  )}년 ${String(dateValue.getMonth() + 1).padStart(2, "0")}월 ${String(
+    dateValue.getDate()
+  ).padStart(2, "0")}일`;
+
+  // Var : Getting a current date
+  const today = new Date();
+
+  // Var : Parsing date string into date int format
+  const parsedCurrDate = Date.parse(parsedFullDate);
+
+  // Var : Parsinng a current date in format yyyy/mm/dd
+  const parsedToday = Date.parse(
+    `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(
+      2,
+      "0"
+    )}-${String(today.getDate()).padStart(2, "0")}`
+  );
 
   // Function to open sheetModal & Getting clicked todo Info & index as well as the todo index
   const onClickedSheet = (inputs, index, categIndex) => {
@@ -116,7 +119,7 @@ const DlyTodo = () => {
 
   // UseEffect : Getting categories & to-do lists as well as date from the calendar
   useEffect(() => {
-    concatSelDate.current = parsedfullDate;
+    concatSelDate.current = parsedFullDate;
 
     dispatch(getCategThunk(concatSelDate.current));
     dispatch(getDayPlanetThunk(concatSelDate.current));
@@ -300,7 +303,7 @@ const DlyTodo = () => {
             height="52px"
             border="none"
             fontSize="18px"
-            color="#FFFFFF"
+            color="#fff"
             margin="0 auto"
             backgroundColor="#3185f3"
             borderRadius="8px"
@@ -313,12 +316,17 @@ const DlyTodo = () => {
               return (
                 <TodoCon key={index}>
                   {parsedCurrDate < parsedToday ? (
-                    <TodoBtn disabled>{input.categoryName}</TodoBtn>
+                    <TodoBtn disabled>
+                      <StyCategLabel
+                        categoryColor={input.categoryColor}
+                      ></StyCategLabel>
+                      {input.categoryName}
+                    </TodoBtn>
                   ) : (
-                    <TodoBtn
-                      onClick={() => addTodo({ input, index })}
-                      btnColor={input.categoryColor}
-                    >
+                    <TodoBtn onClick={() => addTodo({ input, index })}>
+                      <StyCategLabel
+                        categoryColor={input.categoryColor}
+                      ></StyCategLabel>
                       {input.categoryName}
                       <FiPlus></FiPlus>
                     </TodoBtn>
@@ -427,6 +435,10 @@ const StyContentBox = styled.div`
   position: relative;
   height: 330px;
   padding-top: 24px;
+
+  @media (max-width: 375px) {
+    height: 88vw;
+  }
 `;
 
 const CalendarWrap = styled.div`
@@ -455,6 +467,10 @@ const CalendarWrap = styled.div`
         color: #fff;
         margin: 0 10px;
         background: transparent !important;
+
+        &__labelText {
+          line-height: 1;
+        }
       }
 
       &__prev-button,
@@ -525,6 +541,19 @@ const CalendarWrap = styled.div`
         position: relative;
         font-weight: 400;
         font-size: 12px;
+      }
+
+      @media (max-width: 375px) {
+        &__weekdays,
+        &__days {
+          justify-content: space-between;
+          gap: 3.2vw 5.3333vw;
+        }
+        &__weekdays__weekday,
+        &__days__day {
+          max-width: 7.4667vw;
+          height: 7.4667vw;
+        }
       }
     }
     .react-calendar__tile:enabled:hover,
@@ -627,15 +656,25 @@ const TodoCon = styled.div`
 `;
 
 const TodoBtn = styled.button`
+  display: flex;
+  align-items: center;
   font-size: 18px;
   color: #fff;
+  text-align: left;
   background: transparent;
   border: none;
 
   svg {
-    color: #d9d9d9;
+    color: #fff;
     margin-left: 5px;
   }
+`;
+
+const StyCategLabel = styled.div`
+  width: 3px;
+  height: 16px;
+  margin-right: 8px;
+  background: ${(props) => props.categoryColor};
 `;
 
 const CustomSheet = styled(Sheet)`
@@ -651,17 +690,8 @@ const CustomSheet = styled(Sheet)`
     padding: 24px 0 40px;
   }
 
-  .react-modal-sheet-header {
-    /* custom styles */
-  }
-
-  .react-modal-sheet-drag-indicator {
-    /* custom styles */
-  }
-
   .react-modal-sheet-content {
-    /* custom styles */
-    padding: 0 5% 5% 5%;
+    padding: 0 16px;
     background: transparent;
 
     textarea {
@@ -703,14 +733,11 @@ const EditTitleWrap = styled.div`
 `;
 
 const EditTitle = styled.span`
-  font-weight: 600px;
-  font-size: 20px;
+  font-weight: 600;
 `;
 
 const EditSubmit = styled.button`
   font-weight: 600;
-  font-size: 20px;
-  margin-right: 8px;
 `;
 
 const ContentFooter = styled.div`
