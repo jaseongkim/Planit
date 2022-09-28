@@ -36,7 +36,6 @@ const MyPageWrap = styled.div`
   justify-content: space-between;
   font-size: 18px;
   color: #fff;
-  margin: 10px 0;
   padding: 18px 0;
   border-bottom: 1px solid #5d646b;
   cursor: pointer;

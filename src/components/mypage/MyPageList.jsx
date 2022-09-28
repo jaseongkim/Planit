@@ -13,6 +13,6 @@ export default function MyPageList() {
 }
 
 const MyPageContainer = styled.div`
+  margin-top: 30px;
   padding: 0 24px;
-  margin: 10px 0 10px 0;
 `;

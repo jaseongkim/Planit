@@ -33,7 +33,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   button {
-    font-family: 'Noto Sans KR', sans-serif;
+    font-family: 'PretendardVariable', sans-serif;
     font-weight: 500;
   }
 `;
