@@ -43,6 +43,7 @@ export default function CategoryDetailBox() {
   const [isScopeOpen, setScopeOpen] = useState(false);
   const [isColorOpen, setColorOpen] = useState(false);
   const [modal, setModal] = useState(false);
+  const [select, setSelect] = useState(0);
 
   const onChangeHandler = (event) => {
     const { name, value } = event.target;
@@ -54,13 +55,15 @@ export default function CategoryDetailBox() {
   };
 
   const onUpdateHandler = () => {
-    setModal(true);
+    const copy = category;
+    if (copy.categoryStatus === "NOT_STOP") {
+      copy.categoryStatus = "STOP";
+    } else {
+      copy.categoryStatus = "NOT_STOP";
+    }
+    setCategory(copy);
 
-    // const copy = category;
-    // copy.categoryStatus = "STOP";
-    // setCategory(copy);
-
-    // dispatch(updateCategThunk({ id, category }));
+    dispatch(updateCategThunk({ id, category }));
   };
 
   const onConfirmHandler = () => {
@@ -96,14 +99,44 @@ export default function CategoryDetailBox() {
 
   return (
     <CategoryContainer>
-      {modal && (
-        <CategoryModal
-          open={modal}
-          onClose={() => {
-            setModal(false);
-          }}
-        />
-      )}
+      {/* 카테고리 modal창 */}
+      {modal &&
+        [
+          <CategoryModal
+            text1={"목표를 종료할까요?"}
+            text2={"나중에 다시 이어갈 수 있어요."}
+            onConfirm={onUpdateHandler}
+            onCancel={() => {
+              setModal(false);
+            }}
+            onClose={() => {
+              setModal(false);
+            }}
+          />,
+          <CategoryModal
+            text1={"목표를 삭제할까요?"}
+            text2={"이전에 달성한 투두까지 사라져요"}
+            onConfirm={onDeleteHandler}
+            onCancel={() => {
+              setModal(false);
+            }}
+            onClose={() => {
+              setModal(false);
+            }}
+          />,
+          <CategoryModal
+            text1={"목표를 재개할까요?"}
+            text2={"오늘부터 다시 이 목표를 사용할 수 있어요"}
+            onConfirm={onUpdateHandler}
+            onCancel={() => {
+              setModal(false);
+            }}
+            onClose={() => {
+              setModal(false);
+            }}
+          />,
+        ][select]}
+      {/* 카테고리 modal창 끝 */}
       <CategoryWrap>
         <InputBox>
           <input
@@ -136,19 +169,47 @@ export default function CategoryDetailBox() {
             "NOT_STOP" ? (
             <>
               <CategoryOptionItem>
-                <button onClick={onUpdateHandler}>카테고리 종료하기</button>
+                <button
+                  onClick={() => {
+                    setModal(true);
+                    setSelect(0);
+                  }}
+                >
+                  카테고리 종료하기
+                </button>
               </CategoryOptionItem>
               <CategoryOptionItem>
-                <button onClick={onDeleteHandler}>카테고리 삭제하기</button>
+                <button
+                  onClick={() => {
+                    setModal(true);
+                    setSelect(1);
+                  }}
+                >
+                  카테고리 삭제하기
+                </button>
               </CategoryOptionItem>
             </>
           ) : (
             <>
               <CategoryOptionItem>
-                <button onClick={onUpdateHandler}>카테고리 재개하기</button>
+                <button
+                  onClick={() => {
+                    setModal(true);
+                    setSelect(2);
+                  }}
+                >
+                  카테고리 재개하기
+                </button>
               </CategoryOptionItem>
               <CategoryOptionItem>
-                <button onClick={onDeleteHandler}>카테고리 삭제하기</button>
+                <button
+                  onClick={() => {
+                    setModal(true);
+                    setSelect(1);
+                  }}
+                >
+                  카테고리 삭제하기
+                </button>
               </CategoryOptionItem>
             </>
           )}
