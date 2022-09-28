@@ -15,6 +15,7 @@ import { getWeekPlanetsThunk } from "../redux/modules/planetSlice";
 import Circle from "../element/Circle.jsx";
 
 const WklyTodo = () => {
+    
   // Redux : dispatch
   const dispatch = useDispatch();
 

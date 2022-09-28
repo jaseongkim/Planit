@@ -14,9 +14,18 @@ const ChgDateModal = ({showModal, onClose, dateValue}) => {
     // Hook : To get the selected DateTodo from the calendar
     const [dateTodo, setDateTodo] = useState(new Date(dateValue));
 
+    // Var ; A Parsed date in format yyyy/mm/dd from the calendar
+  const parsedFullDate = `${dateTodo.getFullYear()}-${String(
+    dateTodo.getMonth() + 1
+  ).padStart(2, "0")}-${String(dateTodo.getDate()).padStart(2, "0")}`;
+
     // if showModal is false, the modal will not be shown
     if (!showModal){
         return null
+    }
+
+    const onClickHandler = () => {
+        console.log("Check parsedfullDate", parsedFullDate)
     }
 
     return (
@@ -34,6 +43,7 @@ const ChgDateModal = ({showModal, onClose, dateValue}) => {
                 </ModalBody>
                 <ModalFooter>
                     <button onClick={onClose} className='button'>close</button>
+                    <button onClick={onClickHandler} className='button'>완료</button>
                 </ModalFooter>
             </ModalContent>
         </ModalCon>
@@ -69,7 +79,7 @@ const ModalBody = styled.div`
     border-bottom: 1px solid #eee;
     font-size: 0.8rem;
 
-    .react-calendar {
+    /* .react-calendar {
     background: transparent;
     border: none;
 
@@ -190,7 +200,7 @@ const ModalBody = styled.div`
         border-radius: 100px;
       }
     }
-  }
+  } */
 `;
 
 const ModalFooter = styled.div`

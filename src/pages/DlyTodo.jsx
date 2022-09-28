@@ -38,46 +38,29 @@ import {
 } from "../static/images";
 // React Router Dom
 import { useNavigate } from "react-router-dom";
-import { type } from "@testing-library/user-event/dist/type/index.js";
 
 const DlyTodo = () => {
+
   // React Router Dom
   const navigate = useNavigate();
-
+  
   // Redux : dispatch
   const dispatch = useDispatch();
+  
+  // Redux useSelector : categories useSelector
+  const categories = useSelector((state) => state.categTodoSlice.categories);
+  
+  // Redux useSelector : planet useSelector
+  const planet = useSelector((state) => state.planetSlice.planet);
 
   // Hook : whether to open the change date modal
   const [showModal, setShowModal] = useState(false);
-
+  
   // Hook : whether to show bottom modal sheet
   const [openbtmSheet, setOpenBtmSheet] = useState(false);
 
   // Hook : To get the selected date from the calendar
   const [dateValue, setDateValue] = useState(new Date());
-
-  // Var ; A Parsed date in format yyyy/mm/dd from the calendar
-  var parsedfullDate = `${dateValue.getFullYear()}-${String(
-    dateValue.getMonth() + 1
-  ).padStart(2, "0")}-${String(dateValue.getDate()).padStart(2, "0")}`;
-
-  // Var : A Parsed date in format mm월 dd일 from the calendar
-  var parsedParDate = `${String(dateValue.getFullYear()).slice(
-    2,
-    4
-  )}년 ${String(dateValue.getMonth() + 1).padStart(2, "0")}월 ${String(
-    dateValue.getDate()
-  ).padStart(2, "0")}일`;
-
-  const parsedCurrDate = Date.parse(parsedfullDate);
-
-  const today = new Date();
-  const parsedToday = Date.parse(
-    `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(
-      2,
-      "0"
-    )}-${String(today.getDate()).padStart(2, "0")}`
-  );
 
   // Hook : To get the clicked Memo info from the TodoList
   const [clickedMemo, setClickedMemo] = useState("");
@@ -97,11 +80,32 @@ const DlyTodo = () => {
   // UseRef : To get the selected date from the calendar
   const concatSelDate = useRef();
 
-  // Redux useSelector : categories useSelector
-  const categories = useSelector((state) => state.categTodoSlice.categories);
+  // Var ; A Parsed date in format yyyy/mm/dd from the calendar
+  var parsedFullDate = `${dateValue.getFullYear()}-${String(
+    dateValue.getMonth() + 1
+  ).padStart(2, "0")}-${String(dateValue.getDate()).padStart(2, "0")}`;
 
-  // Redux useSelector : planet useSelector
-  const planet = useSelector((state) => state.planetSlice.planet);
+  // Var : A Parsed date in format mm월 dd일 from the calendar
+  var parsedParDate = `${String(dateValue.getFullYear()).slice(
+    2,
+    4
+  )}년 ${String(dateValue.getMonth() + 1).padStart(2, "0")}월 ${String(
+    dateValue.getDate()
+  ).padStart(2, "0")}일`;
+
+  // Var : Getting a current date
+  const today = new Date();
+
+  // Var : Parsing date string into date int format
+  const parsedCurrDate = Date.parse(parsedFullDate);
+
+  // Var : Parsinng a current date in format yyyy/mm/dd
+  const parsedToday = Date.parse(
+    `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(
+      2,
+      "0"
+    )}-${String(today.getDate()).padStart(2, "0")}`
+  );
 
   // Function to open sheetModal & Getting clicked todo Info & index as well as the todo index
   const onClickedSheet = (inputs, index, categIndex) => {
@@ -116,7 +120,7 @@ const DlyTodo = () => {
 
   // UseEffect : Getting categories & to-do lists as well as date from the calendar
   useEffect(() => {
-    concatSelDate.current = parsedfullDate;
+    concatSelDate.current = parsedFullDate;
 
     dispatch(getCategThunk(concatSelDate.current));
     dispatch(getDayPlanetThunk(concatSelDate.current));
