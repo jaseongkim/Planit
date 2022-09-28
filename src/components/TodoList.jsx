@@ -11,6 +11,7 @@ import {
   updateTodoTiThunk,
   updateTodoCkThunk,
 } from "../redux/modules/categTodoSlice.js";
+import { getDayPlanetThunk } from "../redux/modules/planetSlice.js";
 // React Icons
 import { IoIosMore } from "react-icons/io";
 // Imgs
@@ -109,6 +110,7 @@ const TodoList = ({
   };
 
   // Changing the clicked checkbox's check status
+  // When the checkbox get checked or not, updating redux planet's state as well
   const onhandleCheckBox = (todo, categIndex, todoIndex) => {
     // console.log("Checking checkedRef useRef", checkedRef.current.id)
     // console.log("Checking uncheckRefuseRef", uncheckedRef.current.id)
@@ -124,8 +126,10 @@ const TodoList = ({
 
     if (document.getElementById(`checkbox${todo.todoId}`).checked === true) {
       dispatch(updateTodoCkThunk({ updateTodoCkObj }));
+      dispatch(getDayPlanetThunk(selectedDate));
     } else {
       dispatch(updateTodoCkThunk({ updateTodoCkObj }));
+      dispatch(getDayPlanetThunk(selectedDate));
     }
   };
 
@@ -138,12 +142,23 @@ const TodoList = ({
             <TodoTitle>
               <CheckTxtboxWrap>
                 <CustomCheck>
+                {inputs.isAchieved === true ? (
                   <input
                     id={`checkbox${inputs.todoId}`}
                     type="checkbox"
                     onChange={() => onhandleCheckBox(inputs, categIndex, index)}
                     disabled={parsedCurrDate < parsedToday ? true : false}
+                    checked={true}
                   />
+                  ) : ( 
+                    <input
+                    id={`checkbox${inputs.todoId}`}
+                    type="checkbox"
+                    onChange={() => onhandleCheckBox(inputs, categIndex, index)}
+                    disabled={parsedCurrDate < parsedToday ? true : false}
+                    checked={false}
+                  />
+                    )}
                   <div></div>
                 </CustomCheck>
                 {/* {console.log("Check inputs", inputs)} */}
