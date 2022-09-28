@@ -27,10 +27,9 @@ const BtmFitNavi = ({name,wkPlanets}) => {
     }, [activeTabs])
 
     // When the day navi btn get clicked, find current date's planet
-    // If the planet's planetType is 0, navigate to creatplanet page
+    // If the planet's planetType is 0, navigate to createplanet page
     // Else navigate to dlytodo page
     const onClickDay = () =>{
-        console.log("Checking wkPlanets", wkPlanets)
     const currDate = new Date()
     const parsedCurrDate = `${currDate.getFullYear()}-${String(currDate.getMonth()+1).padStart(2,'0')}-${String(currDate.getDate()).padStart(2,'0')}`
     const currPlanet = wkPlanets?.planets.find(planet => planet.dueDate === parsedCurrDate)
