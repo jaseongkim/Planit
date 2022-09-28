@@ -150,6 +150,7 @@ const TodoList = ({
                 {inputs.todoId === undefined ? (
                   <input
                     autoFocus
+                    maxLength={20}
                     id={`disable${inputs.todoId}`}
                     name="title"
                     type="text"

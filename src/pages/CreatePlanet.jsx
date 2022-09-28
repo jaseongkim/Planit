@@ -78,7 +78,6 @@ const CreatePlanet = () => {
   return (
     <StyContainer>
       <StyHeader>
-        <AiOutlineLeft className="arrow" />
         <h1>오늘의 행성</h1>
       </StyHeader>
       <StyContent>오늘 키워갈 행성을 골라주세요.</StyContent>
@@ -186,7 +185,7 @@ const StyContainer = styled.div`
 const StyHeader = styled.div`
   display: flex;
   align-items: center;
-  padding: 16px 0;
+  padding: 30px 0;
 
   .arrow {
     margin-right: ${(props) => props.theme.margins.small};
@@ -203,7 +202,6 @@ const StyContent = styled.div`
   text-align: center;
   color: #b1bdcf;
   font-size: 16px;
-  margin-top: 15px;
 `;
 
 const StyPlanets = styled.div`
@@ -219,6 +217,12 @@ const StyPlanets = styled.div`
     img {
       height: 80px;
       opacity: 0.4;
+    }
+  }
+
+  @media (max-width: 375px) {
+    button img {
+      height: 21.3333vw;
     }
   }
 `;

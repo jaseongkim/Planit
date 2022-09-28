@@ -40,22 +40,21 @@ import {
 import { useNavigate } from "react-router-dom";
 
 const DlyTodo = () => {
-
   // React Router Dom
   const navigate = useNavigate();
-  
+
   // Redux : dispatch
   const dispatch = useDispatch();
-  
+
   // Redux useSelector : categories useSelector
   const categories = useSelector((state) => state.categTodoSlice.categories);
-  
+
   // Redux useSelector : planet useSelector
   const planet = useSelector((state) => state.planetSlice.planet);
 
   // Hook : whether to open the change date modal
   const [showModal, setShowModal] = useState(false);
-  
+
   // Hook : whether to show bottom modal sheet
   const [openbtmSheet, setOpenBtmSheet] = useState(false);
 
@@ -304,7 +303,7 @@ const DlyTodo = () => {
             height="52px"
             border="none"
             fontSize="18px"
-            color="#FFFFFF"
+            color="#fff"
             margin="0 auto"
             backgroundColor="#3185f3"
             borderRadius="8px"
@@ -317,12 +316,17 @@ const DlyTodo = () => {
               return (
                 <TodoCon key={index}>
                   {parsedCurrDate < parsedToday ? (
-                    <TodoBtn disabled>{input.categoryName}</TodoBtn>
+                    <TodoBtn disabled>
+                      <StyCategLabel
+                        categoryColor={input.categoryColor}
+                      ></StyCategLabel>
+                      {input.categoryName}
+                    </TodoBtn>
                   ) : (
-                    <TodoBtn
-                      onClick={() => addTodo({ input, index })}
-                      btnColor={input.categoryColor}
-                    >
+                    <TodoBtn onClick={() => addTodo({ input, index })}>
+                      <StyCategLabel
+                        categoryColor={input.categoryColor}
+                      ></StyCategLabel>
                       {input.categoryName}
                       <FiPlus></FiPlus>
                     </TodoBtn>
@@ -431,6 +435,10 @@ const StyContentBox = styled.div`
   position: relative;
   height: 330px;
   padding-top: 24px;
+
+  @media (max-width: 375px) {
+    height: 88vw;
+  }
 `;
 
 const CalendarWrap = styled.div`
@@ -459,6 +467,10 @@ const CalendarWrap = styled.div`
         color: #fff;
         margin: 0 10px;
         background: transparent !important;
+
+        &__labelText {
+          line-height: 1;
+        }
       }
 
       &__prev-button,
@@ -529,6 +541,19 @@ const CalendarWrap = styled.div`
         position: relative;
         font-weight: 400;
         font-size: 12px;
+      }
+
+      @media (max-width: 375px) {
+        &__weekdays,
+        &__days {
+          justify-content: space-between;
+          gap: 3.2vw 5.3333vw;
+        }
+        &__weekdays__weekday,
+        &__days__day {
+          max-width: 7.4667vw;
+          height: 7.4667vw;
+        }
       }
     }
     .react-calendar__tile:enabled:hover,
@@ -631,15 +656,25 @@ const TodoCon = styled.div`
 `;
 
 const TodoBtn = styled.button`
+  display: flex;
+  align-items: center;
   font-size: 18px;
   color: #fff;
+  text-align: left;
   background: transparent;
   border: none;
 
   svg {
-    color: #d9d9d9;
+    color: #fff;
     margin-left: 5px;
   }
+`;
+
+const StyCategLabel = styled.div`
+  width: 3px;
+  height: 16px;
+  margin-right: 8px;
+  background: ${(props) => props.categoryColor};
 `;
 
 const CustomSheet = styled(Sheet)`
@@ -655,17 +690,8 @@ const CustomSheet = styled(Sheet)`
     padding: 24px 0 40px;
   }
 
-  .react-modal-sheet-header {
-    /* custom styles */
-  }
-
-  .react-modal-sheet-drag-indicator {
-    /* custom styles */
-  }
-
   .react-modal-sheet-content {
-    /* custom styles */
-    padding: 0 5% 5% 5%;
+    padding: 0 16px;
     background: transparent;
 
     textarea {
@@ -707,14 +733,11 @@ const EditTitleWrap = styled.div`
 `;
 
 const EditTitle = styled.span`
-  font-weight: 600px;
-  font-size: 20px;
+  font-weight: 600;
 `;
 
 const EditSubmit = styled.button`
   font-weight: 600;
-  font-size: 20px;
-  margin-right: 8px;
 `;
 
 const ContentFooter = styled.div`

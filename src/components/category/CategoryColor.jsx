@@ -119,7 +119,9 @@ const EditTitle = styled.span`
   font-size: 20px;
 `;
 
-const EditSubmit = styled.button``;
+const EditSubmit = styled.button`
+  font-weight: 600;
+`;
 
 const ContentFooter = styled.div`
   margin-top: 25px;

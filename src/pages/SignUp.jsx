@@ -328,7 +328,7 @@ export default SignUp;
 const SubContainer = styled.div`
   width: 100%;
   height: 100%;
-  padding-bottom: 70px;
+  padding-bottom: 150px;
   overflow-y: auto;
   background: #17171b;
 `;
@@ -339,7 +339,7 @@ const HeaderWrap = styled.nav`
   align-items: center;
   width: 100%;
   color: #fff;
-  padding: 16px;
+  padding: 30px 16px;
   background: #17171b;
 `;
 
@@ -360,8 +360,7 @@ const NicknameDiv = styled.div`
 `;
 
 const SignUpCon = styled.div`
-  margin-top: 16px;
-  padding: 0 20px;
+  padding: 0 16px;
 
   form {
     display: flex;

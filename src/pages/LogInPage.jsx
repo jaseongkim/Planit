@@ -140,6 +140,12 @@ const LoginItem = styled.div`
     border: none;
     border-radius: 4px;
   }
+
+  @media (max-width: 375px) {
+    input {
+      padding-left: 23.2vw;
+    }
+  }
 `;
 
 const InvalidMsg = styled.span`
