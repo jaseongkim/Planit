@@ -18,6 +18,8 @@ const WklyTodo = () => {
   // Redux : dispatch
   const dispatch = useDispatch();
 
+  const planetCntRef = useRef(0);
+
   // Hook : A date that let user to choose different date from the WeekMover
   const [dateValue, setDateValue] = useState(new Date());
 
@@ -105,6 +107,11 @@ const WklyTodo = () => {
   // when dateValue get updated, re-render WklyTodo after return
   useEffect(() => {
     dispatch(getWeekPlanetsThunk(parsedDate));
+
+    // wkPlanets.planets.forEach((planet) => {
+    //   if (planet.planetType !== null && planet.planetType !== 0)
+    //     planetCntRef.current++;
+    // });
   }, [dateValue]);
 
   return (
@@ -127,7 +134,9 @@ const WklyTodo = () => {
           </div> */}
         </TodoStatus>
       </StyHeader>
-
+      {planetCntRef.current !== 0 ? (
+        <StyPlanetNullMsg>할 일을 완료하고 행성을 채워보세요.</StyPlanetNullMsg>
+      ) : null}
       <StyCircleCon>
         {wkPlanets.planets?.map((planet, index) => {
           return (
@@ -136,7 +145,7 @@ const WklyTodo = () => {
               planet.planetColor === null ||
               planet.planetLevel === null ||
               planet.planetType === 0 ||
-              Number(planet.dueDate.substring(8, 10)) === today ? (
+              parseInt(planet.dueDate.substring(8, 10)) === today ? (
                 <Circle>{planet.dueDate.substring(8, 10)}</Circle>
               ) : (
                 <>
@@ -158,7 +167,9 @@ const WklyTodo = () => {
 
 export default WklyTodo;
 
-const StyTodoCon = styled.div``;
+const StyTodoCon = styled.div`
+  overflow: scroll;
+`;
 
 const StyHeader = styled.div`
   display: flex;
@@ -180,6 +191,12 @@ const TodoStatus = styled.div`
   }
 `;
 
+const StyPlanetNullMsg = styled.p`
+  color: #fff;
+  text-align: center;
+  padding-top: 20px;
+`;
+
 const StyCircleCon = styled.div`
   position: absolute;
   top: 0;
@@ -188,16 +205,22 @@ const StyCircleCon = styled.div`
   width: 100%;
   max-width: 375px;
   height: 100vh;
-  overflow: auto;
   z-index: -1;
 `;
 
 const StyCircleWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   position: absolute;
   text-align: center;
   color: white;
   font-weight: ${(props) => props.theme.fontWeight.Bold};
   transform: translate(-50%, -50%);
+
+  img {
+    margin-top: 15px;
+  }
 
   &:nth-child(1) {
     /* top: 182px; */
