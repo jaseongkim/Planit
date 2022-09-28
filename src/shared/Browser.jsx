@@ -27,17 +27,18 @@ export default function Brower() {
 
 const Back = styled.div`
   background: linear-gradient(
-    180deg, 
-    #121212 0%, 
-    #17519E 59.37%, 
-    #256ECE 74.48%, 
-    #4C92F0 85.94%, 
-    #ACCBF9 100%);
+    180deg,
+    #121212 0%,
+    #17519e 59.37%,
+    #256ece 74.48%,
+    #4c92f0 85.94%,
+    #accbf9 100%
+  );
 `;
 
 const MobileWrap = styled.div`
   position: relative; // Header position을 sticky로 할 경우
-  max-width: 370px;
+  max-width: 375px;
   height: 100vh;
   overflow-x: hidden;
   overflow-y: ${(props) => (props.open ? "hidden" : "visible")};
@@ -51,7 +52,7 @@ const MobileWrap = styled.div`
     display: none; /* Chrome , Safari , Opera */
   }
 
-  @media(max-width: 375px) {
+  @media (max-width: 375px) {
     box-shadow: none;
   }
 `;
