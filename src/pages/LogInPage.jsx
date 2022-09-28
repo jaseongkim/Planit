@@ -158,7 +158,6 @@ const LoginBtn = styled.div`
 
   button {
     height: 52px;
-    font-weight: 600;
     font-size: 18px;
     color: #fff;
     background: rgba(51, 139, 255, 0.9);

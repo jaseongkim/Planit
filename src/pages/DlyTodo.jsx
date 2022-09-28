@@ -303,7 +303,7 @@ const DlyTodo = () => {
             height="52px"
             border="none"
             fontSize="18px"
-            color="#FFFFFF"
+            color="#fff"
             margin="0 auto"
             backgroundColor="#3185f3"
             borderRadius="8px"
@@ -316,14 +316,17 @@ const DlyTodo = () => {
               return (
                 <TodoCon key={index}>
                   {parsedCurrDate < parsedToday ? (
-                    <TodoBtn categoryColor={input.categoryColor} disabled>
+                    <TodoBtn disabled>
+                      <StyCategLabel
+                        categoryColor={input.categoryColor}
+                      ></StyCategLabel>
                       {input.categoryName}
                     </TodoBtn>
                   ) : (
-                    <TodoBtn
-                      onClick={() => addTodo({ input, index })}
-                      categoryColor={input.categoryColor}
-                    >
+                    <TodoBtn onClick={() => addTodo({ input, index })}>
+                      <StyCategLabel
+                        categoryColor={input.categoryColor}
+                      ></StyCategLabel>
                       {input.categoryName}
                       <FiPlus></FiPlus>
                     </TodoBtn>
@@ -653,17 +656,25 @@ const TodoCon = styled.div`
 `;
 
 const TodoBtn = styled.button`
+  display: flex;
+  align-items: center;
   font-size: 18px;
-  color: ${(props) => props.categoryColor};
+  color: #fff;
   text-align: left;
   background: transparent;
   border: none;
 
   svg {
-    /* color: ${(props) => props.categoryColor}; */
     color: #fff;
     margin-left: 5px;
   }
+`;
+
+const StyCategLabel = styled.div`
+  width: 3px;
+  height: 16px;
+  margin-right: 8px;
+  background: ${(props) => props.categoryColor};
 `;
 
 const CustomSheet = styled(Sheet)`

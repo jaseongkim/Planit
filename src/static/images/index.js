@@ -20,7 +20,7 @@ import planet_icon from "./icons/planet_icon.svg";
 import delete_icon from "./icons/delete_icon.svg";
 import edit_icon from "./icons/edit_icon.svg";
 import select_arrow from "./icons/select_arrow.svg";
-import profile_default from "./icons/profile_default.svg";
+import profile_default from "./icons/profile_default.png";
 import camera_icon from "./icons/camera_icon.svg";
 
 //-- logos --

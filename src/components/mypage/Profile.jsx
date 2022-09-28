@@ -14,14 +14,14 @@ export default function Profile() {
         </ProfileImage>
         <MyInfoWrap>
           <p>닉네임</p>
-          <FollowBox>
+          {/* <FollowBox>
             <button>
               팔로워<span>12</span>
             </button>
             <button>
               팔로잉<span>12</span>
             </button>
-          </FollowBox>
+          </FollowBox> */}
         </MyInfoWrap>
       </ProfileWrap>
     </ProfileContainer>
@@ -29,7 +29,6 @@ export default function Profile() {
 }
 
 const ProfileContainer = styled.div`
-  margin-top: 30px;
   padding: 0 16px;
 `;
 

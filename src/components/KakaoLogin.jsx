@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { kakaologin } from "../static/images";
 
 export default function KakaoLogin() {
   const REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
@@ -12,14 +11,12 @@ export default function KakaoLogin() {
       }}
     >
       카카오로 로그인
-      {/* <img src={kakaologin} alt="kakaologin" /> */}
     </Kakao>
   );
 }
 const Kakao = styled.button`
   width: 100%;
   height: 52px;
-  font-weight: 600;
   font-size: 18px;
   color: #17171b;
   background: #f2e06b;

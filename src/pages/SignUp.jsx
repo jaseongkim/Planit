@@ -339,7 +339,7 @@ const HeaderWrap = styled.nav`
   align-items: center;
   width: 100%;
   color: #fff;
-  padding: 16px;
+  padding: 30px 16px;
   background: #17171b;
 `;
 
@@ -360,7 +360,6 @@ const NicknameDiv = styled.div`
 `;
 
 const SignUpCon = styled.div`
-  margin-top: 14px;
   padding: 0 16px;
 
   form {

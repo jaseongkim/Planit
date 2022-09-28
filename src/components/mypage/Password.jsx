@@ -143,7 +143,6 @@ export default function NickName() {
 }
 
 const SignUpCon = styled.div`
-  margin-top: 14px;
   padding: 0 16px;
 `;
 
