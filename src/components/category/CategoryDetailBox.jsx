@@ -10,7 +10,7 @@ import {
 import { select_arrow } from "../../static/images";
 import CategoryScope from "./CategoryScope";
 import CategoryColor from "./CategoryColor";
-import Modal from "../../element/Modal";
+import CategoryModal from "./CategoryModal";
 
 export default function CategoryDetailBox() {
   const dispatch = useDispatch();
@@ -97,7 +97,7 @@ export default function CategoryDetailBox() {
   return (
     <CategoryContainer>
       {modal && (
-        <Modal
+        <CategoryModal
           open={modal}
           onClose={() => {
             setModal(false);

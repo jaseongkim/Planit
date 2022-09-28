@@ -27,17 +27,14 @@ export default function Profil() {
 }
 
 const ProfilContainer = styled.div`
-  padding: 0 24px;
   margin: 10px 0 10px 0;
+  padding: 0 16px;
 `;
 
 const ProfilWrap = styled.div`
-  width: 334px;
-  height: 67px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* border: 1px solid white; */
 `;
 
 const ProfilImage = styled.div`

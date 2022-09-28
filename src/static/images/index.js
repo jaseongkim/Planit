@@ -25,9 +25,38 @@ import profile_default from "./icons/profile_default.svg";
 //-- logos --
 import logo from "./logos/logo.svg";
 
-export { bgleft, bgright, kakaologin, 
-    searchIcon, logo, back_arrow, check_icon, 
-    calendar_icon, calendar_icon_gray, bell_icon, burger_icon, 
-    prev_icon, next_icon, achieved_icon, like_icon_on, like_icon_off, 
-    planet_icon, delete_icon, edit_icon, select_arrow, profile_default,
+// planets
+import planet113 from "./planets/planet113.png";
+import planet223 from "./planets/planet223.png";
+import planet333 from "./planets/planet333.png";
+import planet443 from "./planets/planet443.png";
+import planet553 from "./planets/planet553.png";
+
+export {
+  bgleft,
+  bgright,
+  kakaologin,
+  searchIcon,
+  logo,
+  back_arrow,
+  check_icon,
+  calendar_icon,
+  calendar_icon_gray,
+  bell_icon,
+  burger_icon,
+  prev_icon,
+  next_icon,
+  achieved_icon,
+  like_icon_on,
+  like_icon_off,
+  planet_icon,
+  delete_icon,
+  edit_icon,
+  select_arrow,
+  profile_default,
+  planet113,
+  planet223,
+  planet333,
+  planet443,
+  planet553,
 };

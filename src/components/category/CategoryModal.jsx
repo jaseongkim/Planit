@@ -12,7 +12,8 @@ export default function CategoryModal({ onClose }) {
         </ModalContents>
       </ModalBody>
       <ModalFooter>
-        <div>취소</div>
+        <div onClick={onClose}>취소</div>
+        <div onClick={onClose}>확인</div>
       </ModalFooter>
     </Modal>
   );
@@ -27,7 +28,6 @@ const ModalBody = styled.div`
 
 const ModalContents = styled.div`
   position: absolute;
-  width: 204px;
   height: 59px;
   padding: 4px 10px 4px 10px;
   margin: 32px 66px 28px 66px;
@@ -35,8 +35,9 @@ const ModalContents = styled.div`
 
   & > .contents1 {
     position: relative;
+    width: 183px;
     height: 31px;
-    margin: 0px 0.5px 4px 0.5px;
+    margin-bottom: 4px;
     letter-spacing: -0.2px;
     line-height: 31.2px;
     font-size: 24px;
@@ -46,6 +47,7 @@ const ModalContents = styled.div`
   }
 
   & > .contents2 {
+    width: 184px;
     height: 16px;
     line-height: 16px;
     font-size: 14px;
@@ -65,15 +67,17 @@ const ModalFooter = styled.div`
   border-bottom-right-radius: 16px;
 
   & > div {
-    position: relative;
-    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 64px;
     font-size: 20px;
     font-weight: 500;
     line-height: 20px;
-    /* text-align: center; */
     color: #fff;
-    margin: 0 auto;
-    /* border: 1px solid blue; */
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
   }
 `;
 
