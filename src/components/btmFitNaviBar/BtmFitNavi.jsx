@@ -78,6 +78,7 @@ const StyBtmNavi = styled.div`
   transform: translateX(-50%);
   max-width: 375px;
   width: 100%;
+  /* 비율 조정 할 것 */
   background: linear-gradient(
     0deg,
     #2e5c97 0%,
