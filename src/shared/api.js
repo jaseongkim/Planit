@@ -133,6 +133,13 @@ export const apis = {
       data.updateTodoCkObj.todoReq
     ),
 
+  updateTodoDate: (data) => {
+  console.log("Check updateTodoDate", data)
+  api.patch(
+    `categories/todos/${data.todoId}`,
+    data.todoReq
+  )},  
+
   updateTodoMemo: (data) =>
     api.patch(
       `categories/todos/${data.updateTodoMemoObj.todoId}`,

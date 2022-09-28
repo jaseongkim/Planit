@@ -135,6 +135,25 @@ export const updateTodoCkThunk = createAsyncThunk(
   }
 );
 
+// Updating the added todo's due date to server 
+export const updateTodoDateThunk = createAsyncThunk(
+  "todo/updateTodoCheck",
+  async (payload, thunkAPI) => {
+    try {
+      console.log("Check paylaod", payload)
+      const { data } = await apis.updateTodoDate(payload);
+      // return thunkAPI.fulfillWithValue({
+      //   todo: data.data,
+      //   index: payload.updateTodoCkObj,
+      // });
+      console.log("Check date", data.data)
+    } catch (error) {
+      console.log("Check error" ,error)
+    }
+  }
+);
+
+
 // Updating the added todo's memo to server & state
 export const updateTodoMemoThunk = createAsyncThunk(
   "todo/updateTodoMemo",
