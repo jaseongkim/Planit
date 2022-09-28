@@ -13,17 +13,17 @@ const BtmFitNavi = ({ name, wkPlanets }) => {
   // Depending on the state, the UX will be rendered differently
   const [activeTabs, setActiveTabs] = useState(name);
 
-  // UseEffect : when activeTabs get changed, useEffect will be triggered again
-  useEffect(() => {
-    switch (activeTabs) {
-      case "WklyTodo":
-        navigate("/WklyTodo");
-        break;
-      default:
-        navigate("/dlytodo");
-        break;
-    }
-  }, [activeTabs]);
+    // UseEffect : when activeTabs get changed, useEffect will be triggered again
+    useEffect(() => {
+        switch (activeTabs) {
+            case 'WklyTodo':
+                navigate('/WklyTodo')
+                break;
+            default:
+                navigate('/dlytodo')
+                break;
+        }
+    }, [activeTabs])
 
   // When the day navi btn get clicked, find current date's planet
   // If the planet's planetType is 0, navigate to creatplanet page

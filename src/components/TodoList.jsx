@@ -146,7 +146,7 @@ const TodoList = ({
                   />
                   <div></div>
                 </CustomCheck>
-                {console.log("Check inputs", inputs)}
+                {/* {console.log("Check inputs", inputs)} */}
                 {inputs.todoId === undefined ? (
                   <input
                     autoFocus
