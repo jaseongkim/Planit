@@ -69,6 +69,16 @@ const DlyTodo = () => {
     dateValue.getDate()
   ).padStart(2, "0")}일`;
 
+  const parsedCurrDate = Date.parse(parsedfullDate);
+
+  const today = new Date();
+  const parsedToday = Date.parse(
+    `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(
+      2,
+      "0"
+    )}-${String(today.getDate()).padStart(2, "0")}`
+  );
+
   // Hook : To get the clicked Memo info from the TodoList
   const [clickedMemo, setClickedMemo] = useState("");
 
@@ -111,16 +121,6 @@ const DlyTodo = () => {
     dispatch(getCategThunk(concatSelDate.current));
     dispatch(getDayPlanetThunk(concatSelDate.current));
   }, [dateValue, dispatch]);
-
-  const today = new Date();
-  const parsedToday = Date.parse(
-    `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(
-      2,
-      "0"
-    )}-${String(today.getDate()).padStart(2, "0")}`
-  );
-
-  const parsedCurrDate = Date.parse(concatSelDate.current);
 
   // Adding a new todo
   const addTodo = ({ input, index }) => {
