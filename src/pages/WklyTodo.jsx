@@ -24,6 +24,8 @@ const WklyTodo = () => {
   // Redux : weeklyPlants useSelector
   const wkPlanets = useSelector((state) => state.planetSlice.planets);
 
+  const today = new Date().getDate();
+
   // Getting a week of month from a given monday date
   // This source code is from https://falsy.me/javascript-입력한-날짜의-해당-달-기준-주차-구하기/
   function weekNumberByMonth(dateFormat) {
@@ -133,7 +135,8 @@ const WklyTodo = () => {
               {planet.planetType === null ||
               planet.planetColor === null ||
               planet.planetLevel === null ||
-              planet.planetType === 0 ? (
+              planet.planetType === 0 ||
+              Number(planet.dueDate.substring(8, 10)) === today ? (
                 <Circle>{planet.dueDate.substring(8, 10)}</Circle>
               ) : (
                 <>
