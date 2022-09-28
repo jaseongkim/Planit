@@ -235,7 +235,22 @@ const DlyTodo = () => {
               </StyHeader>
               {categories.length === 0 ? (
                 <StyStareBox>
-                  {planet.length === 0 ? null : (
+                  {planet.length === 0 ||
+                  planet.planetType === 0 ||
+                  planet.planetColor === null ||
+                  planet.planetSize === null ||
+                  planet.planetLevel === null ? (
+                    <CircleBox>
+                      <Circle
+                        planetType={planet.planetType}
+                        planetLevel={planet.planetLevel}
+                        fontSize={(props) => props.theme.fontSizes.lg}
+                      >
+                        ?
+                      </Circle>
+                      <p>행성은 당일에 만들수 있어요</p>
+                    </CircleBox>
+                  ) : (
                     <StyImg
                       src={require(`../static/images/planets/planet${planet.planetType}${planet.planetColor}${planet.planetLevel}.png`)}
                       planetSize={planet.planetSize}
@@ -259,7 +274,11 @@ const DlyTodo = () => {
                 </CircleBox>
               ) : (
                 <CircleBox>
-                  {planet.length === 0 ? null : (
+                  {planet.length === 0 ||
+                  planet.planetType === 0 ||
+                  planet.planetColor === null ||
+                  planet.planetSize === null ||
+                  planet.planetLevel === null ? null : (
                     <StyImg
                       src={require(`../static/images/planets/planet${planet.planetType}${planet.planetColor}${planet.planetLevel}.png`)}
                       planetSize={planet.planetSize}
