@@ -120,7 +120,7 @@ const DlyTodo = () => {
   // UseEffect : Getting categories & to-do lists as well as date from the calendar
   useEffect(() => {
     concatSelDate.current = parsedFullDate;
-    console.log("Checkig here")
+    console.log("Checkig here");
     dispatch(getCategThunk(concatSelDate.current));
     dispatch(getDayPlanetThunk(concatSelDate.current));
   }, [dateValue]);
@@ -247,7 +247,7 @@ const DlyTodo = () => {
                       <Circle
                         planetType={planet.planetType}
                         planetLevel={planet.planetLevel}
-                        fontSize={(props) => props.theme.fontSizes.lg}
+                        fontSize={"20px"}
                       >
                         ?
                       </Circle>
@@ -269,7 +269,7 @@ const DlyTodo = () => {
                   <Circle
                     planetType={planet.planetType}
                     planetLevel={planet.planetLevel}
-                    fontSize={(props) => props.theme.fontSizes.lg}
+                    fontSize={"20px"}
                   >
                     ?
                   </Circle>
