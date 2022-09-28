@@ -1,7 +1,7 @@
-import React from 'react';
-import { bool } from 'prop-types';
-import styled from 'styled-components';
-import { profile_default, next_icon } from '../../static/images';
+import React from "react";
+import { bool } from "prop-types";
+import styled from "styled-components";
+import { profile_default, next_icon } from "../../static/images";
 
 const Menu = ({ open, setOpen }) => {
   return (
@@ -9,9 +9,7 @@ const Menu = ({ open, setOpen }) => {
       <StyBackgroud onClick={() => setOpen(false)}></StyBackgroud>
       <StyledMenu open={open}>
         <MyInfoInMenu>
-          <div>
-            <img src={profile_default} alt="프로필 이미지" />
-          </div>
+          <StyProfileImg></StyProfileImg>
           <MyInfoWrap>
             <a href="/mypage">
               닉네임
@@ -35,11 +33,11 @@ const Menu = ({ open, setOpen }) => {
         </StyledMenuList>
       </StyledMenu>
     </StyMenuCont>
-  )
-}
+  );
+};
 Menu.propTypes = {
   open: bool.isRequired,
-}
+};
 export default Menu;
 
 const StyMenuCont = styled.div`
@@ -49,11 +47,12 @@ const StyMenuCont = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  visibility: ${({ open }) => open ? 'visible' : 'hidden'};
-  opacity: ${({ open }) => open ? '1' : '0'};
-  transition: ${({ open }) => open ? 
-    'visibility 0s ease-in-out, opacity .3s ease-in-out' : 
-    'visibility 0s ease-in-out .2s, opacity .3s ease-in-out .2s'};
+  visibility: ${({ open }) => (open ? "visible" : "hidden")};
+  opacity: ${({ open }) => (open ? "1" : "0")};
+  transition: ${({ open }) =>
+    open
+      ? "visibility 0s ease-in-out, opacity .3s ease-in-out"
+      : "visibility 0s ease-in-out .2s, opacity .3s ease-in-out .2s"};
 `;
 
 const StyBackgroud = styled.div`
@@ -71,7 +70,7 @@ const StyledMenu = styled.nav`
   padding: 60px 20px;
   background: #2d3034;
   transition: transform 0.3s ease-in-out;
-  transform: ${({ open }) => open ? 'translateX(0)' : 'translateX(100%)'};
+  transform: ${({ open }) => (open ? "translateX(0)" : "translateX(100%)")};
   z-index: 1000;
 `;
 
@@ -79,6 +78,14 @@ const MyInfoInMenu = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
+`;
+
+const StyProfileImg = styled.div`
+  min-width: 66px;
+  height: 66px;
+  background-image: url(${profile_default});
+  background-repeat: no-repeat;
+  background-position: center;
 `;
 
 const MyInfoWrap = styled.div`
@@ -92,7 +99,7 @@ const MyInfoWrap = styled.div`
     justify-content: space-between;
     line-height: 1;
     font-size: 20px;
-    color: #fff;
+    color: #fff !important;
   }
 `;
 

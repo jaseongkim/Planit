@@ -15,7 +15,6 @@ import { getWeekPlanetsThunk } from "../redux/modules/planetSlice";
 import Circle from "../element/Circle.jsx";
 
 const WklyTodo = () => {
-
   // Redux : dispatch
   const dispatch = useDispatch();
 
@@ -25,65 +24,66 @@ const WklyTodo = () => {
   // Redux : weeklyPlants useSelector
   const wkPlanets = useSelector((state) => state.planetSlice.planets);
 
+  const today = new Date().getDate();
+
   // Getting a week of month from a given monday date
-    // This source code is from https://falsy.me/javascript-입력한-날짜의-해당-달-기준-주차-구하기/
-    function weekNumberByMonth(dateFormat) {
+  // This source code is from https://falsy.me/javascript-입력한-날짜의-해당-달-기준-주차-구하기/
+  function weekNumberByMonth(dateFormat) {
+    const inputDate = new Date(dateFormat);
 
-        const inputDate = new Date(dateFormat);
+    let year = inputDate.getFullYear();
+    let month = inputDate.getMonth() + 1;
 
-        let year = inputDate.getFullYear();
-        let month = inputDate.getMonth() + 1;
+    const weekNumberByThurFnc = (paramDate) => {
+      const year = paramDate.getFullYear();
+      const month = paramDate.getMonth();
+      const date = paramDate.getDate();
 
-        const weekNumberByThurFnc = (paramDate) => {
+      const firstDate = new Date(year, month, 1);
+      const lastDate = new Date(year, month + 1, 0);
+      const firstDayOfWeek = firstDate.getDay() === 0 ? 7 : firstDate.getDay();
+      const lastDayOfweek = lastDate.getDay();
 
-            const year = paramDate.getFullYear();
-            const month = paramDate.getMonth();
-            const date = paramDate.getDate();
+      const lastDay = lastDate.getDate();
 
-            const firstDate = new Date(year, month, 1);
-            const lastDate = new Date(year, month + 1, 0);
-            const firstDayOfWeek = firstDate.getDay() === 0 ? 7 : firstDate.getDay();
-            const lastDayOfweek = lastDate.getDay();
+      const firstWeekCheck =
+        firstDayOfWeek === 5 || firstDayOfWeek === 6 || firstDayOfWeek === 7;
 
-            const lastDay = lastDate.getDate();
+      const lastWeekCheck =
+        lastDayOfweek === 1 || lastDayOfweek === 2 || lastDayOfweek === 3;
 
-            const firstWeekCheck = firstDayOfWeek === 5 || firstDayOfWeek === 6 || firstDayOfWeek === 7;
+      const lastWeekNo = Math.ceil((firstDayOfWeek - 1 + lastDay) / 7);
 
-            const lastWeekCheck = lastDayOfweek === 1 || lastDayOfweek === 2 || lastDayOfweek === 3;
+      let weekNo = Math.ceil((firstDayOfWeek - 1 + date) / 7);
 
-            const lastWeekNo = Math.ceil((firstDayOfWeek - 1 + lastDay) / 7);
+      if (weekNo === 1 && firstWeekCheck) weekNo = "prev";
+      else if (weekNo === lastWeekNo && lastWeekCheck) weekNo = "next";
+      else if (firstWeekCheck) weekNo = weekNo - 1;
 
-            let weekNo = Math.ceil((firstDayOfWeek - 1 + date) / 7);
+      return weekNo;
+    };
 
-            if (weekNo === 1 && firstWeekCheck) weekNo = 'prev';
+    let weekNo = weekNumberByThurFnc(inputDate);
 
-            else if (weekNo === lastWeekNo && lastWeekCheck) weekNo = 'next';
-
-            else if (firstWeekCheck) weekNo = weekNo - 1;
-
-            return weekNo;
-  };
-
-        let weekNo = weekNumberByThurFnc(inputDate);
-
-        if (weekNo === 'prev') {
-            const afterDate = new Date(year, month - 1, 0);
-            year = month === 1 ? year - 1 : year;
-            month = month === 1 ? 12 : month - 1;
-            weekNo = weekNumberByThurFnc(afterDate);
-        }
-        if (weekNo === 'next') {
-            year = month === 12 ? year + 1 : year;
-            month = month === 12 ? 1 : month + 1;
-            weekNo = 1;
-        }
-
-        return { year, month, weekNo };
+    if (weekNo === "prev") {
+      const afterDate = new Date(year, month - 1, 0);
+      year = month === 1 ? year - 1 : year;
+      month = month === 1 ? 12 : month - 1;
+      weekNo = weekNumberByThurFnc(afterDate);
     }
+    if (weekNo === "next") {
+      year = month === 12 ? year + 1 : year;
+      month = month === 12 ? 1 : month + 1;
+      weekNo = 1;
+    }
+
+    return { year, month, weekNo };
+  }
 
   // Getting Monday of the week with a given date
   const getMondayOfWeek = (date) => {
-        const first = date.getDate() - date.getDay() + (date.getDay() === 0 ? -6 : 1);
+    const first =
+      date.getDate() - date.getDay() + (date.getDay() === 0 ? -6 : 1);
     const monday = new Date(date.setDate(first));
 
     return monday;
@@ -98,7 +98,7 @@ const WklyTodo = () => {
   )}`;
 
   // Var ; A parsed date in format yy년 mm월 dd째주 to display on the WeekMover
-    const parsedDispDate = `${weekNumberByMonth(dateValue).month}월 
+  const parsedDispDate = `${weekNumberByMonth(dateValue).month}월 
   ${weekNumberByMonth(getMondayOfWeek(dateValue)).weekNo}째주`;
 
   // UseEffect : Getting weekly planets with its week's date
@@ -127,19 +127,22 @@ const WklyTodo = () => {
           </div> */}
         </TodoStatus>
       </StyHeader>
-      
 
       <StyCircleCon>
-        
         {wkPlanets.planets?.map((planet, index) => {
           return (
             <StyCircleWrap key={index}>
-              {planet.planetType === null || planet.planetType === 0 ? (
+              {planet.planetType === null ||
+              planet.planetColor === null ||
+              planet.planetLevel === null ||
+              planet.planetType === 0 ||
+              Number(planet.dueDate.substring(8, 10)) === today ? (
                 <Circle>{planet.dueDate.substring(8, 10)}</Circle>
               ) : (
                 <>
                   {planet.dueDate.substring(8, 10)}
-                  <StyImg src={require(`../static/images/planets/planet${planet.planetType}${planet.planetColor}${planet.planetLevel}.png`)}
+                  <StyImg
+                    src={require(`../static/images/planets/planet${planet.planetType}${planet.planetColor}${planet.planetLevel}.png`)}
                     planetSize={planet.planetSize}
                   />
                 </>
@@ -242,7 +245,5 @@ const StyCircleWrap = styled.div`
 `;
 
 const StyImg = styled.img`
-  
-  height: ${props => props.planetSize}px;
-
-`
+  height: ${(props) => props.planetSize}px;
+`;
