@@ -1,5 +1,10 @@
 // React
 import React, { useState } from 'react';
+// Redux
+import { useDispatch } from "react-redux";
+import {
+  updateTodoDateThunk,
+} from "../../redux/modules/categTodoSlice.js";
 // Styled-Component
 import styled from "styled-components";
 // Calendar
@@ -9,15 +14,18 @@ import "react-calendar/dist/Calendar.css";
 // React-icons
 import { prev_icon, next_icon } from "../../static/images/";
 
-const ChgDateModal = ({showModal, onClose, dateValue}) => {
+const ChgDateModal = ({showModal, onClose, dateValue, setShowModal, clickedTodo}) => {
 
+    // Redux : dispatch
+    const dispatch = useDispatch();
+   
     // Hook : To get the selected DateTodo from the calendar
     const [dateTodo, setDateTodo] = useState(new Date(dateValue));
 
     // Var ; A Parsed date in format yyyy/mm/dd from the calendar
-  const parsedFullDate = `${dateTodo.getFullYear()}-${String(
-    dateTodo.getMonth() + 1
-  ).padStart(2, "0")}-${String(dateTodo.getDate()).padStart(2, "0")}`;
+    const parsedFullDate = `${dateTodo.getFullYear()}-${String(
+      dateTodo.getMonth() + 1
+    ).padStart(2, "0")}-${String(dateTodo.getDate()).padStart(2, "0")}`;
 
     // if showModal is false, the modal will not be shown
     if (!showModal){
@@ -26,6 +34,18 @@ const ChgDateModal = ({showModal, onClose, dateValue}) => {
 
     const onClickHandler = () => {
         console.log("Check parsedfullDate", parsedFullDate)
+
+        console.log("Check ", clickedTodo.todoInfo.todoId)
+
+        const updateTodoDateObj = {
+          todoId: clickedTodo.todoInfo.todoId,
+          todoReq: {
+            dueDate: parsedFullDate
+          },
+        };
+
+        dispatch(updateTodoDateThunk(updateTodoDateObj))
+        setShowModal(false);
     }
 
     return (

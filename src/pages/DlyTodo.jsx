@@ -26,7 +26,7 @@ import ChgDateModal from "../components/chgDateModal/ChgDateModal.js";
 // Element
 import Circle from "../element/Circle.jsx";
 import Button from "../element/Button.jsx";
-// React-iconsX
+// React-icons
 import { FiPlus } from "react-icons/fi";
 import { prev_icon, next_icon } from "../static/images/";
 import {
@@ -121,10 +121,10 @@ const DlyTodo = () => {
   // UseEffect : Getting categories & to-do lists as well as date from the calendar
   useEffect(() => {
     concatSelDate.current = parsedFullDate;
-
+    console.log("Checkig here")
     dispatch(getCategThunk(concatSelDate.current));
     dispatch(getDayPlanetThunk(concatSelDate.current));
-  }, [dateValue, dispatch]);
+  }, [dateValue]);
 
   // Adding a new todo
   const addTodo = ({ input, index }) => {
@@ -401,7 +401,9 @@ const DlyTodo = () => {
       <ChgDateModal
         onClose={() => setShowModal(false)}
         showModal={showModal}
+        setShowModal={setShowModal}
         dateValue={dateValue}
+        clickedTodo={clickedTodo}
       ></ChgDateModal>
     </StyDlyTodoCon>
   );
