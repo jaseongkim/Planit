@@ -132,19 +132,19 @@ export default function NickName() {
           </SignUpInputBox>
         </SignUpItem>
       </SignUpCon>
-      <SignUpSubmit
+      <StySubmitButton
         disabled={!(isPassword && isPasswordConfirm && isPasswordLength)}
         onClick={onUpdateHandler}
       >
         확인
-      </SignUpSubmit>
+      </StySubmitButton>
     </SubContainer>
   );
 }
 
 const SignUpCon = styled.div`
-  height: 100%;
-  padding: 0 20px;
+  margin-top: 14px;
+  padding: 0 16px;
 `;
 
 const SignUpItem = styled.div`
@@ -179,8 +179,7 @@ const SubContainer = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;
-  padding: 100px 0 40px;
-  overflow-y: auto;
+  padding-bottom: 150px;
   background: #17171b;
 `;
 
@@ -227,21 +226,19 @@ const SignUpInputBox = styled.div`
   }
 `;
 
-const SignUpSubmit = styled.button`
+const StySubmitButton = styled.button`
+  position: absolute;
+  left: 0;
+  bottom: 0;
   width: 100%;
-  height: 52px;
+  padding: 20px 0 40px;
   font-size: 20px;
   color: #fff;
-  background: #3185f3;
+  background: #1671fa;
   border: none;
-  border-radius: 8px;
   transition: 0.2s;
 
-  &:active {
-    opacity: 0.7;
-  }
-
   &:disabled {
-    opacity: 0.3;
+    background: #8b98ac;
   }
 `;

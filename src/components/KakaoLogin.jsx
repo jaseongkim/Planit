@@ -19,6 +19,7 @@ export default function KakaoLogin() {
 const Kakao = styled.button`
   width: 100%;
   height: 52px;
+  font-weight: 600;
   font-size: 18px;
   color: #17171b;
   background: #f2e06b;

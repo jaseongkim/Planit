@@ -140,6 +140,12 @@ const LoginItem = styled.div`
     border: none;
     border-radius: 4px;
   }
+
+  @media (max-width: 375px) {
+    input {
+      padding-left: 23.2vw;
+    }
+  }
 `;
 
 const InvalidMsg = styled.span`
@@ -152,6 +158,7 @@ const LoginBtn = styled.div`
 
   button {
     height: 52px;
+    font-weight: 600;
     font-size: 18px;
     color: #fff;
     background: rgba(51, 139, 255, 0.9);

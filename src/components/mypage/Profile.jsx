@@ -1,104 +1,106 @@
 import React from "react";
 import styled from "styled-components";
+import { profile_default, camera_icon } from "../../static/images";
 
-export default function Profil() {
+export default function Profile() {
   return (
-    <ProfilContainer>
-      <ProfilWrap>
-        <ProfilImage>
+    <ProfileContainer>
+      <ProfileWrap>
+        <ProfileImage>
           <MyImage></MyImage>
-        </ProfilImage>
-        <ProfileInfo>
-          <InfoNickName>닉네임</InfoNickName>
-          <InfoFollowContainer>
-            <InfoFollowWrap>
-              <InfoFollow>팔로워</InfoFollow>
-              <InfoFollowNum>15</InfoFollowNum>
-            </InfoFollowWrap>
-            <InfoFollowWrap>
-              <InfoFollow>팔로잉</InfoFollow>
-              <InfoFollowNum>15</InfoFollowNum>
-            </InfoFollowWrap>
-          </InfoFollowContainer>
-        </ProfileInfo>
-      </ProfilWrap>
-    </ProfilContainer>
+          <button>
+            <img src={camera_icon} alt="카메라 아이콘" />
+          </button>
+        </ProfileImage>
+        <MyInfoWrap>
+          <p>닉네임</p>
+          <FollowBox>
+            <button>
+              팔로워<span>12</span>
+            </button>
+            <button>
+              팔로잉<span>12</span>
+            </button>
+          </FollowBox>
+        </MyInfoWrap>
+      </ProfileWrap>
+    </ProfileContainer>
   );
 }
 
-const ProfilContainer = styled.div`
-  margin: 10px 0 10px 0;
+const ProfileContainer = styled.div`
+  margin-top: 30px;
   padding: 0 16px;
 `;
 
-const ProfilWrap = styled.div`
+const ProfileWrap = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
 `;
 
-const ProfilImage = styled.div`
-  width: 74px;
-  height: 67px;
-  /* border: 1px solid orange; */
+const ProfileImage = styled.div`
+  position: relative;
+  min-width: 66px;
+  height: 66px;
+
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 24px;
+    height: 24px;
+    background: #d9d9d9;
+    border: none;
+    border-radius: 100px;
+    z-index: 10;
+  }
 `;
 
 const MyImage = styled.div`
-  width: 66px;
-  height: 66px;
+  position: absolute;
+  width: 100%;
+  height: 100%;
   border-radius: 100px;
-  background: gray;
+  background: url(${profile_default}) no-repeat center;
 `;
 
-const ProfileInfo = styled.div`
-  width: 230px;
-  height: 67px;
-  /* border: 1px solid yellow; */
+const MyInfoWrap = styled.div`
+  width: 100%;
+  height: 100%;
+  padding-left: 20px;
+
+  p {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    line-height: 1;
+    font-size: 20px;
+    color: #fff !important;
+  }
 `;
 
-const InfoNickName = styled.div`
-  width: 52px;
-  height: 20px;
-  margin-bottom: 26px;
-  font-weight: 500;
-  font-size: 15px;
-  text-align: center;
-  color: white;
-  /* border: 1px solid yellow; */
-`;
-
-const InfoFollowContainer = styled.div`
-  width: 230px;
-  height: 16px;
+const FollowBox = styled.div`
   display: flex;
   align-items: center;
-  /* border: 1px solid yellow; */
-`;
+  justify-content: space-between;
+  margin-top: 25px;
 
-const InfoFollowWrap = styled.div`
-  width: 67px;
-  height: 16px;
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  /* border: 1px solid green; */
-`;
+  button {
+    width: 50%;
+    text-align: left;
+    color: #fff;
+    font-size: 16px;
+    padding: 0;
+    background: transparent;
+    border: none;
 
-const InfoFollow = styled.div`
-  width: 42px;
-  height: 16px;
-  font-weight: 500;
-  font-size: 12px;
-  text-align: center;
-  color: white;
-  /* border: 1px solid red; */
-`;
-const InfoFollowNum = styled.div`
-  width: 17px;
-  height: 16px;
-  font-weight: 500;
-  font-size: 12px;
-  text-align: center;
-  color: white;
-  /* border: 1px solid red; */
+    span {
+      line-height: 1;
+      margin-left: 8px;
+    }
+  }
 `;
