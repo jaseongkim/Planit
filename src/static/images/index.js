@@ -26,6 +26,9 @@ import camera_icon from "./icons/camera_icon.svg";
 //-- logos --
 import logo from "./logos/logo.svg";
 
+// welcome image
+import welcomImg from "./background/welcome_planet.png";
+
 // planets
 import planet113 from "./planets/planet113.png";
 import planet223 from "./planets/planet223.png";
@@ -34,6 +37,7 @@ import planet443 from "./planets/planet443.png";
 import planet553 from "./planets/planet553.png";
 
 export {
+  welcomImg,
   bgleft,
   bgright,
   kakaologin,
