@@ -80,17 +80,8 @@ const CustomSheet = styled(Sheet)`
     padding: 24px 0 40px;
   }
 
-  .react-modal-sheet-header {
-    /* custom styles */
-  }
-
-  .react-modal-sheet-drag-indicator {
-    /* custom styles */
-  }
-
   .react-modal-sheet-content {
-    /* custom styles */
-    padding: 0 5% 5% 5%;
+    padding: 0 16px;
     background: transparent;
   }
 `;
@@ -147,8 +138,8 @@ const ColorItem = styled.button`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 25px;
-    height: 25px;
+    width: 23px;
+    height: 23px;
     border: 3px solid #5d646b;
     border-radius: 100px;
   }
