@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
 
 const BtmFitNavi = ({ name, wkPlanets }) => {
+  
   // Navigate
   const navigate = useNavigate();
 
@@ -38,7 +39,7 @@ const BtmFitNavi = ({ name, wkPlanets }) => {
       (planet) => planet.dueDate === parsedCurrDate
     );
 
-    if (currPlanet?.planetType === null || currPlanet?.planetType === 0) {
+    if(currPlanet?.planetType === null || currPlanet?.planetType === 0) {
       navigate("/createplanet");
     } else {
       setActiveTabs("dlytodo");

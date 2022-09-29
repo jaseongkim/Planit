@@ -103,7 +103,7 @@ const TodoList = ({
     ).disabled = true;
   };
 
-  // Changing the clicked checkbox's check status
+  // Changing the clicked checkbox's check status & updating achievenment count and planet level 
   // When the checkbox get checked or not, updating redux planet's state as well
   const onhandleCheckBox = (todo, categIndex, todoIndex) => {
    
@@ -117,18 +117,21 @@ const TodoList = ({
     };
 
     if (document.getElementById(`checkbox${todo.todoId}`).checked === true) {
-      dispatch(updateTodoCkThunk({ updateTodoCkObj })).then((response) =>{
-        if(response.meta.requestStatus === "fulfilled"){
-          dispatch(getDayPlanetThunk(selectedDate));
+      dispatch(updateTodoCkThunk({ updateTodoCkObj }))
+        .then((response) =>{
+          if(response.meta.requestStatus === "fulfilled"){
+      dispatch(getDayPlanetThunk(selectedDate));
+          }
         }
-      });
+        );
       
     } else {
-      dispatch(updateTodoCkThunk({ updateTodoCkObj })).then((response) =>{
-        if(response.meta.requestStatus === "fulfilled"){
+      dispatch(updateTodoCkThunk({ updateTodoCkObj }))
+       .then((response) =>{
+         if(response.meta.requestStatus === "fulfilled"){
           dispatch(getDayPlanetThunk(selectedDate));
-        }
-      });
+         }
+       });
     }
   };
 

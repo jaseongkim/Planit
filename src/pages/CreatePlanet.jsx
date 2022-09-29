@@ -9,7 +9,7 @@ import { AiOutlineLeft } from "react-icons/ai";
 // Redux
 import { useDispatch } from "react-redux";
 import { createPlanetThunk } from "../redux/modules/planetSlice";
-
+// Planets Imgs
 import {
   planet113,
   planet223,
@@ -19,7 +19,8 @@ import {
 } from "../static/images";
 
 const CreatePlanet = () => {
-  // Initial Opacity object, i.e., initla Opacity object for hook
+
+  // Initial Opacity object, i.e., initial Opacity object for hook
   const initOpState = {
     firstOpa: 0.4,
     secondOpa: 0.4,
