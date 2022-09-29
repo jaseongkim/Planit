@@ -45,7 +45,7 @@ export default function WklyPlanetEdit({
                 <input
                   type="range"
                   min={44}
-                  max={100}
+                  max={164}
                   value={size}
                   onChange={(e) => handleSizeChange(e.target.value)}
                 />
