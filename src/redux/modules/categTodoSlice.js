@@ -142,13 +142,9 @@ export const updateTodoDateThunk = createAsyncThunk(
     try {
       console.log("Check paylaod", payload)
       const { data } = await apis.updateTodoDate(payload);
-      // return thunkAPI.fulfillWithValue({
-      //   todo: data.data,
-      //   index: payload.updateTodoCkObj,
-      // });
-      console.log("Check date", data.data)
+      return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
-      console.log("Check error" ,error)
+      return thunkAPI.rejectWithValue(error);
     }
   }
 );
@@ -322,6 +318,24 @@ const categTodoSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
+
+    // // delete selected todo 
+    // [updateTodoDateThunk.pending]: (state) => {
+    //   state.isLoading = true;
+    // },
+    // [updateTodoDateThunk.fulfilled]: (state, action) => {
+    //   state.isLoading = false;
+
+    //   // const categIndex = action.payload.categIndex;
+    //   // const todoIndex = action.payload.todoIndex;
+
+    //   // state.categories[categIndex].todos.splice(todoIndex, 1);
+    // },
+    // [updateTodoDateThunk.rejected]: (state, action) => {
+    //   state.isLoading = false;
+    //   state.error = action.payload;
+    // },
+
   },
 });
 

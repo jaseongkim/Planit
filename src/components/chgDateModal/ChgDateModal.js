@@ -5,6 +5,9 @@ import { useDispatch } from "react-redux";
 import {
   updateTodoDateThunk,
 } from "../../redux/modules/categTodoSlice.js";
+// import {
+//   getCategThunk
+// } from "../redux/modules/categTodoSlice.js";
 // Styled-Component
 import styled from "styled-components";
 // Calendar
@@ -14,13 +17,15 @@ import "react-calendar/dist/Calendar.css";
 // React-icons
 import { prev_icon, next_icon } from "../../static/images/";
 
-const ChgDateModal = ({showModal, onClose, dateValue, setShowModal, clickedTodo}) => {
+const ChgDateModal = ({showModal, onClose, dateValue, setShowModal, clickedTodo, clickedCategIndex}) => {
 
     // Redux : dispatch
     const dispatch = useDispatch();
+
+    // console.log("Check dateValue", dateValue)
    
     // Hook : To get the selected DateTodo from the calendar
-    const [dateTodo, setDateTodo] = useState(new Date(dateValue));
+    const [dateTodo, setDateTodo] = useState(dateValue);
 
     // Var ; A Parsed date in format yyyy/mm/dd from the calendar
     const parsedFullDate = `${dateTodo.getFullYear()}-${String(
@@ -33,17 +38,21 @@ const ChgDateModal = ({showModal, onClose, dateValue, setShowModal, clickedTodo}
     }
 
     const onClickHandler = () => {
-        console.log("Check parsedfullDate", parsedFullDate)
+        // console.log("Check here in onCickHandler", dateTodo)
+        // console.log("Check parsedfullDate", parsedFullDate)
 
-        console.log("Check ", clickedTodo.todoInfo.todoId)
+        // console.log("Check ", clickedTodo)
 
         const updateTodoDateObj = {
           todoId: clickedTodo.todoInfo.todoId,
+          todoIndex: clickedTodo.todoIndex,
+          categIndex: clickedCategIndex,
           todoReq: {
             dueDate: parsedFullDate
           },
         };
 
+        console.log("Hey why is it you?")
         dispatch(updateTodoDateThunk(updateTodoDateObj))
         setShowModal(false);
     }
@@ -51,19 +60,20 @@ const ChgDateModal = ({showModal, onClose, dateValue, setShowModal, clickedTodo}
     return (
         <ModalCon>
             <ModalContent>
+              {/* {console.log("Check here", dateTodo)} */}
                 <ModalHeader>
                     <h4 className='modal-title'>Modal title</h4>
                 </ModalHeader>
                 <ModalBody>
                     <Calendar
                     onChange={setDateTodo}
-                    value={dateTodo}
+                    value={dateValue}
                     formatDay={(locale, date) => moment(date).format("DD")}
                     />
                 </ModalBody>
                 <ModalFooter>
                     <button onClick={onClose} className='button'>close</button>
-                    <button onClick={onClickHandler} className='button'>완료</button>
+                    <button onClick={()=> onClickHandler()} className='button'>완료</button>
                 </ModalFooter>
             </ModalContent>
         </ModalCon>
