@@ -46,11 +46,11 @@ const DlyTodo = () => {
   // Redux : dispatch
   const dispatch = useDispatch();
 
-  // Redux useSelector : categories useSelector
-  const categories = useSelector((state) => state.categTodoSlice.categories);
-
   // Redux useSelector : planet useSelector
   const planet = useSelector((state) => state.planetSlice.planet);
+
+  // Redux useSelector : categories useSelector
+  const categories = useSelector((state) => state.categTodoSlice.categories);
 
   // Hook : whether to open the change date modal
   const [showModal, setShowModal] = useState(false);
@@ -118,12 +118,17 @@ const DlyTodo = () => {
   };
 
   // UseEffect : Getting categories & to-do lists as well as date from the calendar
+  // Dispatchig PlanetThunk first => getCategThunk
   useEffect(() => {
     concatSelDate.current = parsedFullDate;
-    console.log("Checkig here");
-    dispatch(getCategThunk(concatSelDate.current));
-    dispatch(getDayPlanetThunk(concatSelDate.current));
-  }, [dateValue]);
+    dispatch(getDayPlanetThunk(concatSelDate.current))
+    .then((response) =>{
+      if(response.meta.requestStatus === "fulfilled"){
+        dispatch(getCategThunk(concatSelDate.current));
+      }
+    }
+    );
+  }, [parsedFullDate, dispatch]);
 
   // Adding a new todo
   const addTodo = ({ input, index }) => {
@@ -284,7 +289,7 @@ const DlyTodo = () => {
                     planet.planetLevel !== null) && (
                     <StyImg
                       src={require(`../static/images/planets/planet${planet.planetType}${planet.planetColor}${planet.planetLevel}.png`)}
-                      planetSize={planet.planetSize}
+                      planetSize={planet?.planetSize}
                     />
                   )}
                   {planet.planetLevel === 1 ? (
