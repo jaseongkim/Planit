@@ -74,21 +74,12 @@ const CustomSheet = styled(Sheet)`
     margin: 0 auto;
     max-width: 375px;
     width: 100%;
-    background-color: #5d646b !important;
+    background-color: #516d93 !important;
     padding: 24px 0 40px;
   }
 
-  .react-modal-sheet-header {
-    /* custom styles */
-  }
-
-  .react-modal-sheet-drag-indicator {
-    /* custom styles */
-  }
-
   .react-modal-sheet-content {
-    /* custom styles */
-    padding: 0 5% 5% 5%;
+    padding: 0 16px;
     background: transparent;
   }
 `;

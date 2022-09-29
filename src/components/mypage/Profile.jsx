@@ -1,19 +1,73 @@
-import React from "react";
+import React, { useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { updatePassword } from "../../redux/modules/memberSlice";
 import { profile_default, camera_icon } from "../../static/images";
 
 export default function Profile() {
+  const dispatch = useDispatch();
+
+  const nicName = localStorage.getItem("nickname");
+
+  const [fileImage, setFileImage] = useState(""); // 프로필 이미지 파일을 저장할 변수
+  // 이미지가 없을 시 기본 프로필
+  const [image, setImage] = useState(`${profile_default}`);
+
+  const fileInput = useRef(null);
+
+  const onProfileChange = (e) => {
+    if (e.target.files[0]) {
+      setFileImage(e.target.files[0]);
+    } else {
+      //업로드 취소할 시
+      setImage(`${profile_default}`);
+      return;
+    }
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        setImage(reader.result);
+      }
+    };
+    reader.readAsDataURL(e.target.files[0]);
+  };
+
+  const onUpdateHandler = () => {
+    const formData = new FormData();
+
+    formData.append("image", fileImage);
+
+    dispatch(updatePassword(formData));
+  };
+
   return (
     <ProfileContainer>
       <ProfileWrap>
         <ProfileImage>
-          <MyImage></MyImage>
-          <button>
+          <img
+            src={image}
+            alt="이미지"
+            style={{ width: "66px", height: "66px", borderRadius: "100px" }}
+          />
+          <input
+            type="file"
+            style={{ display: "none" }}
+            accept="image/jpg,image/png,image/jpeg"
+            name="profile_img"
+            onChange={onProfileChange}
+            ref={fileInput}
+          />
+          <div
+            onClick={() => {
+              fileInput.current.click();
+            }}
+          >
             <img src={camera_icon} alt="카메라 아이콘" />
-          </button>
+          </div>
         </ProfileImage>
         <MyInfoWrap>
-          <p>닉네임</p>
+          <p>{nicName}</p>
           {/* <FollowBox>
             <button>
               팔로워<span>12</span>
@@ -43,11 +97,11 @@ const ProfileImage = styled.div`
   min-width: 66px;
   height: 66px;
 
-  button {
+  & > div {
+    position: absolute;
     display: flex;
     align-items: center;
     justify-content: center;
-    position: absolute;
     bottom: 0;
     right: 0;
     width: 24px;
@@ -57,14 +111,6 @@ const ProfileImage = styled.div`
     border-radius: 100px;
     z-index: 10;
   }
-`;
-
-const MyImage = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border-radius: 100px;
-  background: url(${profile_default}) no-repeat center;
 `;
 
 const MyInfoWrap = styled.div`

@@ -40,7 +40,6 @@ import {
 import { useNavigate } from "react-router-dom";
 
 const DlyTodo = () => {
-
   // React Router Dom
   const navigate = useNavigate();
 
@@ -128,9 +127,8 @@ const DlyTodo = () => {
         dispatch(getCategThunk(concatSelDate.current));
       }
     }
-    );;
-  
-  }, [dateValue]);
+    );
+  }, [parsedFullDate, dispatch]);
 
   // Adding a new todo
   const addTodo = ({ input, index }) => {
@@ -254,7 +252,7 @@ const DlyTodo = () => {
                       <Circle
                         planetType={planet.planetType}
                         planetLevel={planet.planetLevel}
-                        fontSize={(props) => props.theme.fontSizes.lg}
+                        fontSize={"20px"}
                       >
                         ?
                       </Circle>
@@ -276,7 +274,7 @@ const DlyTodo = () => {
                   <Circle
                     planetType={planet.planetType}
                     planetLevel={planet.planetLevel}
-                    fontSize={(props) => props.theme.fontSizes.lg}
+                    fontSize={"20px"}
                   >
                     ?
                   </Circle>
@@ -285,18 +283,26 @@ const DlyTodo = () => {
               ) : (
                 <CircleBox>
                   {(planet.length !== 0 ||
-                  planet.planetType !== 0 ||
-                  planet.planetColor !== null ||
-                  planet.planetSize !== null ||
-                  planet.planetLevel !== null )&& (
+                    planet.planetType !== 0 ||
+                    planet.planetColor !== null ||
+                    planet.planetSize !== null ||
+                    planet.planetLevel !== null) && (
                     <StyImg
                       src={require(`../static/images/planets/planet${planet.planetType}${planet.planetColor}${planet.planetLevel}.png`)}
                       planetSize={planet?.planetSize}
                     />
                   )}
-                  { planet.planetLevel === 1 ? (<p>{`다음 단계까지 ${5-planet.achievementCnt}개 남았어요.`}</p>) :
-                    planet.planetLevel === 2 ? (<p>{`다음 단계까지 ${10-planet.achievementCnt}개 남았어요.`}</p>) : 
-                    (<p>마지막 단계를 달성했어요</p>)}
+                  {planet.planetLevel === 1 ? (
+                    <p>{`다음 단계까지 ${
+                      5 - planet.achievementCnt
+                    }개 남았어요.`}</p>
+                  ) : planet.planetLevel === 2 ? (
+                    <p>{`다음 단계까지 ${
+                      10 - planet.achievementCnt
+                    }개 남았어요.`}</p>
+                  ) : (
+                    <p>마지막 단계를 달성했어요</p>
+                  )}
                 </CircleBox>
               )}
             </StyCircleWrap>
@@ -325,17 +331,14 @@ const DlyTodo = () => {
               return (
                 <TodoCon key={index}>
                   {parsedCurrDate < parsedToday ? (
-                    <TodoBtn disabled>
-                      <StyCategLabel
-                        categoryColor={input.categoryColor}
-                      ></StyCategLabel>
+                    <TodoBtn categoryColor={input.categoryColor} disabled>
                       {input.categoryName}
                     </TodoBtn>
                   ) : (
-                    <TodoBtn onClick={() => addTodo({ input, index })}>
-                      <StyCategLabel
-                        categoryColor={input.categoryColor}
-                      ></StyCategLabel>
+                    <TodoBtn
+                      onClick={() => addTodo({ input, index })}
+                      categoryColor={input.categoryColor}
+                    >
                       {input.categoryName}
                       <FiPlus></FiPlus>
                     </TodoBtn>
@@ -671,7 +674,7 @@ const TodoBtn = styled.button`
   display: flex;
   align-items: center;
   font-size: 18px;
-  color: #fff;
+  color: ${(props) => props.categoryColor};
   text-align: left;
   background: transparent;
   border: none;
@@ -680,13 +683,6 @@ const TodoBtn = styled.button`
     color: #fff;
     margin-left: 5px;
   }
-`;
-
-const StyCategLabel = styled.div`
-  width: 3px;
-  height: 16px;
-  margin-right: 8px;
-  background: ${(props) => props.categoryColor};
 `;
 
 const CustomSheet = styled(Sheet)`

@@ -4,8 +4,11 @@ import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 // React Component
 import Header from "../components/Header";
+// BottomModalSheet
+// import Sheet from "react-modal-sheet";
 import BtmFitNavi from "../components/btmFitNaviBar/BtmFitNavi.jsx";
 import WeekMover from "../components/dateMover/WeekMover.jsx";
+import WklyPlanetEdit from "../components/wkly/WklyPlanetEdit";
 // React-icons
 import { achieved_icon, like_icon_on } from "../static/images";
 // Redux
@@ -23,10 +26,19 @@ const WklyTodo = () => {
   // Hook : A date that let user to choose different date from the WeekMover
   const [dateValue, setDateValue] = useState(new Date());
 
+  const [isEditOpen, setEditOpen] = useState(false);
+
   // Redux : weeklyPlants useSelector
   const wkPlanets = useSelector((state) => state.planetSlice.planets);
 
   const today = new Date().getDate();
+
+  const onEditSheetOpen = () => {
+    setEditOpen(true);
+  };
+  const onEditSheetClose = (size, color) => {
+    setEditOpen(false);
+  };
 
   // Getting a week of month from a given monday date
   // This source code is from https://falsy.me/javascript-입력한-날짜의-해당-달-기준-주차-구하기/
@@ -115,59 +127,70 @@ const WklyTodo = () => {
   }, [dateValue]);
 
   return (
-    <StyTodoCon>
-      <Header></Header>
-      <StyHeader>
-        <WeekMover
-          parsedDispDate={parsedDispDate}
-          dateValue={dateValue}
-          setDateValue={setDateValue}
-        />
-        <TodoStatus>
-          <div>
-            <img src={achieved_icon} alt="achieved icon" />
-            <span>{wkPlanets.weeklyTotalAchievement}</span>
-          </div>
-          {/* <div>
+    <>
+      <StyTodoCon isEditOpen={isEditOpen}>
+        <Header></Header>
+        <StyHeader>
+          <WeekMover
+            parsedDispDate={parsedDispDate}
+            dateValue={dateValue}
+            setDateValue={setDateValue}
+          />
+          <TodoStatus>
+            <div>
+              <img src={achieved_icon} alt="achieved icon" />
+              <span>{wkPlanets.weeklyTotalAchievement}</span>
+            </div>
+            {/* <div>
             <img src={like_icon_on} alt="like icon on" />
             <span>{wkPlanets.weeklyTotalLikes}</span>
           </div> */}
-        </TodoStatus>
-      </StyHeader>
-      {planetCntRef.current !== 0 ? (
-        <StyPlanetNullMsg>할 일을 완료하고 행성을 채워보세요.</StyPlanetNullMsg>
-      ) : null}
-      <StyCircleCon>
-        {wkPlanets.planets?.map((planet, index) => {
-          return (
-            <StyCircleWrap key={index}>
-              {planet.planetType === null ||
-              planet.planetColor === null ||
-              planet.planetLevel === null ||
-              planet.planetType === 0 ||
-              parseInt(planet.dueDate.substring(8, 10)) === today ? (
-                <Circle>{planet.dueDate.substring(8, 10)}</Circle>
-              ) : (
-                <>
-                  {planet.dueDate.substring(8, 10)}
-                  <StyImg
-                    src={require(`../static/images/planets/planet${planet.planetType}${planet.planetColor}${planet.planetLevel}.png`)}
-                    planetSize={planet.planetSize}
-                  />
-                </>
-              )}
-            </StyCircleWrap>
-          );
-        })}
-      </StyCircleCon>
-      <BtmFitNavi name="WklyTodo" wkPlanets={wkPlanets}></BtmFitNavi>
-    </StyTodoCon>
+          </TodoStatus>
+        </StyHeader>
+        {planetCntRef.current !== 0 ? (
+          <StyPlanetNullMsg>
+            할 일을 완료하고 행성을 채워보세요.
+          </StyPlanetNullMsg>
+        ) : null}
+        <StyCircleCon>
+          {wkPlanets.planets?.map((planet, index) => {
+            return (
+              <StyCircleWrap key={index}>
+                {planet.planetType === null ||
+                planet.planetColor === null ||
+                planet.planetLevel === null ||
+                planet.planetType === 0 ||
+                parseInt(planet.dueDate.substring(8, 10)) === today ? (
+                  <Circle>{planet.dueDate.substring(8, 10)}</Circle>
+                ) : (
+                  <>
+                    {planet.dueDate.substring(8, 10)}
+                    <StyImg
+                      src={require(`../static/images/planets/planet${planet.planetType}${planet.planetColor}${planet.planetLevel}.png`)}
+                      planetSize={planet.planetSize}
+                    />
+                  </>
+                )}
+              </StyCircleWrap>
+            );
+          })}
+        </StyCircleCon>
+        <BtmFitNavi name="WklyTodo" wkPlanets={wkPlanets}></BtmFitNavi>
+      </StyTodoCon>
+      <WklyPlanetEdit
+        // isOpen={true}
+        isOpen={isEditOpen}
+        onEditSheetClose={onEditSheetClose}
+      />
+    </>
   );
 };
 
 export default WklyTodo;
 
 const StyTodoCon = styled.div`
+  display: ${(props) => (props.isEditOpen ? "none" : "block")};
+  /* display: ${(props) => (!props.isEditOpen ? "none" : "block")}; */
   overflow: scroll;
 `;
 

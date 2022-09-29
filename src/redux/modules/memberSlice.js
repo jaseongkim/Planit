@@ -12,7 +12,7 @@ export const createMemberDB = (data) => {
           return window.alert(response.data.error.message);
         } else {
           return (
-            window.location.replace("/"),
+            window.location.replace("/welcome"),
             alert("성공적으로 회원가입되셨습니다!")
           );
         }
