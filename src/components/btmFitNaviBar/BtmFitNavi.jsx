@@ -79,11 +79,17 @@ const StyBtmNavi = styled.div`
   max-width: 375px;
   width: 100%;
   /* 비율 조정 할 것 */
-  background: linear-gradient(
+  /* background: linear-gradient(
     0deg,
     #2e5c97 0%,
     #2e5c97 50%,
     rgba(75, 145, 240, 0) 90%
+  ); */
+  background: linear-gradient(
+    0deg,
+    #acd0fd 0%,
+    #5899f2 75%,
+    rgba(75, 145, 240, 0) 100%
   );
 
   @media (max-width: 425px) {
@@ -102,7 +108,8 @@ const StyBtmTabWrap = styled.div`
   align-items: center;
   width: 100%;
   padding: 2.5px;
-  background: #95b1e689;
+  /* background: #95b1e689; */
+  background: rgba(56, 106, 202, 0.4);
   border-radius: 10px;
 `;
 
