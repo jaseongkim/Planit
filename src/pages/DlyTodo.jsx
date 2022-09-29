@@ -40,6 +40,7 @@ import {
 import { useNavigate } from "react-router-dom";
 
 const DlyTodo = () => {
+
   // React Router Dom
   const navigate = useNavigate();
 
@@ -277,17 +278,19 @@ const DlyTodo = () => {
                 </CircleBox>
               ) : (
                 <CircleBox>
-                  {planet.length === 0 ||
-                  planet.planetType === 0 ||
-                  planet.planetColor === null ||
-                  planet.planetSize === null ||
-                  planet.planetLevel === null ? null : (
+                  {(planet.length !== 0 ||
+                  planet.planetType !== 0 ||
+                  planet.planetColor !== null ||
+                  planet.planetSize !== null ||
+                  planet.planetLevel !== null )&& (
                     <StyImg
                       src={require(`../static/images/planets/planet${planet.planetType}${planet.planetColor}${planet.planetLevel}.png`)}
                       planetSize={planet.planetSize}
                     />
                   )}
-                  <p>다음 단계까지 3개 남았어요.</p>
+                  { planet.planetLevel === 1 ? (<p>{`다음 단계까지 ${5-planet.achievementCnt}개 남았어요.`}</p>) :
+                    planet.planetLevel === 2 ? (<p>{`다음 단계까지 ${10-planet.achievementCnt}개 남았어요.`}</p>) : 
+                    (<p>마지막 단계를 달성했어요</p>)}
                 </CircleBox>
               )}
             </StyCircleWrap>
@@ -408,6 +411,7 @@ const DlyTodo = () => {
         setShowModal={setShowModal}
         dateValue={dateValue}
         clickedTodo={clickedTodo}
+        clickedCategIndex={clickedCategIndex}
       ></ChgDateModal>
     </StyDlyTodoCon>
   );
