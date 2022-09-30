@@ -6,8 +6,18 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
 import { logo } from "../static/images";
+import { useEffect } from "react";
 
 const LogoPage = () => {
+
+  // Navigate
+  const navigate = useNavigate();
+
+  // UseEffect : Displaying LogoPage and after 1 sec, redirect to the login page
+  useEffect(() => {
+    setTimeout(() => navigate("/login"), 1000);
+  }, []);
+
   return (
     <LogoPageCont>
       <LogoBox>
