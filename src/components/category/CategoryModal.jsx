@@ -28,7 +28,7 @@ export default function CategoryModal(props) {
           style={{ display: `${onCancel ? null : "none"}` }}
           onClick={onClose}
         >
-          취소
+          {onConfirm ? "취소" : "확인"}
         </div>
         <div
           style={{ display: `${onConfirm ? null : "none"}` }}
