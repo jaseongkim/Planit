@@ -2,13 +2,19 @@ import styled from "styled-components";
 
 export default function Stars() {
   return (
-    <>
+    <StyStarCont>
       <Star></Star>
       <Star></Star>
       <Star></Star>
-    </>
+    </StyStarCont>
   );
 }
+
+const StyStarCont = styled.div`
+  position: fixed;
+  width: 100%;
+  height: 100%;
+`;
 
 const Star = styled.div`
   position: absolute;

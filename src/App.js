@@ -3,7 +3,6 @@ import "./App.css";
 import React, { useState, useEffect } from "react";
 // React Component
 import Browser from "./shared/Browser";
-import LogoPage from "./pages/LogoPage";
 // GlobalStyle
 import GlobalStyle from "./shared/GlobalStyle";
 // Context API
@@ -16,7 +15,7 @@ function App() {
   return (
     <>
       <AppContext.Provider value={{ open, setOpen }}>
-        <GlobalStyle />
+        <GlobalStyle open={open} />
         <Browser />
       </AppContext.Provider>
     </>

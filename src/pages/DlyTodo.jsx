@@ -40,7 +40,6 @@ import {
 import { useNavigate } from "react-router-dom";
 
 const DlyTodo = () => {
-  
   // React Router Dom
   const navigate = useNavigate();
 
@@ -263,10 +262,10 @@ const DlyTodo = () => {
                       planetSize={planet.planetSize}
                     />
                   )}
-                  <p>
+                  {/* <p>
                     카테고리를 만들고 <br />
                     투투리스트를 작성해보세요.
-                  </p>
+                  </p> */}
                 </StyStareBox>
               ) : planet.planetType === 0 ? (
                 <CircleBox>
@@ -674,6 +673,7 @@ const TodoCon = styled.div`
 const TodoBtn = styled.button`
   display: flex;
   align-items: center;
+  font-weight: 600;
   font-size: 18px;
   color: ${(props) => props.categoryColor};
   text-align: left;
