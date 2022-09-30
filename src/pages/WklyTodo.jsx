@@ -29,8 +29,6 @@ const WklyTodo = () => {
   const [planet, setPlanet] = useState(null);
   const [isEditOpen, setEditOpen] = useState(false);
 
-  const [clickedPlanet, setClickedPlanet] = useState(null);
-
   // Redux : weeklyPlants useSelector
   const wkPlanets = useSelector((state) => state.planetSlice.planets);
 
