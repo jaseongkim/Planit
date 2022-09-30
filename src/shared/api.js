@@ -33,8 +33,8 @@ api.interceptors.response.use(
         const data = await api.post("/members/refresh-token", {
           memberId: memberId,
         });
-        // const data = getRefreshToken({ email: email });
         console.log(data);
+        // const data = getRefreshToken({ email: email });
         if (data) {
           const newToken = data.headers.authorization;
           const newAccesstokenexpiretime = data.headers.accesstokenexpiretime;
@@ -49,7 +49,8 @@ api.interceptors.response.use(
           return await api.request(originalRequest);
         }
       } catch (error) {
-        console.log(error);
+        localStorage.clear();
+        window.location.replace("/");
       }
       return Promise.reject(error);
     }
