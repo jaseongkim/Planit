@@ -36,7 +36,7 @@ const Router = () => {
         <Route path="/welcome" element={<Welcome />} />
         <Route path="/dlytodo" element={<DlyTodo />} />
         <Route path="/wklytodo" element={<WklyTodo />} />
-        <Route path="/kakao" element={<Kakao />} />
+        <Route path="/login/kakao" element={<Kakao />} />
         <Route path="/search" element={<Search />} />
         <Route path="/follow" element={<Follow />} />
         <Route path="/createplanet" element={<CreatePlanet />} />
