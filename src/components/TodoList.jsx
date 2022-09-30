@@ -252,6 +252,9 @@ const CheckTxtboxWrap = styled.div`
       color: #fff;
       opacity: 50%;
     }
+    &:disabled {
+      color: #fff !important;
+    }
   }
 `;
 
