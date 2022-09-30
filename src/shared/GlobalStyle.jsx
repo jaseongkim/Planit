@@ -12,8 +12,9 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     margin: 0;
     outline : none;
-    font-family: 'PretendardVariable', sans-serif;
+    font-family: 'PretendardVariable', "PretendardVariable2", sans-serif;
     font-weight: 500;
+    color: inherit;
 
     // 스크롤바 없애기
     -ms-overflow-style: none; /* IE and Edge */
@@ -25,7 +26,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    overflow: hidden;
+    overflow-y: ${(props) => (props.open === true ? "hidden" : "visible")};
   }
 
   li {

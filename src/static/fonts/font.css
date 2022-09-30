@@ -2,3 +2,8 @@
   font-family: "PretendardVariable";
   src: url("./PretendardVariable.ttf");
 }
+
+@font-face {
+  font-family: "PretendardVariable2";
+  src: url("./PretendardVariable.woff2");
+}

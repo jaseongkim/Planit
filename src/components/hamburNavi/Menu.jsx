@@ -1,11 +1,10 @@
 import React from "react";
 import { bool } from "prop-types";
 import styled from "styled-components";
-import { profile_default, next_icon } from "../../static/images";
+import { next_icon } from "../../static/images";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProfileThunk } from "../../redux/modules/membersSlice";
-import { AiOutlineBorderRight } from "react-icons/ai";
 
 const Menu = ({ open, setOpen }) => {
   const dispatch = useDispatch();

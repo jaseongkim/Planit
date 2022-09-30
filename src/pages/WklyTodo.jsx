@@ -218,6 +218,11 @@ const TodoStatus = styled.div`
   justify-content: flex-end;
   gap: 12px;
 
+  div {
+    display: flex;
+    align-items: center;
+  }
+
   span {
     font-weight: 400;
     color: #fff;
@@ -255,6 +260,12 @@ const StyCircleWrap = styled.div`
 
   img {
     margin-top: 15px;
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+
+    &:hover {
+      transform: translateY(-3px);
+    }
   }
 
   &:nth-child(1) {

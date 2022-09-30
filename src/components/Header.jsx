@@ -59,13 +59,14 @@ const HeaderCon = styled.div`
     font-weight: 600;
     font-size: 24px;
     margin-bottom: 0;
+    padding-left: 4px;
   }
 `;
 const HeaderIcon = styled.div`
   font-size: 23px;
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 13px;
 
   button {
     display: flex;

@@ -6,7 +6,6 @@ import styled from "styled-components";
 import { prev_icon, next_icon } from "../../static/images/";
 
 const DayMover = ({ parsedParDate, setDateValue, dateValue }) => {
-
   // Var: Getting a local current time
   // appending subtrack or add 1 day depending on which the button get clicked
   const currDate = new Date(dateValue);
@@ -51,27 +50,25 @@ const DayMover = ({ parsedParDate, setDateValue, dateValue }) => {
 export default DayMover;
 
 const StyDayCon = styled.div`
-    display: flex;
-    color: white;
-    align-items: center;
-    display: flex;
-    align-items: center;
-    
-    div {
-        line-height: 1;
-        font-size: 18px;
-        color: #fff;
-        margin: 0 10px;
-    }
+  display: flex;
+  color: white;
+  align-items: center;
+  display: flex;
+  align-items: center;
 
-    button {
-        width: 24px;
-        height:24px;
-        color: #fff;
-        background: transparent;
-        border: none;
-    }
-`
+  div {
+    line-height: 1;
+    font-size: 18px;
+    color: #fff;
+    margin: 0 10px;
+  }
 
-
-
+  button {
+    width: 24px;
+    height: 24px;
+    color: #fff;
+    margin: 0 !important;
+    background: transparent;
+    border: none;
+  }
+`;

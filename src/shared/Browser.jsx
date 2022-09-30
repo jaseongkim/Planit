@@ -1,5 +1,5 @@
 // React
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 // React Component
 import styled from "styled-components";
 import Menu from "../components/hamburNavi/Menu";
@@ -9,7 +9,7 @@ import Stars from "../element/stars/Stars";
 // Context API
 import { AppContext } from "../context";
 
-export default function Brower() {
+export default function Browser() {
   // Context API : opening & closing the burgar navi
   const { open, setOpen } = useContext(AppContext);
 
@@ -25,7 +25,6 @@ export default function Brower() {
 }
 
 const Back = styled.div`
-  /* background: linear-gradient(180deg, #121212 0%, #0f3a71 60%, #2e5c97 100%); */
   background: linear-gradient(
     180deg,
     #121212 0%,

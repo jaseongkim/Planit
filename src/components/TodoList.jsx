@@ -239,10 +239,11 @@ const CheckTxtboxWrap = styled.div`
     width: calc(100% - 24px);
     height: 28px;
     font-size: 14px;
-    color: #fff;
+    color: #fff !important;
     margin-left: 8px;
     background: transparent;
     border: none;
+    border-radius: 0;
 
     &:focus {
       border-bottom: 1px solid #b1bdcf;

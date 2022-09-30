@@ -29,7 +29,10 @@ const LogoPage = () => {
 
 export default LogoPage;
 
-const LogoPageCont = styled.div``;
+const LogoPageCont = styled.div`
+  position: relative;
+  height: 100vh;
+`;
 
 const LogoBox = styled.div`
   position: absolute;
