@@ -4,7 +4,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { updatePassword } from "../../redux/modules/memberSlice";
+import { updateMember } from "../../redux/modules/memberSlice";
 
 export default function NickName() {
   const dispatch = useDispatch();
@@ -60,7 +60,9 @@ export default function NickName() {
 
     formData.append("data", blob);
 
-    dispatch(updatePassword(formData));
+    const select = "password";
+
+    dispatch(updateMember({ formData, select }));
   };
 
   return (

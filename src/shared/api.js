@@ -94,6 +94,9 @@ export const apis = {
       "Content-Type": "multipart/form-data",
     }),
 
+  // mypage
+  mypageProfile: (id) => api.get(`members/${id}/status`),
+
   // follow & search
   recommendMember: () => api.get("/members/suggest"),
 
@@ -133,9 +136,8 @@ export const apis = {
       data.updateTodoCkObj.todoReq
     ),
 
-  updateTodoDate: (data) => api.patch(`categories/todos/${data.todoId}`,
-    data.todoReq
-  ),  
+  updateTodoDate: (data) =>
+    api.patch(`categories/todos/${data.todoId}`, data.todoReq),
 
   updateTodoMemo: (data) =>
     api.patch(
