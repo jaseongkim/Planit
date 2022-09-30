@@ -30,11 +30,11 @@ const Router = () => {
         <Route path="/kakao" element={<Kakao />} />
         <Route path="/search" element={<Search />} />
         <Route path="/follow" element={<Follow />} />
-        <Route path="/category" element={<Category />} />
         <Route path="/createplanet" element={<CreatePlanet />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/nickname" element={<NickName />} />
         <Route path="/password" element={<Password />} />
+        <Route path="/category" element={<Category />} />
         <Route path="/categorydetail/:id" element={<CategoryDetail />} />
       </Routes>
     </BrowserRouter>

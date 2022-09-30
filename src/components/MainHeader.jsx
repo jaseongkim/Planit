@@ -3,8 +3,9 @@ import styled from "styled-components";
 import { prev_icon } from "../static/images";
 
 export default function MainHeader(props) {
+  
   const navigate = useNavigate();
-
+  
   return (
     <HeaderWrap>
       <HeaderTitle>
