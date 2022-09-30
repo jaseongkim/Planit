@@ -12,8 +12,15 @@ export const createMemberDB = (data) => {
           return window.alert(response.data.error.message);
         } else {
           return (
-            window.location.replace("/welcome"),
-            alert("성공적으로 회원가입되셨습니다!")
+            localStorage.setItem("token", response.headers.authorization),
+            localStorage.setItem("memberId", response.data.data.memberId),
+            localStorage.setItem("refreshToken", response.headers.refreshtoken),
+            localStorage.setItem(
+              "accesstokenexpiretime",
+              response.headers.accesstokenexpiretime
+            ),
+            localStorage.setItem("nickname", response.data.data.nickname),
+            window.location.replace("/welcome")
           );
         }
       })
