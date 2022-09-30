@@ -17,7 +17,7 @@ export default function CategoryHeader() {
   return (
     <HeaderWrap>
       <HeaderTitle>
-        <button onClick={() => navigate(-1)}>
+        <button onClick={() => navigate("/dlytodo")}>
           <img src={prev_icon} alt="뒤" />
         </button>
         <NicknameDiv>카테고리</NicknameDiv>

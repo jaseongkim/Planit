@@ -8,8 +8,6 @@ import { useNavigate } from "react-router-dom";
 import { logo } from "../static/images";
 
 const LogoPage = () => {
-  const navigate = useNavigate();
-
   return (
     <LogoPageCont>
       <LogoBox>
