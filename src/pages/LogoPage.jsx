@@ -12,9 +12,25 @@ const LogoPage = () => {
   // Navigate
   const navigate = useNavigate();
 
+  const memberId = localStorage.getItem("memberId");
+  const accesstokenexpiretime = localStorage.getItem("accesstokenexpiretime");
+  const nickname = localStorage.getItem("nickname");
+  const refreshToken = localStorage.getItem("refreshToken");
+  const token = localStorage.getItem("token");
+
   // UseEffect : Displaying LogoPage and after 2 sec, redirect to the login page
   useEffect(() => {
-    setTimeout(() => navigate("/login"), 1800);
+    if (
+      memberId &&
+      accesstokenexpiretime &&
+      nickname &&
+      refreshToken &&
+      token
+    ) {
+      setTimeout(() => navigate("/wklytodo"), 1800);
+    } else {
+      setTimeout(() => navigate("/login"), 1800);
+    }
   }, []);
 
   return (

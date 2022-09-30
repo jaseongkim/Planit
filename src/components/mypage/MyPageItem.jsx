@@ -3,7 +3,10 @@ import styled from "styled-components";
 import { next_icon } from "../../static/images";
 
 export default function MyPageItem(props) {
+  const REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
+  const LOGOUT_REDIRECT_URI = "http://localhost:3000/login";
   const navigate = useNavigate();
+  const isKakao = localStorage.getItem("isKako");
 
   const onClickHandler = (e, id) => {
     e.stopPropagation();
@@ -12,21 +15,26 @@ export default function MyPageItem(props) {
     } else if (id === 2) {
       navigate("/password");
     } else if (id === 3) {
-      localStorage.clear();
-      alert("로그아웃 되었습니다!");
-      navigate("/");
+      if (isKakao) {
+        window.location.href = `https://kauth.kakao.com/oauth/logout?client_id=${REST_API_KEY}&logout_redirect_uri=${LOGOUT_REDIRECT_URI}`;
+      } else {
+        localStorage.clear();
+        navigate("/login");
+      }
     }
   };
 
   return (
-    <MyPageWrap
-      onClick={(e) => {
-        onClickHandler(e, props.id);
-      }}
-    >
-      {props.text}
-      <img src={next_icon} alt="next arrow" />
-    </MyPageWrap>
+    <>
+      <MyPageWrap
+        onClick={(e) => {
+          onClickHandler(e, props.id);
+        }}
+      >
+        {props.text}
+        <img src={next_icon} alt="next arrow" />
+      </MyPageWrap>
+    </>
   );
 }
 

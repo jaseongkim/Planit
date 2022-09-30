@@ -40,6 +40,7 @@ export const loginMemberDB = createAsyncThunk(
       await apis.loginMember(payload).then((response) => {
         if (response.data.success === false) {
         } else {
+          console.log(response);
           return (
             thunkAPI.fulfillWithValue(false),
             localStorage.setItem("token", response.headers.authorization),
@@ -50,6 +51,7 @@ export const loginMemberDB = createAsyncThunk(
               response.headers.accesstokenexpiretime
             ),
             localStorage.setItem("nickname", response.data.data.nickname),
+            localStorage.setItem("isKako", response.data.data.isKakao),
             window.location.replace("/wklyTodo")
           );
         }
@@ -62,13 +64,41 @@ export const loginMemberDB = createAsyncThunk(
   }
 );
 
-export const kakaoLoginDB = (code) => {
-  return async function () {
-    await apis.loginKakao(code).then((response) => {
-      console.log(response);
-    });
-  };
-};
+export const kakaoLoginDB = createAsyncThunk(
+  "member/kakaologin",
+  async (code, thunkAPI) => {
+    try {
+      await apis.loginKakao(code).then((response) => {
+        if (response.data.success === false) {
+        } else {
+          return (
+            localStorage.setItem("token", response.headers.authorization),
+            localStorage.setItem("memberId", response.data.data.memberId),
+            localStorage.setItem("refreshToken", response.headers.refreshtoken),
+            localStorage.setItem(
+              "accesstokenexpiretime",
+              response.headers.accesstokenexpiretime
+            ),
+            localStorage.setItem("nickname", response.data.data.nickname),
+            localStorage.setItem("isKako", response.data.data.isKakao),
+            window.location.replace("/wklyTodo")
+          );
+        }
+      });
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.code);
+    }
+  }
+);
+
+// export const kakaoLoginDB = (code) => {
+//   return async function () {
+//     console.log(code);
+//     await apis.loginKakao(code).then((response) => {
+//       console.log(response);
+//     });
+//   };
+// };
 
 export const updateMember = createAsyncThunk(
   "member/updatePassword",
