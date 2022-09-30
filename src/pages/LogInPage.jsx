@@ -46,7 +46,7 @@ const LogInPage = () => {
 
   useEffect(() => {
     localStorage.clear();
-  });
+  }, []);
 
   return (
     <>
