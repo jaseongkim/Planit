@@ -30,9 +30,15 @@ api.interceptors.response.use(
         const originalRequest = error.config;
         console.log(originalRequest);
         // const data = await api.post("/members/refresh-token", { email: email });
-        const data = await api.post("/members/refresh-token", {
-          memberId: memberId,
-        });
+        const data = await api
+          .post("/members/refresh-token", {
+            memberId: memberId,
+          })
+          .then()
+          .catch((error) => {
+            localStorage.clear();
+            window.location.replace("/");
+          });
         console.log(data);
         // const data = getRefreshToken({ email: email });
         if (data) {
@@ -49,8 +55,7 @@ api.interceptors.response.use(
           return await api.request(originalRequest);
         }
       } catch (error) {
-        localStorage.clear();
-        window.location.replace("/");
+        console.log(error);
       }
       return Promise.reject(error);
     }
