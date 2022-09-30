@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LogoPage from "../pages/LogoPage";
 import LogInPage from "../pages/LogInPage";
@@ -15,9 +15,18 @@ import CreatePlanet from "../pages/CreatePlanet";
 import MyPage from "../pages/MyPage";
 import NickName from "../components/mypage/NickName";
 import Password from "../components/mypage/Password";
-
+// Google Analytics
+import ReactGA from 'react-ga';
+const TRACKING_ID = "G-PRSD98XLNQ"; // MEASUREMENT ID
+ReactGA.initialize(TRACKING_ID);
 
 const Router = () => {
+
+  // Google Analytics
+  useEffect(() => {
+    ReactGA.pageview(window.location.pathname + window.location.search);
+  }, []);
+
   return (
     <BrowserRouter>
       <Routes>
