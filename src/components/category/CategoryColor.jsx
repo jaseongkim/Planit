@@ -8,6 +8,7 @@ export default function CategoryColor({
   categoryColor,
   onColorSheetClose,
 }) {
+  
   const [color, setColor] = useState(categoryColor);
 
   return (

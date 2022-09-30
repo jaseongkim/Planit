@@ -10,6 +10,7 @@ import Stars from "../element/stars/Stars";
 import { AppContext } from "../context";
 
 export default function Brower() {
+  
   // Context API : opening & closing the burgar navi
   const { open, setOpen } = useContext(AppContext);
 

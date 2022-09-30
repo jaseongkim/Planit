@@ -6,6 +6,7 @@ import Button from "../element/Button";
 import { loginMemberDB, setCheck } from "../redux/modules/memberSlice";
 import { logo } from "../static/images";
 import { IoIosClose } from "react-icons/io";
+import { useEffect } from "react";
 
 const LogInPage = () => {
   const [email, setEmail] = useState("");
@@ -42,6 +43,10 @@ const LogInPage = () => {
       onLoginHandler();
     }
   };
+
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
 
   return (
     <>
