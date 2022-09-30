@@ -14,7 +14,7 @@ const LogoPage = () => {
     <LogoPageCont>
       <LogoBox>
         <img src={logo} alt="로고 이미지" />
-        <p>서버 점검 중 입니다.</p>
+        {/* <p>서버 점검 중 입니다.</p> */}
       </LogoBox>
     </LogoPageCont>
   );

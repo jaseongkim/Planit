@@ -5,26 +5,31 @@ import { useState } from "react";
 
 export default function WklyPlanetEdit({
   isOpen,
-  planetType,
-  planetSize,
-  planetColor,
-  planetLevel,
   onEditSheetClose,
+  clickedPlanet,
 }) {
-  const [size, setSize] = useState(44);
-  const [color, setColor] = useState(1);
+
+  // console.log("Checking ClickP in wklyP" ,clickedPlanet)
+
+  // const [size, setSize] = useState(clickedPlanet === null && clickedPlanet.planetSize );
+  // const [color, setColor] = useState(clickedPlanet === null && clickedPlanet.planetColor);
 
   const handleSizeChange = (size) => {
     setSize(parseInt(size));
   };
 
+
+
   return (
     <CustomSheet isOpen={isOpen}>
-      <StyImg
-        // src={require(`../static/images/planets/planet${planetType}${planetColor}${planetLevel}.png`)}
-        src={require(`../../static/images/planets/planet1${color}3.png`)}
+      {console.log("checking" , clickedPlanet)}
+      { clickedPlanet !== null && 
+      (<StyImg
+        src={require(`../../static/images/planets/planet${clickedPlanet.planetType}${clickedPlanet.planetColor}${clickedPlanet.planetLevel}.png`)}
+        // src={require(`../../static/images/planets/planet1${color}3.png`)}
         planetSize={size}
-      />
+      />)
+    }
       <CustomSheet.Container>
         <CustomSheet.Content>
           <ContentWrap>

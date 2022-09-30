@@ -28,6 +28,8 @@ const WklyTodo = () => {
 
   const [isEditOpen, setEditOpen] = useState(false);
 
+  const [clickedPlanet, setClickedPlanet] = useState(null)
+
   // Redux : weeklyPlants useSelector
   const wkPlanets = useSelector((state) => state.planetSlice.planets);
 
@@ -39,6 +41,21 @@ const WklyTodo = () => {
   const onEditSheetClose = (size, color) => {
     setEditOpen(false);
   };
+
+  const onClickHandler = (planet) => {
+    console.log("Checking planet ", planet) 
+
+  
+    setClickedPlanet({
+    planetColor: planet.planetColor,
+    planetLevel: planet.planetLevel,
+    planetSize: planet.planetSize,
+    planetType: planet.planetType
+    })
+
+    setEditOpen(true);
+
+  }
 
   // Getting a week of month from a given monday date
   // This source code is from https://falsy.me/javascript-입력한-날짜의-해당-달-기준-주차-구하기/
@@ -168,6 +185,7 @@ const WklyTodo = () => {
                     <StyImg
                       src={require(`../static/images/planets/planet${planet.planetType}${planet.planetColor}${planet.planetLevel}.png`)}
                       planetSize={planet.planetSize}
+                      onClick={() => onClickHandler(planet)}
                     />
                   </>
                 )}
@@ -177,11 +195,12 @@ const WklyTodo = () => {
         </StyCircleCon>
         <BtmFitNavi name="WklyTodo" wkPlanets={wkPlanets}></BtmFitNavi>
       </StyTodoCon>
-      <WklyPlanetEdit
+      {/* <WklyPlanetEdit
         // isOpen={true}
         isOpen={isEditOpen}
         onEditSheetClose={onEditSheetClose}
-      />
+        clickedPlanet={clickedPlanet}
+      /> */}
     </>
   );
 };

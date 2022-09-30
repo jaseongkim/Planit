@@ -398,14 +398,14 @@ const DlyTodo = () => {
                     <img src={delete_icon} alt="삭제 아이콘" />
                     삭제
                   </button>
-                  <button
+                  {/* <button
                     onClick={() => {
                       onClickChgDateModal();
                     }}
                   >
                     <img src={calendar_icon_gray} alt="날짜변경 아이콘" />
                     날짜변경하기
-                  </button>
+                  </button> */}
                 </ContentFooter>
               )}
             </CustomSheet.Content>
@@ -414,14 +414,14 @@ const DlyTodo = () => {
         </CustomSheet>
       </StyContentWrap>
       <BtmFitNavi name="dlytodo" />
-      <ChgDateModal
+      {/* <ChgDateModal
         onClose={() => setShowModal(false)}
         showModal={showModal}
         setShowModal={setShowModal}
         dateValue={dateValue}
         clickedTodo={clickedTodo}
         clickedCategIndex={clickedCategIndex}
-      ></ChgDateModal>
+      ></ChgDateModal> */}
     </StyDlyTodoCon>
   );
 };
