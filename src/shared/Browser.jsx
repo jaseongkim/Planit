@@ -1,23 +1,40 @@
 // React
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 // React Component
 import styled from "styled-components";
 import Menu from "../components/hamburNavi/Menu";
 import Router from "./Router";
+import LogoPage from "../pages/LogoPage";
 // Icons
 import Stars from "../element/stars/Stars";
 // Context API
 import { AppContext } from "../context";
 
 export default function Brower() {
+  
   // Context API : opening & closing burgar navi
   const { open, setOpen } = useContext(AppContext);
+
+  // Hook : To loading LogoPage
+  const [loading, setLoading] = useState(true);
+
+  // after rendering, trigger useEffect that has the setLoading.
+  // The setLoading state will change to loading true
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 1000);
+  }, []);
 
   return (
     <Back>
       <MobileWrap open={open}>
-        <Router />
-        <Menu open={open} setOpen={setOpen} />
+        {loading === true ? (
+          <LogoPage></LogoPage>
+        ) : (
+          <>
+            <Router />
+            <Menu open={open} setOpen={setOpen} />
+          </>
+        )}
       </MobileWrap>
       <Stars></Stars>
     </Back>
