@@ -152,6 +152,7 @@ const SignUpInputBox = styled.div`
 
     &::placeholder {
       color: #fff;
+      opacity: 50%;
     }
   }
 

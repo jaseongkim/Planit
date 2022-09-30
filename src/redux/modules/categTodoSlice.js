@@ -63,7 +63,6 @@ export const deleteCategThunk = createAsyncThunk(
       });
     } catch (error) {
       if (error.response.data.status === 400) {
-        window.alert(error.response.data.message);
       }
       // return thunkAPI.rejectWithValue(error)
     }

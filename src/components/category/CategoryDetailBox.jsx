@@ -29,6 +29,8 @@ export default function CategoryDetailBox() {
     (category) => category.categoryId === Number(id)
   );
 
+  console.log(categoriesDetail);
+
   const initialState = {
     categoryName:
       categoriesDetail === undefined ? "" : categoriesDetail.categoryName,
@@ -51,6 +53,16 @@ export default function CategoryDetailBox() {
   const onChangeHandler = (event) => {
     const { name, value } = event.target;
     setCategory({ ...category, [name]: value });
+  };
+
+  const onDeleteSelect = () => {
+    if (categoriesDetail.isEmpty === true) {
+      setSelect(1);
+      setModal(true);
+    } else {
+      setSelect(3);
+      setModal(true);
+    }
   };
 
   const onDeleteHandler = () => {
@@ -138,6 +150,15 @@ export default function CategoryDetailBox() {
               setModal(false);
             }}
           />,
+          <CategoryModal
+            text1={"할 일이 있으면 삭제할 수 없어요."}
+            onCancel={() => {
+              setModal(false);
+            }}
+            onClose={() => {
+              setModal(false);
+            }}
+          />,
         ][select]}
       {/* 카테고리 modal창 끝 */}
       <CategoryWrap>
@@ -183,14 +204,7 @@ export default function CategoryDetailBox() {
                 </button>
               </CategoryOptionItem>
               <CategoryOptionItem>
-                <button
-                  onClick={() => {
-                    setModal(true);
-                    setSelect(1);
-                  }}
-                >
-                  카테고리 삭제하기
-                </button>
+                <button onClick={onDeleteSelect}>카테고리 삭제하기</button>
               </CategoryOptionItem>
             </>
           ) : (
@@ -206,14 +220,7 @@ export default function CategoryDetailBox() {
                 </button>
               </CategoryOptionItem>
               <CategoryOptionItem>
-                <button
-                  onClick={() => {
-                    setModal(true);
-                    setSelect(1);
-                  }}
-                >
-                  카테고리 삭제하기
-                </button>
+                <button onClick={onDeleteSelect}>카테고리 삭제하기</button>
               </CategoryOptionItem>
             </>
           )}
