@@ -14,6 +14,14 @@ const GlobalStyle = createGlobalStyle`
     outline : none;
     font-family: 'PretendardVariable', sans-serif;
     font-weight: 500;
+
+    // 스크롤바 없애기
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+    &::-webkit-scrollbar {
+      display: none; /* Chrome , Safari , Opera */
+    
+  }
   }
 
   body {

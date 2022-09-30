@@ -10,15 +10,14 @@ import Stars from "../element/stars/Stars";
 import { AppContext } from "../context";
 
 export default function Brower() {
-  
   // Context API : opening & closing the burgar navi
   const { open, setOpen } = useContext(AppContext);
 
   return (
     <Back>
       <MobileWrap open={open}>
-            <Router />
-            <Menu open={open} setOpen={setOpen} />
+        <Router />
+        <Menu open={open} setOpen={setOpen} />
       </MobileWrap>
       <Stars></Stars>
     </Back>
@@ -47,11 +46,6 @@ const MobileWrap = styled.div`
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
     rgba(0, 0, 0, 0.22) 0px 10px 10px;
   z-index: 10;
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-  &::-webkit-scrollbar {
-    display: none; /* Chrome , Safari , Opera */
-  }
 
   @media (max-width: 425px) {
     box-shadow: none;
