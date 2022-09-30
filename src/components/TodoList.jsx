@@ -27,7 +27,6 @@ const TodoList = ({
   parsedToday,
   parsedCurrDate,
 }) => {
-
   // Redux : dispatch
   const dispatch = useDispatch();
 
@@ -72,7 +71,7 @@ const TodoList = ({
         createTodoThunk({
           addTodoObj,
         })
-      )
+      );
 
       document.getElementById(
         `disable${clickedTodo.todoInfo.todoId}`
@@ -103,10 +102,9 @@ const TodoList = ({
     ).disabled = true;
   };
 
-  // Changing the clicked checkbox's check status & updating achievenment count and planet level 
+  // Changing the clicked checkbox's check status & updating achievenment count and planet level
   // When the checkbox get checked or not, updating redux planet's state as well
   const onhandleCheckBox = (todo, categIndex, todoIndex) => {
-   
     const updateTodoCkObj = {
       todoId: todo.todoId,
       categIndex: categIndex,
@@ -117,49 +115,49 @@ const TodoList = ({
     };
 
     if (document.getElementById(`checkbox${todo.todoId}`).checked === true) {
-      dispatch(updateTodoCkThunk({ updateTodoCkObj }))
-        .then((response) =>{
-          if(response.meta.requestStatus === "fulfilled"){
-      dispatch(getDayPlanetThunk(selectedDate));
-          }
-        }
-        );
-      
-    } else {
-      dispatch(updateTodoCkThunk({ updateTodoCkObj }))
-       .then((response) =>{
-         if(response.meta.requestStatus === "fulfilled"){
+      dispatch(updateTodoCkThunk({ updateTodoCkObj })).then((response) => {
+        if (response.meta.requestStatus === "fulfilled") {
           dispatch(getDayPlanetThunk(selectedDate));
-         }
-       });
+        }
+      });
+    } else {
+      dispatch(updateTodoCkThunk({ updateTodoCkObj })).then((response) => {
+        if (response.meta.requestStatus === "fulfilled") {
+          dispatch(getDayPlanetThunk(selectedDate));
+        }
+      });
     }
   };
 
   return (
-    <TodoListCon> 
+    <TodoListCon>
       {todos.map((inputs, index) => {
         return (
           <TodoItemCon key={`${inputs.todoId}`}>
             <TodoTitle>
               <CheckTxtboxWrap>
                 <CustomCheck>
-                {inputs.isAchieved === true ? (
-                  <input
-                    id={`checkbox${inputs.todoId}`}
-                    type="checkbox"
-                    onChange={() => onhandleCheckBox(inputs, categIndex, index)}
-                    disabled={parsedCurrDate < parsedToday ? true : false}
-                    checked={true}
-                  />
-                  ) : ( 
+                  {inputs.isAchieved === true ? (
                     <input
-                    id={`checkbox${inputs.todoId}`}
-                    type="checkbox"
-                    onChange={() => onhandleCheckBox(inputs, categIndex, index)}
-                    disabled={parsedCurrDate < parsedToday ? true : false}
-                    checked={false}
-                  />
-                    )}
+                      id={`checkbox${inputs.todoId}`}
+                      type="checkbox"
+                      onChange={() =>
+                        onhandleCheckBox(inputs, categIndex, index)
+                      }
+                      disabled={parsedCurrDate < parsedToday ? true : false}
+                      checked={true}
+                    />
+                  ) : (
+                    <input
+                      id={`checkbox${inputs.todoId}`}
+                      type="checkbox"
+                      onChange={() =>
+                        onhandleCheckBox(inputs, categIndex, index)
+                      }
+                      disabled={parsedCurrDate < parsedToday ? true : false}
+                      checked={false}
+                    />
+                  )}
                   <div></div>
                 </CustomCheck>
                 {inputs.todoId === undefined ? (
@@ -251,6 +249,7 @@ const CheckTxtboxWrap = styled.div`
     }
     &::placeholder {
       color: #fff;
+      opacity: 50%;
     }
   }
 `;
@@ -285,24 +284,5 @@ const CustomCheck = styled.div`
     background: #aabce0;
     opacity: 40%;
     border-radius: 100px;
-  }
-`;
-
-const MemoWrap = styled.div`
-  display: none;
-  margin-top: 5px;
-  padding: 5px 0;
-  textarea {
-    width: 100%;
-    height: 100px;
-  }
-  div {
-    display: flex;
-    justify-content: flex-end;
-  }
-  button {
-    &:not(:first-child) {
-      margin-left: 5px;
-    }
   }
 `;
