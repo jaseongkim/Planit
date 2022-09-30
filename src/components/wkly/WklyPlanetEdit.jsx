@@ -11,9 +11,6 @@ export default function WklyPlanetEdit({ isOpen, planet, onEditSheetClose }) {
     setSize(parseInt(size));
   };
 
-  console.log("planet: ", planet);
-  console.log("color: ", color);
-
   return (
     <CustomSheet isOpen={isOpen}>
       <StyImg

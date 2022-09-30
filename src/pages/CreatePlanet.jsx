@@ -51,7 +51,7 @@ const CreatePlanet = () => {
       createPlanetThunk({ planetType: planetTypeRef.current, parsedCurrDate })
     );
 
-    // navigate("/dlytodo")
+    navigate("/dlytodo")
   };
 
   // If one of planets get clicked,
