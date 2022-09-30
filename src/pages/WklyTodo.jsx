@@ -26,36 +26,28 @@ const WklyTodo = () => {
   // Hook : A date that let user to choose different date from the WeekMover
   const [dateValue, setDateValue] = useState(new Date());
 
+  const [planet, setPlanet] = useState(null);
   const [isEditOpen, setEditOpen] = useState(false);
 
-  const [clickedPlanet, setClickedPlanet] = useState(null)
+  const [clickedPlanet, setClickedPlanet] = useState(null);
 
   // Redux : weeklyPlants useSelector
   const wkPlanets = useSelector((state) => state.planetSlice.planets);
 
   const today = new Date().getDate();
 
-  const onEditSheetOpen = () => {
+  const onEditSheetOpen = (planet) => {
+    setPlanet({
+      type: planet.planetType,
+      color: planet.planetColor,
+      size: planet.planetSize,
+      level: planet.planetLevel,
+    });
     setEditOpen(true);
   };
-  const onEditSheetClose = (size, color) => {
+  const onEditSheetClose = (color, size) => {
     setEditOpen(false);
   };
-
-  const onClickHandler = (planet) => {
-    console.log("Checking planet ", planet) 
-
-  
-    setClickedPlanet({
-    planetColor: planet.planetColor,
-    planetLevel: planet.planetLevel,
-    planetSize: planet.planetSize,
-    planetType: planet.planetType
-    })
-
-    setEditOpen(true);
-
-  }
 
   // Getting a week of month from a given monday date
   // This source code is from https://falsy.me/javascript-입력한-날짜의-해당-달-기준-주차-구하기/
@@ -183,9 +175,9 @@ const WklyTodo = () => {
                   <>
                     {planet.dueDate.substring(8, 10)}
                     <StyImg
+                      onClick={() => onEditSheetOpen(planet)}
                       src={require(`../static/images/planets/planet${planet.planetType}${planet.planetColor}${planet.planetLevel}.png`)}
                       planetSize={planet.planetSize}
-                      onClick={() => onClickHandler(planet)}
                     />
                   </>
                 )}
@@ -195,12 +187,13 @@ const WklyTodo = () => {
         </StyCircleCon>
         <BtmFitNavi name="WklyTodo" wkPlanets={wkPlanets}></BtmFitNavi>
       </StyTodoCon>
-      {/* <WklyPlanetEdit
-        // isOpen={true}
-        isOpen={isEditOpen}
-        onEditSheetClose={onEditSheetClose}
-        clickedPlanet={clickedPlanet}
-      /> */}
+      {planet === null ? null : (
+        <WklyPlanetEdit
+          isOpen={isEditOpen}
+          planet={planet}
+          onEditSheetClose={onEditSheetClose}
+        />
+      )}
     </>
   );
 };

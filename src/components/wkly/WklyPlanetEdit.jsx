@@ -3,33 +3,20 @@ import styled from "styled-components";
 import Sheet from "react-modal-sheet";
 import { useState } from "react";
 
-export default function WklyPlanetEdit({
-  isOpen,
-  onEditSheetClose,
-  clickedPlanet,
-}) {
-
-  // console.log("Checking ClickP in wklyP" ,clickedPlanet)
-
-  // const [size, setSize] = useState(clickedPlanet === null && clickedPlanet.planetSize );
-  // const [color, setColor] = useState(clickedPlanet === null && clickedPlanet.planetColor);
+export default function WklyPlanetEdit({ isOpen, planet, onEditSheetClose }) {
+  const [color, setColor] = useState(planet.color);
+  const [size, setSize] = useState(planet.size);
 
   const handleSizeChange = (size) => {
     setSize(parseInt(size));
   };
 
-
-
   return (
     <CustomSheet isOpen={isOpen}>
-      {console.log("checking" , clickedPlanet)}
-      { clickedPlanet !== null && 
-      (<StyImg
-        src={require(`../../static/images/planets/planet${clickedPlanet.planetType}${clickedPlanet.planetColor}${clickedPlanet.planetLevel}.png`)}
-        // src={require(`../../static/images/planets/planet1${color}3.png`)}
+      <StyImg
+        src={require(`../../static/images/planets/planet${planet.type}${color}${planet.level}.png`)}
         planetSize={size}
-      />)
-    }
+      />
       <CustomSheet.Container>
         <CustomSheet.Content>
           <ContentWrap>
@@ -38,7 +25,7 @@ export default function WklyPlanetEdit({
                 <EditTitle>크기</EditTitle>
                 <EditSubmit
                   onClick={() => {
-                    onEditSheetClose(size, color);
+                    onEditSheetClose(color, size);
                   }}
                 >
                   확인

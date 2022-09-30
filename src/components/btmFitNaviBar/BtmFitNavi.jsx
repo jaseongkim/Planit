@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
 
 const BtmFitNavi = ({ name, wkPlanets }) => {
-  
   // Navigate
   const navigate = useNavigate();
 
@@ -39,7 +38,7 @@ const BtmFitNavi = ({ name, wkPlanets }) => {
       (planet) => planet.dueDate === parsedCurrDate
     );
 
-    if(currPlanet?.planetType === null || currPlanet?.planetType === 0) {
+    if (currPlanet?.planetType === null || currPlanet?.planetType === 0) {
       navigate("/createplanet");
     } else {
       setActiveTabs("dlytodo");
@@ -114,7 +113,7 @@ const StyBtmTabWrap = styled.div`
   border-radius: 10px;
 `;
 
-const StyBtmTab = styled.div`
+const StyBtmTab = styled.button`
   ${(props) => {
     switch (props.date) {
       case "dlytodo":
@@ -124,6 +123,8 @@ const StyBtmTab = styled.div`
           justify-content: center;
           width: 50%;
           height: 35px;
+          background: transparent;
+          border: none;
           border-radius: 8px;
 
           &.day {
@@ -139,6 +140,8 @@ const StyBtmTab = styled.div`
           display: flex;
           justify-content: center;
           align-items: center;
+          background: transparent;
+          border: none;
           border-radius: 8px;
 
           &.week {
