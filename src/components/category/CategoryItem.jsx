@@ -16,10 +16,7 @@ export default function CategoryItem(props) {
         onClickHandler(props.category?.categoryId);
       }}
     >
-      <CategoryTitle>
-        <StyCategLabel
-          categoryColor={props.category?.categoryColor}
-        ></StyCategLabel>
+      <CategoryTitle categoryColor={props.category?.categoryColor}>
         {props.category?.categoryName}
       </CategoryTitle>
       <img src={next_icon} alt="next arrow" />
@@ -41,11 +38,5 @@ const CategoryWrap = styled.div`
 const CategoryTitle = styled.div`
   display: flex;
   align-items: center;
-`;
-
-const StyCategLabel = styled.div`
-  width: 3px;
-  height: 16px;
-  margin-right: 8px;
-  background: ${(props) => props.categoryColor};
+  color: ${(props) => props.categoryColor};
 `;

@@ -27,15 +27,9 @@ const TodoList = ({
   parsedToday,
   parsedCurrDate,
 }) => {
-  // const checkedRef = useRef()
-  // const uncheckedRef = useRef()
 
   // Redux : dispatch
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    // console.log("This is useEffect from the TodoList")
-  }, []);
 
   // Specifying todo & memo info a new todo
   const handleFormChange = (index, event) => {
@@ -78,7 +72,7 @@ const TodoList = ({
         createTodoThunk({
           addTodoObj,
         })
-      );
+      )
 
       document.getElementById(
         `disable${clickedTodo.todoInfo.todoId}`
@@ -109,12 +103,10 @@ const TodoList = ({
     ).disabled = true;
   };
 
-  // Changing the clicked checkbox's check status
+  // Changing the clicked checkbox's check status & updating achievenment count and planet level 
   // When the checkbox get checked or not, updating redux planet's state as well
   const onhandleCheckBox = (todo, categIndex, todoIndex) => {
-    // console.log("Checking checkedRef useRef", checkedRef.current.id)
-    // console.log("Checking uncheckRefuseRef", uncheckedRef.current.id)
-
+   
     const updateTodoCkObj = {
       todoId: todo.todoId,
       categIndex: categIndex,
@@ -125,17 +117,26 @@ const TodoList = ({
     };
 
     if (document.getElementById(`checkbox${todo.todoId}`).checked === true) {
-      dispatch(updateTodoCkThunk({ updateTodoCkObj }));
+      dispatch(updateTodoCkThunk({ updateTodoCkObj }))
+        .then((response) =>{
+          if(response.meta.requestStatus === "fulfilled"){
       dispatch(getDayPlanetThunk(selectedDate));
+          }
+        }
+        );
+      
     } else {
-      dispatch(updateTodoCkThunk({ updateTodoCkObj }));
-      dispatch(getDayPlanetThunk(selectedDate));
+      dispatch(updateTodoCkThunk({ updateTodoCkObj }))
+       .then((response) =>{
+         if(response.meta.requestStatus === "fulfilled"){
+          dispatch(getDayPlanetThunk(selectedDate));
+         }
+       });
     }
   };
 
   return (
-    <TodoListCon>
-      {/* {console.log("This is return in TodoList")} */}
+    <TodoListCon> 
       {todos.map((inputs, index) => {
         return (
           <TodoItemCon key={`${inputs.todoId}`}>
@@ -161,7 +162,6 @@ const TodoList = ({
                     )}
                   <div></div>
                 </CustomCheck>
-                {/* {console.log("Check inputs", inputs)} */}
                 {inputs.todoId === undefined ? (
                   <input
                     autoFocus

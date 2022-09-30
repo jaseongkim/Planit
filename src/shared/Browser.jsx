@@ -25,7 +25,15 @@ export default function Brower() {
 }
 
 const Back = styled.div`
-  background: linear-gradient(180deg, #121212 0%, #0f3a71 60%, #2e5c97 100%);
+  /* background: linear-gradient(180deg, #121212 0%, #0f3a71 60%, #2e5c97 100%); */
+  background: linear-gradient(
+    180deg,
+    #121212 0%,
+    #17519e 59.37%,
+    #256ece 74.48%,
+    #4c92f0 85.94%,
+    #accbf9 100%
+  );
 `;
 
 const MobileWrap = styled.div`

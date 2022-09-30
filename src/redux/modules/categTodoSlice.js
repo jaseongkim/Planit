@@ -62,7 +62,9 @@ export const deleteCategThunk = createAsyncThunk(
         }
       });
     } catch (error) {
-      console.log(error);
+      if (error.response.data.status === 400) {
+        window.alert(error.response.data.message);
+      }
       // return thunkAPI.rejectWithValue(error)
     }
   }
@@ -135,24 +137,19 @@ export const updateTodoCkThunk = createAsyncThunk(
   }
 );
 
-// Updating the added todo's due date to server 
+// Updating the added todo's due date to server
 export const updateTodoDateThunk = createAsyncThunk(
   "todo/updateTodoCheck",
   async (payload, thunkAPI) => {
     try {
-      console.log("Check paylaod", payload)
+      console.log("Check paylaod", payload);
       const { data } = await apis.updateTodoDate(payload);
-      // return thunkAPI.fulfillWithValue({
-      //   todo: data.data,
-      //   index: payload.updateTodoCkObj,
-      // });
-      console.log("Check date", data.data)
+      return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
-      console.log("Check error" ,error)
+      return thunkAPI.rejectWithValue(error);
     }
   }
 );
-
 
 // Updating the added todo's memo to server & state
 export const updateTodoMemoThunk = createAsyncThunk(
@@ -322,6 +319,23 @@ const categTodoSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
+
+    // // delete selected todo
+    // [updateTodoDateThunk.pending]: (state) => {
+    //   state.isLoading = true;
+    // },
+    // [updateTodoDateThunk.fulfilled]: (state, action) => {
+    //   state.isLoading = false;
+
+    //   // const categIndex = action.payload.categIndex;
+    //   // const todoIndex = action.payload.todoIndex;
+
+    //   // state.categories[categIndex].todos.splice(todoIndex, 1);
+    // },
+    // [updateTodoDateThunk.rejected]: (state, action) => {
+    //   state.isLoading = false;
+    //   state.error = action.payload;
+    // },
   },
 });
 

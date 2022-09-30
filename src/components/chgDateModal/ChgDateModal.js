@@ -1,10 +1,11 @@
 // React
-import React, { useState } from 'react';
+import React, { useState } from "react";
 // Redux
 import { useDispatch } from "react-redux";
-import {
-  updateTodoDateThunk,
-} from "../../redux/modules/categTodoSlice.js";
+import { updateTodoDateThunk } from "../../redux/modules/categTodoSlice.js";
+// import {
+//   getCategThunk
+// } from "../redux/modules/categTodoSlice.js";
 // Styled-Component
 import styled from "styled-components";
 // Calendar
@@ -14,92 +15,109 @@ import "react-calendar/dist/Calendar.css";
 // React-icons
 import { prev_icon, next_icon } from "../../static/images/";
 
-const ChgDateModal = ({showModal, onClose, dateValue, setShowModal, clickedTodo}) => {
+const ChgDateModal = ({
+  showModal,
+  onClose,
+  dateValue,
+  setShowModal,
+  clickedTodo,
+  clickedCategIndex,
+}) => {
+  // Redux : dispatch
+  const dispatch = useDispatch();
 
-    // Redux : dispatch
-    const dispatch = useDispatch();
-   
-    // Hook : To get the selected DateTodo from the calendar
-    const [dateTodo, setDateTodo] = useState(new Date(dateValue));
+  // console.log("Check dateValue", dateValue)
 
-    // Var ; A Parsed date in format yyyy/mm/dd from the calendar
-    const parsedFullDate = `${dateTodo.getFullYear()}-${String(
-      dateTodo.getMonth() + 1
-    ).padStart(2, "0")}-${String(dateTodo.getDate()).padStart(2, "0")}`;
+  // Hook : To get the selected DateTodo from the calendar
+  const [dateTodo, setDateTodo] = useState(dateValue);
 
-    // if showModal is false, the modal will not be shown
-    if (!showModal){
-        return null
-    }
+  // Var ; A Parsed date in format yyyy/mm/dd from the calendar
+  const parsedFullDate = `${dateTodo.getFullYear()}-${String(
+    dateTodo.getMonth() + 1
+  ).padStart(2, "0")}-${String(dateTodo.getDate()).padStart(2, "0")}`;
 
-    const onClickHandler = () => {
-        console.log("Check parsedfullDate", parsedFullDate)
+  // if showModal is false, the modal will not be shown
+  if (!showModal) {
+    return null;
+  }
 
-        console.log("Check ", clickedTodo.todoInfo.todoId)
+  const onClickHandler = () => {
+    // console.log("Check here in onCickHandler", dateTodo)
+    // console.log("Check parsedfullDate", parsedFullDate)
 
-        const updateTodoDateObj = {
-          todoId: clickedTodo.todoInfo.todoId,
-          todoReq: {
-            dueDate: parsedFullDate
-          },
-        };
+    // console.log("Check ", clickedTodo)
 
-        dispatch(updateTodoDateThunk(updateTodoDateObj))
-        setShowModal(false);
-    }
+    const updateTodoDateObj = {
+      todoId: clickedTodo.todoInfo.todoId,
+      todoIndex: clickedTodo.todoIndex,
+      categIndex: clickedCategIndex,
+      todoReq: {
+        dueDate: parsedFullDate,
+      },
+    };
 
-    return (
-        <ModalCon>
-            <ModalContent>
-                <ModalHeader>
-                    <h4 className='modal-title'>Modal title</h4>
-                </ModalHeader>
-                <ModalBody>
-                    <Calendar
-                    onChange={setDateTodo}
-                    value={dateTodo}
-                    formatDay={(locale, date) => moment(date).format("DD")}
-                    />
-                </ModalBody>
-                <ModalFooter>
-                    <button onClick={onClose} className='button'>close</button>
-                    <button onClick={onClickHandler} className='button'>완료</button>
-                </ModalFooter>
-            </ModalContent>
-        </ModalCon>
-    );
+    console.log("Hey why is it you?");
+    dispatch(updateTodoDateThunk(updateTodoDateObj));
+    setShowModal(false);
+  };
+
+  return (
+    <ModalCon>
+      <ModalContent>
+        {/* {console.log("Check here", dateTodo)} */}
+        <ModalHeader>
+          <h4 className="modal-title">Modal title</h4>
+        </ModalHeader>
+        <ModalBody>
+          <Calendar
+            onChange={setDateTodo}
+            value={dateValue}
+            formatDay={(locale, date) => moment(date).format("DD")}
+          />
+        </ModalBody>
+        <ModalFooter>
+          <button onClick={onClose} className="button">
+            close
+          </button>
+          <button onClick={() => onClickHandler()} className="button">
+            완료
+          </button>
+        </ModalFooter>
+      </ModalContent>
+    </ModalCon>
+  );
 };
 
 export default ChgDateModal;
 
 const ModalCon = styled.div`
-    position: fixed;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0,0,0,0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center; 
-`
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 
 const ModalContent = styled.div`
-    width: 70%;
-    background-color: #fff;
+  width: 70%;
+  background-color: #fff;
 `;
 
 const ModalHeader = styled.div`
-   padding: 10px;
+  padding: 10px;
 `;
 
 const ModalBody = styled.div`
-    padding: 10px;
-    border-top: 1px solid #eee;
-    border-bottom: 1px solid #eee;
-    font-size: 0.8rem;
+  padding: 10px;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  font-size: 0.8rem;
 
-    /* .react-calendar {
+  /* .react-calendar {
     background: transparent;
     border: none;
 
@@ -224,6 +242,5 @@ const ModalBody = styled.div`
 `;
 
 const ModalFooter = styled.div`
-    padding: 10px;
-  
+  padding: 10px;
 `;
