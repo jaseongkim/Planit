@@ -46,11 +46,11 @@ const DlyTodo = () => {
   // Redux : dispatch
   const dispatch = useDispatch();
 
-  // Redux useSelector : categories useSelector
-  const categories = useSelector((state) => state.categTodoSlice.categories);
-
   // Redux useSelector : planet useSelector
   const planet = useSelector((state) => state.planetSlice.planet);
+
+  // Redux useSelector : categories useSelector
+  const categories = useSelector((state) => state.categTodoSlice.categories);
 
   // Hook : whether to open the change date modal
   const [showModal, setShowModal] = useState(false);
@@ -118,12 +118,17 @@ const DlyTodo = () => {
   };
 
   // UseEffect : Getting categories & to-do lists as well as date from the calendar
+  // Dispatchig PlanetThunk first => getCategThunk
   useEffect(() => {
     concatSelDate.current = parsedFullDate;
-    console.log("Checkig here");
-    dispatch(getCategThunk(concatSelDate.current));
-    dispatch(getDayPlanetThunk(concatSelDate.current));
-  }, [dateValue]);
+    dispatch(getDayPlanetThunk(concatSelDate.current))
+    .then((response) =>{
+      if(response.meta.requestStatus === "fulfilled"){
+        dispatch(getCategThunk(concatSelDate.current));
+      }
+    }
+    );
+  }, [parsedFullDate, dispatch]);
 
   // Adding a new todo
   const addTodo = ({ input, index }) => {
@@ -277,17 +282,27 @@ const DlyTodo = () => {
                 </CircleBox>
               ) : (
                 <CircleBox>
-                  {planet.length === 0 ||
-                  planet.planetType === 0 ||
-                  planet.planetColor === null ||
-                  planet.planetSize === null ||
-                  planet.planetLevel === null ? null : (
+                  {(planet.length !== 0 ||
+                    planet.planetType !== 0 ||
+                    planet.planetColor !== null ||
+                    planet.planetSize !== null ||
+                    planet.planetLevel !== null) && (
                     <StyImg
                       src={require(`../static/images/planets/planet${planet.planetType}${planet.planetColor}${planet.planetLevel}.png`)}
-                      planetSize={planet.planetSize}
+                      planetSize={planet?.planetSize}
                     />
                   )}
-                  <p>다음 단계까지 3개 남았어요.</p>
+                  {planet.planetLevel === 1 ? (
+                    <p>{`다음 단계까지 ${
+                      5 - planet.achievementCnt
+                    }개 남았어요.`}</p>
+                  ) : planet.planetLevel === 2 ? (
+                    <p>{`다음 단계까지 ${
+                      10 - planet.achievementCnt
+                    }개 남았어요.`}</p>
+                  ) : (
+                    <p>마지막 단계를 달성했어요</p>
+                  )}
                 </CircleBox>
               )}
             </StyCircleWrap>
@@ -316,17 +331,14 @@ const DlyTodo = () => {
               return (
                 <TodoCon key={index}>
                   {parsedCurrDate < parsedToday ? (
-                    <TodoBtn disabled>
-                      <StyCategLabel
-                        categoryColor={input.categoryColor}
-                      ></StyCategLabel>
+                    <TodoBtn categoryColor={input.categoryColor} disabled>
                       {input.categoryName}
                     </TodoBtn>
                   ) : (
-                    <TodoBtn onClick={() => addTodo({ input, index })}>
-                      <StyCategLabel
-                        categoryColor={input.categoryColor}
-                      ></StyCategLabel>
+                    <TodoBtn
+                      onClick={() => addTodo({ input, index })}
+                      categoryColor={input.categoryColor}
+                    >
                       {input.categoryName}
                       <FiPlus></FiPlus>
                     </TodoBtn>
@@ -386,14 +398,14 @@ const DlyTodo = () => {
                     <img src={delete_icon} alt="삭제 아이콘" />
                     삭제
                   </button>
-                  <button
+                  {/* <button
                     onClick={() => {
                       onClickChgDateModal();
                     }}
                   >
                     <img src={calendar_icon_gray} alt="날짜변경 아이콘" />
                     날짜변경하기
-                  </button>
+                  </button> */}
                 </ContentFooter>
               )}
             </CustomSheet.Content>
@@ -402,13 +414,14 @@ const DlyTodo = () => {
         </CustomSheet>
       </StyContentWrap>
       <BtmFitNavi name="dlytodo" />
-      <ChgDateModal
+      {/* <ChgDateModal
         onClose={() => setShowModal(false)}
         showModal={showModal}
         setShowModal={setShowModal}
         dateValue={dateValue}
         clickedTodo={clickedTodo}
-      ></ChgDateModal>
+        clickedCategIndex={clickedCategIndex}
+      ></ChgDateModal> */}
     </StyDlyTodoCon>
   );
 };
@@ -661,7 +674,7 @@ const TodoBtn = styled.button`
   display: flex;
   align-items: center;
   font-size: 18px;
-  color: #fff;
+  color: ${(props) => props.categoryColor};
   text-align: left;
   background: transparent;
   border: none;
@@ -670,13 +683,6 @@ const TodoBtn = styled.button`
     color: #fff;
     margin-left: 5px;
   }
-`;
-
-const StyCategLabel = styled.div`
-  width: 3px;
-  height: 16px;
-  margin-right: 8px;
-  background: ${(props) => props.categoryColor};
 `;
 
 const CustomSheet = styled(Sheet)`

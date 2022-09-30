@@ -3,16 +3,9 @@ import styled from "styled-components";
 import Sheet from "react-modal-sheet";
 import { useState } from "react";
 
-export default function WklyPlanetEdit({
-  isOpen,
-  planetType,
-  planetSize,
-  planetColor,
-  planetLevel,
-  onEditSheetClose,
-}) {
-  const [size, setSize] = useState(44);
-  const [color, setColor] = useState(1);
+export default function WklyPlanetEdit({ isOpen, planet, onEditSheetClose }) {
+  const [color, setColor] = useState(planet.color);
+  const [size, setSize] = useState(planet.size);
 
   const handleSizeChange = (size) => {
     setSize(parseInt(size));
@@ -21,8 +14,7 @@ export default function WklyPlanetEdit({
   return (
     <CustomSheet isOpen={isOpen}>
       <StyImg
-        // src={require(`../static/images/planets/planet${planetType}${planetColor}${planetLevel}.png`)}
-        src={require(`../../static/images/planets/planet1${color}3.png`)}
+        src={require(`../../static/images/planets/planet${planet.type}${color}${planet.level}.png`)}
         planetSize={size}
       />
       <CustomSheet.Container>
@@ -33,7 +25,7 @@ export default function WklyPlanetEdit({
                 <EditTitle>크기</EditTitle>
                 <EditSubmit
                   onClick={() => {
-                    onEditSheetClose(size, color);
+                    onEditSheetClose(color, size);
                   }}
                 >
                   확인

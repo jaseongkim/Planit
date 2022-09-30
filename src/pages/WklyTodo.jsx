@@ -26,17 +26,26 @@ const WklyTodo = () => {
   // Hook : A date that let user to choose different date from the WeekMover
   const [dateValue, setDateValue] = useState(new Date());
 
+  const [planet, setPlanet] = useState(null);
   const [isEditOpen, setEditOpen] = useState(false);
+
+  const [clickedPlanet, setClickedPlanet] = useState(null);
 
   // Redux : weeklyPlants useSelector
   const wkPlanets = useSelector((state) => state.planetSlice.planets);
 
   const today = new Date().getDate();
 
-  const onEditSheetOpen = () => {
+  const onEditSheetOpen = (planet) => {
+    setPlanet({
+      type: planet.planetType,
+      color: planet.planetColor,
+      size: planet.planetSize,
+      level: planet.planetLevel,
+    });
     setEditOpen(true);
   };
-  const onEditSheetClose = (size, color) => {
+  const onEditSheetClose = (color, size) => {
     setEditOpen(false);
   };
 
@@ -166,6 +175,7 @@ const WklyTodo = () => {
                   <>
                     {planet.dueDate.substring(8, 10)}
                     <StyImg
+                      onClick={() => onEditSheetOpen(planet)}
                       src={require(`../static/images/planets/planet${planet.planetType}${planet.planetColor}${planet.planetLevel}.png`)}
                       planetSize={planet.planetSize}
                     />
@@ -177,11 +187,13 @@ const WklyTodo = () => {
         </StyCircleCon>
         <BtmFitNavi name="WklyTodo" wkPlanets={wkPlanets}></BtmFitNavi>
       </StyTodoCon>
-      <WklyPlanetEdit
-        // isOpen={true}
-        isOpen={isEditOpen}
-        onEditSheetClose={onEditSheetClose}
-      />
+      {planet === null ? null : (
+        <WklyPlanetEdit
+          isOpen={isEditOpen}
+          planet={planet}
+          onEditSheetClose={onEditSheetClose}
+        />
+      )}
     </>
   );
 };

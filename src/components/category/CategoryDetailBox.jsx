@@ -141,7 +141,7 @@ export default function CategoryDetailBox() {
         <InputBox>
           <input
             maxLength={10}
-            // style={{ color: `${category.categoryColor}` }}
+            style={{ color: `${category.categoryColor}` }}
             type={"text"}
             name="categoryName"
             value={category.categoryName}
