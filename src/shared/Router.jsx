@@ -16,12 +16,13 @@ import MyPage from "../pages/MyPage";
 import NickName from "../components/mypage/NickName";
 import Password from "../components/mypage/Password";
 
+
 const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<LogInPage />} />
-        <Route path="/logopage" element={<LogoPage />} />
+        <Route path="/" element={<LogoPage />} />
+        <Route path="/login" element={<LogInPage />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/welcome" element={<Welcome />} />
         <Route path="/dlytodo" element={<DlyTodo />} />

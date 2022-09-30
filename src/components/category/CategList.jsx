@@ -5,6 +5,7 @@ import CategoryItem from "./CategoryItem.jsx";
 import { getOnlyCategThunk } from "../../redux/modules/categTodoSlice.js";
 
 const CategList = () => {
+  
   // Redux : dispatch
   const dispatch = useDispatch();
 
