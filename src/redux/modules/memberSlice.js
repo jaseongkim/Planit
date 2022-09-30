@@ -63,42 +63,26 @@ export const kakaoLoginDB = (code) => {
   };
 };
 
-export const updateNickName = createAsyncThunk(
-  "member/updateNickName",
+export const updateMember = createAsyncThunk(
+  "member/updatePassword",
   async (payload, thunkAPI) => {
-    // for (const keyValue of payload.formData) console.log(keyValue);
     await apis
       .memberUpdate(payload.formData)
       .then((response) => {
         if (response.data.success === false) {
           return window.alert(response.data.message);
         } else {
-          return (
-            localStorage.removeItem("nickname"),
-            localStorage.setItem("nickname", payload.nickName),
-            window.location.replace("/mypage")
-          );
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-        if (error.response.status === 400) {
-          alert(error.response.data.message);
-        }
-      });
-  }
-);
-
-export const updatePassword = createAsyncThunk(
-  "member/updatePassword",
-  async (formData, thunkAPI) => {
-    await apis
-      .memberUpdate(formData)
-      .then((response) => {
-        if (response.data.success === false) {
-          return window.alert(response.data.message);
-        } else {
-          return window.location.replace("/mypage");
+          if (payload.select === "image") {
+            return;
+          } else if (payload.select === "nickname") {
+            return (
+              localStorage.removeItem("nickname"),
+              localStorage.setItem("nickname", payload.nickName),
+              window.location.replace("/mypage")
+            );
+          } else {
+            return window.location.replace("/mypage");
+          }
         }
       })
       .catch((error) => {

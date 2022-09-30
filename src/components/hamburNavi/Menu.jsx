@@ -2,17 +2,39 @@ import React from "react";
 import { bool } from "prop-types";
 import styled from "styled-components";
 import { profile_default, next_icon } from "../../static/images";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getProfileThunk } from "../../redux/modules/membersSlice";
+import { AiOutlineBorderRight } from "react-icons/ai";
 
 const Menu = ({ open, setOpen }) => {
+  const dispatch = useDispatch();
+
+  const memberId = localStorage.getItem("memberId");
+
+  const memberProfile = useSelector((state) => state.membersSlice.profile);
+
+  useEffect(() => {
+    if (open === true) {
+      dispatch(getProfileThunk(memberId));
+    }
+  }, [dispatch, memberId, open]);
+
   return (
     <StyMenuCont open={open}>
       <StyBackgroud onClick={() => setOpen(false)}></StyBackgroud>
       <StyledMenu open={open}>
         <MyInfoCont>
-          <StyProfileImg></StyProfileImg>
+          <StyProfileImg>
+            <img
+              src={memberProfile?.profileImgUrl}
+              alt="프로필 이미지"
+              style={{ width: "66px", height: "66px", borderRadius: "100px" }}
+            />
+          </StyProfileImg>
           <MyInfoWrap>
             <a href="/mypage">
-              닉네임
+              {memberProfile?.nickname}
               <img src={next_icon} alt="화살표 아이콘" />
             </a>
             {/* <FollowBox>
@@ -83,9 +105,6 @@ const MyInfoCont = styled.div`
 const StyProfileImg = styled.div`
   min-width: 66px;
   height: 66px;
-  background-image: url(${profile_default});
-  background-repeat: no-repeat;
-  background-position: center;
 `;
 
 const MyInfoWrap = styled.div`
