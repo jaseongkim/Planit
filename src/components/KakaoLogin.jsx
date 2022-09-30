@@ -2,7 +2,8 @@ import styled from "styled-components";
 
 export default function KakaoLogin() {
   const REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
-  const REDIRECT_URI = "http://localhost:3000/kakao";
+  const REDIRECT_URI = "http://localhost:3000/login/kakao";
+  // const REDIRECT_URI = "https://planit-todo.com/kakao";
 
   return (
     <Kakao
