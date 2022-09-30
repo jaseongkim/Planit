@@ -1,26 +1,30 @@
 import React, { useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { updatePassword } from "../../redux/modules/memberSlice";
+import { updateMember } from "../../redux/modules/memberSlice";
+import { getProfileThunk } from "../../redux/modules/membersSlice";
 import { profile_default, camera_icon } from "../../static/images";
 
 export default function Profile() {
   const dispatch = useDispatch();
 
-  const nicName = localStorage.getItem("nickname");
+  const memberId = localStorage.getItem("memberId");
 
-  const [fileImage, setFileImage] = useState(""); // 프로필 이미지 파일을 저장할 변수
-  // 이미지가 없을 시 기본 프로필
-  const [image, setImage] = useState(`${profile_default}`);
+  const memberProfile = useSelector((state) => state.membersSlice.profile);
+
+  // 바뀐 이미지
+  const [image, setImage] = useState("");
 
   const fileInput = useRef(null);
 
   const onProfileChange = (e) => {
+    const formData = new FormData();
+
     if (e.target.files[0]) {
-      setFileImage(e.target.files[0]);
+      formData.append("image", e.target.files[0]);
     } else {
       //업로드 취소할 시
-      setImage(`${profile_default}`);
       return;
     }
     const reader = new FileReader();
@@ -31,22 +35,28 @@ export default function Profile() {
       }
     };
     reader.readAsDataURL(e.target.files[0]);
+
+    const blob = new Blob([JSON.stringify({})], {
+      type: "application/json",
+    });
+
+    formData.append("data", blob);
+
+    const select = "image";
+
+    dispatch(updateMember({ formData, select }));
   };
 
-  const onUpdateHandler = () => {
-    const formData = new FormData();
-
-    formData.append("image", fileImage);
-
-    dispatch(updatePassword(formData));
-  };
+  useEffect(() => {
+    dispatch(getProfileThunk(memberId));
+  }, [dispatch, memberId]);
 
   return (
     <ProfileContainer>
       <ProfileWrap>
         <ProfileImage>
           <img
-            src={image}
+            src={image ? image : memberProfile?.profileImgUrl}
             alt="이미지"
             style={{ width: "66px", height: "66px", borderRadius: "100px" }}
           />
@@ -67,7 +77,7 @@ export default function Profile() {
           </div>
         </ProfileImage>
         <MyInfoWrap>
-          <p>{nicName}</p>
+          <p>{memberProfile?.nickname}</p>
           {/* <FollowBox>
             <button>
               팔로워<span>12</span>

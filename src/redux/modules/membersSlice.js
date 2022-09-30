@@ -13,8 +13,27 @@ export const getMemberThunk = createAsyncThunk(
   }
 );
 
+export const getProfileThunk = createAsyncThunk(
+  "GET_Profil",
+  async (id, thunkAPI) => {
+    try {
+      const { data } = await apis.mypageProfile(id);
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.code);
+    }
+  }
+);
+
 const initialState = {
   membersList: [],
+  profile: {
+    memberId: "",
+    nickname: "",
+    profileImgUrl: "",
+    followerCnt: 0,
+    followingCnt: 0,
+  },
 };
 
 const membersSlice = createSlice({
@@ -27,6 +46,12 @@ const membersSlice = createSlice({
     },
     [getMemberThunk.rejected]: () => {},
     [getMemberThunk.pending]: () => {},
+
+    [getProfileThunk.fulfilled]: (state, action) => {
+      state.profile = action.payload;
+    },
+    [getProfileThunk.rejected]: () => {},
+    [getProfileThunk.pending]: () => {},
   },
 });
 
