@@ -203,7 +203,6 @@ export default WklyTodo;
 const StyTodoCon = styled.div`
   display: ${(props) => (props.isEditOpen ? "none" : "block")};
   /* display: ${(props) => (!props.isEditOpen ? "none" : "block")}; */
-  overflow: scroll;
 `;
 
 const StyHeader = styled.div`
