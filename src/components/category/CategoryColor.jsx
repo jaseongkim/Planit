@@ -78,6 +78,7 @@ const CustomSheet = styled(Sheet)`
     width: 100%;
     background-color: #5d646b !important;
     padding: 24px 0 40px;
+    border-radius: 16px 16px 0 0 !important;
   }
 
   .react-modal-sheet-content {

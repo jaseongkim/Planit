@@ -24,18 +24,18 @@ export default function CategoryModal(props) {
         </ModalContents>
       </ModalBody>
       <ModalFooter>
-        <div
+        <button
           style={{ display: `${onCancel ? null : "none"}` }}
           onClick={onClose}
         >
           {onConfirm ? "취소" : "확인"}
-        </div>
-        <div
+        </button>
+        <button
           style={{ display: `${onConfirm ? null : "none"}` }}
           onClick={onConfirm}
         >
           확인
-        </div>
+        </button>
       </ModalFooter>
     </Modal>
   );
@@ -83,11 +83,11 @@ const ModalFooter = styled.div`
   width: 100%;
   height: 64px;
   display: flex;
-  background-color: #1671fa;
+  overflow: hidden;
   border-bottom-left-radius: 16px;
   border-bottom-right-radius: 16px;
 
-  & > div {
+  button {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -96,9 +96,16 @@ const ModalFooter = styled.div`
     font-size: 20px;
     font-weight: 500;
     line-height: 20px;
+    background: #1671fa;
     color: #fff;
-    border-bottom-left-radius: 16px;
-    border-bottom-right-radius: 16px;
+    box-sizing: border-box;
+    border: none;
     cursor: pointer;
+
+    &:first-child {
+      & + button {
+        border-left: 2px solid #6aa1e9;
+      }
+    }
   }
 `;

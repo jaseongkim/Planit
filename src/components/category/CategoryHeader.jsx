@@ -1,13 +1,18 @@
-import { useNavigate } from "react-router-dom";
+// React Navigation
+import { useNavigate, useParams, useLocation } from "react-router-dom";
+// Styled Component
 import styled from "styled-components";
+// Icons
 import { prev_icon } from "../../static/images";
 import { FiPlus } from "react-icons/fi";
-import { useParams } from "react-router-dom";
 
 export default function CategoryHeader() {
   const navigate = useNavigate();
 
-  let { id } = useParams();
+  // Getting URL's ID
+  let { id } = useParams(); 
+  // Getting Component's URL name
+  let currentPath = useLocation();
 
   const onPlusHandler = (e) => {
     e.stopPropagation();
@@ -17,9 +22,14 @@ export default function CategoryHeader() {
   return (
     <HeaderWrap>
       <HeaderTitle>
-        <button onClick={() => navigate("/dlytodo")}>
+        {currentPath.pathname === '/category' ?  
+        (<button onClick={() => navigate("/WklyTodo")}>
+        <img src={prev_icon} alt="뒤" />
+      </button>) :
+        (<button onClick={() => navigate(-1)}>
           <img src={prev_icon} alt="뒤" />
-        </button>
+        </button>) 
+        }
         <NicknameDiv>카테고리</NicknameDiv>
       </HeaderTitle>
       {id === undefined ? (
