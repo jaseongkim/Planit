@@ -107,6 +107,7 @@ const CustomSheet = styled(Sheet)`
     width: 100%;
     background-color: #597498 !important;
     padding: 24px 0 40px;
+    border-radius: 16px 16px 0 0 !important;
   }
 
   .react-modal-sheet-content {
@@ -167,6 +168,7 @@ const SizeRange = styled.div`
   display: flex;
   align-items: center;
   margin: 28px 0;
+  padding: 0 20px;
 
   input[type="range"] {
     -webkit-appearance: none;

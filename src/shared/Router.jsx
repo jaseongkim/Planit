@@ -16,7 +16,6 @@ import MyPage from "../pages/MyPage";
 import NickName from "../components/mypage/NickName";
 import Password from "../components/mypage/Password";
 
-
 const Router = () => {
   return (
     <BrowserRouter>

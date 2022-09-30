@@ -122,13 +122,11 @@ const DlyTodo = () => {
   // Dispatchig PlanetThunk first => getCategThunk
   useEffect(() => {
     concatSelDate.current = parsedFullDate;
-    dispatch(getDayPlanetThunk(concatSelDate.current))
-    .then((response) =>{
-      if(response.meta.requestStatus === "fulfilled"){
+    dispatch(getDayPlanetThunk(concatSelDate.current)).then((response) => {
+      if (response.meta.requestStatus === "fulfilled") {
         dispatch(getCategThunk(concatSelDate.current));
       }
-    }
-    );
+    });
   }, [parsedFullDate, dispatch]);
 
   // Adding a new todo
@@ -577,7 +575,8 @@ const CalendarWrap = styled.div`
       background: transparent;
     }
     .react-calendar__tile--now {
-      background: #8b98ac !important;
+      background: transparent !important;
+      border: 1px solid #1671fa;
       abbr {
         font-weight: 600;
       }
@@ -614,6 +613,7 @@ const StyCircleWrap = styled.div`
 
   p {
     margin-top: 16px;
+    margin-bottom: 0;
   }
 `;
 
@@ -645,6 +645,7 @@ const CircleBox = styled.div`
 
 const StyImg = styled.img`
   height: ${(props) => props.planetSize * 1.5}px;
+  margin-top: 10px;
 `;
 
 const StyStareBox = styled.div`
@@ -662,7 +663,6 @@ const StyStareBox = styled.div`
 
 const Section = styled.div`
   position: relative;
-  margin-top: 30px;
 `;
 
 const TodoCon = styled.div`
@@ -697,6 +697,7 @@ const CustomSheet = styled(Sheet)`
     width: 100%;
     background-color: #516d93 !important;
     padding: 24px 0 40px;
+    border-radius: 16px 16px 0 0 !important;
   }
 
   .react-modal-sheet-content {
