@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Sheet from "react-modal-sheet";
 import { useState } from "react";
+import { useEffect } from "react";
 
 export default function WklyPlanetEdit({ isOpen, planet, onEditSheetClose }) {
   const [color, setColor] = useState(planet.color);
@@ -11,9 +12,15 @@ export default function WklyPlanetEdit({ isOpen, planet, onEditSheetClose }) {
     setSize(parseInt(size));
   };
 
+  useEffect(() => {
+    setColor(planet.color);
+    setSize(planet.size);
+  }, [isOpen]);
+
   return (
     <CustomSheet isOpen={isOpen}>
       <StyImg
+        isOpen={isOpen}
         src={require(`../../static/images/planets/planet${planet.type}${color}${planet.level}.png`)}
         planetSize={size}
       />
