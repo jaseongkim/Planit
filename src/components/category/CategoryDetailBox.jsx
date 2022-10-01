@@ -6,15 +6,16 @@ import styled from "styled-components";
 import {
   createCategThunk,
   deleteCategThunk,
+  getOnlyCategThunk,
   updateCategThunk,
 } from "../../redux/modules/categTodoSlice";
 import { select_arrow } from "../../static/images";
 import CategoryScope from "./CategoryScope";
 import CategoryColor from "./CategoryColor";
 import CategoryModal from "./CategoryModal";
+import { useEffect } from "react";
 
 export default function CategoryDetailBox() {
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const categories = useSelector(
@@ -28,8 +29,6 @@ export default function CategoryDetailBox() {
   categoriesDetail = categories?.find(
     (category) => category.categoryId === Number(id)
   );
-
-  console.log(categoriesDetail);
 
   const initialState = {
     categoryName:
