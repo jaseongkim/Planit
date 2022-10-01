@@ -15,10 +15,13 @@ import CreatePlanet from "../pages/CreatePlanet";
 import MyPage from "../pages/MyPage";
 import NickName from "../components/mypage/NickName";
 import Password from "../components/mypage/Password";
+import NotFoundPage from "../pages/NotFoundPage";
+import MaintPage from "../pages/MaintPage";
+
 // Google Analytics
 import ReactGA from "react-ga";
-import LogoPageFix from "../pages/LogoPageFix";
-const TRACKING_ID = "G-PRSD98XLNQ"; // MEASUREMENT ID
+
+const TRACKING_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS; // MEASUREMENT ID
 ReactGA.initialize(TRACKING_ID);
 
 const Router = () => {
@@ -31,6 +34,8 @@ const Router = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LogoPage />} />
+        <Route path="/notfound" element={<NotFoundPage />} />
+        <Route path="/maintPage" element={<MaintPage />} />
         <Route path="/login" element={<LogInPage />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/welcome" element={<Welcome />} />
