@@ -52,7 +52,7 @@ export const loginMemberDB = createAsyncThunk(
             ),
             localStorage.setItem("nickname", response.data.data.nickname),
             localStorage.setItem("isKako", response.data.data.isKakao),
-            window.location.replace("/wklyTodo")
+            window.location.replace("/wklytodo")
           );
         }
       });
@@ -81,7 +81,7 @@ export const kakaoLoginDB = createAsyncThunk(
             ),
             localStorage.setItem("nickname", response.data.data.nickname),
             localStorage.setItem("isKako", response.data.data.isKakao),
-            window.location.replace("/wklyTodo")
+            window.location.replace("/wklytodo")
           );
         }
       });

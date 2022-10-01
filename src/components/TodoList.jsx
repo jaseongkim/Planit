@@ -253,7 +253,8 @@ const CheckTxtboxWrap = styled.div`
       opacity: 50%;
     }
     &:disabled {
-      color: #fff !important;
+      opacity: 1;
+      -webkit-text-fill-color: inherit;
     }
   }
 `;

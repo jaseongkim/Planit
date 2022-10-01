@@ -194,7 +194,7 @@ const WklyTodo = () => {
             );
           })}
         </StyCircleCon>
-        <BtmFitNavi name="wklyTodo" wkPlanets={wkPlanets}></BtmFitNavi>
+        <BtmFitNavi name="wklytodo" wkPlanets={wkPlanets}></BtmFitNavi>
       </StyTodoCon>
       {planet === null ? null : (
         <WklyPlanetEdit
@@ -253,7 +253,7 @@ const StyCircleCon = styled.div`
   transform: translateX(-50%);
   width: 100%;
   max-width: 375px;
-  height: 100vh;
+  /* height: 100vh; */
   min-height: 812px;
   z-index: -1;
 `;

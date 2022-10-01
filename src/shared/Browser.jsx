@@ -48,7 +48,6 @@ const MobileWrap = styled.div`
   max-width: 375px;
   height: calc(var(--vh, 1vh) * 100);
   overflow-x: hidden;
-  overflow-y: ${(props) => (props.open ? "hidden" : "visible")};
   margin: 0 auto;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
     rgba(0, 0, 0, 0.22) 0px 10px 10px;
