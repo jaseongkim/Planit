@@ -55,7 +55,7 @@ const TodoList = ({
         todoIndex: index,
         categIndex: categIndex,
       };
-      dispatch(delMtyTodo(mtyTodo));
+      // dispatch(delMtyTodo(mtyTodo));
     } else {
       const addTodoObj = {
         categId: categId,

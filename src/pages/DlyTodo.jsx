@@ -130,7 +130,7 @@ const DlyTodo = () => {
 
   // Adding a new todo
   const addTodo = ({ input, index }) => {
-    console.log("Checking input", input);
+
     if (input.todos[input.todos.length - 1]?.title !== "") {
       const mtyCateg = {
         categIndex: index,
@@ -143,6 +143,7 @@ const DlyTodo = () => {
       dispatch(addMtyTodo(mtyCateg));
       console.log("Checking here", document.getElementById("disable133"));
     }
+  
   };
 
   // Enabling to edit todo by closing the modalSheet
