@@ -17,6 +17,7 @@ import NickName from "../components/mypage/NickName";
 import Password from "../components/mypage/Password";
 // Google Analytics
 import ReactGA from "react-ga";
+import LogoPageFix from "../pages/LogoPageFix";
 const TRACKING_ID = "G-PRSD98XLNQ"; // MEASUREMENT ID
 ReactGA.initialize(TRACKING_ID);
 
@@ -44,6 +45,7 @@ const Router = () => {
         <Route path="/password" element={<Password />} />
         <Route path="/category" element={<Category />} />
         <Route path="/categorydetail/:id" element={<CategoryDetail />} />
+        <Route path="*" element={<LogoPageFix />} />
       </Routes>
     </BrowserRouter>
   );
