@@ -10,7 +10,6 @@ export default function Following() {
 
   const dispatch = useDispatch();
   let followers = useSelector((state) => state.followSlice.following);
-  console.log(followers);
 
   useEffect(() => {
     dispatch(getFollowingThunk(memberId));

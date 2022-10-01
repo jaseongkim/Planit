@@ -7,7 +7,6 @@ export const createMemberDB = (data) => {
     await apis
       .createMember(data)
       .then((response) => {
-        console.log("Checking response ", response);
         if (response.data.success === false) {
           return window.alert(response.data.error.message);
         } else {

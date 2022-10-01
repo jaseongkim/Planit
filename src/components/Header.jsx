@@ -15,8 +15,6 @@ const Header = ({ showCalendar, setShowCalendar }) => {
   // Getting Component's URL name
   let currentPath = useLocation();
 
-  console.log(currentPath);
-
   // // Context API : opening & closing burgar navi
   const { open, setOpen } = useContext(AppContext);
 
