@@ -183,13 +183,13 @@ export default function CategoryDetailBox() {
           />
         </InputBox>
         <CategoryOption>
-          <CategoryOptionItem>
+          {/* <CategoryOptionItem>
             <CategoryOptionTitle>공개 범위</CategoryOptionTitle>
             <button onClick={onScopeSheetOpen}>
               {category.isPublic ? "나만보기" : "전체공개"}
               <img src={select_arrow} alt="셀렉트 화살표 아이콘" />
             </button>
-          </CategoryOptionItem>
+          </CategoryOptionItem> */}
           <CategoryOptionItem>
             <CategoryOptionTitle>색상</CategoryOptionTitle>
             <button onClick={onColorSheetOpen}>
@@ -243,11 +243,11 @@ export default function CategoryDetailBox() {
         <StySubmitButton onClick={onConfirmHandler}>확인</StySubmitButton>
       )}
 
-      <CategoryScope
+      {/* <CategoryScope
         isOpen={isScopeOpen}
         onScopeSheetClose={onScopeSheetClose}
         isPublic={category.isPublic}
-      />
+      /> */}
       <CategoryColor
         isOpen={isColorOpen}
         onColorSheetClose={onColorSheetClose}
