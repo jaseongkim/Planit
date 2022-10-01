@@ -4,7 +4,7 @@ import { next_icon } from "../../static/images";
 
 export default function MyPageItem(props) {
   const REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
-  const LOGOUT_REDIRECT_URI = "http://localhost:3000/login";
+  const LOGOUT_REDIRECT_URI = "https://planit-todo.com/login";
   const navigate = useNavigate();
   const isKakao = localStorage.getItem("isKako");
 

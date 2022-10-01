@@ -86,6 +86,7 @@ export const kakaoLoginDB = createAsyncThunk(
         }
       });
     } catch (error) {
+      console.log(error);
       return thunkAPI.rejectWithValue(error.code);
     }
   }
