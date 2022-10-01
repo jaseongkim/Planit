@@ -17,6 +17,7 @@ import NickName from "../components/mypage/NickName";
 import Password from "../components/mypage/Password";
 import NotFoundPage from "../pages/NotFoundPage";
 import MaintPage from "../pages/MaintPage";
+import LogoPageFix from "../pages/LogoPageFix"
 
 const Router = () => {
 
