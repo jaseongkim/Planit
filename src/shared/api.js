@@ -17,11 +17,16 @@ api.interceptors.request.use(function (config) {
 });
 
 api.interceptors.response.use(
+  
   function (response) {
     return response;
   },
 
   async function (error) {
+    // When 400 error occur, redirect to maintPage 
+    if(error.response.status === 400){
+      window.location.replace("/maintPage");
+    }
     // console.log(error);
     if (error.response.status === 401) {
       try {
