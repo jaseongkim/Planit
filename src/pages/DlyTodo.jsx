@@ -361,7 +361,7 @@ const DlyTodo = () => {
           onClose={() => setOpenBtmSheet(false)}
         >
           <CustomSheet.Container>
-            <CustomSheet.Content>
+            <CustomSheet.Content disableDrag={true}>
               <ContentHeader>
                 <EditTitleWrap>
                   <EditTitle>{clickedTodo.todoInfo.title}</EditTitle>
