@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { BrowserRouter, Route, Routes, Redirect } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LogoPage from "../pages/LogoPage";
 import LogInPage from "../pages/LogInPage";
 import SignUp from "../pages/SignUp";
@@ -15,7 +15,9 @@ import CreatePlanet from "../pages/CreatePlanet";
 import MyPage from "../pages/MyPage";
 import NickName from "../components/mypage/NickName";
 import Password from "../components/mypage/Password";
+import NotFoundPage from "../pages/NotFoundPage";
 import MaintPage from "../pages/MaintPage";
+
 // Google Analytics
 import ReactGA from "react-ga";
 const TRACKING_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS; // MEASUREMENT ID
@@ -31,6 +33,7 @@ const Router = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LogoPage />} />
+        <Route path="/notfound" element={<NotFoundPage />} />
         <Route path="/maintPage" element={<MaintPage />} />
         <Route path="/login" element={<LogInPage />} />
         <Route path="/signup" element={<SignUp />} />

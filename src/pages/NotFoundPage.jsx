@@ -5,19 +5,19 @@ import styled from "styled-components";
 // Img
 import { logo } from "../static/images";
 
-const MaintPage = () => {
+const NotFoundPage = () => {
 
   return (
     <LogoPageCont>
       <LogoBox>
         <img src={logo} alt="로고 이미지" />
-        <p>서버 점검 중 입니다.</p>
+        <p>찾을 수없는 페이지 입니다</p>
       </LogoBox>
     </LogoPageCont>
   );
 };
 
-export default MaintPage;
+export default NotFoundPage;
 
 const LogoPageCont = styled.div``;
 

@@ -24,8 +24,11 @@ api.interceptors.response.use(
 
   async function (error) {
     // When 400 error occur, redirect to maintPage 
-    if(error.response.status === 400){
+    if(error.response.status === 404 ){
       window.location.replace("/maintPage");
+    }
+    if(error.response.status === 501 ){
+      window.location.replace("/notfound");
     }
     // console.log(error);
     if (error.response.status === 401) {
