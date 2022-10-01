@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import Sheet from "react-modal-sheet";
 import { useState } from "react";
 
 export default function CategoryScope({ isOpen, isPublic, onScopeSheetClose }) {
   const [scope, setScope] = useState(isPublic);
+
+  useEffect(() => {
+    setScope(isPublic);
+  }, [isOpen, isPublic]);
 
   return (
     <CustomSheet isOpen={isOpen}>

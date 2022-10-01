@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import Sheet from "react-modal-sheet";
 import { useState } from "react";
@@ -9,6 +9,10 @@ export default function CategoryColor({
   onColorSheetClose,
 }) {
   const [color, setColor] = useState(categoryColor);
+
+  useEffect(() => {
+    setColor(categoryColor);
+  }, [isOpen, categoryColor]);
 
   return (
     <CustomSheet isOpen={isOpen}>

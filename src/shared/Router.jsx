@@ -20,6 +20,7 @@ import MaintPage from "../pages/MaintPage";
 
 // Google Analytics
 import ReactGA from "react-ga";
+
 const TRACKING_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS; // MEASUREMENT ID
 ReactGA.initialize(TRACKING_ID);
 
@@ -49,6 +50,7 @@ const Router = () => {
         <Route path="/password" element={<Password />} />
         <Route path="/category" element={<Category />} />
         <Route path="/categorydetail/:id" element={<CategoryDetail />} />
+        <Route path="*" element={<LogoPageFix />} />
       </Routes>
     </BrowserRouter>
   );

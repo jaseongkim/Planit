@@ -24,6 +24,7 @@ export default function CategoryDetailBox() {
     categoryColor: "#fff",
     isPublic: false,
     categoryStatus: "NOT_STOP",
+    isEmpty: true,
   };
 
   const [category, setCategory] = useState(initialState);
@@ -94,8 +95,8 @@ export default function CategoryDetailBox() {
     setColorOpen(false);
   };
 
-  const getCategoryDetail = async () => {
-    await apis
+  const getCategoryDetail = () => {
+    apis
       .getOnlyCategorie()
       .then((response) => {
         if (response.data.sucess === false) {
@@ -105,7 +106,10 @@ export default function CategoryDetailBox() {
             const categoryDetail = response.data.data.find(
               (category) => category.categoryId === Number(id)
             );
-            setCategory(categoryDetail);
+
+            return setCategory(categoryDetail);
+          } else {
+            return;
           }
         }
       })
