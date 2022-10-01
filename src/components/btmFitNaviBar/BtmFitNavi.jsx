@@ -16,8 +16,8 @@ const BtmFitNavi = ({ name, wkPlanets }) => {
   // UseEffect : when activeTabs get changed, useEffect will be triggered again
   useEffect(() => {
     switch (activeTabs) {
-      case "WklyTodo":
-        navigate("/WklyTodo");
+      case "wklyTodo":
+        navigate("/wklyTodo");
         break;
       default:
         navigate("/dlytodo");
@@ -52,7 +52,7 @@ const BtmFitNavi = ({ name, wkPlanets }) => {
           <StyBtmTab
             className="week"
             date={activeTabs}
-            onClick={() => setActiveTabs("WklyTodo")}
+            onClick={() => setActiveTabs("wklyTodo")}
           >
             Week
           </StyBtmTab>

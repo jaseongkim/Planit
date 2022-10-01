@@ -13,7 +13,10 @@ import WklyPlanetEdit from "../components/wkly/WklyPlanetEdit";
 import { achieved_icon, like_icon_on } from "../static/images";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
-import { getWeekPlanetsThunk } from "../redux/modules/planetSlice";
+import {
+  getWeekPlanetsThunk,
+  updatePlanetThunk,
+} from "../redux/modules/planetSlice";
 // Element
 import Circle from "../element/Circle.jsx";
 
@@ -36,6 +39,7 @@ const WklyTodo = () => {
 
   const onEditSheetOpen = (planet) => {
     setPlanet({
+      dueDate: planet.dueDate,
       type: planet.planetType,
       color: planet.planetColor,
       size: planet.planetSize,
@@ -43,7 +47,14 @@ const WklyTodo = () => {
     });
     setEditOpen(true);
   };
-  const onEditSheetClose = (color, size) => {
+  const onEditSheetClose = (color, size, dueDate) => {
+    const data = {
+      dueDate: dueDate,
+      planetSize: size,
+      planetColor: color,
+    };
+    dispatch(updatePlanetThunk(data));
+
     setEditOpen(false);
   };
 
@@ -131,7 +142,7 @@ const WklyTodo = () => {
     //   if (planet.planetType !== null && planet.planetType !== 0)
     //     planetCntRef.current++;
     // });
-  }, [dateValue]);
+  }, [dateValue, isEditOpen]);
 
   return (
     <>
@@ -183,7 +194,7 @@ const WklyTodo = () => {
             );
           })}
         </StyCircleCon>
-        <BtmFitNavi name="WklyTodo" wkPlanets={wkPlanets}></BtmFitNavi>
+        <BtmFitNavi name="wklyTodo" wkPlanets={wkPlanets}></BtmFitNavi>
       </StyTodoCon>
       {planet === null ? null : (
         <WklyPlanetEdit
