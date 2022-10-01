@@ -165,4 +165,6 @@ export const apis = {
     api.post(
       `/todo-list?dueDate=${data.parsedCurrDate}&planetType=${data.planetType}`
     ),
+
+  updatePlanet: (data) => api.patch("/todo-list", data),
 };
