@@ -17,11 +17,19 @@ api.interceptors.request.use(function (config) {
 });
 
 api.interceptors.response.use(
+  
   function (response) {
     return response;
   },
 
   async function (error) {
+    // When 400 error occur, redirect to maintPage 
+    if(error.response.status === 404 ){
+      window.location.replace("/maintPage");
+    }
+    if(error.response.status === 501 ){
+      window.location.replace("/notfound");
+    }
     // console.log(error);
     if (error.response.status === 401) {
       try {
