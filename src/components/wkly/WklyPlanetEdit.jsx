@@ -7,12 +7,14 @@ import { useEffect } from "react";
 export default function WklyPlanetEdit({ isOpen, planet, onEditSheetClose }) {
   const [color, setColor] = useState(planet.color);
   const [size, setSize] = useState(planet.size);
+  const [dueDate, setDueDate] = useState(planet.dueDate);
 
   const handleSizeChange = (size) => {
     setSize(parseInt(size));
   };
 
   useEffect(() => {
+    setDueDate(planet.dueDate);
     setColor(planet.color);
     setSize(planet.size);
   }, [isOpen]);
@@ -25,14 +27,14 @@ export default function WklyPlanetEdit({ isOpen, planet, onEditSheetClose }) {
         planetSize={size}
       />
       <CustomSheet.Container>
-        <CustomSheet.Content>
+        <CustomSheet.Content disableDrag={true}>
           <ContentWrap>
             <ContentHeader>
               <EditTitleWrap>
                 <EditTitle>크기</EditTitle>
                 <EditSubmit
                   onClick={() => {
-                    onEditSheetClose(color, size);
+                    onEditSheetClose(color, size, dueDate);
                   }}
                 >
                   확인

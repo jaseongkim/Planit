@@ -33,14 +33,33 @@ export const createPlanetThunk = createAsyncThunk(
   "planet/createPlanetThunk",
   async (payload, thunkAPI) => {
     try {
-      console.log("Checking payload", payload)
+      console.log("Checking payload", payload);
       const { data } = await apis.postPlanet(payload);
       // return thunkAPI.fulfillWithValue(data.data);
-      console.log(data.data)
+      console.log(data.data);
       // window.location.replace("/dlytodo");
     } catch (e) {
       // return thunkAPI.rejectWithValue(e.code);
-      console.log(e)
+      console.log(e);
+    }
+  }
+);
+
+export const updatePlanetThunk = createAsyncThunk(
+  "planet/updatePlanetThunk",
+  async (payload, thunkAPI) => {
+    try {
+      console.log("Checking payload", payload);
+      const { data } = await apis.updatePlanet(payload).then((response) => {
+        if (response.data.success === false) {
+        } else {
+          window.location.replace("/wklyTodo");
+        }
+      });
+      // return thunkAPI.fulfillWithValue(data.data);
+    } catch (e) {
+      // return thunkAPI.rejectWithValue(e.code);
+      // console.log(e);
     }
   }
 );
@@ -57,8 +76,7 @@ const followSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-
-    // Getting all the seven days Planets 
+    // Getting all the seven days Planets
     [getWeekPlanetsThunk.pending]: (state) => {
       state.isLoading = true;
     },
