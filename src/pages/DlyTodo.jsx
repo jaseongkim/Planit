@@ -259,7 +259,13 @@ const DlyTodo = () => {
                   ) : (
                     <StyImg
                       src={require(`../static/images/planets/planet${planet.planetType}${planet.planetColor}${planet.planetLevel}.png`)}
-                      planetSize={planet.planetSize}
+                      planetSize={
+                        planet.planetLevel === "1"
+                          ? 44
+                          : planet.planetLevel === "2"
+                          ? 60
+                          : 100
+                      }
                     />
                   )}
                   {/* <p>
@@ -287,7 +293,13 @@ const DlyTodo = () => {
                     planet.planetLevel !== null) && (
                     <StyImg
                       src={require(`../static/images/planets/planet${planet.planetType}${planet.planetColor}${planet.planetLevel}.png`)}
-                      planetSize={planet?.planetSize}
+                      planetSize={
+                        planet.planetLevel === "1"
+                          ? 44
+                          : planet.planetLevel === "2"
+                          ? 60
+                          : 100
+                      }
                     />
                   )}
                   {planet.planetLevel === 1 ? (
