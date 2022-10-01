@@ -8,13 +8,12 @@ export default function CategoryColor({
   categoryColor,
   onColorSheetClose,
 }) {
-  
   const [color, setColor] = useState(categoryColor);
 
   return (
     <CustomSheet isOpen={isOpen}>
       <CustomSheet.Container>
-        <CustomSheet.Content>
+        <CustomSheet.Content disableDrag={true}>
           <ContentHeader>
             <EditTitleWrap>
               <EditTitle>색상</EditTitle>

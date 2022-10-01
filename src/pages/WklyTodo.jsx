@@ -199,6 +199,7 @@ const WklyTodo = () => {
       {planet === null ? null : (
         <WklyPlanetEdit
           isOpen={isEditOpen}
+          disableDrag={false}
           planet={planet}
           onEditSheetClose={onEditSheetClose}
         />

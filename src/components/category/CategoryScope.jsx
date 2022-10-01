@@ -9,7 +9,7 @@ export default function CategoryScope({ isOpen, isPublic, onScopeSheetClose }) {
   return (
     <CustomSheet isOpen={isOpen}>
       <CustomSheet.Container>
-        <CustomSheet.Content>
+        <CustomSheet.Content disableDrag={true}>
           <ContentHeader>
             <EditTitleWrap>
               <EditTitle>공개 범위</EditTitle>
