@@ -1,12 +1,10 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import {
   createCategThunk,
   deleteCategThunk,
-  getOnlyCategThunk,
   updateCategThunk,
 } from "../../redux/modules/categTodoSlice";
 import { select_arrow } from "../../static/images";
@@ -14,33 +12,18 @@ import CategoryScope from "./CategoryScope";
 import CategoryColor from "./CategoryColor";
 import CategoryModal from "./CategoryModal";
 import { useEffect } from "react";
+import { apis } from "../../shared/api";
 
 export default function CategoryDetailBox() {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const categories = useSelector(
-    (state) => state.categTodoSlice.onlyCategories
-  );
-
-  let categoriesDetail;
 
   let { id } = useParams();
 
-  categoriesDetail = categories?.find(
-    (category) => category.categoryId === Number(id)
-  );
-
   const initialState = {
-    categoryName:
-      categoriesDetail === undefined ? "" : categoriesDetail.categoryName,
-    categoryColor:
-      categoriesDetail === undefined ? "#fff" : categoriesDetail.categoryColor,
-    isPublic:
-      categoriesDetail === undefined ? false : categoriesDetail.isPublic,
-    categoryStatus:
-      categoriesDetail === undefined
-        ? "NOT_STOP"
-        : categoriesDetail.categoryStatus,
+    categoryName: "",
+    categoryColor: "#fff",
+    isPublic: false,
+    categoryStatus: "NOT_STOP",
   };
 
   const [category, setCategory] = useState(initialState);
@@ -55,7 +38,7 @@ export default function CategoryDetailBox() {
   };
 
   const onDeleteSelect = () => {
-    if (categoriesDetail.isEmpty === true) {
+    if (category.isEmpty === true) {
       setSelect(1);
       setModal(true);
     } else {
@@ -81,7 +64,7 @@ export default function CategoryDetailBox() {
   };
 
   const onConfirmHandler = () => {
-    if (categoriesDetail === undefined && Number(id) === 0) {
+    if (Number(id) === 0) {
       dispatch(createCategThunk(category));
     } else {
       dispatch(updateCategThunk({ id, category }));
@@ -110,6 +93,30 @@ export default function CategoryDetailBox() {
     setCategory(copy);
     setColorOpen(false);
   };
+
+  const getCategoryDetail = async () => {
+    await apis
+      .getOnlyCategorie()
+      .then((response) => {
+        if (response.data.sucess === false) {
+          return;
+        } else {
+          if (Number(id) !== 0) {
+            const categoryDetail = response.data.data.find(
+              (category) => category.categoryId === Number(id)
+            );
+            setCategory(categoryDetail);
+          }
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    getCategoryDetail();
+  }, []);
 
   return (
     <CategoryContainer>
@@ -189,8 +196,7 @@ export default function CategoryDetailBox() {
             </button>
           </CategoryOptionItem>
 
-          {categoriesDetail === undefined ? null : category.categoryStatus ===
-            "NOT_STOP" ? (
+          {Number(id) === 0 ? null : category.categoryStatus === "NOT_STOP" ? (
             <>
               <CategoryOptionItem>
                 <button
