@@ -18,21 +18,9 @@ import Password from "../components/mypage/Password";
 import NotFoundPage from "../pages/NotFoundPage";
 import MaintPage from "../pages/MaintPage";
 
-// Google Analytics
-import ReactGA from "react-ga";
-import LogoPageFix from "../pages/LogoPageFix";
-
-const TRACKING_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS; // MEASUREMENT ID
-ReactGA.initialize(TRACKING_ID);
-
 const Router = () => {
-  // Google Analytics
-  useEffect(() => {
-    ReactGA.pageview(window.location.pathname + window.location.search);
-  }, []);
 
   return (
-    <BrowserRouter>
       <Routes>
         <Route path="/" element={<LogoPage />} />
         <Route path="/notfound" element={<NotFoundPage />} />
@@ -53,7 +41,6 @@ const Router = () => {
         <Route path="/categorydetail/:id" element={<CategoryDetail />} />
         <Route path="*" element={<LogoPageFix />} />
       </Routes>
-    </BrowserRouter>
   );
 };
 

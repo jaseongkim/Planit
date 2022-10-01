@@ -8,8 +8,12 @@ import Router from "./Router";
 import Stars from "../element/stars/Stars";
 // Context API
 import { AppContext } from "../context";
+import useGaTracker from './useGaTracker'
 
 export default function Browser() {
+
+
+  useGaTracker();
   // Context API : opening & closing the burgar navi
   const { open, setOpen } = useContext(AppContext);
 
