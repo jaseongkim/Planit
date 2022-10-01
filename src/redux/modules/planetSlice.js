@@ -53,7 +53,7 @@ export const updatePlanetThunk = createAsyncThunk(
       const { data } = await apis.updatePlanet(payload).then((response) => {
         if (response.data.success === false) {
         } else {
-          window.location.replace("/wklyTodo");
+          window.location.replace("/wklytodo");
         }
       });
       // return thunkAPI.fulfillWithValue(data.data);
