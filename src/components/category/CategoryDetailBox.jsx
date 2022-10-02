@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import {
   createCategThunk,
   deleteCategThunk,
   updateCategThunk,
 } from "../../redux/modules/categTodoSlice";
+import { getOnlyCategThunk } from "../../redux/modules/categTodoSlice.js";
 import { select_arrow } from "../../static/images";
 import CategoryScope from "./CategoryScope";
 import CategoryColor from "./CategoryColor";
@@ -15,6 +16,10 @@ import { useEffect } from "react";
 import { apis } from "../../shared/api";
 
 export default function CategoryDetailBox() {
+
+  // Navigate
+  const navigate = useNavigate();
+
   const dispatch = useDispatch();
 
   let { id } = useParams();
