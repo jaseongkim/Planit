@@ -120,7 +120,11 @@ export const apis = {
   // Categories
   getCategories: (data) => api.get(`/categories?date=${data}`),
 
-  getOnlyCategorie: () => api.get(`/categories/menu`),
+  getOnlyCategorie: () => api.get(`/categories/menu`)
+  // .then(response =>{
+  //   console.log("Check getOnlyCate api resposne", response)
+  // })
+  ,
 
   postCategories: (data) => api.post("/categories", data),
 
