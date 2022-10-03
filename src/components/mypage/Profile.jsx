@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { updateMember } from "../../redux/modules/memberSlice";
 import { getProfileThunk } from "../../redux/modules/membersSlice";
-import { profile_default, camera_icon } from "../../static/images";
+import { camera_icon } from "../../static/images";
 
 export default function Profile() {
   const dispatch = useDispatch();
@@ -54,12 +54,7 @@ export default function Profile() {
   return (
     <ProfileContainer>
       <ProfileWrap>
-        <ProfileImage>
-          <img
-            src={image ? image : memberProfile?.profileImgUrl}
-            alt="이미지"
-            style={{ width: "66px", height: "66px", borderRadius: "100px" }}
-          />
+        <ProfileImage image={image} imgUrl={memberProfile?.profileImgUrl}>
           <input
             type="file"
             style={{ display: "none" }}
@@ -106,6 +101,12 @@ const ProfileImage = styled.div`
   position: relative;
   min-width: 66px;
   height: 66px;
+  background-image: url(${(props) =>
+    props.image ? props.image : props.imgUrl});
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  border-radius: 100px;
 
   & > div {
     position: absolute;
