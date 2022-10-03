@@ -8,10 +8,9 @@ export default function Timer({ value }) {
   const dispatch = useDispatch();
 
   const [startTime, setStartTime] = useState(0);
-  const [endTime, setEndTime] = useState(0);
+  const [pauseTime, setPauseTime] = useState(false);
   const [modal, setModal] = useState(false);
 
-  // 현재시간 + 타이머
   const numToMins = (value) => {
     const time = new Date();
     time.setMinutes(time.getMinutes() + value);
@@ -26,29 +25,33 @@ export default function Timer({ value }) {
     });
 
   const onStartHandler = () => {
-    start();
+    restart(numToMins(value));
     const startCurrent = hours * 3600 + minutes * 60;
     setStartTime(startCurrent);
   };
 
-  const onStopHandler = () => {
+  const onPauseHandler = () => {
     setModal(true);
+    setPauseTime(true);
     pause();
-    // const confirm = window.confirm("종료하시겠습니까?");
-    // if (confirm) {
-    //   restart(numToMins(value));
-    //   pause();
-    // }
-    const end = startTime - (hours * 3600 + minutes * 60 + seconds);
-    setEndTime(end);
+  };
 
-    const time = {
-      setTime: startTime,
+  const onEndHandler = () => {
+    restart(numToMins(value));
+    pause();
+    setPauseTime(false);
+    setModal(false);
+
+    const endTime = Math.floor(
+      (startTime - (hours * 3600 + minutes * 60 + seconds)) / 60
+    );
+
+    const data = {
+      setTime: startTime / 60,
       elapsedTime: endTime,
     };
-    console.log(time);
 
-    // dispatch(postTimer(time));
+    dispatch(postTimer(data));
   };
 
   return (
@@ -57,21 +60,25 @@ export default function Timer({ value }) {
       {modal && (
         <ModalInner
           text1={"타이머를 종료할까요?"}
-          onConfirm={() => {
-            setModal(false);
-          }}
+          onConfirm={onEndHandler}
           onCancel={() => {
             setModal(false);
-            restart(numToMins(value));
+            resume();
           }}
           onClose={() => {
             setModal(false);
-            restart(numToMins(value));
+            resume();
           }}
         />
       )}
       <div style={{ textAlign: "center" }}>
         {isRunning ? (
+          <div style={{ fontSize: "50px", color: "#fff" }}>
+            <span>{hours.toString().padStart(2, 0)}</span>:
+            <span>{minutes.toString().padStart(2, 0)}</span>:
+            <span>{seconds.toString().padStart(2, 0)}</span>
+          </div>
+        ) : pauseTime ? (
           <div style={{ fontSize: "50px", color: "#fff" }}>
             <span>{hours.toString().padStart(2, 0)}</span>:
             <span>{minutes.toString().padStart(2, 0)}</span>:
@@ -98,7 +105,7 @@ export default function Timer({ value }) {
 
         {/* 종료버튼 */}
         {isRunning ? (
-          <button onClick={onStopHandler}>Pause</button>
+          <button onClick={onPauseHandler}>Pause</button>
         ) : (
           <button disabled={true}>Pause</button>
         )}

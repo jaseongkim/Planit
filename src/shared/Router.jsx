@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import React from "react";
+import { Route, Routes } from "react-router-dom";
 import LogoPage from "../pages/LogoPage";
 import LogoPageFix from "../pages/LogoPageFix";
 import LogInPage from "../pages/LogInPage";
@@ -23,7 +23,6 @@ import StatisticDay from "../pages/StatisticDay";
 import StatisticWeek from "../pages/StatisticWeek";
 import StatisticMonth from "../pages/StatisticMonth";
 import StatisticYear from "../pages/StatisticYear";
-import TimerTest from "../components/timer/TimerTest";
 
 const Router = () => {
   return (
@@ -46,7 +45,7 @@ const Router = () => {
       <Route path="/category" element={<Category />} />
       <Route path="/categorydetail/:id" element={<CategoryDetail />} />
       <Route path="*" element={<LogoPageFix />} />
-      <Route path="/timer" element={<TimerTest />} />
+      <Route path="/timer" element={<TimerPage />} />
       <Route path="/statisticday" element={<StatisticDay />} />
       <Route path="/statisticweek" element={<StatisticWeek />} />
       <Route path="/statisticmonth" element={<StatisticMonth />} />
