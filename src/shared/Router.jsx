@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LogoPage from "../pages/LogoPage";
+import LogoPageFix from "../pages/LogoPageFix";
 import LogInPage from "../pages/LogInPage";
 import SignUp from "../pages/SignUp";
 import Welcome from "../pages/Welcome";
@@ -18,7 +19,7 @@ import NickName from "../components/mypage/NickName";
 import Password from "../components/mypage/Password";
 import NotFoundPage from "../pages/NotFoundPage";
 import MaintPage from "../pages/MaintPage";
-import LogoPageFix from "../pages/LogoPageFix";
+import Statistic from "../pages/Statistic";
 
 const Router = () => {
   return (
@@ -35,13 +36,14 @@ const Router = () => {
       <Route path="/search" element={<Search />} />
       <Route path="/follow" element={<Follow />} />
       <Route path="/createplanet" element={<CreatePlanet />} />
-      <Route path="/timerpage" element={<TimerPage />} />
       <Route path="/mypage" element={<MyPage />} />
       <Route path="/nickname" element={<NickName />} />
       <Route path="/password" element={<Password />} />
       <Route path="/category" element={<Category />} />
       <Route path="/categorydetail/:id" element={<CategoryDetail />} />
       <Route path="*" element={<LogoPageFix />} />
+      <Route path="/timer" element={<TimerPage />} />
+      <Route path="/statistic" element={<Statistic />} />
     </Routes>
   );
 };
