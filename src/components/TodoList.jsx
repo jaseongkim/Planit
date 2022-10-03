@@ -55,7 +55,7 @@ const TodoList = ({
         todoIndex: index,
         categIndex: categIndex,
       };
-      // dispatch(delMtyTodo(mtyTodo));
+      dispatch(delMtyTodo(mtyTodo));
     } else {
       const addTodoObj = {
         categId: categId,
@@ -160,7 +160,7 @@ const TodoList = ({
                   )}
                   <div></div>
                 </CustomCheck>
-                {inputs.todoId === undefined ? (
+                {inputs.isAchieved === undefined ? (
                   <input
                     autoFocus
                     maxLength={20}
