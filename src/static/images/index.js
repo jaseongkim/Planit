@@ -22,6 +22,7 @@ import edit_icon from "./icons/edit_icon.svg";
 import select_arrow from "./icons/select_arrow.svg";
 import profile_default from "./icons/profile_default.png";
 import camera_icon from "./icons/camera_icon.svg";
+import top_icon from "./icons/top_icon.svg";
 
 //-- logos --
 import logo from "./logos/logo.svg";
@@ -60,6 +61,7 @@ export {
   select_arrow,
   profile_default,
   camera_icon,
+  top_icon,
   planet113,
   planet223,
   planet333,
