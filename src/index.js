@@ -5,11 +5,21 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import store from "./redux/config/configStore";
 import { Provider } from "react-redux";
+import { ThemeProvider } from "styled-components";
+import theme from "./shared/theme";// Google Analytics
+import ReactGA from "react-ga";
+import { BrowserRouter } from "react-router-dom";
+const TRACKING_ID = process.env.REACT_APP_GOOGLE_ANALYTICS; // MEASUREMENT ID
+ReactGA.initialize(TRACKING_ID);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
-    <App />
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
+      <App />
+      </BrowserRouter>
+    </ThemeProvider>
   </Provider>
 );
 

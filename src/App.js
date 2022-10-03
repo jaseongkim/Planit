@@ -1,12 +1,27 @@
 import "./App.css";
+// React
+import React, { useState, useEffect } from "react";
+// React Component
+import Browser from "./shared/Browser";
+// GlobalStyle
 import GlobalStyle from "./shared/GlobalStyle";
-import Router from "./shared/Router";
+// Context API
+import { AppContext } from "./context";
+import useGaTracker from './shared/useGaTracker'
 
 function App() {
+  // Hook : opening burgar navi
+  
+  useGaTracker();
+
+  const [open, setOpen] = useState(false);
+
   return (
     <>
-      <GlobalStyle />
-      <Router />
+      <AppContext.Provider value={{ open, setOpen }}>
+        <GlobalStyle open={open} />
+        <Browser />
+      </AppContext.Provider>
     </>
   );
 }
