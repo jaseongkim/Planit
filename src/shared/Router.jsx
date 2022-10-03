@@ -18,7 +18,7 @@ import NickName from "../components/mypage/NickName";
 import Password from "../components/mypage/Password";
 import NotFoundPage from "../pages/NotFoundPage";
 import MaintPage from "../pages/MaintPage";
-import LogoPageFix from "../pages/LogoPageFix"
+import Statistic from "../pages/Statistic";
 
 const Router = () => {
 
@@ -42,6 +42,7 @@ const Router = () => {
         <Route path="/category" element={<Category />} />
         <Route path="/categorydetail/:id" element={<CategoryDetail />} />
         <Route path="*" element={<LogoPageFix />} />
+        <Route path="/statistic" element={<Statistic />} />
       </Routes>
   );
 };
