@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useTimer } from "react-timer-hook";
 import ModalInner from "../../element/ModalInner";
@@ -10,6 +10,7 @@ export default function Timer({ value }) {
   const [startTime, setStartTime] = useState(0);
   const [pauseTime, setPauseTime] = useState(false);
   const [modal, setModal] = useState(false);
+  const [select, setSelect] = useState(0);
 
   const numToMins = (value) => {
     const time = new Date();
@@ -20,7 +21,10 @@ export default function Timer({ value }) {
   const { seconds, minutes, hours, isRunning, start, pause, restart, resume } =
     useTimer({
       expiryTimestamp: numToMins(value),
-      onExpire: () => alert("땡땡땡!"),
+      onExpire: () => {
+        setSelect(1);
+        setModal(true);
+      },
       autoStart: false,
     });
 
@@ -57,20 +61,30 @@ export default function Timer({ value }) {
   return (
     // 타이머 View
     <React.Fragment>
-      {modal && (
-        <ModalInner
-          text1={"타이머를 종료할까요?"}
-          onConfirm={onEndHandler}
-          onCancel={() => {
-            setModal(false);
-            resume();
-          }}
-          onClose={() => {
-            setModal(false);
-            resume();
-          }}
-        />
-      )}
+      {modal &&
+        [
+          <ModalInner
+            text1={"타이머를 종료할까요?"}
+            onConfirm={onEndHandler}
+            onCancel={() => {
+              setModal(false);
+              resume();
+            }}
+            onClose={() => {
+              setModal(false);
+              resume();
+            }}
+          />,
+          <ModalInner
+            text1={`${value}분 완료!`}
+            onCancel={() => {
+              setModal(false);
+            }}
+            onClose={() => {
+              setModal(false);
+            }}
+          />,
+        ][select]}
       <div style={{ textAlign: "center" }}>
         {isRunning ? (
           <div style={{ fontSize: "50px", color: "#fff" }}>
