@@ -18,7 +18,7 @@ export default function Timer({ value }) {
     return time;
   };
 
-  const { seconds, minutes, hours, isRunning, start, pause, restart } =
+  const { seconds, minutes, hours, isRunning, start, pause, restart, resume } =
     useTimer({
       expiryTimestamp: numToMins(value),
       onExpire: () => alert("땡땡땡!"),
@@ -26,14 +26,14 @@ export default function Timer({ value }) {
     });
 
   const onStartHandler = () => {
-    restart(numToMins(value));
-
-    const start = hours * 3600 + minutes * 60;
-    setStartTime(start);
+    start();
+    const startCurrent = hours * 3600 + minutes * 60;
+    setStartTime(startCurrent);
   };
 
   const onStopHandler = () => {
     setModal(true);
+    pause();
     // const confirm = window.confirm("종료하시겠습니까?");
     // if (confirm) {
     //   restart(numToMins(value));
@@ -57,12 +57,16 @@ export default function Timer({ value }) {
       {modal && (
         <ModalInner
           text1={"타이머를 종료할까요?"}
-          // onConfirm={onUpdateHandler}
+          onConfirm={() => {
+            setModal(false);
+          }}
           onCancel={() => {
             setModal(false);
+            restart(numToMins(value));
           }}
           onClose={() => {
             setModal(false);
+            restart(numToMins(value));
           }}
         />
       )}
