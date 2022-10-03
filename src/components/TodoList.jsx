@@ -45,7 +45,68 @@ const TodoList = ({
     };
 
     dispatch(onChangeTodo(chgTodoObj));
-  };
+  }
+
+    // When the enter key is pressed, add a new todo
+    // & if there is no typed string, remove the empty todo
+    const onMtyTodoKeyUp = (event,inputs, index, categId) => {
+      if (event.key === "Enter") {
+        if (inputs.title === "") {
+          const mtyTodo = {
+            todoIndex: index,
+            categIndex: categIndex,
+          };
+          dispatch(delMtyTodo(mtyTodo));
+        } else {
+          const addTodoObj = {
+            categId: categId,
+            categIndex: categIndex,
+            todoIndex: index,
+            todoReq: {
+              title: inputs.title,
+              dueDate: selectedDate,
+            },
+          };
+    
+          dispatch(
+            createTodoThunk({
+              addTodoObj,
+            })
+          );
+    
+          document.getElementById(
+            `disable${clickedTodo.todoInfo.todoId}`
+          ).disabled = true;
+        }
+        // onLoginHandler();
+      }
+
+    };
+
+     // When the enter key is pressed, edit the todo
+     const naMtyTodoKeyUp = (event, inputs, index) => {
+      if (event.key === "Enter") {
+        const updateTodoTiObj = {
+          todoId: inputs.todoId,
+          categIndex: categIndex,
+          todoIndex: index,
+          todoReq: {
+            title: inputs.title,
+            dueDate: selectedDate,
+          },
+        };
+        dispatch(
+          updateTodoTiThunk({
+            updateTodoTiObj,
+          })
+        );
+    
+        document.getElementById(
+          `disable${clickedTodo.todoInfo.todoId}`
+        ).disabled = true;
+      }
+    };
+
 
   // If it is an empty inputs, send dispatch data
   // else delete the empty UX
@@ -171,6 +232,7 @@ const TodoList = ({
                     value={inputs.title}
                     onChange={(event) => handleFormChange(index, event)}
                     onBlur={() => mtyTiOutFocus(inputs, index, categId)}
+                    onKeyUp={(event) => onMtyTodoKeyUp(event, inputs, index, categId)}
                   />
                 ) : (
                   <input
@@ -181,6 +243,7 @@ const TodoList = ({
                     value={inputs.title}
                     onChange={(event) => handleFormChange(index, event)}
                     onBlur={() => naMtyTiOutFocus(inputs, index)}
+                    onKeyUp={(event) => naMtyTodoKeyUp(event, inputs, index)}
                     disabled
                   />
                 )}

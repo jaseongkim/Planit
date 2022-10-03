@@ -132,7 +132,6 @@ const DlyTodo = () => {
     });
   }, [parsedFullDate, dispatch]);
 
-
   // Adding a new todo
   const addTodo = ({ input, index }) => {
 
