@@ -22,6 +22,7 @@ export const getOnlyCategThunk = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const { data } = await apis.getOnlyCategorie();
+      console.log("Check getOnlyCateg", data.data)
       return thunkAPI.fulfillWithValue(data.data);
     } catch (e) {
       console.log("getCategThunk", e.response.data.status);
@@ -36,7 +37,10 @@ export const createCategThunk = createAsyncThunk(
   "category/createCategory",
   async (category, thunkAPI) => {
     try {
-      await apis.postCategories(category).then((response) => {
+      const { data } = await apis.postCategories(category)
+      // console.log
+      // return thunkAPI.fulfillWithValue(data.data);
+      .then((response) => {
         console.log(response);
         if (response.data.success === false) {
         } else {
@@ -44,7 +48,8 @@ export const createCategThunk = createAsyncThunk(
         }
       });
     } catch (error) {
-      console.log(error);
+      return thunkAPI.rejectWithValue(error);
+      // console.log(error);
     }
   }
 );

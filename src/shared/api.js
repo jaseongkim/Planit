@@ -17,17 +17,16 @@ api.interceptors.request.use(function (config) {
 });
 
 api.interceptors.response.use(
-  
   function (response) {
     return response;
   },
 
   async function (error) {
-    // When 400 error occur, redirect to maintPage 
-    if(error.response.status === 404 ){
+    // When 400 error occur, redirect to maintPage
+    if (error.response.status === 404) {
       window.location.replace("/maintPage");
     }
-    if(error.response.status === 501 ){
+    if (error.response.status === 501) {
       window.location.replace("/notfound");
     }
     // console.log(error);
@@ -36,7 +35,6 @@ api.interceptors.response.use(
         // const email = localStorage.getItem("email");
         const memberId = localStorage.getItem("memberId");
         const originalRequest = error.config;
-        console.log(originalRequest);
         // const data = await api.post("/members/refresh-token", { email: email });
         const data = await api
           .post("/members/refresh-token", {
@@ -47,7 +45,6 @@ api.interceptors.response.use(
             localStorage.clear();
             window.location.replace("/");
           });
-        console.log(data);
         // const data = getRefreshToken({ email: email });
         if (data) {
           const newToken = data.headers.authorization;
@@ -123,7 +120,11 @@ export const apis = {
   // Categories
   getCategories: (data) => api.get(`/categories?date=${data}`),
 
-  getOnlyCategorie: () => api.get(`/categories/menu`),
+  getOnlyCategorie: () => api.get(`/categories/menu`)
+  // .then(response =>{
+  //   console.log("Check getOnlyCate api resposne", response)
+  // })
+  ,
 
   postCategories: (data) => api.post("/categories", data),
 

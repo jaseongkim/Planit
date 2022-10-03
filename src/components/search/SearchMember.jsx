@@ -8,7 +8,6 @@ import RecommendMember from "./RecommendMember";
 export default function SearchUser() {
   const dispatch = useDispatch();
   let RecommendMembers = useSelector((state) => state.membersSlice.membersList);
-  console.log(RecommendMembers);
 
   useEffect(() => {
     dispatch(getMemberThunk());

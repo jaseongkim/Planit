@@ -4,33 +4,29 @@ import { prev_icon } from "../static/images";
 import { useLocation } from "react-router-dom";
 
 export default function MainHeader(props) {
-  
+ 
+  // Navigate
   const navigate = useNavigate();
-  
+
   // Getting Component's URL name
   let currentPath = useLocation();
-
-  console.log("Check ", currentPath.pathname)
-
-  if(currentPath.pathname === '/mypage'){
-    console.log("/mypage")
-  }
 
   return (
     <HeaderWrap>
       <HeaderTitle>
-        { currentPath.pathname === "/nickname" ?
-        (<button onClick={() => navigate(-1)}>
-          <img src={prev_icon} alt="뒤" />
-        </button>) :
-         currentPath.pathname === "/password" ?
-        (<button onClick={() => navigate(-1)}>
-          <img src={prev_icon} alt="뒤" />
-        </button>) :
-        (<button onClick={() => navigate("/dlytodo")}>
-          <img src={prev_icon} alt="뒤" />
-        </button>)
-        }
+        {currentPath.pathname === "/nickname" ? (
+          <button onClick={() => navigate(-1)}>
+            <img src={prev_icon} alt="뒤" />
+          </button>
+        ) : currentPath.pathname === "/password" ? (
+          <button onClick={() => navigate(-1)}>
+            <img src={prev_icon} alt="뒤" />
+          </button>
+        ) : (
+          <button onClick={() => navigate("/dlytodo")}>
+            <img src={prev_icon} alt="뒤" />
+          </button>
+        )}
         <NicknameDiv>{props.text}</NicknameDiv>
       </HeaderTitle>
     </HeaderWrap>

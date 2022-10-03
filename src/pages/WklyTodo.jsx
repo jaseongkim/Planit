@@ -47,12 +47,14 @@ const WklyTodo = () => {
     });
     setEditOpen(true);
   };
+  
   const onEditSheetClose = (color, size, dueDate) => {
     const data = {
       dueDate: dueDate,
       planetSize: size,
       planetColor: color,
     };
+    
     dispatch(updatePlanetThunk(data));
 
     setEditOpen(false);

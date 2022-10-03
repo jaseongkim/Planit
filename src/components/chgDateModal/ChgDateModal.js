@@ -56,7 +56,6 @@ const ChgDateModal = ({
       },
     };
 
-    console.log("Hey why is it you?");
     dispatch(updateTodoDateThunk(updateTodoDateObj));
     setShowModal(false);
   };

@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import {
   createCategThunk,
   deleteCategThunk,
   updateCategThunk,
 } from "../../redux/modules/categTodoSlice";
+import { getOnlyCategThunk } from "../../redux/modules/categTodoSlice.js";
 import { select_arrow } from "../../static/images";
 import CategoryScope from "./CategoryScope";
 import CategoryColor from "./CategoryColor";
@@ -15,6 +16,10 @@ import { useEffect } from "react";
 import { apis } from "../../shared/api";
 
 export default function CategoryDetailBox() {
+
+  // Navigate
+  const navigate = useNavigate();
+
   const dispatch = useDispatch();
 
   let { id } = useParams();
@@ -183,13 +188,13 @@ export default function CategoryDetailBox() {
           />
         </InputBox>
         <CategoryOption>
-          <CategoryOptionItem>
+          {/* <CategoryOptionItem>
             <CategoryOptionTitle>공개 범위</CategoryOptionTitle>
             <button onClick={onScopeSheetOpen}>
               {category.isPublic ? "나만보기" : "전체공개"}
               <img src={select_arrow} alt="셀렉트 화살표 아이콘" />
             </button>
-          </CategoryOptionItem>
+          </CategoryOptionItem> */}
           <CategoryOptionItem>
             <CategoryOptionTitle>색상</CategoryOptionTitle>
             <button onClick={onColorSheetOpen}>
@@ -243,11 +248,11 @@ export default function CategoryDetailBox() {
         <StySubmitButton onClick={onConfirmHandler}>확인</StySubmitButton>
       )}
 
-      <CategoryScope
+      {/* <CategoryScope
         isOpen={isScopeOpen}
         onScopeSheetClose={onScopeSheetClose}
         isPublic={category.isPublic}
-      />
+      /> */}
       <CategoryColor
         isOpen={isColorOpen}
         onColorSheetClose={onColorSheetClose}
