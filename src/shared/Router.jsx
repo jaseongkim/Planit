@@ -19,7 +19,10 @@ import NickName from "../components/mypage/NickName";
 import Password from "../components/mypage/Password";
 import NotFoundPage from "../pages/NotFoundPage";
 import MaintPage from "../pages/MaintPage";
-import Statistic from "../pages/Statistic";
+import StatisticDay from "../pages/StatisticDay";
+import StatisticWeek from "../pages/StatisticWeek";
+import StatisticMonth from "../pages/StatisticMonth";
+import StatisticYear from "../pages/StatisticYear";
 
 const Router = () => {
   return (
@@ -43,7 +46,10 @@ const Router = () => {
       <Route path="/categorydetail/:id" element={<CategoryDetail />} />
       <Route path="*" element={<LogoPageFix />} />
       <Route path="/timer" element={<TimerPage />} />
-      <Route path="/statistic" element={<Statistic />} />
+      <Route path="/statisticday" element={<StatisticDay />} />
+      <Route path="/statisticweek" element={<StatisticWeek />} />
+      <Route path="/statisticmonth" element={<StatisticMonth />} />
+      <Route path="/statisticyear" element={<StatisticYear />} />
     </Routes>
   );
 };

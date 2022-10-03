@@ -11,12 +11,11 @@ import { getOnlyCategThunk } from "../../redux/modules/categTodoSlice.js";
 import { select_arrow } from "../../static/images";
 import CategoryScope from "./CategoryScope";
 import CategoryColor from "./CategoryColor";
-import CategoryModal from "./CategoryModal";
+import ModalInner from "../../element/ModalInner";
 import { useEffect } from "react";
 import { apis } from "../../shared/api";
 
 export default function CategoryDetailBox() {
-
   // Navigate
   const navigate = useNavigate();
 
@@ -132,7 +131,7 @@ export default function CategoryDetailBox() {
       {/* 카테고리 modal창 */}
       {modal &&
         [
-          <CategoryModal
+          <ModalInner
             text1={"목표를 종료할까요?"}
             text2={"나중에 다시 이어갈 수 있어요."}
             onConfirm={onUpdateHandler}
@@ -143,7 +142,7 @@ export default function CategoryDetailBox() {
               setModal(false);
             }}
           />,
-          <CategoryModal
+          <ModalInner
             text1={"목표를 삭제할까요?"}
             text2={"이전에 달성한 투두까지 사라져요"}
             onConfirm={onDeleteHandler}
@@ -154,7 +153,7 @@ export default function CategoryDetailBox() {
               setModal(false);
             }}
           />,
-          <CategoryModal
+          <ModalInner
             text1={"목표를 재개할까요?"}
             text2={"오늘부터 다시 이 목표를 사용할 수 있어요"}
             onConfirm={onUpdateHandler}
@@ -165,7 +164,7 @@ export default function CategoryDetailBox() {
               setModal(false);
             }}
           />,
-          <CategoryModal
+          <ModalInner
             text1={"할 일이 있으면 삭제할 수 없어요."}
             onCancel={() => {
               setModal(false);
