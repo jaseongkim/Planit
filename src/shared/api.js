@@ -156,4 +156,7 @@ export const apis = {
     ),
 
   updatePlanet: (data) => api.patch("/todo-list", data),
+
+  //timer
+  postTimer: (data) => api.post("/timer", data),
 };
