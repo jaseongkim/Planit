@@ -36,10 +36,14 @@ import {
   calendar_icon_gray,
   edit_icon,
 } from "../static/images";
-// React Router Dom
+// React Router Dommmy UI 
 import { useNavigate } from "react-router-dom";
 
+// A counter for the dumppy data of todo
+let todoIdCounter = 1;
+
 const DlyTodo = () => {
+
   // React Router Dom
   const navigate = useNavigate();
 
@@ -135,13 +139,14 @@ const DlyTodo = () => {
       const mtyCateg = {
         categIndex: index,
         categReq: {
+          todoId: todoIdCounter,
           todoListId: input.categoryId + 1,
           title: "",
           dueDate: concatSelDate.current,
         },
       };
       dispatch(addMtyTodo(mtyCateg));
-      console.log("Checking here", document.getElementById("disable133"));
+      todoIdCounter++
     }
   
   };
