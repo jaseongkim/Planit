@@ -1,11 +1,14 @@
 import React, { useState } from "react";
+import styled from "styled-components";
+import MainHeader from "../components/MainHeader";
 import Timer from "../components/timer/Timer";
 
 export default function TimerPage() {
   const [value, setValue] = useState(10);
 
   return (
-    <div>
+    <StTimerContainer>
+      <MainHeader text={"타이머"} color={""} />
       <Timer value={value} />
       <input
         type="range"
@@ -15,6 +18,8 @@ export default function TimerPage() {
         value={value}
         onChange={(e) => setValue(parseInt(e.target.value))}
       />
-    </div>
+    </StTimerContainer>
   );
 }
+
+const StTimerContainer = styled.div``;
