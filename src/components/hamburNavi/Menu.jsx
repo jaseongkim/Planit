@@ -41,15 +41,15 @@ const Menu = ({ open, setOpen }) => {
             카테고리
             <img src={next_icon} alt="화살표 아이콘" />
           </a>
-          <a href="/timerpage">
+          <a href="/timer">
             타이머
             <img src={next_icon} alt="화살표 아이콘" />
           </a>
-          <a href="/timerpage">
+          <a href="/timer">
             리포트
             <img src={next_icon} alt="화살표 아이콘" />
           </a>
-          <a href="/timerpage">
+          <a href="/timer">
             통계
             <img src={next_icon} alt="화살표 아이콘" />
           </a>

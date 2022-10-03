@@ -23,7 +23,7 @@ export default function CategoryHeader() {
     <HeaderWrap>
       <HeaderTitle>
         {currentPath.pathname === '/category' ?  
-        (<button onClick={() => navigate("/WklyTodo")}>
+        (<button onClick={() => navigate("/dlytodo")}>
         <img src={prev_icon} alt="뒤" />
       </button>) :
         (<button onClick={() => navigate(-1)}>

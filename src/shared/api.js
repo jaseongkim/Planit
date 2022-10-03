@@ -25,21 +25,16 @@ api.interceptors.response.use(
     // When 400 error occur, redirect to maintPage
     if (error.response.status === 404) {
       window.location.replace("/maintPage");
-    }
-    if (error.response.status === 501) {
+    } else if (error.response.status === 501) {
       window.location.replace("/notfound");
-    }
-    // console.log(error);
-    if (error.response.status === 401) {
+    } else if (error.response.status === 401) {
       try {
-        // const email = localStorage.getItem("email");
         const memberId = localStorage.getItem("memberId");
         const originalRequest = error.config;
-        // const data = await api.post("/members/refresh-token", { email: email });
         const data = await api.post("/members/refresh-token", {
           memberId: memberId,
         });
-        // const data = getRefreshToken({ email: email });
+        console.log(data);
         if (data) {
           const newToken = data.headers.authorization;
           const newAccesstokenexpiretime = data.headers.accesstokenexpiretime;
@@ -58,16 +53,9 @@ api.interceptors.response.use(
       }
       return Promise.reject(error);
     }
-    // else if (error.response.status === 503) {
-    //   console.log("Checking error", error)
-    // }
     return Promise.reject(error);
   }
 );
-
-// const getRefreshToken = async (data) => {
-//   await api.post("/members/refresh-token", data);
-// };
 
 export const apis = {
   // SignUp
