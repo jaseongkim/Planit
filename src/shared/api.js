@@ -36,15 +36,9 @@ api.interceptors.response.use(
         const memberId = localStorage.getItem("memberId");
         const originalRequest = error.config;
         // const data = await api.post("/members/refresh-token", { email: email });
-        const data = await api
-          .post("/members/refresh-token", {
-            memberId: memberId,
-          })
-          .then()
-          .catch((error) => {
-            localStorage.clear();
-            window.location.replace("/");
-          });
+        const data = await api.post("/members/refresh-token", {
+          memberId: memberId,
+        });
         // const data = getRefreshToken({ email: email });
         if (data) {
           const newToken = data.headers.authorization;
@@ -120,12 +114,10 @@ export const apis = {
   // Categories
   getCategories: (data) => api.get(`/categories?date=${data}`),
 
-  getOnlyCategorie: () => api.get(`/categories/menu`)
+  getOnlyCategorie: () => api.get(`/categories/menu`),
   // .then(response =>{
   //   console.log("Check getOnlyCate api resposne", response)
   // })
-  ,
-
   postCategories: (data) => api.post("/categories", data),
 
   deleteCategories: (data) => api.delete(`/categories/${data}`),
