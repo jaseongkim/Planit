@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import { Chart as ChartJS, registerables } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import { useDispatch, useSelector } from "react-redux";
-import { getChartData } from "../redux/modules/statisticSlice";
+import { getChartDataDay } from "../redux/modules/statisticSlice";
+import ProgressBar from "react-bootstrap/ProgressBar";
 ChartJS.register(...registerables);
 
 const Statistic = () => {
@@ -10,64 +11,29 @@ const Statistic = () => {
   const date = "2022-10-03";
 
   const statistic = useSelector((state) => state.statisticSlice.statistic);
-  console.log(statistic);
 
-  const labels = ["월", "화", "수", "목", "금", "토", "일"];
+  const labels = [
+    0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+    21, 22, 23,
+  ];
 
-  const AC = statistic?.achievementRates?.map((item) => {
-    return item.achievementRate;
-  });
   const CO = statistic?.concentrationRates?.map((item) => {
     return item.concentrationRate;
   });
-  console.log(CO);
-  console.log(AC);
-  // const concentrationRates = statistic?.map((item, idx) => {
-  // return { x: idx, y: item.concentrationRates };
-  // });
 
-  //   console.log(achievementRate, achievementRate);
+  const AO = statistic?.achievementRate;
+  const TO = statistic?.achievementCnt;
 
   useEffect(() => {
-    dispatch(getChartData(date));
+    dispatch(getChartDataDay(date));
   }, [JSON.stringify(statistic)]);
 
-  // 차트의 x축
   const data = {
     labels: labels,
     datasets: [
       {
         label: "data 1",
-        data: AC, // 차트의 data list
-        backgroundColor: [
-          "rgba(255, 99, 132, 0.2)",
-          "rgba(255, 159, 64, 0.2)",
-          "rgba(255, 205, 86, 0.2)",
-          "rgba(75, 192, 192, 0.2)",
-          "rgba(54, 162, 235, 0.2)",
-          "rgba(153, 102, 255, 0.2)",
-          "rgba(201, 203, 207, 0.2)",
-        ],
-        borderColor: [
-          "rgb(255, 99, 132)",
-          "rgb(255, 159, 64)",
-          "rgb(255, 205, 86)",
-          "rgb(75, 192, 192)",
-          "rgb(54, 162, 235)",
-          "rgb(153, 102, 255)",
-          "rgb(201, 203, 207)",
-        ],
-        borderWidth: 1,
-      },
-    ],
-  };
-
-  const data2 = {
-    labels: labels,
-    datasets: [
-      {
-        label: "data 2",
-        data: CO, // 차트의 data list
+        data: CO,
         backgroundColor: [
           "rgba(255, 99, 132, 0.2)",
           "rgba(255, 159, 64, 0.2)",
@@ -93,8 +59,8 @@ const Statistic = () => {
 
   return (
     <div>
+      <ProgressBar now={AO} label={`${AO}% (${TO}개)`} />
       <Bar type="bar" data={data} />
-      <Bar type="bar" data={data2} />
     </div>
   );
 };
