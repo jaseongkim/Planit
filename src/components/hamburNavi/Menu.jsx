@@ -24,13 +24,7 @@ const Menu = ({ open, setOpen }) => {
       <StyBackgroud onClick={() => setOpen(false)}></StyBackgroud>
       <StyledMenu open={open}>
         <MyInfoCont>
-          <StyProfileImg>
-            <img
-              src={memberProfile?.profileImgUrl}
-              alt="프로필 이미지"
-              style={{ width: "66px", height: "66px", borderRadius: "100px" }}
-            />
-          </StyProfileImg>
+          <StyProfileImg imgUrl={memberProfile?.profileImgUrl}></StyProfileImg>
           <MyInfoWrap>
             <a href="/mypage">
               {memberProfile?.nickname}
@@ -45,6 +39,18 @@ const Menu = ({ open, setOpen }) => {
         <StyledMenuList>
           <a href="/category">
             카테고리
+            <img src={next_icon} alt="화살표 아이콘" />
+          </a>
+          <a href="/timerpage">
+            타이머
+            <img src={next_icon} alt="화살표 아이콘" />
+          </a>
+          <a href="/timerpage">
+            리포트
+            <img src={next_icon} alt="화살표 아이콘" />
+          </a>
+          <a href="/timerpage">
+            통계
             <img src={next_icon} alt="화살표 아이콘" />
           </a>
           {/* <a href="/">
@@ -104,6 +110,11 @@ const MyInfoCont = styled.div`
 const StyProfileImg = styled.div`
   min-width: 66px;
   height: 66px;
+  background-image: url(${(props) => props.imgUrl});
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  border-radius: 100px;
 `;
 
 const MyInfoWrap = styled.div`
