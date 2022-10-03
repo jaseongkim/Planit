@@ -54,7 +54,7 @@ export default function Profile() {
   return (
     <ProfileContainer>
       <ProfileWrap>
-        <ProfileImage image={image} imgUrl={memberProfile?.profileImgUrl}>
+        <ProfileImage img={image} imgUrl={memberProfile?.profileImgUrl}>
           <input
             type="file"
             style={{ display: "none" }}
@@ -101,8 +101,7 @@ const ProfileImage = styled.div`
   position: relative;
   min-width: 66px;
   height: 66px;
-  background-image: url(${(props) =>
-    props.image ? props.image : props.imgUrl});
+  background-image: url(${(props) => (props.img ? props.img : props.imgUrl)});
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -136,6 +135,7 @@ const MyInfoWrap = styled.div`
     line-height: 1;
     font-size: 20px;
     color: #fff !important;
+    margin: 0;
   }
 `;
 

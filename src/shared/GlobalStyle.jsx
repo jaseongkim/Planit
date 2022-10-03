@@ -1,8 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 import "../static/fonts/font.css";
 
-
-
 const GlobalStyle = createGlobalStyle`
 
   :root {
@@ -23,12 +21,7 @@ const GlobalStyle = createGlobalStyle`
     scrollbar-width: none; /* Firefox */
     &::-webkit-scrollbar {
       display: none; /* Chrome , Safari , Opera */
-    
-  }
-  }
-
-  body {
-    overflow-y: ${(props) => (props.open === true ? "hidden" : "visible")};
+    }
   }
 
   li {

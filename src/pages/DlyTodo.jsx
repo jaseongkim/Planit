@@ -22,6 +22,7 @@ import Header from "../components/Header";
 import TodoList from "../components/TodoList";
 import BtmFitNavi from "../components/btmFitNaviBar/BtmFitNavi.jsx";
 import DayMover from "../components/dateMover/DayMover.jsx";
+import ModalInner from "../element/ModalInner";
 import ChgDateModal from "../components/chgDateModal/ChgDateModal.js";
 // Element
 import Circle from "../element/Circle.jsx";
@@ -58,6 +59,8 @@ const DlyTodo = () => {
 
   // Hook : whether to open the change date modal
   const [showModal, setShowModal] = useState(false);
+
+  const [deleteModal, setDeleteModal] = useState(false);
 
   // Hook : whether to show bottom modal sheet
   const [openbtmSheet, setOpenBtmSheet] = useState(false);
@@ -134,7 +137,6 @@ const DlyTodo = () => {
 
   // Adding a new todo
   const addTodo = ({ input, index }) => {
-
     if (input.todos[input.todos.length - 1]?.title !== "") {
       const mtyCateg = {
         categIndex: index,
@@ -148,7 +150,6 @@ const DlyTodo = () => {
       dispatch(addMtyTodo(mtyCateg));
       todoIdCounter++
     }
-  
   };
 
   // Enabling to edit todo by closing the modalSheet
@@ -160,9 +161,19 @@ const DlyTodo = () => {
     document.getElementById(`disable${clickedTodo.todoInfo.todoId}`).focus();
   };
 
+  // const onDeleteSelect = () => {
+  //   if (category.isEmpty === true) {
+  //     setSelect(1);
+  //     setModal(true);
+  //   } else {
+  //     setSelect(3);
+  //     setModal(true);
+  //   }
+  // };
+
   // Deleting the clicked todo by closing the modalSheet
-  const clickDeleteTodo = () => {
-    setOpenBtmSheet(false);
+  const onDeleteHandler = () => {
+    setDeleteModal(false);
 
     const clickedTodoId = clickedTodo.todoInfo.todoId;
 
@@ -383,15 +394,6 @@ const DlyTodo = () => {
               <ContentHeader>
                 <EditTitleWrap>
                   <EditTitle>{clickedTodo.todoInfo.title}</EditTitle>
-                  {parsedCurrDate < parsedToday ? null : (
-                    <button
-                      onClick={() => {
-                        clickEditTodo();
-                      }}
-                    >
-                      <img src={edit_icon} alt="수정 아이콘 이미지" />
-                    </button>
-                  )}
                 </EditTitleWrap>
                 <EditSubmit onClick={() => setOpenBtmSheet(false)}>
                   확인
@@ -408,7 +410,16 @@ const DlyTodo = () => {
                 <ContentFooter>
                   <button
                     onClick={() => {
-                      clickDeleteTodo();
+                      clickEditTodo();
+                    }}
+                  >
+                    <img src={edit_icon} alt="수정 아이콘 이미지" />
+                    수정
+                  </button>
+                  <button
+                    onClick={() => {
+                      setOpenBtmSheet(false);
+                      setDeleteModal(true);
                     }}
                   >
                     <img src={delete_icon} alt="삭제 아이콘" />
@@ -438,6 +449,20 @@ const DlyTodo = () => {
         clickedTodo={clickedTodo}
         clickedCategIndex={clickedCategIndex}
       ></ChgDateModal> */}
+      {deleteModal && (
+        <ModalInner
+          text1={"할 일을\n삭제하시겠어요?"}
+          onConfirm={onDeleteHandler}
+          onCancel={() => {
+            setOpenBtmSheet(true);
+            setDeleteModal(false);
+          }}
+          onClose={() => {
+            setOpenBtmSheet(true);
+            setDeleteModal(false);
+          }}
+        ></ModalInner>
+      )}
     </StyDlyTodoCon>
   );
 };
@@ -572,6 +597,10 @@ const CalendarWrap = styled.div`
         position: relative;
         font-weight: 400;
         font-size: 12px;
+
+        &--neighboringMonth {
+          opacity: 50%;
+        }
       }
 
       @media (max-width: 375px) {

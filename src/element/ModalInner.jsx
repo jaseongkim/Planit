@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import Modal from "../../element/Modal";
+import Modal from "./Modal";
 
-export default function CategoryModal(props) {
+export default function ModalInner(props) {
   const { onClose, onCancel, onConfirm, text1, text2 } = props;
 
   return (
@@ -15,12 +15,14 @@ export default function CategoryModal(props) {
           >
             {text1}
           </div>
-          <div
-            style={{ display: `${text2 ? null : "none"}` }}
-            className="contents2"
-          >
-            {text2}
-          </div>
+          {text2 ? (
+            <div
+              style={{ display: `${text2 ? null : "none"}` }}
+              className="contents2"
+            >
+              {text2}
+            </div>
+          ) : null}
         </ModalContents>
       </ModalBody>
       <ModalFooter>
