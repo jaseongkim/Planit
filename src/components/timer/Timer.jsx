@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useTimer } from "react-timer-hook";
+import styled from "styled-components";
 import ModalInner from "../../element/ModalInner";
 import { postTimer } from "../../redux/modules/timerSlice";
 
@@ -86,44 +87,75 @@ export default function Timer({ value }) {
           />,
         ][select]}
       <div style={{ textAlign: "center" }}>
-        {isRunning ? (
-          <div style={{ fontSize: "50px", color: "#fff" }}>
-            <span>{hours.toString().padStart(2, 0)}</span>:
-            <span>{minutes.toString().padStart(2, 0)}</span>:
-            <span>{seconds.toString().padStart(2, 0)}</span>
-          </div>
-        ) : pauseTime ? (
-          <div style={{ fontSize: "50px", color: "#fff" }}>
-            <span>{hours.toString().padStart(2, 0)}</span>:
-            <span>{minutes.toString().padStart(2, 0)}</span>:
-            <span>{seconds.toString().padStart(2, 0)}</span>
-          </div>
-        ) : (
-          <div style={{ fontSize: "50px", color: "#fff" }}>
-            <span>
-              {Math.floor(value / 60)
-                .toString()
-                .padStart(2, 0)}
-            </span>
-            :<span>{(value % 60).toString().padStart(2, 0)}</span>:
-            <span>00</span>
-          </div>
-        )}
+        <StTimerWrap>
+          {isRunning ? (
+            <div style={{ fontSize: "50px", color: "#fff" }}>
+              <span>{hours.toString().padStart(2, 0)}</span>:
+              <span>{minutes.toString().padStart(2, 0)}</span>:
+              <span>{seconds.toString().padStart(2, 0)}</span>
+            </div>
+          ) : pauseTime ? (
+            <div style={{ fontSize: "50px", color: "#fff" }}>
+              <span>{hours.toString().padStart(2, 0)}</span>:
+              <span>{minutes.toString().padStart(2, 0)}</span>:
+              <span>{seconds.toString().padStart(2, 0)}</span>
+            </div>
+          ) : (
+            <div style={{ fontSize: "50px", color: "#fff" }}>
+              <span>
+                {Math.floor(value / 60)
+                  .toString()
+                  .padStart(2, 0)}
+              </span>
+              :<span>{(value % 60).toString().padStart(2, 0)}</span>:
+              <span>00</span>
+            </div>
+          )}
+        </StTimerWrap>
 
         {/* 시작버튼 */}
-        {isRunning ? (
-          <button disabled={true}>Start</button>
-        ) : (
-          <button onClick={onStartHandler}>Start</button>
-        )}
+        <StTimerBtnWrap>
+          <StTimerBtn
+            onClick={onStartHandler}
+            disabled={isRunning ? true : false}
+          >
+            시작
+          </StTimerBtn>
 
-        {/* 종료버튼 */}
-        {isRunning ? (
-          <button onClick={onPauseHandler}>Pause</button>
-        ) : (
-          <button disabled={true}>Pause</button>
-        )}
+          <StTimerBtn
+            onClick={onPauseHandler}
+            disabled={isRunning ? false : true}
+          >
+            중단
+          </StTimerBtn>
+        </StTimerBtnWrap>
       </div>
     </React.Fragment>
   );
 }
+
+const StTimerWrap = styled.div`
+  position: relative;
+  margin: 0px 86px;
+  top: 100px;
+`;
+
+const StTimerBtnWrap = styled.div`
+  position: relative;
+  display: flex;
+  width: 295px;
+  height: 76px;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0px auto;
+  top: 258px;
+`;
+
+const StTimerBtn = styled.button`
+  border: 1px solid #fff;
+  background: none;
+  width: 76px;
+  height: 76px;
+  border-radius: 100px;
+  color: #fff;
+`;
