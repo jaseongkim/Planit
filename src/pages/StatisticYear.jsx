@@ -3,6 +3,7 @@ import { Chart as ChartJS, registerables } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import { useDispatch, useSelector } from "react-redux";
 import { getChartDataYear } from "../redux/modules/statisticSlice";
+import styled from "styled-components";
 ChartJS.register(...registerables);
 
 const Statistic = () => {
@@ -26,10 +27,10 @@ const Statistic = () => {
     "12월",
   ];
 
-  const AC = statistic?.achievementRates?.map((item) => {
+  const achievementRate = statistic?.achievementRates?.map((item) => {
     return item.achievementRate;
   });
-  const CO = statistic?.concentrationRates?.map((item) => {
+  const concentration = statistic?.concentrationRates?.map((item) => {
     return item.concentrationRate;
   });
 
@@ -37,25 +38,25 @@ const Statistic = () => {
     dispatch(getChartDataYear(date));
   }, [JSON.stringify(statistic)]);
 
-  const data = {
+  const achievementRateYearData = {
     labels: labels,
     datasets: [
       {
-        label: "data 1",
-        data: AC,
+        label: "연간 달성률",
+        data: achievementRate,
         backgroundColor: [
-          "rgba(255, 99, 132, 0.2)",
-          "rgba(255, 159, 64, 0.2)",
-          "rgba(255, 205, 86, 0.2)",
-          "rgba(75, 192, 192, 0.2)",
-          "rgba(54, 162, 235, 0.2)",
-          "rgba(153, 102, 255, 0.2)",
-          "rgba(201, 203, 207, 0.2)",
-          "rgba(255, 99, 132, 0.2)",
-          "rgba(255, 159, 64, 0.2)",
-          "rgba(255, 205, 86, 0.2)",
-          "rgba(75, 192, 192, 0.2)",
-          "rgba(54, 162, 235, 0.2)",
+          "rgba(255, 99, 132)",
+          "rgba(255, 159, 64)",
+          "rgba(255, 205, 86)",
+          "rgba(75, 192, 192)",
+          "rgba(54, 162, 235)",
+          "rgba(153, 102, 255)",
+          "rgba(201, 203, 207)",
+          "rgba(255, 99, 132)",
+          "rgba(255, 159, 64)",
+          "rgba(255, 205, 86)",
+          "rgba(75, 192, 192)",
+          "rgba(54, 162, 235)",
         ],
         borderColor: [
           "rgb(255, 99, 132)",
@@ -76,25 +77,25 @@ const Statistic = () => {
     ],
   };
 
-  const data2 = {
+  const concentrationYearData = {
     labels: labels,
     datasets: [
       {
-        label: "data 2",
-        data: CO, // 차트의 data list
+        label: "연간 집중도",
+        data: concentration,
         backgroundColor: [
-          "rgba(255, 99, 132, 0.2)",
-          "rgba(255, 159, 64, 0.2)",
-          "rgba(255, 205, 86, 0.2)",
-          "rgba(75, 192, 192, 0.2)",
-          "rgba(54, 162, 235, 0.2)",
-          "rgba(153, 102, 255, 0.2)",
-          "rgba(201, 203, 207, 0.2)",
-          "rgba(255, 99, 132, 0.2)",
-          "rgba(255, 159, 64, 0.2)",
-          "rgba(255, 205, 86, 0.2)",
-          "rgba(75, 192, 192, 0.2)",
-          "rgba(54, 162, 235, 0.2)",
+          "rgba(255, 99, 132)",
+          "rgba(255, 159, 64)",
+          "rgba(255, 205, 86)",
+          "rgba(75, 192, 192)",
+          "rgba(54, 162, 235)",
+          "rgba(153, 102, 255)",
+          "rgba(201, 203, 207)",
+          "rgba(255, 99, 132)",
+          "rgba(255, 159, 64)",
+          "rgba(255, 205, 86)",
+          "rgba(75, 192, 192)",
+          "rgba(54, 162, 235)",
         ],
         borderColor: [
           "rgb(255, 99, 132)",
@@ -117,8 +118,8 @@ const Statistic = () => {
 
   return (
     <div>
-      <Bar type="bar" data={data} />
-      <Bar type="bar" data={data2} />
+      <Bar type="bar" data={achievementRateYearData} />
+      <Bar type="bar" data={concentrationYearData} />
     </div>
   );
 };
