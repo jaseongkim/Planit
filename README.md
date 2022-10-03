@@ -54,3 +54,5 @@ PLANIT은 계획을 뜻하는 PLAN 과 행성을 뜻하는 PLANET의 뜻을 포�
 - 상위 Header 재사용으로 인해 navigate redirect 문제 [상세보기 - WIKI 이동](https://github.com/hanghae-w8-t4-plan-it/frontend/wiki/%EC%83%81%EC%9C%84-Header-%EC%9E%AC%EC%82%AC%EC%9A%A9%EC%9C%BC%EB%A1%9C-%EC%9D%B8%ED%95%B4-navigate-redirect-%EB%AC%B8%EC%A0%9C)
 - 행성 사진들이 생명주기때문에 undefined 되는 문제 [상세보기 - WIKI 이동](https://github.com/hanghae-w8-t4-plan-it/frontend/wiki/%ED%96%89%EC%84%B1-%EC%82%AC%EC%A7%84%EB%93%A4%EC%9D%B4-%EC%83%9D%EB%AA%85%EC%A3%BC%EA%B8%B0%EB%95%8C%EB%AC%B8%EC%97%90-undefined-%EB%90%98%EB%8A%94-%EB%AC%B8%EC%A0%9C)
 <br/> 
+- 새로고침시 State 에 저장된 값들이 없어 지는 현상 [상세보기 - WIKI 이동](https://github.com/hanghae-w8-t4-plan-it/frontend/wiki/%EC%83%88%EB%A1%9C%EA%B3%A0%EC%B9%A8%EC%8B%9C-State-%EC%97%90-%EC%A0%80%EC%9E%A5%EB%90%9C-%EA%B0%92%EB%93%A4%EC%9D%B4-%EC%97%86%EC%96%B4-%EC%A7%80%EB%8A%94-%ED%98%84%EC%83%81)
+<br/> 
