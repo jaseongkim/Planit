@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
 import { apis } from "../../shared/api";
 import { useNavigate } from "react-router-dom";
 
@@ -33,7 +33,6 @@ export const createPlanetThunk = createAsyncThunk(
   "planet/createPlanetThunk",
   async (payload, thunkAPI) => {
     try {
-      console.log("Checking payload", payload);
       const { data } = await apis.postPlanet(payload);
       // return thunkAPI.fulfillWithValue(data.data);
       console.log(data.data);
@@ -45,21 +44,15 @@ export const createPlanetThunk = createAsyncThunk(
   }
 );
 
+// Updating planet from the edit mode
 export const updatePlanetThunk = createAsyncThunk(
   "planet/updatePlanetThunk",
   async (payload, thunkAPI) => {
     try {
-      console.log("Checking payload", payload);
-      const { data } = await apis.updatePlanet(payload).then((response) => {
-        if (response.data.success === false) {
-        } else {
-          window.location.replace("/wklytodo");
-        }
-      });
-      // return thunkAPI.fulfillWithValue(data.data);
+      const { data } = await apis.updatePlanet(payload)
+      return thunkAPI.fulfillWithValue(data.data);
     } catch (e) {
-      // return thunkAPI.rejectWithValue(e.code);
-      // console.log(e);
+      return thunkAPI.rejectWithValue(e.code);
     }
   }
 );
@@ -98,6 +91,27 @@ const followSlice = createSlice({
       state.planet = action.payload;
     },
     [getDayPlanetThunk.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+
+     // Updating planet from the edit mode
+     [updatePlanetThunk.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [updatePlanetThunk.fulfilled]: (state, action) => {
+      state.isLoading = false;
+    
+      const planetIndex = state.planets.planets.findIndex((planet) => 
+        planet.dueDate === action.payload.dueDate        
+       )
+       
+       state.planets.planets[planetIndex].planetSize = action.payload.planetSize
+
+       state.planets.planets[planetIndex].planetColor = action.payload.planetColor
+
+    },
+    [updatePlanetThunk.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     },

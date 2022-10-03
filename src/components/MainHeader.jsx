@@ -4,6 +4,8 @@ import { prev_icon } from "../static/images";
 import { useLocation } from "react-router-dom";
 
 export default function MainHeader(props) {
+ 
+  // Navigate
   const navigate = useNavigate();
 
   // Getting Component's URL name

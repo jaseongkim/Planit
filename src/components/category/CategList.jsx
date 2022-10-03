@@ -1,10 +1,16 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import CategoryItem from "./CategoryItem.jsx";
 import { getOnlyCategThunk } from "../../redux/modules/categTodoSlice.js";
+import { apis } from "../../shared/api";
 
 const CategList = () => {
+
+  // Navigate
+  const navigate = useNavigate();
+  const location = useLocation(); 
   
   // Redux : dispatch
   const dispatch = useDispatch();
@@ -21,6 +27,7 @@ const CategList = () => {
 
   return (
     <CategoryContainer>
+      {console.log('Checking here', categories)}
       {categories?.length === 0 ? null : (
         <>
           <WorkingCategory>
