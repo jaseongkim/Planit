@@ -4,6 +4,7 @@ import { Bar } from "react-chartjs-2";
 import { useDispatch, useSelector } from "react-redux";
 import { getChartDataDay } from "../redux/modules/statisticSlice";
 import ProgressBar from "react-bootstrap/ProgressBar";
+import styled from "styled-components";
 ChartJS.register(...registerables);
 
 const Statistic = () => {
@@ -17,31 +18,31 @@ const Statistic = () => {
     21, 22, 23,
   ];
 
-  const CO = statistic?.concentrationRates?.map((item) => {
+  const concentration = statistic?.concentrationRates?.map((item) => {
     return item.concentrationRate;
   });
 
-  const AO = statistic?.achievementRate;
-  const TO = statistic?.achievementCnt;
+  const achievementRate = statistic?.achievementRate;
+  const achievementCnt = statistic?.achievementCnt;
 
   useEffect(() => {
     dispatch(getChartDataDay(date));
   }, [JSON.stringify(statistic)]);
 
-  const data = {
+  const concentrationDayData = {
     labels: labels,
     datasets: [
       {
-        label: "data 1",
-        data: CO,
+        label: "시간대별 집중도",
+        data: concentration,
         backgroundColor: [
-          "rgba(255, 99, 132, 0.2)",
-          "rgba(255, 159, 64, 0.2)",
-          "rgba(255, 205, 86, 0.2)",
-          "rgba(75, 192, 192, 0.2)",
-          "rgba(54, 162, 235, 0.2)",
-          "rgba(153, 102, 255, 0.2)",
-          "rgba(201, 203, 207, 0.2)",
+          "rgba(255, 99, 132)",
+          "rgba(255, 159, 64)",
+          "rgba(255, 205, 86)",
+          "rgba(75, 192, 192)",
+          "rgba(54, 162, 235)",
+          "rgba(153, 102, 255)",
+          "rgba(201, 203, 207)",
         ],
         borderColor: [
           "rgb(255, 99, 132)",
@@ -58,11 +59,22 @@ const Statistic = () => {
   };
 
   return (
-    <div>
-      <ProgressBar now={AO} label={`${AO}% (${TO}개)`} />
-      <Bar type="bar" data={data} />
-    </div>
+    <StyChartCont>
+      <ProgressBar
+        now={achievementRate}
+        label={`${achievementRate}% (${achievementCnt}개)`}
+      />
+      <Bar type="bar" data={concentrationDayData} />
+    </StyChartCont>
   );
 };
 
 export default Statistic;
+
+const StyChartCont = styled.div`
+  margin-top: 100px;
+  padding: 0 16px;
+  .progress {
+    margin-bottom: 50px;
+  }
+`;
