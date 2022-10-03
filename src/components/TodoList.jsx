@@ -177,6 +177,7 @@ const TodoList = ({
                     id={`disable${inputs.todoId}`}
                     name="title"
                     type="text"
+                    maxLength={20}
                     placeholder="할 일을 입력하세요"
                     value={inputs.title}
                     onChange={(event) => handleFormChange(index, event)}

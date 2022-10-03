@@ -35,8 +35,6 @@ const WklyTodo = () => {
   // Redux : weeklyPlants useSelector
   const wkPlanets = useSelector((state) => state.planetSlice.planets);
 
-  const today = new Date().getDate();
-
   const onEditSheetOpen = (planet) => {
     setPlanet({
       dueDate: planet.dueDate,
@@ -47,14 +45,14 @@ const WklyTodo = () => {
     });
     setEditOpen(true);
   };
-  
+
   const onEditSheetClose = (color, size, dueDate) => {
     const data = {
       dueDate: dueDate,
       planetSize: size,
       planetColor: color,
     };
-    
+
     dispatch(updatePlanetThunk(data));
 
     setEditOpen(false);
@@ -179,8 +177,7 @@ const WklyTodo = () => {
                 {planet.planetType === null ||
                 planet.planetColor === null ||
                 planet.planetLevel === null ||
-                planet.planetType === 0 ||
-                parseInt(planet.dueDate.substring(8, 10)) === today ? (
+                planet.planetType === 0 ? (
                   <Circle>{planet.dueDate.substring(8, 10)}</Circle>
                 ) : (
                   <>
