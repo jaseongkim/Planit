@@ -9,17 +9,32 @@ export default function TimerPage() {
   return (
     <StTimerContainer>
       <MainHeader text={"타이머"} color={""} />
-      <Timer value={value} />
-      <input
-        type="range"
-        min={10}
-        max={120}
-        step={5}
-        value={value}
-        onChange={(e) => setValue(parseInt(e.target.value))}
-      />
+      <div>
+        <Timer value={value} />
+        <StTimerBar
+          type="range"
+          min={10}
+          max={120}
+          step={5}
+          value={value}
+          onChange={(e) => setValue(parseInt(e.target.value))}
+        />
+      </div>
     </StTimerContainer>
   );
 }
 
-const StTimerContainer = styled.div``;
+const StTimerContainer = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding-bottom: 70px;
+  overflow-y: auto;
+  text-align: center;
+`;
+
+const StTimerBar = styled.input`
+  position: relative;
+  width: 292px;
+  top: 99px;
+`;
