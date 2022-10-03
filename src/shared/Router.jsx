@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LogoPage from "../pages/LogoPage";
+import LogoPageFix from "../pages/LogoPageFix";
 import LogInPage from "../pages/LogInPage";
 import SignUp from "../pages/SignUp";
 import Welcome from "../pages/Welcome";
@@ -57,3 +58,4 @@ const Router = () => {
 };
 
 export default Router;
+
