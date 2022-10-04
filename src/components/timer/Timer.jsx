@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useTimer } from "react-timer-hook";
 import styled from "styled-components";
 import ModalInner from "../../element/ModalInner";
-import { postTimer } from "../../redux/modules/timerSlice";
+import { postTimer, setRunning } from "../../redux/modules/timerSlice";
 
 export default function Timer({ value }) {
   const dispatch = useDispatch();
@@ -33,6 +33,7 @@ export default function Timer({ value }) {
     restart(numToMins(value));
     const startCurrent = hours * 3600 + minutes * 60;
     setStartTime(startCurrent);
+    dispatch(setRunning(true));
   };
 
   const onPauseHandler = () => {
@@ -56,6 +57,7 @@ export default function Timer({ value }) {
       elapsedTime: endTime,
     };
 
+    dispatch(setRunning(false));
     dispatch(postTimer(data));
   };
 
