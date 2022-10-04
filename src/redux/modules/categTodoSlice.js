@@ -22,7 +22,6 @@ export const getOnlyCategThunk = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const { data } = await apis.getOnlyCategorie();
-      console.log("Check getOnlyCateg", data.data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (e) {
       console.log("getCategThunk", e.response.data.status);
