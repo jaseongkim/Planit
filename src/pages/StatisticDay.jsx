@@ -24,9 +24,9 @@ const Statistic = () => {
   const dispatch = useDispatch();
 
   // Context API : To get the selected date from the calendar
-  const { dateValue, setDateValue,parsedFullDate } = useContext(AppContext);
+  const { parsedFullDate } = useContext(AppContext);
 
-  console.log("Hey check here", dateValue, "Check parsedFullDate", parsedFullDate)
+  // console.log("Hey check here", dateValue, "Check parsedFullDate", parsedFullDate)
 
   const statistic = useSelector((state) => state.statisticSlice.statistic);
 

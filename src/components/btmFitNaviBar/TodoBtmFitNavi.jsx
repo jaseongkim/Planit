@@ -94,6 +94,7 @@ const StyBtmNavi = styled.div`
     max-width: none;
   }
 `;
+
 const StyBtmTabCont = styled.div`
   width: 100%;
   max-width: 375px;
@@ -130,6 +131,7 @@ const StyBtmTab = styled.button`
               0px 3px 1px rgba(0, 0, 0, 0.04);
           }
         `;
+        
       default:
         return css`
           width: 50%;

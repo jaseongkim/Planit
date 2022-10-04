@@ -12,14 +12,10 @@ const RepStatsBtmFitNavi = ({ name, wkPlanets }) => {
 
   // Getting Component's URL name
   let currentPath = useLocation();
-
-  console.log('Check currentPath', currentPath.pathname);
-
+  
   // Hook : getting initial state from props & change state for the navigation
   // Depending on the state, the UX will be rendered differently
   const [activeTabs, setActiveTabs] = useState(currentPath.pathname);
-
-  console.log('Check activeTabs', activeTabs);
 
   // UseEffect : when activeTabs get changed, useEffect will be triggered again
   useEffect(() => {
