@@ -4,35 +4,45 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 // Styled-Component
 import styled, { css } from "styled-components";
-import TopButton from "../../element/TopButton";
 
-const BtmFitNavi = ({ name, wkPlanets }) => {
+const RepStatsBtmFitNavi = ({ name, wkPlanets }) => {
+
   // Navigate
   const navigate = useNavigate();
 
-  const currentPath = useLocation().pathname;
+  // Getting Component's URL name
+  let currentPath = useLocation();
+
+  console.log('Check currentPath', currentPath.pathname);
 
   // Hook : getting initial state from props & change state for the navigation
   // Depending on the state, the UX will be rendered differently
-  const [activeTabs, setActiveTabs] = useState(name);
+  const [activeTabs, setActiveTabs] = useState(currentPath.pathname);
+
+  console.log('Check activeTabs', activeTabs);
 
   // UseEffect : when activeTabs get changed, useEffect will be triggered again
   useEffect(() => {
     switch (activeTabs) {
-      case "wklytodo":
-        navigate("/wklytodo");
+      case "/statisticyear":
+        navigate("/statisticyear");
         break;
+        case "/statisticweek":
+        navigate("/statisticweek");
+        break;
+      case "/statisticmonth":
+        navigate("/statisticmonth");
+        break;  
       default:
-        navigate("/dlytodo");
+        navigate("/statisticday");
         break;
     }
-  }, [activeTabs]);
+  }, [activeTabs, navigate]);
 
   // When the day navi btn get clicked, find current date's planet
   // If the planet's planetType is 0, navigate to creatplanet page
   // Else navigate to dlytodo page
   const onClickDay = () => {
-    console.log("Checking wkPlanets", wkPlanets);
     const currDate = new Date();
     const parsedCurrDate = `${currDate.getFullYear()}-${String(
       currDate.getMonth() + 1
@@ -50,8 +60,6 @@ const BtmFitNavi = ({ name, wkPlanets }) => {
 
   return (
     <StyBtmNavi>
-      {/* 추후 리포트 페이지 path도 추가 */}
-      {currentPath === "/dlytodo" ? <TopButton /> : null}
       <StyBtmTabCont>
         <StyBtmTabWrap>
           <StyBtmTab
@@ -59,14 +67,14 @@ const BtmFitNavi = ({ name, wkPlanets }) => {
             date={activeTabs}
             onClick={() => setActiveTabs("wklytodo")}
           >
-            Week
+            리포트로 보기
           </StyBtmTab>
           <StyBtmTab
             className="day"
             date={activeTabs}
             onClick={() => onClickDay()}
           >
-            Day
+            통게로 보기
           </StyBtmTab>
         </StyBtmTabWrap>
       </StyBtmTabCont>
@@ -74,7 +82,7 @@ const BtmFitNavi = ({ name, wkPlanets }) => {
   );
 };
 
-export default BtmFitNavi;
+export default RepStatsBtmFitNavi;
 
 const StyBtmNavi = styled.div`
   position: fixed;
@@ -124,7 +132,7 @@ const StyBtmTab = styled.button`
           border: none;
           border-radius: 8px;
 
-          &.day {
+          &.week {
             background: white;
             box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.12),
               0px 3px 1px rgba(0, 0, 0, 0.04);
@@ -141,7 +149,7 @@ const StyBtmTab = styled.button`
           border: none;
           border-radius: 8px;
 
-          &.week {
+          &.day {
             background: white;
             box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.12),
               0px 3px 1px rgba(0, 0, 0, 0.04);

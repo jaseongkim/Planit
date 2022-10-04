@@ -4,11 +4,20 @@ import { Bar } from "react-chartjs-2";
 import { useDispatch, useSelector } from "react-redux";
 import { getChartDataYear } from "../redux/modules/statisticSlice";
 import styled from "styled-components";
+
+import RepStatsBtmFitNavi from "../components/btmFitNaviBar/RepStatsBtmFitNavi"
+
 ChartJS.register(...registerables);
 
 const Statistic = () => {
   const dispatch = useDispatch();
-  const date = "2022-10-03";
+  const currDate = new Date();
+
+  const parsedCurrDate = `${currDate.getFullYear()}-${String(
+    currDate.getMonth() + 1
+  ).padStart(2, "0")}-${String(currDate.getDate()).padStart(2, "0")}`;
+
+  console.log("Check",typeof parsedCurrDate)
 
   const statistic = useSelector((state) => state.statisticSlice.statistic);
 
@@ -35,7 +44,7 @@ const Statistic = () => {
   });
 
   useEffect(() => {
-    dispatch(getChartDataYear(date));
+    dispatch(getChartDataYear(parsedCurrDate));
   }, [JSON.stringify(statistic)]);
 
   const achievementRateYearData = {
@@ -120,6 +129,7 @@ const Statistic = () => {
     <div>
       <Bar type="bar" data={achievementRateYearData} />
       <Bar type="bar" data={concentrationYearData} />
+      <RepStatsBtmFitNavi name="statisticyear"></RepStatsBtmFitNavi>
     </div>
   );
 };

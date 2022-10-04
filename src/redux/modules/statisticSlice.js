@@ -6,7 +6,7 @@ const initialState = {
 };
 
 export const getChartDataDay = createAsyncThunk(
-  "makeChatRoom",
+  "getChartDataDay",
   async (payload, thunkAPI) => {
     try {
       const response = await axios.get("https://teamsparta.link/statistic", {
@@ -25,7 +25,7 @@ export const getChartDataDay = createAsyncThunk(
 );
 
 export const getChartDataWeek = createAsyncThunk(
-  "makeChatRoom",
+  "getChartDataWeek",
   async (payload, thunkAPI) => {
     try {
       const response = await axios.get(
@@ -47,7 +47,7 @@ export const getChartDataWeek = createAsyncThunk(
 );
 
 export const getChartDataMonth = createAsyncThunk(
-  "makeChatRoom",
+  "getChartDataMonth",
   async (payload, thunkAPI) => {
     try {
       const response = await axios.get(
@@ -69,8 +69,9 @@ export const getChartDataMonth = createAsyncThunk(
 );
 
 export const getChartDataYear = createAsyncThunk(
-  "makeChatRoom",
+  "getChartDataYear",
   async (payload, thunkAPI) => {
+    console.log("payload", payload)
     try {
       const response = await axios.get(
         "https://teamsparta.link/statistic/year",

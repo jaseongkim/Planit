@@ -6,7 +6,7 @@ import styled from "styled-components";
 import Header from "../components/Header";
 // BottomModalSheet
 // import Sheet from "react-modal-sheet";
-import BtmFitNavi from "../components/btmFitNaviBar/BtmFitNavi.jsx";
+import TodoBtmFitNavi from "../components/btmFitNaviBar/TodoBtmFitNavi.jsx";
 import WeekMover from "../components/dateMover/WeekMover.jsx";
 import WklyPlanetEdit from "../components/wkly/WklyPlanetEdit";
 // React-icons
@@ -21,6 +21,7 @@ import {
 import Circle from "../element/Circle.jsx";
 
 const WklyTodo = () => {
+  
   // Redux : dispatch
   const dispatch = useDispatch();
 
@@ -130,7 +131,7 @@ const WklyTodo = () => {
   )}`;
 
   // Var ; A parsed date in format yy년 mm월 dd째주 to display on the WeekMover
-  const parsedDispDate = `${weekNumberByMonth(dateValue).month}월 
+  const parsedWeekDate = `${weekNumberByMonth(dateValue).month}월 
   ${weekNumberByMonth(getMondayOfWeek(dateValue)).weekNo}째주`;
 
   // UseEffect : Getting weekly planets with its week's date
@@ -150,7 +151,7 @@ const WklyTodo = () => {
         <Header></Header>
         <StyHeader>
           <WeekMover
-            parsedDispDate={parsedDispDate}
+            parsedWeekDate={parsedWeekDate}
             dateValue={dateValue}
             setDateValue={setDateValue}
           />
@@ -193,7 +194,7 @@ const WklyTodo = () => {
             );
           })}
         </StyCircleCon>
-        <BtmFitNavi name="wklytodo" wkPlanets={wkPlanets}></BtmFitNavi>
+        <TodoBtmFitNavi name="wklytodo" wkPlanets={wkPlanets}></TodoBtmFitNavi>
       </StyTodoCon>
       {planet === null ? null : (
         <WklyPlanetEdit

@@ -1,14 +1,27 @@
-import React, { useEffect } from "react";
+// React
+import React, { useEffect,useContext } from "react";
+// Chart JS
 import { Chart as ChartJS, registerables } from "chart.js";
 import { Bar } from "react-chartjs-2";
+// Redux
 import { useDispatch, useSelector } from "react-redux";
 import { getChartDataWeek } from "../redux/modules/statisticSlice";
+// Styled-Component
 import styled from "styled-components";
+// Context API
+import { AppContext } from "../context"
+
+import RepStatsBtmFitNavi from "../components/btmFitNaviBar/RepStatsBtmFitNavi"
+
 ChartJS.register(...registerables);
 
 const Statistic = () => {
+
+  // dispatch
   const dispatch = useDispatch();
-  const date = "2022-10-03";
+
+  // Context API : To get the selected date from the calendar
+  const { dateValue, setDateValue } = useContext(AppContext);
 
   const statistic = useSelector((state) => state.statisticSlice.statistic);
 
@@ -22,7 +35,7 @@ const Statistic = () => {
   });
 
   useEffect(() => {
-    dispatch(getChartDataWeek(date));
+    dispatch(getChartDataWeek(dateValue));
   }, [JSON.stringify(statistic)]);
 
   const achievementRateWeekData = {
@@ -87,6 +100,7 @@ const Statistic = () => {
     <div>
       <Bar type="bar" data={achievementRateWeekData} />
       <Bar type="bar" data={concentrationWeekData} />
+      <RepStatsBtmFitNavi name="statisticweek"></RepStatsBtmFitNavi>
     </div>
   );
 };

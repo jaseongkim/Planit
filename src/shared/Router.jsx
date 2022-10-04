@@ -23,6 +23,7 @@ import StatisticDay from "../pages/StatisticDay";
 import StatisticWeek from "../pages/StatisticWeek";
 import StatisticMonth from "../pages/StatisticMonth";
 import StatisticYear from "../pages/StatisticYear";
+import Report from "../pages/Report"
 
 const Router = () => {
   return (
@@ -44,12 +45,13 @@ const Router = () => {
       <Route path="/password" element={<Password />} />
       <Route path="/category" element={<Category />} />
       <Route path="/categorydetail/:id" element={<CategoryDetail />} />
-      <Route path="*" element={<LogoPageFix />} />
       <Route path="/timer" element={<TimerPage />} />
       <Route path="/statisticday" element={<StatisticDay />} />
       <Route path="/statisticweek" element={<StatisticWeek />} />
       <Route path="/statisticmonth" element={<StatisticMonth />} />
       <Route path="/statisticyear" element={<StatisticYear />} />
+      <Route path="/report" element={<Report />} />
+      <Route path="*" element={<LogoPageFix />} />
     </Routes>
   );
 };
