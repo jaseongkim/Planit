@@ -22,7 +22,7 @@ export const getOnlyCategThunk = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const { data } = await apis.getOnlyCategorie();
-      console.log("Check getOnlyCateg", data.data)
+      console.log("Check getOnlyCateg", data.data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (e) {
       console.log("getCategThunk", e.response.data.status);
@@ -36,8 +36,8 @@ export const getOnlyCategThunk = createAsyncThunk(
 export const createCategThunk = createAsyncThunk(
   "category/createCategory",
   async (category, thunkAPI) => {
-    try {
-      const { data } = await apis.postCategories(category)
+    await apis
+      .postCategories(category)
       // console.log
       // return thunkAPI.fulfillWithValue(data.data);
       .then((response) => {
@@ -46,11 +46,8 @@ export const createCategThunk = createAsyncThunk(
         } else {
           return window.location.replace("/category");
         }
-      });
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error);
-      // console.log(error);
-    }
+      })
+      .catch((error) => {});
   }
 );
 
