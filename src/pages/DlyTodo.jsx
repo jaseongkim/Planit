@@ -69,10 +69,7 @@ const DlyTodo = () => {
   const [openbtmSheet, setOpenBtmSheet] = useState(false);
 
   // Context API : To get the selected date && the prasedFullDate from the calendar
-  const { dateValue, setDateValue, parsedFullDate } = useContext(AppContext);
-
-  // // Hook : To get the selected date from the calendar
-  // const [dateValue, setDateValue] = useState(new Date());
+  const { dateValue, setDateValue, parsedFullApiDate } = useContext(AppContext);
 
   // Hook : To get the clicked Memo info from the TodoList
   const [clickedMemo, setClickedMemo] = useState("");
@@ -96,7 +93,7 @@ const DlyTodo = () => {
   const today = new Date();
 
   // Var : Parsing date string into date int format
-  const parsedCurrDate = Date.parse(parsedFullDate);
+  const parsedCurrDate = Date.parse(parsedFullApiDate);
 
   // Var : Parsinng a current date in format yyyy/mm/dd
   const parsedToday = Date.parse(
@@ -120,13 +117,13 @@ const DlyTodo = () => {
   // UseEffect : Getting categories & to-do lists as well as date from the calendar
   // Dispatchig PlanetThunk first => getCategThunk
   useEffect(() => {
-    concatSelDate.current = parsedFullDate;
+    concatSelDate.current = parsedFullApiDate;
     dispatch(getDayPlanetThunk(concatSelDate.current)).then((response) => {
       if (response.meta.requestStatus === "fulfilled") {
         dispatch(getCategThunk(concatSelDate.current));
       }
     });
-  }, [parsedFullDate, dispatch]);
+  }, [parsedFullApiDate, dispatch]);
 
   // Adding a new todo
   const addTodo = ({ input, index }) => {

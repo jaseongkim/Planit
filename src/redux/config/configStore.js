@@ -6,6 +6,7 @@ import categTodoSlice from "../modules/categTodoSlice";
 import planetSlice from "../modules/planetSlice";
 import statisticSlice from "../modules/statisticSlice";
 import timerSlice from "../modules/timerSlice";
+import reportSlice from "../modules/reportSlice";
 
 const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ const store = configureStore({
     followSlice,
     statisticSlice,
     timerSlice,
+    reportSlice
   },
 });
 

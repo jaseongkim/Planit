@@ -44,7 +44,6 @@ const RepStatsBtmFitNavi = () => {
       {currentPath.pathname === "/report" ? <TopButton /> : null}
       <StyBtmTabCont>
         <StyBtmTabWrap>
-          {console.log('Check activeTabs', activeTabs)}
           <StyBtmTab
             className="rep"
             page={activeTabs}

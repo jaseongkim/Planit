@@ -23,7 +23,7 @@ const Statistic = () => {
   const dispatch = useDispatch();
 
   // Context API : To get the selected date from the calendar
-  const {parsedFullDate } = useContext(AppContext);
+  const {parsedFullApiDate} = useContext(AppContext);
 
   const statistic = useSelector((state) => state.statisticSlice.statistic);
 
@@ -37,8 +37,8 @@ const Statistic = () => {
   });
 
   useEffect(() => {
-    dispatch(getChartDataMonth(parsedFullDate));
-  }, [parsedFullDate, dispatch]);
+    dispatch(getChartDataMonth(parsedFullApiDate));
+  }, [parsedFullApiDate, dispatch]);
 
   const achievementRateMonthData = {
     labels: labels,
