@@ -128,7 +128,7 @@ const Statistic = () => {
 
   return (
     <StyChartCont>
-      <MainHeader text={"닉네임님의 통계"} color={""} />
+      <MainHeader color={""} />
       <StyChartWrap>
         <StyDateMoverWrap>
           <DayMover />
@@ -157,7 +157,7 @@ const Statistic = () => {
         </StyChartBox>
         <StatsBtmNavi name={"statisticday"} />
       </StyChartWrap>
-      <RepStatsBtmFitNavi name={"statisticday"}></RepStatsBtmFitNavi>
+      <RepStatsBtmFitNavi/>
     </StyChartCont>
   );
 };

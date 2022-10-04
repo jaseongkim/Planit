@@ -3,14 +3,15 @@ import React, { useState, useEffect } from "react";
 // React-Router-Dom
 import { useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
+// UseParms
+import { useLocation } from "react-router-dom";
 
 const StatsBtmNavi = ({ name }) => {
   // Navigate
   const navigate = useNavigate();
 
-  const pathname = window.location.pathname;
-
-  console.log("pathname : ", pathname);
+  // Getting Component's URL name
+  let currentPath = useLocation();
 
   // Hook : getting initial state from props & change state for the navigation
   // Depending on the state, the UX will be rendered differently
@@ -33,42 +34,40 @@ const StatsBtmNavi = ({ name }) => {
     }
   }, [activeTabs, navigate]);
 
-  console.log("111 : ", activeTabs);
-
   return (
     <StyPeriodBtnWrap>
-      <button
-        className="statisticday active"
-        date={activeTabs}
-        pathname={pathname}
+      <StyPeriodBtn
+        className="statisticday"
+        // page={currentPath.pathname}
+        page={activeTabs}
         onClick={() => setActiveTabs("statisticday")}
       >
         Day
-      </button>
-      <button
+      </StyPeriodBtn>
+      <StyPeriodBtn
         className="statisticweek"
-        date={activeTabs}
-        pathname={pathname}
+        // page={currentPath.pathname}
+        page={activeTabs}
         onClick={() => setActiveTabs("statisticweek")}
       >
         Week
-      </button>
-      <button
+      </StyPeriodBtn>
+      <StyPeriodBtn
         className="statisticmonth"
-        date={activeTabs}
-        pathname={pathname}
+        // page={currentPath.pathname}
+        page={activeTabs}
         onClick={() => setActiveTabs("statisticmonth")}
       >
         Month
-      </button>
-      <button
+      </StyPeriodBtn>
+      <StyPeriodBtn
         className="statisticyear"
-        date={activeTabs}
-        pathname={pathname}
+        // page={currentPath.pathname}
+        page={activeTabs}
         onClick={() => setActiveTabs("statisticyear")}
       >
         Year
-      </button>
+      </StyPeriodBtn>
     </StyPeriodBtnWrap>
   );
 };
@@ -80,19 +79,47 @@ const StyPeriodBtnWrap = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-top: 40px;
+`;
 
-  button {
-    width: 60px;
-    font-weight: 400;
-    font-size: 18px;
-    color: #fff;
-    background: transparent;
-    border: none;
-    opacity: 40%;
+const StyPeriodBtn = styled.button`
+  width: 60px;
+  font-weight: 400;
+  font-size: 18px;
+  color: #fff;
+  background: transparent;
+  border: none;
+  opacity: 40%;
 
-    &.active {
-      font-weight: 500;
-      opacity: 100%;
+  ${(props) => {
+    switch (props.page) {
+      case "statisticday":
+        return css`
+          &.statisticday {
+            font-weight: 500;
+            opacity: 100%;
+          }
+        `;
+      case "statisticweek":
+        return css`
+          &.statisticweek {
+            font-weight: 500;
+            opacity: 100%;
+          }
+        `;
+      case "statisticmonth":
+        return css`
+          &.statisticmonth {
+            font-weight: 500;
+            opacity: 100%;
+          }
+        `;
+      default:
+        return css`
+           &.statisticyear {
+            font-weight: 500;
+            opacity: 100%;
+          }
+      `;
     }
-  }
+  }}
 `;
