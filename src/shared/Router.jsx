@@ -4,7 +4,7 @@ import LogoPage from "../pages/LogoPage";
 import LogoPageFix from "../pages/LogoPageFix";
 import LogInPage from "../pages/LogInPage";
 import SignUp from "../pages/SignUp";
-import Welcome from "../pages/Welcome";
+import Tutorial from "../pages/Tutorial";
 import DlyTodo from "../pages/DlyTodo";
 import Kakao from "./Kakao";
 import Search from "../pages/Search";
@@ -32,7 +32,7 @@ const Router = () => {
       <Route path="/maintPage" element={<MaintPage />} />
       <Route path="/login" element={<LogInPage />} />
       <Route path="/signup" element={<SignUp />} />
-      <Route path="/welcome" element={<Welcome />} />
+      <Route path="/tutorial" element={<Tutorial />} />
       <Route path="/dlytodo" element={<DlyTodo />} />
       <Route path="/wklytodo" element={<WklyTodo />} />
       <Route path="/login/kakao" element={<Kakao />} />
