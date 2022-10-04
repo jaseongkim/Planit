@@ -1,15 +1,24 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useContext } from "react";
 import { Chart as ChartJS, registerables } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import { useDispatch, useSelector } from "react-redux";
 import { getChartDataDay } from "../redux/modules/statisticSlice";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import styled from "styled-components";
+import { AppContext } from "../context";
+import DayMover from "../components/dateMover/DayMover"
+import MainHeader from "../components/MainHeader"
 ChartJS.register(...registerables);
 
 const Statistic = () => {
+
   const dispatch = useDispatch();
-  const date = "2022-10-03";
+
+
+  // Context API : To get the selected date from the calendar
+  const { dateValue, setDateValue,parsedFullDate } = useContext(AppContext);
+
+  console.log("Hey check here", dateValue, "Check parsedFullDate", parsedFullDate)
 
   const statistic = useSelector((state) => state.statisticSlice.statistic);
 
@@ -26,8 +35,8 @@ const Statistic = () => {
   const achievementCnt = statistic?.achievementCnt;
 
   useEffect(() => {
-    dispatch(getChartDataDay(date));
-  }, [JSON.stringify(statistic)]);
+    dispatch(getChartDataDay(parsedFullDate));
+  }, [parsedFullDate, dispatch]);
 
   const concentrationDayData = {
     labels: labels,
@@ -60,6 +69,8 @@ const Statistic = () => {
 
   return (
     <StyChartCont>
+      {/* <MainHeader></MainHeader> */}
+      <DayMover/>
       <ProgressBar
         now={achievementRate}
         label={`${achievementRate}% (${achievementCnt}개)`}

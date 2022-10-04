@@ -1,5 +1,5 @@
 // React
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 // BottomModalSheet
 import Sheet from "react-modal-sheet";
 // Calendar
@@ -39,6 +39,8 @@ import {
 } from "../static/images";
 // React Router Dommmy UI 
 import { useNavigate } from "react-router-dom";
+// Context API
+import { AppContext } from "../context"
 
 // A counter for the dumppy data of todo
 let todoIdCounter = 1;
@@ -60,13 +62,17 @@ const DlyTodo = () => {
   // Hook : whether to open the change date modal
   const [showModal, setShowModal] = useState(false);
 
+  // Hook : To open delete model
   const [deleteModal, setDeleteModal] = useState(false);
 
   // Hook : whether to show bottom modal sheet
   const [openbtmSheet, setOpenBtmSheet] = useState(false);
 
-  // Hook : To get the selected date from the calendar
-  const [dateValue, setDateValue] = useState(new Date());
+  // Context API : To get the selected date && the prasedFullDate from the calendar
+  const { dateValue, setDateValue, parsedFullDate } = useContext(AppContext);
+
+  // // Hook : To get the selected date from the calendar
+  // const [dateValue, setDateValue] = useState(new Date());
 
   // Hook : To get the clicked Memo info from the TodoList
   const [clickedMemo, setClickedMemo] = useState("");
@@ -85,19 +91,6 @@ const DlyTodo = () => {
 
   // UseRef : To get the selected date from the calendar
   const concatSelDate = useRef();
-
-  // Var ; A Parsed date in format yyyy/mm/dd from the calendar
-  var parsedFullDate = `${dateValue.getFullYear()}-${String(
-    dateValue.getMonth() + 1
-  ).padStart(2, "0")}-${String(dateValue.getDate()).padStart(2, "0")}`;
-
-  // Var : A Parsed date in format mm월 dd일 from the calendar
-  var parsedParDate = `${String(dateValue.getFullYear()).slice(
-    2,
-    4
-  )}년 ${String(dateValue.getMonth() + 1).padStart(2, "0")}월 ${String(
-    dateValue.getDate()
-  ).padStart(2, "0")}일`;
 
   // Var : Getting a current date
   const today = new Date();
@@ -241,9 +234,6 @@ const DlyTodo = () => {
             <StyCircleWrap>
               <StyHeader showCalendar={showCalendar}>
                 <DayMover
-                  parsedParDate={parsedParDate}
-                  setDateValue={setDateValue}
-                  dateValue={dateValue}
                 />
                 <TodoStatus>
                   <div>

@@ -27,7 +27,9 @@ export default function MainHeader(props) {
             <img src={prev_icon} alt="뒤" />
           </button>
         )}
-        <NicknameDiv>{props.text}</NicknameDiv>
+        <NicknameDiv>
+          {props.text}
+        </NicknameDiv>
       </HeaderTitle>
     </HeaderWrap>
   );
