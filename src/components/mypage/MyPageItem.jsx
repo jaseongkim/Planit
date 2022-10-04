@@ -17,7 +17,7 @@ export default function MyPageItem(props) {
     } else if (id === 3) {
       if (isKakao === "true") {
         window.location.href = `https://kauth.kakao.com/oauth/logout?client_id=${REST_API_KEY}&logout_redirect_uri=${LOGOUT_REDIRECT_URI}`;
-      } else if (isKakao === "false") {
+      } else {
         localStorage.clear();
         navigate("/login");
       }

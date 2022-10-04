@@ -31,25 +31,30 @@ api.interceptors.response.use(
       try {
         const memberId = localStorage.getItem("memberId");
         const originalRequest = error.config;
+        console.log(originalRequest);
         const data = await api.post("/members/refresh-token", {
           memberId: memberId,
         });
-        console.log(data);
-        if (data) {
+        if (data.data.success === true) {
           const newToken = data.headers.authorization;
           const newAccesstokenexpiretime = data.headers.accesstokenexpiretime;
+          const refreshtoken = data.headers.refreshtoken;
           localStorage.removeItem("token");
           localStorage.removeItem("accesstokenexpiretime");
+          localStorage.removeItem("refreshToken");
           localStorage.setItem("token", newToken);
           localStorage.setItem(
             "accesstokenexpiretime",
             newAccesstokenexpiretime
           );
+          localStorage.setItem("refreshToken", refreshtoken);
           originalRequest.headers["Authorization"] = newToken;
           return await api.request(originalRequest);
         }
       } catch (error) {
         console.log(error);
+        localStorage.clear();
+        window.location.replace("/login");
       }
       return Promise.reject(error);
     }
