@@ -28,21 +28,18 @@ api.interceptors.response.use(
     } else if (error.response.status === 501) {
       window.location.replace("/notfound");
     } else if (error.response.status === 401) {
-      console.log(error);
-
-      const memberId = localStorage.getItem("memberId");
-      const originalRequest = error.config;
-      console.log(originalRequest);
-      await api
-        .post("/members/refresh-token", {
+      try {
+        const memberId = localStorage.getItem("memberId");
+        const originalRequest = error.config;
+        console.log(originalRequest);
+        const data = await api.post("/members/refresh-token", {
           memberId: memberId,
-        })
-        .then((response) => {
-          console.log(response);
-          const newToken = response.headers.authorization;
-          const newAccesstokenexpiretime =
-            response.headers.accesstokenexpiretime;
-          const refreshtoken = response.headers.refreshtoken;
+        });
+        console.log(data);
+        if (data.data.success === true) {
+          const newToken = data.headers.authorization;
+          const newAccesstokenexpiretime = data.headers.accesstokenexpiretime;
+          const refreshtoken = data.headers.refreshtoken;
           localStorage.removeItem("token");
           localStorage.removeItem("accesstokenexpiretime");
           localStorage.removeItem("refreshToken");
@@ -53,12 +50,13 @@ api.interceptors.response.use(
           );
           localStorage.setItem("refreshToken", refreshtoken);
           originalRequest.headers["Authorization"] = newToken;
-          return api.request(originalRequest);
-        })
-        .catch((error) => {
-          console.log(error);
-          localStorage.clear();
-        });
+          return await api.request(originalRequest);
+        }
+      } catch (error) {
+        console.log(error);
+        localStorage.clear();
+      }
+      return Promise.reject(error);
     }
     return Promise.reject(error);
   }
