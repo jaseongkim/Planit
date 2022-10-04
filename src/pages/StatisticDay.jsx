@@ -58,13 +58,49 @@ const Statistic = () => {
     ],
   };
 
+  const options = {
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
+    scales: {
+      x: {
+        grid: {
+          display: true,
+        },
+        beginAtZero: false,
+        ticks: {
+          color: "#fff",
+          font: {
+            size: 12,
+          },
+          maxRotation: 0,
+          minRotation: 0,
+        },
+      },
+      y: {
+        grid: {
+          display: false,
+        },
+        beginAtZero: true,
+        ticks: {
+          color: "#fff",
+          font: {
+            size: 12,
+          },
+        },
+      },
+    },
+  };
+
   return (
     <StyChartCont>
       <ProgressBar
         now={achievementRate}
         label={`${achievementRate}% (${achievementCnt}개)`}
       />
-      <Bar type="bar" data={concentrationDayData} />
+      <Bar type="bar" data={concentrationDayData} options={options} />
     </StyChartCont>
   );
 };
