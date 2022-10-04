@@ -2,21 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { top_icon } from "../static/images";
 
-export default function TopButton({ scrollTop, setScrollTop, scrollToTop }) {
-  // const scrollToTop = () => {
-  //   window.scrollTo({ top: 0, behavior: "smooth" });
-  // };
-
-  return (
-    <StyTopBtn
-      // onClick={() => {
-      //   setScrollTop(0);
-      //   scrollToTop();
-      //   console.log(scrollTop);
-      // }}
-      href="#header"
-    ></StyTopBtn>
-  );
+export default function TopButton() {
+  return <StyTopBtn href="#header"></StyTopBtn>;
 }
 
 const StyTopBtn = styled.a`

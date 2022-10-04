@@ -12,10 +12,6 @@ const DayMover = () => {
   // Context API : To get the selected date from the calendar
   const { dateValue, setDateValue, parsedDayDate} = useContext(AppContext);
   
-
-  // console.log('Check dateValue', dateValue);
-  console.log('Check parsedParDate', parsedDayDate);
-
   // Var: Getting a local current time
   // appending subtrack or add 1 day depending on which the button get clicked
   const currDate = new Date(dateValue);
@@ -29,6 +25,7 @@ const DayMover = () => {
   // When clicked, add 1 from the current time
   const onClickRight = () => {
     currDate.setDate(currDate.getDate() + 1);
+    console.log('Check currDate', currDate);
     setDateValue(currDate);
   };
 

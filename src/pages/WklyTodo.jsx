@@ -1,5 +1,5 @@
 // React
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 // Styled-Component
 import styled from "styled-components";
 // React Component
@@ -19,6 +19,8 @@ import {
 } from "../redux/modules/planetSlice";
 // Element
 import Circle from "../element/Circle.jsx";
+// Context API
+import { AppContext } from "../context"
 
 const WklyTodo = () => {
   
@@ -27,8 +29,11 @@ const WklyTodo = () => {
 
   const planetCntRef = useRef(0);
 
-  // Hook : A date that let user to choose different date from the WeekMover
-  const [dateValue, setDateValue] = useState(new Date());
+  // // Hook : A date that let user to choose different date from the WeekMover
+  // const [dateValue, setDateValue] = useState(new Date());
+
+  // Context API : To get the selected date && the parsedMondayOfWeekDate from the calendar
+  const { dateValue, setDateValue, getMondayOfWeek } = useContext(AppContext);
 
   const [planet, setPlanet] = useState(null);
   const [isEditOpen, setEditOpen] = useState(false);
@@ -59,102 +64,31 @@ const WklyTodo = () => {
     setEditOpen(false);
   };
 
-  // Getting a week of month from a given monday date
-  // This source code is from https://falsy.me/javascript-입력한-날짜의-해당-달-기준-주차-구하기/
-  function weekNumberByMonth(dateFormat) {
-    const inputDate = new Date(dateFormat);
-
-    let year = inputDate.getFullYear();
-    let month = inputDate.getMonth() + 1;
-
-    const weekNumberByThurFnc = (paramDate) => {
-      const year = paramDate.getFullYear();
-      const month = paramDate.getMonth();
-      const date = paramDate.getDate();
-
-      const firstDate = new Date(year, month, 1);
-      const lastDate = new Date(year, month + 1, 0);
-      const firstDayOfWeek = firstDate.getDay() === 0 ? 7 : firstDate.getDay();
-      const lastDayOfweek = lastDate.getDay();
-
-      const lastDay = lastDate.getDate();
-
-      const firstWeekCheck =
-        firstDayOfWeek === 5 || firstDayOfWeek === 6 || firstDayOfWeek === 7;
-
-      const lastWeekCheck =
-        lastDayOfweek === 1 || lastDayOfweek === 2 || lastDayOfweek === 3;
-
-      const lastWeekNo = Math.ceil((firstDayOfWeek - 1 + lastDay) / 7);
-
-      let weekNo = Math.ceil((firstDayOfWeek - 1 + date) / 7);
-
-      if (weekNo === 1 && firstWeekCheck) weekNo = "prev";
-      else if (weekNo === lastWeekNo && lastWeekCheck) weekNo = "next";
-      else if (firstWeekCheck) weekNo = weekNo - 1;
-
-      return weekNo;
-    };
-
-    let weekNo = weekNumberByThurFnc(inputDate);
-
-    if (weekNo === "prev") {
-      const afterDate = new Date(year, month - 1, 0);
-      year = month === 1 ? year - 1 : year;
-      month = month === 1 ? 12 : month - 1;
-      weekNo = weekNumberByThurFnc(afterDate);
-    }
-    if (weekNo === "next") {
-      year = month === 12 ? year + 1 : year;
-      month = month === 12 ? 1 : month + 1;
-      weekNo = 1;
-    }
-
-    return { year, month, weekNo };
-  }
-
-  // Getting Monday of the week with a given date
-  const getMondayOfWeek = (date) => {
-    const first =
-      date.getDate() - date.getDay() + (date.getDay() === 0 ? -6 : 1);
-    const monday = new Date(date.setDate(first));
-
-    return monday;
-  };
-
-  // Var ; A parsed date in format yyyy/mm/dd for API
-  const parsedDate = `${getMondayOfWeek(dateValue).getFullYear()}-${String(
+  //Var ; A parsed date in format yyyy/mm/dd for API
+  const parsedMondayOfWeekDate = `${getMondayOfWeek(dateValue).getFullYear()}-${String(
     getMondayOfWeek(dateValue).getMonth() + 1
   ).padStart(2, "0")}-${String(getMondayOfWeek(dateValue).getDate()).padStart(
     2,
     "0"
   )}`;
 
-  // Var ; A parsed date in format yy년 mm월 dd째주 to display on the WeekMover
-  const parsedWeekDate = `${weekNumberByMonth(dateValue).month}월 
-  ${weekNumberByMonth(getMondayOfWeek(dateValue)).weekNo}째주`;
-
   // UseEffect : Getting weekly planets with its week's date
   // when dateValue get updated, re-render WklyTodo after return
   useEffect(() => {
-    dispatch(getWeekPlanetsThunk(parsedDate));
+    dispatch(getWeekPlanetsThunk(parsedMondayOfWeekDate));
 
     // wkPlanets.planets.forEach((planet) => {
     //   if (planet.planetType !== null && planet.planetType !== 0)
     //     planetCntRef.current++;
     // });
-  }, [dateValue, isEditOpen]);
+  }, [parsedMondayOfWeekDate, dispatch]);
 
   return (
     <>
       <StyTodoCon isEditOpen={isEditOpen}>
         <Header></Header>
         <StyHeader>
-          <WeekMover
-            parsedWeekDate={parsedWeekDate}
-            dateValue={dateValue}
-            setDateValue={setDateValue}
-          />
+          <WeekMover/>
           <TodoStatus>
             <div>
               <img src={achieved_icon} alt="achieved icon" />

@@ -1,17 +1,28 @@
-import React, { useEffect } from "react";
+// React
+import React, { useEffect, useContext } from "react";
+// Chart JS
 import { Chart as ChartJS, registerables } from "chart.js";
 import { Bar } from "react-chartjs-2";
+// Redux
 import { useDispatch, useSelector } from "react-redux";
 import { getChartDataMonth } from "../redux/modules/statisticSlice";
+// Styled-Component
 import styled from "styled-components";
-
-import RepStatsBtmFitNavi from "../components/btmFitNaviBar/RepStatsBtmFitNavi"
+// Component
+import StatsBtmNavi from "../components/StatsBtmNavi";
+import RepStatsBtmFitNavi from "../components/btmFitNaviBar/RepStatsBtmFitNavi";
+import MonthMover from "../components/dateMover/MonthMover";
+// Context API
+import { AppContext } from "../context"
 
 ChartJS.register(...registerables);
 
 const Statistic = () => {
+
   const dispatch = useDispatch();
-  const date = "2022-10-03";
+
+  // Context API : To get the selected date from the calendar
+  const {parsedFullDate } = useContext(AppContext);
 
   const statistic = useSelector((state) => state.statisticSlice.statistic);
 
@@ -25,8 +36,8 @@ const Statistic = () => {
   });
 
   useEffect(() => {
-    dispatch(getChartDataMonth(date));
-  }, [JSON.stringify(statistic)]);
+    dispatch(getChartDataMonth(parsedFullDate));
+  }, [parsedFullDate, dispatch]);
 
   const achievementRateMonthData = {
     labels: labels,
@@ -80,9 +91,11 @@ const Statistic = () => {
 
   return (
     <div>
+      <MonthMover></MonthMover>
       <Bar type="bar" data={achievementRateMonthData} />
       <Bar type="bar" data={concentrationMonthData} />
       <RepStatsBtmFitNavi name="statisticmonth"></RepStatsBtmFitNavi>
+      <StatsBtmNavi name="statisticmonth"></StatsBtmNavi>
     </div>
   );
 };
