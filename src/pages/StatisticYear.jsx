@@ -1,23 +1,29 @@
-import React, { useEffect } from "react";
+// React
+import React, { useEffect, useContext } from "react";
+// Chart JS
 import { Chart as ChartJS, registerables } from "chart.js";
 import { Bar } from "react-chartjs-2";
+// Redux
 import { useDispatch, useSelector } from "react-redux";
 import { getChartDataYear } from "../redux/modules/statisticSlice";
+// Styled-Component
 import styled from "styled-components";
-
-import RepStatsBtmFitNavi from "../components/btmFitNaviBar/RepStatsBtmFitNavi"
+// Component
+import StatsBtmNavi from "../components/StatsBtmNavi";
+import RepStatsBtmFitNavi from "../components/btmFitNaviBar/RepStatsBtmFitNavi";
+import YearMover from "../components/dateMover/YearMover"
+// Context API
+import { AppContext } from "../context"
 
 ChartJS.register(...registerables);
 
 const Statistic = () => {
+
+  // Dispatch
   const dispatch = useDispatch();
-  const currDate = new Date();
-
-  const parsedCurrDate = `${currDate.getFullYear()}-${String(
-    currDate.getMonth() + 1
-  ).padStart(2, "0")}-${String(currDate.getDate()).padStart(2, "0")}`;
-
-  console.log("Check",typeof parsedCurrDate)
+  
+  // Context API : To get the selected date from the calendar
+  const {parsedFullDate} = useContext(AppContext);
 
   const statistic = useSelector((state) => state.statisticSlice.statistic);
 
@@ -44,8 +50,8 @@ const Statistic = () => {
   });
 
   useEffect(() => {
-    dispatch(getChartDataYear(parsedCurrDate));
-  }, [JSON.stringify(statistic)]);
+    dispatch(getChartDataYear(parsedFullDate ));
+  }, [parsedFullDate, dispatch]);
 
   const achievementRateYearData = {
     labels: labels,
@@ -127,8 +133,10 @@ const Statistic = () => {
 
   return (
     <div>
+      <YearMover></YearMover>
       <Bar type="bar" data={achievementRateYearData} />
       <Bar type="bar" data={concentrationYearData} />
+      <StatsBtmNavi></StatsBtmNavi>
       <RepStatsBtmFitNavi name="statisticyear"></RepStatsBtmFitNavi>
     </div>
   );

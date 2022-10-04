@@ -8,6 +8,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { getChartDataWeek } from "../redux/modules/statisticSlice";
 // Styled-Component
 import styled from "styled-components";
+// Component
+import WeekMover from "../components/dateMover/WeekMover";
+import StatsBtmNavi from "../components/StatsBtmNavi";
 // Context API
 import { AppContext } from "../context"
 
@@ -21,8 +24,16 @@ const Statistic = () => {
   const dispatch = useDispatch();
 
   // Context API : To get the selected date from the calendar
-  const { dateValue, setDateValue } = useContext(AppContext);
+  const { dateValue, setDateValue, getMondayOfWeek } = useContext(AppContext);
 
+   // Var ; A parsed Monday of Week in format yyyy/mm/dd for API
+   const parsedMondayOfWeekDate = `${getMondayOfWeek(dateValue).getFullYear()}-${String(
+    getMondayOfWeek(dateValue).getMonth() + 1
+  ).padStart(2, "0")}-${String(getMondayOfWeek(dateValue).getDate()).padStart(
+    2,
+    "0"
+  )}`;
+  
   const statistic = useSelector((state) => state.statisticSlice.statistic);
 
   const labels = ["월", "화", "수", "목", "금", "토", "일"];
@@ -35,8 +46,8 @@ const Statistic = () => {
   });
 
   useEffect(() => {
-    dispatch(getChartDataWeek(dateValue));
-  }, [JSON.stringify(statistic)]);
+    dispatch(getChartDataWeek(parsedMondayOfWeekDate));
+  }, [parsedMondayOfWeekDate,dispatch]);
 
   const achievementRateWeekData = {
     labels: labels,
@@ -98,8 +109,10 @@ const Statistic = () => {
 
   return (
     <div>
+      <WeekMover></WeekMover>
       <Bar type="bar" data={achievementRateWeekData} />
       <Bar type="bar" data={concentrationWeekData} />
+      <StatsBtmNavi></StatsBtmNavi>
       <RepStatsBtmFitNavi name="statisticweek"></RepStatsBtmFitNavi>
     </div>
   );
