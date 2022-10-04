@@ -19,7 +19,7 @@ export const createMemberDB = (data) => {
               response.headers.accesstokenexpiretime
             ),
             localStorage.setItem("nickname", response.data.data.nickname),
-            window.location.replace("/welcome")
+            window.location.replace("/tutorial")
           );
         }
       })
