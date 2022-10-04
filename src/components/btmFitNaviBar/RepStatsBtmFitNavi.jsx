@@ -6,20 +6,19 @@ import { useNavigate, useLocation } from "react-router-dom";
 import styled, { css } from "styled-components";
 
 const RepStatsBtmFitNavi = ({ name, wkPlanets }) => {
-
   // Navigate
   const navigate = useNavigate();
 
   // Getting Component's URL name
   let currentPath = useLocation();
 
-  console.log('Check currentPath', currentPath.pathname);
+  console.log("Check currentPath", currentPath.pathname);
 
   // Hook : getting initial state from props & change state for the navigation
   // Depending on the state, the UX will be rendered differently
   const [activeTabs, setActiveTabs] = useState(currentPath.pathname);
 
-  console.log('Check activeTabs', activeTabs);
+  console.log("Check activeTabs", activeTabs);
 
   // UseEffect : when activeTabs get changed, useEffect will be triggered again
   useEffect(() => {
@@ -27,12 +26,12 @@ const RepStatsBtmFitNavi = ({ name, wkPlanets }) => {
       case "/statisticyear":
         navigate("/statisticyear");
         break;
-        case "/statisticweek":
+      case "/statisticweek":
         navigate("/statisticweek");
         break;
       case "/statisticmonth":
         navigate("/statisticmonth");
-        break;  
+        break;
       default:
         navigate("/statisticday");
         break;
@@ -74,7 +73,7 @@ const RepStatsBtmFitNavi = ({ name, wkPlanets }) => {
             date={activeTabs}
             onClick={() => onClickDay()}
           >
-            통게로 보기
+            통계로 보기
           </StyBtmTab>
         </StyBtmTabWrap>
       </StyBtmTabCont>

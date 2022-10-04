@@ -1,5 +1,5 @@
 // React
-import React, { useEffect,useContext } from "react";
+import React, { useEffect, useContext } from "react";
 // Chart
 import ProgressBar from "react-bootstrap/ProgressBar";
 import { Chart as ChartJS, registerables } from "chart.js";
@@ -12,27 +12,54 @@ import styled from "styled-components";
 // Context API
 import { AppContext } from "../context";
 // Components
-import DayMover from "../components/dateMover/DayMover"
-import MainHeader from "../components/MainHeader"
-import StatsBtmNavi from "../components/StatsBtmNavi"
-import RepStatsBtmFitNavi from "../components/btmFitNaviBar/RepStatsBtmFitNavi"
+import DayMover from "../components/dateMover/DayMover";
+import MainHeader from "../components/MainHeader";
+import StatsBtmNavi from "../components/StatsBtmNavi";
+import RepStatsBtmFitNavi from "../components/btmFitNaviBar/RepStatsBtmFitNavi";
 
 ChartJS.register(...registerables);
 
 const Statistic = () => {
-
   const dispatch = useDispatch();
 
   // Context API : To get the selected date from the calendar
-  const { dateValue, setDateValue,parsedFullDate } = useContext(AppContext);
+  const { dateValue, setDateValue, parsedFullDate } = useContext(AppContext);
 
-  console.log("Hey check here", dateValue, "Check parsedFullDate", parsedFullDate)
+  console.log(
+    "Hey check here",
+    dateValue,
+    "Check parsedFullDate",
+    parsedFullDate
+  );
 
   const statistic = useSelector((state) => state.statisticSlice.statistic);
 
   const labels = [
-    0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-    21, 22, 23,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    "시",
   ];
 
   const concentration = statistic?.concentrationRates?.map((item) => {
@@ -40,6 +67,7 @@ const Statistic = () => {
   });
 
   const achievementRate = statistic?.achievementRate;
+  const achievementTotalTodoCnt = statistic?.achievementTotalTodoCnt;
   const achievementCnt = statistic?.achievementCnt;
 
   useEffect(() => {
@@ -52,24 +80,8 @@ const Statistic = () => {
       {
         label: "시간대별 집중도",
         data: concentration,
-        backgroundColor: [
-          "rgba(255, 99, 132)",
-          "rgba(255, 159, 64)",
-          "rgba(255, 205, 86)",
-          "rgba(75, 192, 192)",
-          "rgba(54, 162, 235)",
-          "rgba(153, 102, 255)",
-          "rgba(201, 203, 207)",
-        ],
-        borderColor: [
-          "rgb(255, 99, 132)",
-          "rgb(255, 159, 64)",
-          "rgb(255, 205, 86)",
-          "rgb(75, 192, 192)",
-          "rgb(54, 162, 235)",
-          "rgb(153, 102, 255)",
-          "rgb(201, 203, 207)",
-        ],
+        backgroundColor: "#2B7FFF",
+        borderColor: "#2B7FFF",
         borderWidth: 1,
       },
     ],
@@ -85,8 +97,10 @@ const Statistic = () => {
       x: {
         grid: {
           display: true,
+          color: "transparent",
+          borderColor: "#fff",
         },
-        beginAtZero: false,
+        beginAtZero: true,
         ticks: {
           color: "#fff",
           font: {
@@ -98,32 +112,59 @@ const Statistic = () => {
       },
       y: {
         grid: {
-          display: false,
+          display: true,
+          borderColor: "#fff",
+          color: "rgba(233,233,233,0.2)",
+          tickBorderDash: [0, 5],
+          borderDash: [3, 1],
         },
         beginAtZero: true,
+        zeroLineColor: "transparent",
         ticks: {
           color: "#fff",
           font: {
             size: 12,
           },
+          // stepSize: 20,
         },
+        suggestedMin: 0,
+        suggestedMax: 100,
       },
     },
   };
 
   return (
     <StyChartCont>
-      {/* <MainHeader></MainHeader> */}
-      <DayMover/>
-      <ProgressBar
-        now={achievementRate}
-        label={`${achievementRate}% (${achievementCnt}개)`}
-      />
-
-      <Bar type="bar" data={concentrationDayData} options={options}/>
-      <StatsBtmNavi></StatsBtmNavi>
-      <RepStatsBtmFitNavi name=""></RepStatsBtmFitNavi>
-      
+      <MainHeader text={"닉네임님의 통계"} color={""} />
+      <StyChartWrap>
+        <StyDayMoverWrap>
+          <DayMover />
+        </StyDayMoverWrap>
+        <StyChartBox>
+          <h4>할 일 달성률</h4>
+          <StyChartInner>
+            <div>
+              <p>{achievementRate}%</p>
+              <ProgressBar
+                now={achievementRate}
+                label={achievementRate > 0 ? `${achievementCnt}개` : ""}
+              />
+              <div>
+                <span>0</span>
+                <span>{achievementTotalTodoCnt}(개)</span>
+              </div>
+            </div>
+          </StyChartInner>
+        </StyChartBox>
+        <StyChartBox>
+          <h4>집중도</h4>
+          <StyChartInner>
+            <Bar type="bar" data={concentrationDayData} options={options} />
+          </StyChartInner>
+        </StyChartBox>
+        <StatsBtmNavi name={"statisticday"} />
+      </StyChartWrap>
+      <RepStatsBtmFitNavi name={"statisticday"}></RepStatsBtmFitNavi>
     </StyChartCont>
   );
 };
@@ -131,9 +172,76 @@ const Statistic = () => {
 export default Statistic;
 
 const StyChartCont = styled.div`
-  margin-top: 100px;
+  padding-bottom: 150px;
+`;
+
+const StyDayMoverWrap = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-bottom: 32px;
+`;
+
+const StyChartWrap = styled.div`
   padding: 0 16px;
+
+  h4 {
+    font-weight: 600;
+    font-size: 18px;
+    color: #fff;
+  }
+
+  canvas {
+    height: 180px !important;
+  }
+`;
+
+const StyChartBox = styled.div`
+  &:not(:first-child) {
+    margin-top: 30px;
+  }
+`;
+
+const StyChartInner = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px;
+  height: 180px;
+
+  div {
+    width: 100%;
+  }
+
+  p {
+    text-align: center;
+    font-size: 24px;
+    color: #e9e9e9;
+    margin-bottom: 20px;
+  }
+
   .progress {
-    margin-bottom: 50px;
+    width: 100%;
+    background: #b1bdcf;
+    border-radius: 44px;
+
+    &-bar {
+      position: relative;
+      line-height: 1;
+      background: #1671fa;
+      border-radius: 44px;
+      text-align: right;
+      padding-right: 5px;
+    }
+
+    & + div {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      font-weight: 400;
+      font-size: 14px;
+      color: #b1bdcf;
+      margin-top: 16px;
+    }
   }
 `;

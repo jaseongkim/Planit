@@ -49,7 +49,7 @@ const Menu = ({ open, setOpen }) => {
             리포트
             <img src={next_icon} alt="화살표 아이콘" />
           </a>
-          <a href="/timer">
+          <a href="/statisticday">
             통계
             <img src={next_icon} alt="화살표 아이콘" />
           </a>
