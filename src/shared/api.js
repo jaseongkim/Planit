@@ -54,7 +54,7 @@ api.interceptors.response.use(
       } catch (error) {
         console.log(error);
         localStorage.clear();
-        window.location.replace("login");
+        window.location.replace("/login");
       }
       return Promise.reject(error);
     }
