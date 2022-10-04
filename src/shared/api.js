@@ -35,7 +35,6 @@ api.interceptors.response.use(
         const data = await api.post("/members/refresh-token", {
           memberId: memberId,
         });
-        console.log(data);
         if (data.data.success === true) {
           const newToken = data.headers.authorization;
           const newAccesstokenexpiretime = data.headers.accesstokenexpiretime;
@@ -55,6 +54,7 @@ api.interceptors.response.use(
       } catch (error) {
         console.log(error);
         localStorage.clear();
+        window.location.replace("login");
       }
       return Promise.reject(error);
     }
