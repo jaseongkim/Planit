@@ -23,11 +23,14 @@ import select_arrow from "./icons/select_arrow.svg";
 import profile_default from "./icons/profile_default.png";
 import camera_icon from "./icons/camera_icon.svg";
 import top_icon from "./icons/top_icon.svg";
+import tutorial_arrow from "./icons/tutorial_arrow.svg";
 
 //-- logos --
 import logo from "./logos/logo.svg";
 
 // welcome image
+import tutorialImg1 from "./background/tutorial1.png";
+import tutorialImg2 from "./background/tutorial2.png";
 import welcomImg from "./background/welcome_planet.png";
 
 // planets
@@ -38,6 +41,8 @@ import planet443 from "./planets/planet443.png";
 import planet553 from "./planets/planet553.png";
 
 export {
+  tutorialImg1,
+  tutorialImg2,
   welcomImg,
   bgleft,
   bgright,
@@ -62,6 +67,7 @@ export {
   profile_default,
   camera_icon,
   top_icon,
+  tutorial_arrow,
   planet113,
   planet223,
   planet333,
