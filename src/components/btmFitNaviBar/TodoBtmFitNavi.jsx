@@ -7,7 +7,6 @@ import styled, { css } from "styled-components";
 import TopButton from "../../element/TopButton";
 
 const TodoBtmFitNavi = ({ name, wkPlanets }) => {
-
   // Navigate
   const navigate = useNavigate();
 
@@ -50,7 +49,6 @@ const TodoBtmFitNavi = ({ name, wkPlanets }) => {
 
   return (
     <StyBtmNavi>
-      {/* 추후 리포트 페이지 path도 추가 */}
       {currentPath === "/dlytodo" ? <TopButton /> : null}
       <StyBtmTabCont>
         <StyBtmTabWrap>
