@@ -4,7 +4,7 @@ import React from "react";
 import styled from "styled-components";
 import { prev_icon, next_icon } from "../../static/images/";
 
-const WeekMover = ({ parsedDispDate, dateValue, setDateValue }) => {
+const WeekMover = ({ parsedWeekDate, dateValue, setDateValue }) => {
   // Var: Getting a local current time
   // appending subtrack or add 1 week depending on which the button get clicked
   const currDate = new Date(dateValue);
@@ -31,7 +31,7 @@ const WeekMover = ({ parsedDispDate, dateValue, setDateValue }) => {
       >
         <img src={prev_icon} alt="이전 아이콘 이미지" />
       </button>
-      <div>{parsedDispDate}</div>
+      <div>{parsedWeekDate}</div>
       <button
         style={{ color: "rgba(177, 189, 207, 1)", marginLeft: "5px" }}
         onClick={() => {

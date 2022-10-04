@@ -4,6 +4,9 @@ import { Bar } from "react-chartjs-2";
 import { useDispatch, useSelector } from "react-redux";
 import { getChartDataMonth } from "../redux/modules/statisticSlice";
 import styled from "styled-components";
+
+import RepStatsBtmFitNavi from "../components/btmFitNaviBar/RepStatsBtmFitNavi"
+
 ChartJS.register(...registerables);
 
 const Statistic = () => {
@@ -79,6 +82,7 @@ const Statistic = () => {
     <div>
       <Bar type="bar" data={achievementRateMonthData} />
       <Bar type="bar" data={concentrationMonthData} />
+      <RepStatsBtmFitNavi name="statisticmonth"></RepStatsBtmFitNavi>
     </div>
   );
 };
