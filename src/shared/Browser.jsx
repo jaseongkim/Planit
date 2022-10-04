@@ -1,5 +1,5 @@
 // React
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useContext, useEffect } from "react";
 // React Component
 import styled from "styled-components";
 import Menu from "../components/hamburNavi/Menu";
@@ -15,14 +15,6 @@ export default function Browser() {
   // Context API : opening & closing the burgar navi
   const { open, setOpen } = useContext(AppContext);
 
-  const target = useRef();
-
-  console.log(target);
-
-  useEffect(() => {
-    console.log(target.offsetTop);
-  }, [target.offsetTop]);
-
   function setScreenSize() {
     let vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty("--vh", `${vh}px`);
@@ -33,7 +25,7 @@ export default function Browser() {
 
   return (
     <Back>
-      <MobileWrap open={open} ref={target}>
+      <MobileWrap open={open}>
         <Router />
         <Menu open={open} setOpen={setOpen} />
       </MobileWrap>
@@ -58,6 +50,7 @@ const MobileWrap = styled.div`
   max-width: 375px;
   height: calc(var(--vh, 1vh) * 100);
   overflow-x: hidden;
+  scroll-behavior: smooth;
   overflow-y: ${(props) => (props.open === true ? "hidden" : "visible")};
   margin: 0 auto;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,

@@ -19,7 +19,7 @@ const Header = ({ showCalendar, setShowCalendar }) => {
   const { open, setOpen } = useContext(AppContext);
 
   return (
-    <HeaderCon>
+    <HeaderCon id="header">
       <h1>{localStorage.getItem("nickname")}</h1>
       <HeaderIcon>
         {currentPath.pathname === "/wklytodo" ? null : (
@@ -45,7 +45,7 @@ const Header = ({ showCalendar, setShowCalendar }) => {
 
 export default Header;
 
-const HeaderCon = styled.div`
+const HeaderCon = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
