@@ -11,6 +11,8 @@ const TodoBtmFitNavi = ({ name, wkPlanets }) => {
   // Navigate
   const navigate = useNavigate();
 
+  const currentPath = useLocation().pathname;
+
   // Hook : getting initial state from props & change state for the navigation
   // Depending on the state, the UX will be rendered differently
   const [activeTabs, setActiveTabs] = useState(name);
@@ -48,7 +50,8 @@ const TodoBtmFitNavi = ({ name, wkPlanets }) => {
 
   return (
     <StyBtmNavi>
-      <TopButton />
+      {/* 추후 리포트 페이지 path도 추가 */}
+      {currentPath === "/dlytodo" ? <TopButton /> : null}
       <StyBtmTabCont>
         <StyBtmTabWrap>
           <StyBtmTab
