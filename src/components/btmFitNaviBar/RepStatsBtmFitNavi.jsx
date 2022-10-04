@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 // Styled-Component
 import styled, { css } from "styled-components";
+import TopButton from "../../element/TopButton";
 
 const RepStatsBtmFitNavi = ({ name, wkPlanets }) => {
   // Navigate
@@ -21,22 +22,22 @@ const RepStatsBtmFitNavi = ({ name, wkPlanets }) => {
   console.log("Check activeTabs", activeTabs);
 
   // UseEffect : when activeTabs get changed, useEffect will be triggered again
-  useEffect(() => {
-    switch (activeTabs) {
-      case "/statisticyear":
-        navigate("/statisticyear");
-        break;
-      case "/statisticweek":
-        navigate("/statisticweek");
-        break;
-      case "/statisticmonth":
-        navigate("/statisticmonth");
-        break;
-      default:
-        navigate("/statisticday");
-        break;
-    }
-  }, [activeTabs, navigate]);
+  // useEffect(() => {
+  //   switch (activeTabs) {
+  //     case "/statisticyear":
+  //       navigate("/statisticyear");
+  //       break;
+  //     case "/statisticweek":
+  //       navigate("/statisticweek");
+  //       break;
+  //     case "/statisticmonth":
+  //       navigate("/statisticmonth");
+  //       break;
+  //     default:
+  //       navigate("/statisticday");
+  //       break;
+  //   }
+  // }, [activeTabs, navigate]);
 
   // When the day navi btn get clicked, find current date's planet
   // If the planet's planetType is 0, navigate to creatplanet page
@@ -59,6 +60,7 @@ const RepStatsBtmFitNavi = ({ name, wkPlanets }) => {
 
   return (
     <StyBtmNavi>
+      {currentPath.pathname === "/report" ? <TopButton /> : null}
       <StyBtmTabCont>
         <StyBtmTabWrap>
           <StyBtmTab
