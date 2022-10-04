@@ -20,10 +20,12 @@ import RepStatsBtmFitNavi from "../components/btmFitNaviBar/RepStatsBtmFitNavi";
 ChartJS.register(...registerables);
 
 const Statistic = () => {
+  
+  // Dispatch
   const dispatch = useDispatch();
 
   // Context API : To get the selected date from the calendar
-  const { parsedFullDate } = useContext(AppContext);
+  const { parsedFullApiDate } = useContext(AppContext);
 
   const statistic = useSelector((state) => state.statisticSlice.statistic);
 
@@ -64,8 +66,8 @@ const Statistic = () => {
   const achievementCnt = statistic?.achievementCnt;
 
   useEffect(() => {
-    dispatch(getChartDataDay(parsedFullDate));
-  }, [parsedFullDate, dispatch]);
+    dispatch(getChartDataDay(parsedFullApiDate));
+  }, [parsedFullApiDate, dispatch]);
 
   const concentrationDayData = {
     labels: labels,
@@ -128,7 +130,7 @@ const Statistic = () => {
 
   return (
     <StyChartCont>
-      <MainHeader text={"닉네임님의 통계"} color={""} />
+      <MainHeader color={""} />
       <StyChartWrap>
         <StyDateMoverWrap>
           <DayMover />
@@ -157,7 +159,7 @@ const Statistic = () => {
         </StyChartBox>
         <StatsBtmNavi name={"statisticday"} />
       </StyChartWrap>
-      <RepStatsBtmFitNavi name={"statisticday"}></RepStatsBtmFitNavi>
+      <RepStatsBtmFitNavi />
     </StyChartCont>
   );
 };
