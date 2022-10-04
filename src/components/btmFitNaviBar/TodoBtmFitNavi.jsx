@@ -7,7 +7,6 @@ import styled, { css } from "styled-components";
 import TopButton from "../../element/TopButton";
 
 const TodoBtmFitNavi = ({ name, wkPlanets }) => {
-
   // Navigate
   const navigate = useNavigate();
 
@@ -50,7 +49,6 @@ const TodoBtmFitNavi = ({ name, wkPlanets }) => {
 
   return (
     <StyBtmNavi>
-      {/* 추후 리포트 페이지 path도 추가 */}
       {currentPath === "/dlytodo" ? <TopButton /> : null}
       <StyBtmTabCont>
         <StyBtmTabWrap>
@@ -94,6 +92,7 @@ const StyBtmNavi = styled.div`
     max-width: none;
   }
 `;
+
 const StyBtmTabCont = styled.div`
   width: 100%;
   max-width: 375px;
@@ -130,6 +129,7 @@ const StyBtmTab = styled.button`
               0px 3px 1px rgba(0, 0, 0, 0.04);
           }
         `;
+        
       default:
         return css`
           width: 50%;

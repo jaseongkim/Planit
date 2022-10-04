@@ -71,7 +71,6 @@ export const getChartDataMonth = createAsyncThunk(
 export const getChartDataYear = createAsyncThunk(
   "getChartDataYear",
   async (payload, thunkAPI) => {
-    console.log("payload", payload)
     try {
       const response = await axios.get(
         "https://teamsparta.link/statistic/year",
