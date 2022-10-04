@@ -37,7 +37,7 @@ import {
   calendar_icon_gray,
   edit_icon,
 } from "../static/images";
-// React Router Dommmy UI 
+// React Router Dommmy UI
 import { useNavigate } from "react-router-dom";
 // Context API
 import { AppContext } from "../context"
@@ -46,7 +46,6 @@ import { AppContext } from "../context"
 let todoIdCounter = 1;
 
 const DlyTodo = () => {
-
   // React Router Dom
   const navigate = useNavigate();
 
@@ -141,7 +140,7 @@ const DlyTodo = () => {
         },
       };
       dispatch(addMtyTodo(mtyCateg));
-      todoIdCounter++
+      todoIdCounter++;
     }
   };
 
@@ -507,12 +506,24 @@ const CalendarWrap = styled.div`
       margin-bottom: 0;
 
       &__label {
+        position: relative;
         min-width: auto;
         line-height: 1;
         font-size: 18px;
         color: #fff;
         margin: 0 10px;
         background: transparent !important;
+        z-index: -1;
+
+        &::before {
+          content: "";
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 100px;
+          height: 100%;
+        }
 
         &__labelText {
           line-height: 1;
