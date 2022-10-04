@@ -15,12 +15,18 @@ export const postTimer = createAsyncThunk(
   }
 );
 
-const initialState = {};
+const initialState = {
+  isRunning: false,
+};
 
 const timerSlice = createSlice({
   name: "timer",
   initialState,
-  reducers: {},
+  reducers: {
+    setRunning: (state, action) => {
+      state.isRunning = action.payload;
+    },
+  },
   extraReducers: {
     [postTimer.fulfilled]: () => {},
     [postTimer.rejected]: () => {},
@@ -28,5 +34,5 @@ const timerSlice = createSlice({
   },
 });
 
-// export const { } = timerSlice.actions;
+export const { setRunning } = timerSlice.actions;
 export default timerSlice.reducer;
