@@ -24,6 +24,7 @@ import profile_default from "./icons/profile_default.png";
 import camera_icon from "./icons/camera_icon.svg";
 import top_icon from "./icons/top_icon.svg";
 import tutorial_arrow from "./icons/tutorial_arrow.svg";
+import report_icon from "./icons/report_icon.svg";
 
 //-- logos --
 import logo from "./logos/logo.svg";
@@ -68,6 +69,7 @@ export {
   camera_icon,
   top_icon,
   tutorial_arrow,
+  report_icon,
   planet113,
   planet223,
   planet333,

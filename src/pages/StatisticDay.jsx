@@ -137,11 +137,11 @@ const Statistic = () => {
     <StyChartCont>
       <MainHeader text={"닉네임님의 통계"} color={""} />
       <StyChartWrap>
-        <StyDayMoverWrap>
+        <StyDateMoverWrap>
           <DayMover />
-        </StyDayMoverWrap>
+        </StyDateMoverWrap>
         <StyChartBox>
-          <h4>할 일 달성률</h4>
+          <h3>할 일 달성률</h3>
           <StyChartInner>
             <div>
               <p>{achievementRate}%</p>
@@ -157,7 +157,7 @@ const Statistic = () => {
           </StyChartInner>
         </StyChartBox>
         <StyChartBox>
-          <h4>집중도</h4>
+          <h3>집중도</h3>
           <StyChartInner>
             <Bar type="bar" data={concentrationDayData} options={options} />
           </StyChartInner>
@@ -175,7 +175,7 @@ const StyChartCont = styled.div`
   padding-bottom: 150px;
 `;
 
-const StyDayMoverWrap = styled.div`
+const StyDateMoverWrap = styled.div`
   display: flex;
   justify-content: center;
   margin-bottom: 32px;
@@ -184,7 +184,7 @@ const StyDayMoverWrap = styled.div`
 const StyChartWrap = styled.div`
   padding: 0 16px;
 
-  h4 {
+  h3 {
     font-weight: 600;
     font-size: 18px;
     color: #fff;
