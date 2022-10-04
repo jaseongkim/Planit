@@ -20,7 +20,7 @@ import styled from "styled-components";
 // React Component
 import Header from "../components/Header";
 import TodoList from "../components/TodoList";
-import BtmFitNavi from "../components/btmFitNaviBar/BtmFitNavi.jsx";
+import TodoBtmFitNavi from "../components/btmFitNaviBar/TodoBtmFitNavi.jsx";
 import DayMover from "../components/dateMover/DayMover.jsx";
 import ModalInner from "../element/ModalInner";
 import ChgDateModal from "../components/chgDateModal/ChgDateModal.js";
@@ -37,7 +37,7 @@ import {
   calendar_icon_gray,
   edit_icon,
 } from "../static/images";
-// React Router Dommmy UI
+// React Router Dommmy UI 
 import { useNavigate } from "react-router-dom";
 // Context API
 import { AppContext } from "../context"
@@ -46,6 +46,7 @@ import { AppContext } from "../context"
 let todoIdCounter = 1;
 
 const DlyTodo = () => {
+
   // React Router Dom
   const navigate = useNavigate();
 
@@ -429,7 +430,7 @@ const DlyTodo = () => {
           <Sheet.Backdrop />
         </CustomSheet>
       </StyContentWrap>
-      <BtmFitNavi name="dlytodo" />
+      <TodoBtmFitNavi name="dlytodo"/>
       {/* <ChgDateModal
         onClose={() => setShowModal(false)}
         showModal={showModal}

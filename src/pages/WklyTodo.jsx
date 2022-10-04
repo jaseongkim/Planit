@@ -6,7 +6,7 @@ import styled from "styled-components";
 import Header from "../components/Header";
 // BottomModalSheet
 // import Sheet from "react-modal-sheet";
-import BtmFitNavi from "../components/btmFitNaviBar/BtmFitNavi.jsx";
+import TodoBtmFitNavi from "../components/btmFitNaviBar/TodoBtmFitNavi.jsx";
 import WeekMover from "../components/dateMover/WeekMover.jsx";
 import WklyPlanetEdit from "../components/wkly/WklyPlanetEdit";
 // React-icons
@@ -194,7 +194,7 @@ const WklyTodo = () => {
             );
           })}
         </StyCircleCon>
-        <BtmFitNavi name="wklytodo" wkPlanets={wkPlanets}></BtmFitNavi>
+        <TodoBtmFitNavi name="wklytodo" wkPlanets={wkPlanets}></TodoBtmFitNavi>
       </StyTodoCon>
       {planet === null ? null : (
         <WklyPlanetEdit

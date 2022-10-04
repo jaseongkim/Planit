@@ -1,12 +1,13 @@
 // React
 import React, { useState, useEffect } from "react";
 // React-Router-Dom
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 // Styled-Component
 import styled, { css } from "styled-components";
 import TopButton from "../../element/TopButton";
 
-const BtmFitNavi = ({ name, wkPlanets }) => {
+const TodoBtmFitNavi = ({ name, wkPlanets }) => {
+
   // Navigate
   const navigate = useNavigate();
 
@@ -24,13 +25,12 @@ const BtmFitNavi = ({ name, wkPlanets }) => {
         navigate("/dlytodo");
         break;
     }
-  }, [activeTabs]);
+  }, [activeTabs, navigate]);
 
   // When the day navi btn get clicked, find current date's planet
   // If the planet's planetType is 0, navigate to creatplanet page
   // Else navigate to dlytodo page
   const onClickDay = () => {
-    console.log("Checking wkPlanets", wkPlanets);
     const currDate = new Date();
     const parsedCurrDate = `${currDate.getFullYear()}-${String(
       currDate.getMonth() + 1
@@ -71,7 +71,7 @@ const BtmFitNavi = ({ name, wkPlanets }) => {
   );
 };
 
-export default BtmFitNavi;
+export default TodoBtmFitNavi;
 
 const StyBtmNavi = styled.div`
   position: fixed;

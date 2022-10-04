@@ -1,19 +1,27 @@
+// React
 import React, { useEffect,useContext } from "react";
+// Chart
+import ProgressBar from "react-bootstrap/ProgressBar";
 import { Chart as ChartJS, registerables } from "chart.js";
 import { Bar } from "react-chartjs-2";
+// Redux
 import { useDispatch, useSelector } from "react-redux";
 import { getChartDataDay } from "../redux/modules/statisticSlice";
-import ProgressBar from "react-bootstrap/ProgressBar";
+// Styled-components
 import styled from "styled-components";
+// Context API
 import { AppContext } from "../context";
+// Components
 import DayMover from "../components/dateMover/DayMover"
 import MainHeader from "../components/MainHeader"
+import StatsBtmNavi from "../components/StatsBtmNavi"
+import RepStatsBtmFitNavi from "../components/btmFitNaviBar/RepStatsBtmFitNavi"
+
 ChartJS.register(...registerables);
 
 const Statistic = () => {
 
   const dispatch = useDispatch();
-
 
   // Context API : To get the selected date from the calendar
   const { dateValue, setDateValue,parsedFullDate } = useContext(AppContext);
@@ -76,6 +84,9 @@ const Statistic = () => {
         label={`${achievementRate}% (${achievementCnt}개)`}
       />
       <Bar type="bar" data={concentrationDayData} />
+      <StatsBtmNavi></StatsBtmNavi>
+      <RepStatsBtmFitNavi name=""></RepStatsBtmFitNavi>
+      
     </StyChartCont>
   );
 };

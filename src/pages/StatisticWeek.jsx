@@ -1,5 +1,5 @@
 // React
-import React, { useEffect,useContext} from "react";
+import React, { useEffect,useContext } from "react";
 // Chart JS
 import { Chart as ChartJS, registerables } from "chart.js";
 import { Bar } from "react-chartjs-2";
@@ -10,6 +10,8 @@ import { getChartDataWeek } from "../redux/modules/statisticSlice";
 import styled from "styled-components";
 // Context API
 import { AppContext } from "../context"
+
+import RepStatsBtmFitNavi from "../components/btmFitNaviBar/RepStatsBtmFitNavi"
 
 ChartJS.register(...registerables);
 
@@ -98,6 +100,7 @@ const Statistic = () => {
     <div>
       <Bar type="bar" data={achievementRateWeekData} />
       <Bar type="bar" data={concentrationWeekData} />
+      <RepStatsBtmFitNavi name="statisticweek"></RepStatsBtmFitNavi>
     </div>
   );
 };
