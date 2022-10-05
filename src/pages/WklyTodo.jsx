@@ -20,20 +20,17 @@ import {
 // Element
 import Circle from "../element/Circle.jsx";
 // Context API
-import { AppContext } from "../context"
+import { AppContext } from "../context";
 
 const WklyTodo = () => {
-  
+
   // Redux : dispatch
   const dispatch = useDispatch();
 
   const planetCntRef = useRef(0);
 
-  // // Hook : A date that let user to choose different date from the WeekMover
-  // const [dateValue, setDateValue] = useState(new Date());
-
   // Context API : To get the selected date && the parsedMondayOfWeekDate from the calendar
-  const { dateValue, setDateValue, getMondayOfWeek } = useContext(AppContext);
+  const { dateValue, getMondayOfWeek } = useContext(AppContext);
 
   const [planet, setPlanet] = useState(null);
   const [isEditOpen, setEditOpen] = useState(false);
@@ -64,13 +61,22 @@ const WklyTodo = () => {
     setEditOpen(false);
   };
 
+  // Getting Monday of the week with a given date
+  // const getMondayOfWeek = (date) => {
+  //   const first =
+  //     date.getDate() - date.getDay() + (date.getDay() === 0 ? -6 : 1);
+  //   const monday = new Date(date.setDate(first));
+
+  //   return monday;
+  // };
+
   //Var ; A parsed date in format yyyy/mm/dd for API
-  const parsedMondayOfWeekDate = `${getMondayOfWeek(dateValue).getFullYear()}-${String(
-    getMondayOfWeek(dateValue).getMonth() + 1
-  ).padStart(2, "0")}-${String(getMondayOfWeek(dateValue).getDate()).padStart(
+  const parsedMondayOfWeekDate = `${getMondayOfWeek(
+    dateValue
+  ).getFullYear()}-${String(getMondayOfWeek(dateValue).getMonth() + 1).padStart(
     2,
     "0"
-  )}`;
+  )}-${String(getMondayOfWeek(dateValue).getDate()).padStart(2, "0")}`;
 
   // UseEffect : Getting weekly planets with its week's date
   // when dateValue get updated, re-render WklyTodo after return
@@ -88,7 +94,7 @@ const WklyTodo = () => {
       <StyTodoCon isEditOpen={isEditOpen}>
         <Header></Header>
         <StyHeader>
-          <WeekMover/>
+          <WeekMover />
           <TodoStatus>
             <div>
               <img src={achieved_icon} alt="achieved icon" />

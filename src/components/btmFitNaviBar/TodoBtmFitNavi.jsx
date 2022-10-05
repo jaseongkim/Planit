@@ -40,7 +40,7 @@ const TodoBtmFitNavi = ({ name, wkPlanets }) => {
       (planet) => planet.dueDate === parsedCurrDate
     );
 
-    if (currPlanet?.planetType === null || currPlanet?.planetType === 0) {
+    if (currPlanet?.planetType !== null || currPlanet?.planetType !== 0) {
       navigate("/createplanet");
     } else {
       setActiveTabs("dlytodo");
@@ -129,7 +129,7 @@ const StyBtmTab = styled.button`
               0px 3px 1px rgba(0, 0, 0, 0.04);
           }
         `;
-        
+
       default:
         return css`
           width: 50%;
