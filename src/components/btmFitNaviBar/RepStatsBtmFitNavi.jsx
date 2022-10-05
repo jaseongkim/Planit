@@ -40,7 +40,7 @@ const RepStatsBtmFitNavi = () => {
 
   return (
     <StyBtmNavi>
-      {currentPath.pathname === "/report" ? <TopButton /> : null}
+      {currentPath.pathname === "/report" ? <TopButton y={-70} /> : null}
       <StyBtmTabCont>
         <StyBtmTabWrap>
           <StyBtmTab

@@ -60,7 +60,7 @@ const Report = () => {
 
   return (
     <StyReportCont>
-      <MainHeader color={""} />
+      <MainHeader id="header" color={""} />
       <StyDateMoverWrap>
         <MonthMover />
       </StyDateMoverWrap>
@@ -77,7 +77,7 @@ const Report = () => {
               <span>해당 데이터가 없습니다.</span>
             ) : (
               categoryRank?.map((input, index) => {
-                return <p key={index}>{input}</p>;
+                return <p key={index}>{`${index + 1}. ${input}`}</p>;
               })
             )}
             {/* <span>한 달동안 40개의 할 일을 완료 했어요.</span> */}

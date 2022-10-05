@@ -55,7 +55,7 @@ const TodoBtmFitNavi = ({ name, wkPlanets }) => {
 
   return (
     <StyBtmNavi>
-      {currentPath === "/dlytodo" ? <TopButton /> : null}
+      {currentPath === "/dlytodo" ? <TopButton y={-20} /> : null}
       <StyBtmTabCont>
         <StyBtmTabWrap>
           <StyBtmTab

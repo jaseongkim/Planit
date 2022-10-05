@@ -53,10 +53,10 @@ const Menu = ({ open, setOpen }) => {
             통계
             <img src={next_icon} alt="화살표 아이콘" />
           </a>
-          {/* <a href="/">
-            통계
+          <a href="/tutorial">
+            도움말
             <img src={next_icon} alt="화살표 아이콘" />
-          </a> */}
+          </a>
         </StyledMenuList>
       </StyledMenu>
     </StyMenuCont>
