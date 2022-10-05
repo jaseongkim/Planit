@@ -23,7 +23,7 @@ import StatisticDay from "../pages/StatisticDay";
 import StatisticWeek from "../pages/StatisticWeek";
 import StatisticMonth from "../pages/StatisticMonth";
 import StatisticYear from "../pages/StatisticYear";
-import Report from "../pages/Report"
+import Report from "../pages/Report";
 
 const Router = () => {
   return (
@@ -37,8 +37,8 @@ const Router = () => {
       <Route path="/dlytodo" element={<DlyTodo />} />
       <Route path="/wklytodo" element={<WklyTodo />} />
       <Route path="/login/kakao" element={<Kakao />} />
-      <Route path="/search" element={<Search />} />
-      <Route path="/follow" element={<Follow />} />
+      {/* <Route path="/search" element={<Search />} /> */}
+      {/* <Route path="/follow" element={<Follow />} /> */}
       <Route path="/createplanet" element={<CreatePlanet />} />
       <Route path="/mypage" element={<MyPage />} />
       <Route path="/nickname" element={<NickName />} />
