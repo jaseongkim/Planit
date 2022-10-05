@@ -60,10 +60,10 @@ const Report = () => {
 
   return (
     <StyReportCont>
-      {/* {console.log(console.log('Check rank', achievementCountTop))} */}
       <MainHeader color={""} />
       <StyDateMoverWrap>
         <MonthMover />
+        {console.log("Check categoryRank", concTimeTopDate)}
       </StyDateMoverWrap>
       <StyReportWrap>
         <div>
@@ -74,9 +74,13 @@ const Report = () => {
             가장 많이 달성한 카테고리
           </h4>
           <StyReportContent>
-            {categoryRank?.map((input, index) => {
-              return <p key={index}>{input}</p>;
-            })}
+            {categoryRank.length === 0 ? (
+              <span>해당 데이터가 없습니다.</span>
+            ) : (
+              categoryRank?.map((input, index) => {
+                return <p key={index}>{input}</p>;
+              })
+            )}
             {/* <span>한 달동안 40개의 할 일을 완료 했어요.</span> */}
             {/* <span>해당 데이터가 없습니다.</span> */}
           </StyReportContent>
@@ -93,7 +97,11 @@ const Report = () => {
               return <p key={index}>{input}</p>;
             })}
             <span>
-              {achievementCountTop?.maxAchievementCount}개의 할 일을 완료했어요.
+              {achievementCountTop?.maxAchievementCount === 0 ? (
+                <span>해당 데이터가 없습니다.</span>
+              ) : (
+                `${achievementCountTop?.maxAchievementCount}개의 할 일을 완료했어요.`
+              )}
             </span>
           </StyReportContent>
         </div>
@@ -105,10 +113,16 @@ const Report = () => {
             연속 날짜
           </h4>
           <StyReportContent>
-            <p>{report.achievementCombo}일</p>
-            <span>
-              연속으로는 {report.achievementCombo}일 연속 모두 완료했어요.
-            </span>
+            {report.achievementCombo === 0 ? (
+              <span>해당 데이터가 없습니다.</span>
+            ) : (
+              <>
+                <p>{report.achievementCombo}일</p>
+                <span>
+                  연속으로는 {report.achievementCombo}일 연속 모두 완료했어요.
+                </span>
+              </>
+            )}
           </StyReportContent>
         </div>
         <div>
@@ -123,7 +137,14 @@ const Report = () => {
             {concTimeTopDate?.map((input, index) => {
               return <p key={index}>{input}</p>;
             })}
-            <span>총 {parsedSumElapsedTime}분 동안 집중했어요.</span>
+            <span>
+              총{" "}
+              {parsedSumElapsedTime === 0 ? (
+                <span>해당 데이터가 없습니다.</span>
+              ) : (
+                `${parsedSumElapsedTime} 분 동안 집중했어요.`
+              )}
+            </span>
           </StyReportContent>
         </div>
         <div>
@@ -135,8 +156,15 @@ const Report = () => {
             집중이 잘 됐던 시간
           </h4>
           <StyReportContent>
-            <p>{parsedMostConcentrationTime}</p>
-            <span>이 시간에 {parsedmostConcTime}분 동안 집중했어요.</span>
+            {parsedmostConcTime === 0 ? (
+              <span>해당 데이터가 없습니다.</span>
+            ) : (
+              <>
+                {" "}
+                <p>{parsedMostConcentrationTime}</p>
+                <span>이 시간에 {parsedmostConcTime}분 동안 집중했어요.</span>
+              </>
+            )}
           </StyReportContent>
         </div>
       </StyReportWrap>

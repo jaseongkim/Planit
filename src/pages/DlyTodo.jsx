@@ -117,6 +117,8 @@ const DlyTodo = () => {
   // UseEffect : Getting categories & to-do lists as well as date from the calendar
   // Dispatchig PlanetThunk first => getCategThunk
   useEffect(() => {
+
+    console.log('Check parsedFullApiDate', parsedFullApiDate);
     concatSelDate.current = parsedFullApiDate;
     dispatch(getDayPlanetThunk(concatSelDate.current)).then((response) => {
       if (response.meta.requestStatus === "fulfilled") {
