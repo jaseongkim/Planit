@@ -1,16 +1,21 @@
 // React
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 // React-Router-Dom
 import { useNavigate, useLocation } from "react-router-dom";
 // Styled-Component
 import styled, { css } from "styled-components";
 import TopButton from "../../element/TopButton";
+// Context API
+import { AppContext } from "../../context"
 
 const TodoBtmFitNavi = ({ name, wkPlanets }) => {
+
   // Navigate
   const navigate = useNavigate();
-
   const currentPath = useLocation().pathname;
+
+  // Context API : To update to a new date when havigating to dlytodo component
+  const { setDateValue } = useContext(AppContext);
 
   // Hook : getting initial state from props & change state for the navigation
   // Depending on the state, the UX will be rendered differently
@@ -24,9 +29,10 @@ const TodoBtmFitNavi = ({ name, wkPlanets }) => {
         break;
       default:
         navigate("/dlytodo");
+        setDateValue(new Date())
         break;
     }
-  }, [activeTabs, navigate]);
+  }, [activeTabs, navigate, setDateValue]);
 
   // When the day navi btn get clicked, find current date's planet
   // If the planet's planetType is 0, navigate to creatplanet page
