@@ -48,7 +48,6 @@ export default function Timer({ value }) {
     const endTime = Math.floor(
       (value * 60 - (hours * 3600 + minutes * 60 + seconds)) / 60
     );
-    console.log(endTime);
 
     const data = {
       setTime: value,

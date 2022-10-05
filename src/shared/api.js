@@ -31,7 +31,6 @@ api.interceptors.response.use(
       try {
         const memberId = localStorage.getItem("memberId");
         const originalRequest = error.config;
-        console.log(originalRequest);
         const data = await api.post("/members/refresh-token", {
           memberId: memberId,
         });

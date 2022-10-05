@@ -7,7 +7,6 @@ export const postTimer = createAsyncThunk(
     console.log(time);
     try {
       const { data } = await apis.postTimer(time);
-      console.log(data);
       // return thunkAPI.fulfillWithValue(data.data);
     } catch (e) {
       // return thunkAPI.rejectWithValue(e.code);
