@@ -1,7 +1,9 @@
 ## 투두작성을 통해 목표를 달성할 수 있게 도와주는 서비스
+
+<br/>
+![thumb](https://user-images.githubusercontent.com/48500149/194040185-1ac520d2-5fa9-4a7c-94ae-3b236c0791a3.png)
+<br/>
 PLANIT은 계획을 뜻하는 PLAN 과 행성을 뜻하는 PLANET의 뜻을 포함한 이름으로, 목표를 계획하고 달성하는 기쁨을 줄 수 있도록 도와주는 서비스
-<br/>
-<br/>
 
 ## 🔗 Site
 ### [Planit](https://planit.co.kr/)
