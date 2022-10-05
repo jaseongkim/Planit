@@ -11,36 +11,36 @@ import styled from "styled-components";
 // Component
 import StatsBtmNavi from "../components/StatsBtmNavi";
 import RepStatsBtmFitNavi from "../components/btmFitNaviBar/RepStatsBtmFitNavi";
-import YearMover from "../components/dateMover/YearMover"
+import YearMover from "../components/dateMover/YearMover";
 import MainHeader from "../components/MainHeader";
 // Context API
-import { AppContext } from "../context"
+import { AppContext } from "../context";
 
 ChartJS.register(...registerables);
 
 const Statistic = () => {
-
   // Dispatch
   const dispatch = useDispatch();
-  
+
   // Context API : To get the selected date from the calendar
-  const {parsedFullApiDate} = useContext(AppContext);
+  const { parsedFullApiDate } = useContext(AppContext);
 
   const statistic = useSelector((state) => state.statisticSlice.statistic);
 
   const labels = [
-    "1월",
-    "2월",
-    "3월",
-    "4월",
-    "5월",
-    "6월",
-    "7월",
-    "8월",
-    "9월",
-    "10월",
-    "11월",
-    "12월",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+    "11",
+    "12",
+    "월",
   ];
 
   const achievementRate = statistic?.achievementRates?.map((item) => {
@@ -60,8 +60,8 @@ const Statistic = () => {
       {
         label: "연간 달성률",
         data: achievementRate,
-        backgroundColor: "#2B7FFF",
-        borderColor: "#2B7FFF",
+        backgroundColor: "#1671FA",
+        borderColor: "#1671FA",
         borderWidth: 1,
       },
     ],
@@ -126,35 +126,33 @@ const Statistic = () => {
     },
   };
 
-
   return (
     <StyChartCont>
-    <MainHeader color={""} />
-    <StyChartWrap>
-      <StyDateMoverWrap>
-        <YearMover />
-      </StyDateMoverWrap>
-      <StyChartBox>
-        <h3>할 일 달성률</h3>
-        <StyChartInner>
-          <Bar type="bar" data={achievementRateYearData} options={options}/>
-        </StyChartInner>
-      </StyChartBox>
-      <StyChartBox>
-        <h3>집중도</h3>
-        <StyChartInner>
-          <Bar type="bar" data={concentrationYearData} options={options}/>
-        </StyChartInner>
-      </StyChartBox>
-      <StatsBtmNavi name={"statisticyear"}/>
-    </StyChartWrap>
-    <RepStatsBtmFitNavi/>
-  </StyChartCont>
+      <MainHeader color={""} />
+      <StyChartWrap>
+        <StyDateMoverWrap>
+          <YearMover />
+        </StyDateMoverWrap>
+        <StyChartBox>
+          <h3>할 일 달성률</h3>
+          <StyChartInner>
+            <Bar type="bar" data={achievementRateYearData} options={options} />
+          </StyChartInner>
+        </StyChartBox>
+        <StyChartBox>
+          <h3>집중도</h3>
+          <StyChartInner>
+            <Bar type="bar" data={concentrationYearData} options={options} />
+          </StyChartInner>
+        </StyChartBox>
+        <StatsBtmNavi name={"statisticyear"} />
+      </StyChartWrap>
+      <RepStatsBtmFitNavi />
+    </StyChartCont>
   );
 };
 
 export default Statistic;
-
 
 const StyChartCont = styled.div`
   padding-bottom: 150px;

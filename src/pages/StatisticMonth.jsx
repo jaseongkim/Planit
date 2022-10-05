@@ -14,20 +14,19 @@ import RepStatsBtmFitNavi from "../components/btmFitNaviBar/RepStatsBtmFitNavi";
 import MonthMover from "../components/dateMover/MonthMover";
 import MainHeader from "../components/MainHeader";
 // Context API
-import { AppContext } from "../context"
+import { AppContext } from "../context";
 
 ChartJS.register(...registerables);
 
 const Statistic = () => {
-
   const dispatch = useDispatch();
 
   // Context API : To get the selected date from the calendar
-  const {parsedFullApiDate} = useContext(AppContext);
+  const { parsedFullApiDate } = useContext(AppContext);
 
   const statistic = useSelector((state) => state.statisticSlice.statistic);
 
-  const labels = ["1주", "2주", "3주", "4주", "5주"];
+  const labels = ["1", "2", "3", "4", "5", "주차"];
 
   const achievementRate = statistic?.achievementRates?.map((item) => {
     return item.achievementRate;
@@ -46,8 +45,8 @@ const Statistic = () => {
       {
         label: "월간 달성률",
         data: achievementRate,
-        backgroundColor: "#2B7FFF",
-        borderColor: "#2B7FFF",
+        backgroundColor: "#1671FA",
+        borderColor: "#1671FA",
         borderWidth: 1,
       },
     ],
@@ -112,8 +111,6 @@ const Statistic = () => {
     },
   };
 
-  
-
   return (
     <StyChartCont>
       <MainHeader color={""} />
@@ -124,24 +121,23 @@ const Statistic = () => {
         <StyChartBox>
           <h3>할 일 달성률</h3>
           <StyChartInner>
-            <Bar type="bar" data={achievementRateMonthData} options={options}/>
+            <Bar type="bar" data={achievementRateMonthData} options={options} />
           </StyChartInner>
         </StyChartBox>
         <StyChartBox>
           <h3>집중도</h3>
           <StyChartInner>
-            <Bar type="bar" data={concentrationMonthData} options={options}/>
+            <Bar type="bar" data={concentrationMonthData} options={options} />
           </StyChartInner>
         </StyChartBox>
-        <StatsBtmNavi name={"statisticmonth"}/>
+        <StatsBtmNavi name={"statisticmonth"} />
       </StyChartWrap>
-      <RepStatsBtmFitNavi/>
+      <RepStatsBtmFitNavi />
     </StyChartCont>
   );
 };
 
 export default Statistic;
-
 
 const StyChartCont = styled.div`
   padding-bottom: 150px;
