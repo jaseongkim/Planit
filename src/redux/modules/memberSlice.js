@@ -39,7 +39,6 @@ export const loginMemberDB = createAsyncThunk(
       await apis.loginMember(payload).then((response) => {
         if (response.data.success === false) {
         } else {
-          console.log(response);
           return (
             thunkAPI.fulfillWithValue(false),
             localStorage.setItem("token", response.headers.authorization),

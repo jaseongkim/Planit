@@ -132,7 +132,6 @@ const SignUp = () => {
     apis
       .checkEmail({ email: email })
       .then((response) => {
-        console.log(response);
         if (response.data.success === true) {
           setIsEmail(true);
           setEmailMessage(true);
@@ -140,7 +139,6 @@ const SignUp = () => {
         }
       })
       .catch((error) => {
-        console.log(error);
         if (error.response.status === 400) {
           setIsEmail(false);
           setEmailMessage(true);

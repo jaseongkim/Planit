@@ -10,7 +10,6 @@ export const getCategThunk = createAsyncThunk(
       const { data } = await apis.getCategories(date);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (e) {
-      console.log("getCategThunk", e.response.data.status);
       if (e.response.data.status === 404) {
       }
     }
@@ -24,7 +23,6 @@ export const getOnlyCategThunk = createAsyncThunk(
       const { data } = await apis.getOnlyCategorie();
       return thunkAPI.fulfillWithValue(data.data);
     } catch (e) {
-      console.log("getCategThunk", e.response.data.status);
       if (e.response.data.status === 404) {
       }
     }
@@ -40,7 +38,6 @@ export const createCategThunk = createAsyncThunk(
       // console.log
       // return thunkAPI.fulfillWithValue(data.data);
       .then((response) => {
-        console.log(response);
         if (response.data.success === false) {
         } else {
           return window.location.replace("/category");
@@ -56,7 +53,6 @@ export const deleteCategThunk = createAsyncThunk(
   async (id, thunkAPI) => {
     try {
       await apis.deleteCategories(id).then((response) => {
-        console.log(response);
         if (response.data.success === false) {
         } else {
           return window.location.replace("/category");
@@ -74,12 +70,10 @@ export const deleteCategThunk = createAsyncThunk(
 export const updateCategThunk = createAsyncThunk(
   "category/updateCategory",
   async (payload, thunkAPI) => {
-    console.log(payload.id, payload.category);
     try {
       await apis
         .updateCategories(payload.id, payload.category)
         .then((response) => {
-          console.log(response);
           if (response.data.success === false) {
           } else {
             return window.location.replace("/category");
@@ -142,7 +136,6 @@ export const updateTodoDateThunk = createAsyncThunk(
   "todo/updateTodoCheck",
   async (payload, thunkAPI) => {
     try {
-      console.log("Check paylaod", payload);
       const { data } = await apis.updateTodoDate(payload);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
@@ -156,7 +149,6 @@ export const updateTodoMemoThunk = createAsyncThunk(
   "todo/updateTodoMemo",
   async (payload, thunkAPI) => {
     try {
-      console.log("Checy updateTodoMemoThunk", payload);
       const { data } = await apis.updateTodoMemo(payload);
       return thunkAPI.fulfillWithValue({
         todo: data.data,
@@ -173,7 +165,6 @@ export const deleteTodoThunk = createAsyncThunk(
   "todo/deleteTodo",
   async (payload, thunkAPI) => {
     try {
-      console.log("deleteThunk payload", payload.todoId);
       await apis.deleteTodo(payload.todoId);
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {

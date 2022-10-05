@@ -1,17 +1,16 @@
 // React
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 // Styled-Component
 import styled from "styled-components";
 // React Icon
 import { prev_icon, next_icon } from "../../static/images/";
 // Context API
-import { AppContext } from "../../context"
+import { AppContext } from "../../context";
 
 const DayMover = () => {
-  
   // Context API : To get the selected date from the calendar
-  const { dateValue, setDateValue, parsedDayDate} = useContext(AppContext);
-  
+  const { dateValue, setDateValue, parsedDayDate } = useContext(AppContext);
+
   // Var: Getting a local current time
   // appending subtrack or add 1 day depending on which the button get clicked
   const currDate = new Date(dateValue);
@@ -25,7 +24,6 @@ const DayMover = () => {
   // When clicked, add 1 from the current time
   const onClickRight = () => {
     currDate.setDate(currDate.getDate() + 1);
-    console.log('Check currDate', currDate);
     setDateValue(currDate);
   };
 
