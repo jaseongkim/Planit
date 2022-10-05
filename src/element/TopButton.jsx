@@ -2,13 +2,13 @@ import React from "react";
 import styled from "styled-components";
 import { top_icon } from "../static/images";
 
-export default function TopButton() {
-  return <StyTopBtn href="#header"></StyTopBtn>;
+export default function TopButton({ y }) {
+  return <StyTopBtn href="#header" y={y}></StyTopBtn>;
 }
 
 const StyTopBtn = styled.a`
   position: fixed;
-  top: -20px;
+  top: ${(props) => props.y}px;
   right: 16px;
   width: 48px;
   height: 48px;
