@@ -65,5 +65,8 @@ PLANIT은 계획을 뜻하는 PLAN 과 행성을 뜻하는 PLANET의 뜻을 포�
 - 행성 사진들이 생명주기때문에 undefined 되는 문제 [상세보기 - WIKI 이동](https://github.com/hanghae-w8-t4-plan-it/frontend/wiki/%ED%96%89%EC%84%B1-%EC%82%AC%EC%A7%84%EB%93%A4%EC%9D%B4-%EC%83%9D%EB%AA%85%EC%A3%BC%EA%B8%B0%EB%95%8C%EB%AC%B8%EC%97%90-undefined-%EB%90%98%EB%8A%94-%EB%AC%B8%EC%A0%9C)
 - 새로고침시 State 에 저장된 값들이 없어 지는 현상 [상세보기 - WIKI 이동](https://github.com/hanghae-w8-t4-plan-it/frontend/wiki/%EC%83%88%EB%A1%9C%EA%B3%A0%EC%B9%A8%EC%8B%9C-State-%EC%97%90-%EC%A0%80%EC%9E%A5%EB%90%9C-%EA%B0%92%EB%93%A4%EC%9D%B4-%EC%97%86%EC%96%B4-%EC%A7%80%EB%8A%94-%ED%98%84%EC%83%81)
 - 사이드 네비게이션 을 Hook 으로 전역 관리 하기 [상세보기 - WIKI 이동](https://github.com/hanghae-w8-t4-plan-it/frontend/wiki/%EC%82%AC%EC%9D%B4%EB%93%9C-%EB%84%A4%EB%B9%84%EA%B2%8C%EC%9D%B4%EC%85%98-%EC%9D%84-Hook-%EC%9C%BC%EB%A1%9C-%EC%A0%84%EC%97%AD-%EA%B4%80%EB%A6%AC-%ED%95%98%EA%B8%B0)
+- 27가지 행성이미지 경우의 수를 행성을 렌더 시키기 위한 분기처리 [상세보기 - WIKI 이동](https://github.com/hanghae-w8-t4-plan-it/frontend/wiki/27%EA%B0%80%EC%A7%80-%ED%96%89%EC%84%B1%EB%93%A4%EC%9D%98-%EC%88%98%EB%A5%BC-%ED%96%89%EC%84%B1%EC%9D%84-%EB%A0%8C%EB%8D%94-%EC%8B%9C%ED%82%A4%EA%B8%B0-%EC%9C%84%ED%95%9C-%EB%B6%84%EA%B8%B0%EC%B2%98%EB%A6%AC)
+- 카카오 로그인 로그아웃 이후 비밀번호 없이 재로그인 [상세보기 - WIKI 이동](https://github.com/hanghae-w8-t4-plan-it/frontend/wiki/%EC%B9%B4%EC%B9%B4%EC%98%A4-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EB%A1%9C%EA%B7%B8%EC%95%84%EC%9B%83-%EC%9D%B4%ED%9B%84-%EB%B9%84%EB%B0%80%EB%B2%88%ED%98%B8-%EC%97%86%EC%9D%B4-%EC%9E%AC%EB%A1%9C%EA%B7%B8%EC%9D%B8)
+
 
 <br/> 
