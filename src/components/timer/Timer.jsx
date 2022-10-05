@@ -160,4 +160,8 @@ const StTimerBtn = styled.button`
   height: 76px;
   border-radius: 100px;
   color: #fff;
+
+  &:disabled {
+    opacity: 30%;
+  }
 `;

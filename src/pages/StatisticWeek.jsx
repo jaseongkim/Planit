@@ -36,7 +36,7 @@ const Statistic = () => {
 
   const statistic = useSelector((state) => state.statisticSlice.statistic);
 
-  const labels = ["월", "화", "수", "목", "금", "토", "일"];
+  const labels = ["월", "화", "수", "목", "금", "토", "일", "요일"];
 
   const achievementRate = statistic?.achievementRates?.map((item) => {
     return item.achievementRate;
@@ -55,8 +55,8 @@ const Statistic = () => {
       {
         label: "주간 달성률",
         data: achievementRate,
-        backgroundColor: "#2B7FFF",
-        borderColor: "#2B7FFF",
+        backgroundColor: "#1671FA",
+        borderColor: "#1671FA",
         borderWidth: 1,
       },
     ],
@@ -131,18 +131,18 @@ const Statistic = () => {
         <StyChartBox>
           <h3>할 일 달성률</h3>
           <StyChartInner>
-            <Bar type="bar" data={achievementRateWeekData} options={options}/>
+            <Bar type="bar" data={achievementRateWeekData} options={options} />
           </StyChartInner>
         </StyChartBox>
         <StyChartBox>
           <h3>집중도</h3>
           <StyChartInner>
-            <Bar type="bar" data={concentrationWeekData} options={options}/>
+            <Bar type="bar" data={concentrationWeekData} options={options} />
           </StyChartInner>
         </StyChartBox>
-        <StatsBtmNavi name={"statisticweek"}/>
+        <StatsBtmNavi name={"statisticweek"} />
       </StyChartWrap>
-      <RepStatsBtmFitNavi/>
+      <RepStatsBtmFitNavi />
     </StyChartCont>
   );
 };

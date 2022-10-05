@@ -24,6 +24,8 @@ const Report = () => {
   // Redux useSelector : planet useSelector
   const report = useSelector((state) => state.reportSlice.report);
 
+  const currentMonth = parseInt(parsedMonthApiDate.split("-")[1]);
+
   // Var : Gettting Category Rank from Redux
   const categoryRank = report?.categoryRank?.map((item) => {
     return item;
@@ -46,11 +48,11 @@ const Report = () => {
   });
 
   // Var : Getting the longest hours of concentrated time in hours
-  const parsedSumElapsedTime = Math.floor(concentrationTimeTop?.sumElapsedTime/60)
+  const parsedSumElapsedTime = concentrationTimeTop?.sumElapsedTime;
 
   // Var : Getting the most concentrated time in foramt 00:00 - 00:00
-  const parsedMostConcentrationTime = `${report?.mostConcentrationTime?.startTime}:00 - ${report?.mostConcentrationTime?.endTime}:00`
-  const parsedmostConcTime = (report?.mostConcentrationTime?.totalTime < 60 ? `${report?.mostConcentrationTime?.totalTime}분` : `${report?.mostConcentrationTime?.totalTime/ 60}시`)
+  const parsedMostConcentrationTime = `${report?.mostConcentrationTime?.startTime}:00 - ${report?.mostConcentrationTime?.endTime}:00`;
+  const parsedmostConcTime = report?.mostConcentrationTime?.totalTime;
 
   useEffect(() => {
     dispatch(getReportThunk(parsedMonthApiDate));
@@ -73,9 +75,10 @@ const Report = () => {
           </h4>
           <StyReportContent>
             {categoryRank?.map((input, index) => {
-              return <p key={index}>{`${index + 1}. ${input}`}</p>;
+              return <p key={index}>{input}</p>;
             })}
             {/* <span>한 달동안 40개의 할 일을 완료 했어요.</span> */}
+            {/* <span>해당 데이터가 없습니다.</span> */}
           </StyReportContent>
         </div>
         <div>
@@ -111,27 +114,29 @@ const Report = () => {
         <div>
           <h4>
             <img src={report_icon} alt="리포트 타이틀 아이콘" />
-            9월 중
+            {currentMonth}
+            월 중
             <br />
             가장 오래 집중한 날
           </h4>
           <StyReportContent>
-          {concTimeTopDate?.map((input, index) => {
+            {concTimeTopDate?.map((input, index) => {
               return <p key={index}>{input}</p>;
             })}
-            <span>총 {parsedSumElapsedTime}시간 동안 집중했어요.</span>
+            <span>총 {parsedSumElapsedTime}분 동안 집중했어요.</span>
           </StyReportContent>
         </div>
         <div>
           <h4>
             <img src={report_icon} alt="리포트 타이틀 아이콘" />
-            9월 중 가장
+            {currentMonth}
+            월 중 가장
             <br />
             집중이 잘 됐던 시간
           </h4>
           <StyReportContent>
             <p>{parsedMostConcentrationTime}</p>
-            <span>이 시간에 {parsedmostConcTime} 동안 집중했어요.</span>
+            <span>이 시간에 {parsedmostConcTime}분 동안 집중했어요.</span>
           </StyReportContent>
         </div>
       </StyReportWrap>

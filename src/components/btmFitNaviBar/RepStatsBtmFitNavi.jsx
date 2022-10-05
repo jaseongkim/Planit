@@ -38,7 +38,6 @@ const RepStatsBtmFitNavi = () => {
     }
   }, [activeTabs, navigate]);
 
-
   return (
     <StyBtmNavi>
       {currentPath.pathname === "/report" ? <TopButton /> : null}
@@ -73,12 +72,6 @@ const StyBtmNavi = styled.div`
   transform: translateX(-50%);
   max-width: 375px;
   width: 100%;
-  background: linear-gradient(
-    0deg,
-    #acd0fd 0%,
-    #5899f2 75%,
-    rgba(75, 145, 240, 0) 100%
-  );
 
   @media (max-width: 425px) {
     max-width: none;
@@ -88,7 +81,7 @@ const StyBtmTabCont = styled.div`
   width: 100%;
   max-width: 375px;
   margin: 0 auto;
-  padding: 50px 16px 32px;
+  padding: 0 16px 32px;
 `;
 
 const StyBtmTabWrap = styled.div`
