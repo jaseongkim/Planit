@@ -20,8 +20,6 @@ function App() {
   // Hook : To get the selected date from the calendar
   const [dateValue, setDateValue] = useState(new Date());
 
-  console.log('Check dateValue', dateValue);
-
   // Var ; A Parsed date in format yyyy-mm-dd from the calendar
   var parsedFullApiDate = `${dateValue.getFullYear()}-${String(
     dateValue.getMonth() + 1
@@ -102,7 +100,6 @@ function App() {
       const first =
         date.getDate() - date.getDay() + (date.getDay() === 0 ? -6 : 1);
       const monday = new Date(date.setDate(first));
-  
       return monday;
     };
 

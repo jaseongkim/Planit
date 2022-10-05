@@ -63,7 +63,6 @@ const Report = () => {
       <MainHeader color={""} />
       <StyDateMoverWrap>
         <MonthMover />
-        {console.log("Check categoryRank", concTimeTopDate)}
       </StyDateMoverWrap>
       <StyReportWrap>
         <div>
@@ -74,7 +73,7 @@ const Report = () => {
             가장 많이 달성한 카테고리
           </h4>
           <StyReportContent>
-            {categoryRank.length === 0 ? (
+            {categoryRank?.length === 0 ? (
               <span>해당 데이터가 없습니다.</span>
             ) : (
               categoryRank?.map((input, index) => {
@@ -113,13 +112,13 @@ const Report = () => {
             연속 날짜
           </h4>
           <StyReportContent>
-            {report.achievementCombo === 0 ? (
+            {report?.achievementCombo === 0 ? (
               <span>해당 데이터가 없습니다.</span>
             ) : (
               <>
-                <p>{report.achievementCombo}일</p>
+                <p>{report?.achievementCombo}일</p>
                 <span>
-                  연속으로는 {report.achievementCombo}일 연속 모두 완료했어요.
+                  연속으로는 {report?.achievementCombo}일 연속 모두 완료했어요.
                 </span>
               </>
             )}
