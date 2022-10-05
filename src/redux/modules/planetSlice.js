@@ -36,7 +36,7 @@ export const createPlanetThunk = createAsyncThunk(
       const { data } = await apis.postPlanet(payload);
       // return thunkAPI.fulfillWithValue(data.data);
       // console.log(data.data);
-      // window.location.replace("/dlytodo");
+      window.location.replace("/dlytodo");
     } catch (e) {
       // return thunkAPI.rejectWithValue(e.code);
       console.log(e);
