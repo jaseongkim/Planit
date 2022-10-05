@@ -6,7 +6,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import styled, { css } from "styled-components";
 import TopButton from "../../element/TopButton";
 
-const RepStatsBtmFitNavi = ({ name, wkPlanets }) => {
+const RepStatsBtmFitNavi = () => {
   // Navigate
   const navigate = useNavigate();
 
@@ -20,6 +20,9 @@ const RepStatsBtmFitNavi = ({ name, wkPlanets }) => {
   // UseEffect : when activeTabs get changed, useEffect will be triggered again
   useEffect(() => {
     switch (activeTabs) {
+      case "/report":
+        navigate("/report");
+        break;
       case "/statisticyear":
         navigate("/statisticyear");
         break;
@@ -35,41 +38,22 @@ const RepStatsBtmFitNavi = ({ name, wkPlanets }) => {
     }
   }, [activeTabs, navigate]);
 
-  // When the day navi btn get clicked, find current date's planet
-  // If the planet's planetType is 0, navigate to creatplanet page
-  // Else navigate to dlytodo page
-  const onClickDay = () => {
-    const currDate = new Date();
-    const parsedCurrDate = `${currDate.getFullYear()}-${String(
-      currDate.getMonth() + 1
-    ).padStart(2, "0")}-${String(currDate.getDate()).padStart(2, "0")}`;
-    const currPlanet = wkPlanets?.planets.find(
-      (planet) => planet.dueDate === parsedCurrDate
-    );
-
-    if (currPlanet?.planetType === null || currPlanet?.planetType === 0) {
-      navigate("/createplanet");
-    } else {
-      setActiveTabs("dlytodo");
-    }
-  };
-
   return (
     <StyBtmNavi>
       {currentPath.pathname === "/report" ? <TopButton /> : null}
       <StyBtmTabCont>
         <StyBtmTabWrap>
           <StyBtmTab
-            className="week"
-            date={activeTabs}
-            onClick={() => setActiveTabs("wklytodo")}
+            className="rep"
+            page={activeTabs}
+            onClick={() => setActiveTabs("/report")}
           >
             리포트로 보기
           </StyBtmTab>
           <StyBtmTab
-            className="day"
-            date={activeTabs}
-            onClick={() => onClickDay()}
+            className="stats"
+            page={activeTabs}
+            onClick={() => setActiveTabs("/statisticday")}
           >
             통계로 보기
           </StyBtmTab>
@@ -88,12 +72,6 @@ const StyBtmNavi = styled.div`
   transform: translateX(-50%);
   max-width: 375px;
   width: 100%;
-  background: linear-gradient(
-    0deg,
-    #acd0fd 0%,
-    #5899f2 75%,
-    rgba(75, 145, 240, 0) 100%
-  );
 
   @media (max-width: 425px) {
     max-width: none;
@@ -103,7 +81,7 @@ const StyBtmTabCont = styled.div`
   width: 100%;
   max-width: 375px;
   margin: 0 auto;
-  padding: 50px 16px 32px;
+  padding: 0 16px 32px;
 `;
 
 const StyBtmTabWrap = styled.div`
@@ -117,8 +95,8 @@ const StyBtmTabWrap = styled.div`
 
 const StyBtmTab = styled.button`
   ${(props) => {
-    switch (props.date) {
-      case "dlytodo":
+    switch (props.page) {
+      case "/report":
         return css`
           display: flex;
           align-items: center;
@@ -129,7 +107,7 @@ const StyBtmTab = styled.button`
           border: none;
           border-radius: 8px;
 
-          &.week {
+          &.rep {
             background: white;
             box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.12),
               0px 3px 1px rgba(0, 0, 0, 0.04);
@@ -146,7 +124,7 @@ const StyBtmTab = styled.button`
           border: none;
           border-radius: 8px;
 
-          &.day {
+          &.stats {
             background: white;
             box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.12),
               0px 3px 1px rgba(0, 0, 0, 0.04);

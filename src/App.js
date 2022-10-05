@@ -20,10 +20,15 @@ function App() {
   // Hook : To get the selected date from the calendar
   const [dateValue, setDateValue] = useState(new Date());
 
-  // Var ; A Parsed date in format yyyy/mm/dd from the calendar
-  var parsedFullDate = `${dateValue.getFullYear()}-${String(
+  // Var ; A Parsed date in format yyyy-mm-dd from the calendar
+  var parsedFullApiDate = `${dateValue.getFullYear()}-${String(
     dateValue.getMonth() + 1
   ).padStart(2, "0")}-${String(dateValue.getDate()).padStart(2, "0")}`;
+
+  // Var ; A Parsed date in format yyyy-mm from the calendar
+  var parsedMonthApiDate = `${dateValue.getFullYear()}-${String(
+    dateValue.getMonth() + 1
+  ).padStart(2, "0")}`;
 
   // Var : A Parsed date in format mm월 dd일 from the calendar
   var parsedDayDate = `${String(dateValue.getMonth() + 1).padStart(2, "0")}월 ${String(
@@ -102,8 +107,8 @@ function App() {
   return (
     <>
       <AppContext.Provider value={{ 
-        open, setOpen, dateValue, setDateValue, parsedFullDate, parsedDayDate,
-        getMondayOfWeek, weekNumberByMonth, parsedMonthDate, parsedYearDate
+        open, setOpen, dateValue, setDateValue, parsedFullApiDate, parsedMonthApiDate, 
+        parsedDayDate, getMondayOfWeek, weekNumberByMonth, parsedMonthDate, parsedYearDate
         }}>
         <GlobalStyle />
         <Browser />

@@ -1,28 +1,84 @@
-import React from "react";
+// React
+import React, { useEffect, useContext } from "react";
+// Styled-Component
 import styled from "styled-components";
-import DayMover from "../components/dateMover/DayMover";
+// Components
+import MonthMover from "../components/dateMover/MonthMover";
 import MainHeader from "../components/MainHeader";
 import RepStatsBtmFitNavi from "../components/btmFitNaviBar/RepStatsBtmFitNavi";
+// Imgs
 import { report_icon } from "../static/images";
+// Redux
+import { useDispatch, useSelector } from "react-redux";
+import { getReportThunk } from "../redux/modules/reportSlice.js";
+// Context API
+import { AppContext } from "../context";
 
 const Report = () => {
+  // Dispatch
+  const dispatch = useDispatch();
+
+  // Context API : To get the selected date && the prasedFullDate from the calendar
+  const { parsedMonthApiDate } = useContext(AppContext);
+
+  // Redux useSelector : planet useSelector
+  const report = useSelector((state) => state.reportSlice.report);
+
+  const currentMonth = parseInt(parsedMonthApiDate.split("-")[1]);
+
+  // Var : Gettting Category Rank from Redux
+  const categoryRank = report?.categoryRank?.map((item) => {
+    return item;
+  });
+
+  // Var : Gettting the most productive day info from Redux
+  const achievementCountTop = report?.achievementCountTop;
+
+  // Var : Gettting the most productive day date from Redux
+  const achvCountTopDate = achievementCountTop?.data?.map((item) => {
+    return `${item.slice(5, 7)}월 ${item.slice(8, 10)}일`;
+  });
+
+  // Var : Getting the longest hours of concentrated day from Redux
+  const concentrationTimeTop = report?.concentrationTimeTop;
+
+  // Var : Gettting the longest hours of concentrated day date from Redux
+  const concTimeTopDate = concentrationTimeTop?.data?.map((item) => {
+    return `${item.slice(5, 7)}월 ${item.slice(8, 10)}일`;
+  });
+
+  // Var : Getting the longest hours of concentrated time in hours
+  const parsedSumElapsedTime = concentrationTimeTop?.sumElapsedTime;
+
+  // Var : Getting the most concentrated time in foramt 00:00 - 00:00
+  const parsedMostConcentrationTime = `${report?.mostConcentrationTime?.startTime}:00 - ${report?.mostConcentrationTime?.endTime}:00`;
+  const parsedmostConcTime = report?.mostConcentrationTime?.totalTime;
+
+  useEffect(() => {
+    dispatch(getReportThunk(parsedMonthApiDate));
+  }, [parsedMonthApiDate, dispatch]);
+
   return (
     <StyReportCont>
-      <MainHeader id="header" text={"닉네임님의 리포트"} color={""} />
+      {/* {console.log(console.log('Check rank', achievementCountTop))} */}
+      <MainHeader color={""} />
       <StyDateMoverWrap>
-        <DayMover />
+        <MonthMover />
       </StyDateMoverWrap>
       <StyReportWrap>
         <div>
           <h4>
             <img src={report_icon} alt="리포트 타이틀 아이콘" />
-            닉네임님이
+            {`${localStorage.getItem("nickname")} 님이`}
             <br />
             가장 많이 달성한 카테고리
           </h4>
           <StyReportContent>
-            <p>카테고리명</p>
-            <span>한 달동안 40개의 할 일을 완료 했어요.</span>
+            {categoryRank?.map((input, index) => {
+              return <p key={index}>{input}</p>;
+            })}
+            {/* <span>한 달동안 40개의 할 일을 완료 했어요.</span> */}
+            {/* <span>해당 데이터가 없습니다.</span> */}
           </StyReportContent>
         </div>
         <div>
@@ -33,9 +89,12 @@ const Report = () => {
             많이 완료한 날
           </h4>
           <StyReportContent>
-            <p>10월 12일</p>
-            <p>10월 14일</p>
-            <span>20개의 할 일을 완료했어요.</span>
+            {achvCountTopDate?.map((input, index) => {
+              return <p key={index}>{input}</p>;
+            })}
+            <span>
+              {achievementCountTop?.maxAchievementCount}개의 할 일을 완료했어요.
+            </span>
           </StyReportContent>
         </div>
         <div>
@@ -46,33 +105,38 @@ const Report = () => {
             연속 날짜
           </h4>
           <StyReportContent>
-            <p>4일</p>
-            <span>연속으로는 4일 연속 모두 완료했어요.</span>
+            <p>{report.achievementCombo}일</p>
+            <span>
+              연속으로는 {report.achievementCombo}일 연속 모두 완료했어요.
+            </span>
           </StyReportContent>
         </div>
         <div>
           <h4>
             <img src={report_icon} alt="리포트 타이틀 아이콘" />
-            9월 중
+            {currentMonth}
+            월 중
             <br />
             가장 오래 집중한 날
           </h4>
           <StyReportContent>
-            <p>10월 12일</p>
-            <span>총 5시간동안 집중했어요.</span>
+            {concTimeTopDate?.map((input, index) => {
+              return <p key={index}>{input}</p>;
+            })}
+            <span>총 {parsedSumElapsedTime}분 동안 집중했어요.</span>
           </StyReportContent>
         </div>
         <div>
           <h4>
             <img src={report_icon} alt="리포트 타이틀 아이콘" />
-            9월 중 가장
+            {currentMonth}
+            월 중 가장
             <br />
             집중이 잘 됐던 시간
           </h4>
           <StyReportContent>
-            <p>16:00 ~ 17:00</p>
-            <p>21:00 ~ 22:00</p>
-            <span>이 시간에 1시간 동안 집중했어요.</span>
+            <p>{parsedMostConcentrationTime}</p>
+            <span>이 시간에 {parsedmostConcTime}분 동안 집중했어요.</span>
           </StyReportContent>
         </div>
       </StyReportWrap>

@@ -108,9 +108,7 @@ export const apis = {
   getCategories: (data) => api.get(`/categories?date=${data}`),
 
   getOnlyCategorie: () => api.get(`/categories/menu`),
-  // .then(response =>{
-  //   console.log("Check getOnlyCate api resposne", response)
-  // })
+
   postCategories: (data) => api.post("/categories", data),
 
   deleteCategories: (data) => api.delete(`/categories/${data}`),
@@ -162,6 +160,9 @@ export const apis = {
 
   updatePlanet: (data) => api.patch("/todo-list", data),
 
-  //timer
+  // Timer
   postTimer: (data) => api.post("/timer", data),
+
+  // Report
+  getReport: (data) => api.get(`/report?month=${data}`),
 };
