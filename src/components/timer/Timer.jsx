@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useTimer } from "react-timer-hook";
 import styled from "styled-components";
@@ -8,7 +8,6 @@ import { postTimer, setRunning } from "../../redux/modules/timerSlice";
 export default function Timer({ value }) {
   const dispatch = useDispatch();
 
-  const [startTime, setStartTime] = useState(0);
   const [pauseTime, setPauseTime] = useState(false);
   const [modal, setModal] = useState(false);
   const [select, setSelect] = useState(0);
@@ -31,8 +30,6 @@ export default function Timer({ value }) {
 
   const onStartHandler = () => {
     restart(numToMins(value));
-    const startCurrent = hours * 3600 + minutes * 60;
-    setStartTime(startCurrent);
     dispatch(setRunning(true));
   };
 
@@ -49,11 +46,12 @@ export default function Timer({ value }) {
     setModal(false);
 
     const endTime = Math.floor(
-      (startTime - (hours * 3600 + minutes * 60 + seconds)) / 60
+      (value * 60 - (hours * 3600 + minutes * 60 + seconds)) / 60
     );
+    console.log(endTime);
 
     const data = {
-      setTime: startTime / 60,
+      setTime: value,
       elapsedTime: endTime,
     };
 
