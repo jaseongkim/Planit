@@ -30,6 +30,53 @@ Planit에서 To-do를 완료하고 행성을 키워보세요!
 
 ### 2022년 9월 2일 - 2022년 10월 7일
 
+## 🎁 주요 기능
+
+### 😃 간단하고 안전한 회원가입
+
+- 카카오를 통한 소셜 로그인 및 이메일을 통한 회원가입
+- 페이지 설명
+  - 소셜 or 일반로그인
+  - 온보딩페이지(회원가입시 온보딩 페이지를 통해 플랜잇이 어떠한 서비스인지 알 수 있음)
+
+![로그인/회원가입/온보딩페이지](https://user-images.githubusercontent.com/108917552/194225270-f8ce3507-6bc0-480b-be6d-733ce0db40dc.png)
+
+### 😃 메인 페이지
+
+- 페이지 설명
+  - 메인페이지에서 투두 달성을 통해 얻을 수 있는 행성을 볼 수 있습니다
+  - 행성은 달성수에 따라 변화함으로써, 사용자에게 To Do 달성을 더 재미있게 할 수 있도록 흥미와 동기를 부여함.
+  - 행성 커스텀 기능
+
+![메인 페이지/커스텀](https://user-images.githubusercontent.com/108917552/194225588-8974e707-3d0f-47a9-9229-91b3775b3b3a.png)
+
+### 😃 계획 작성, 목표 달성을 위한 TO-DO 리스트 작성
+
+- 페이지 설명
+  - 오늘 얻을 수 있는 행성을 볼 수 있고, 다음 단계의 행성을 얻기 위해 얼마나 더 달성해야 하는지 알 수 있음
+  - 메모기능
+  - 투두 작성은 버튼 없이 엔터나 다른 곳을 클릭하여 저장할 수 있음
+
+![Todo 리스트](https://user-images.githubusercontent.com/108917552/194226040-6ce43d99-72c1-4b07-8c73-a5200296b787.png)
+
+### 😃 나만의 프로필 사진과 닉네임
+
+- 프로필 사진과 닉네임을 변경할 수 있음.
+- 페이지 설명
+  - 닉네임 중복이 가능하며, 프로필 사진을 설정할 수 있음.
+  - 비밀번호 변경
+  - 로그아웃 가능
+
+![프로필](https://user-images.githubusercontent.com/108917552/194222300-8fc554b4-52cb-40f4-9d25-3e5f7b97327f.png)
+
+### 통계
+
+![일/주/월/년](https://user-images.githubusercontent.com/108917552/194226301-751b6d8f-301e-435c-acaf-e6813a6997b3.png)
+
+### 리포트
+
+![리포트](https://user-images.githubusercontent.com/108917552/194226447-9bd9698b-4451-429a-9f92-50ca15524ba4.png)
+
 ## 💻 Stack
 
 <div>
@@ -48,15 +95,6 @@ Planit에서 To-do를 완료하고 행성을 키워보세요!
   <img src="https://img.shields.io/badge/Axios-5A29E4?style=flat&logo=Axios&logoColor=white"/>
   <br>
 </div>
-
-<br/>
-
-## 🧙 Team
-
-| 신원혁                                | 박종익                                   | 이길종                                | 박준기                                | 김자성                                  |
-| ------------------------------------- | ---------------------------------------- | ------------------------------------- | ------------------------------------- | --------------------------------------- |
-| [Github](https://github.com/god1hyuk) | [Github](https://github.com/ParkJong-ic) | [Github](https://github.com/Jongleee) | [Github](https://github.com/byjgpark) | [Github](https://github.com/jaseongkim) |
-| BE / Spring                           | BE / Spring                              | BE / Spring                           | FE / React                            | FE / React                              |
 
 <br/>
 
