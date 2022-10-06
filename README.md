@@ -1,24 +1,30 @@
 # 🪐 PLAN IT!
+
 ![big thumb](https://user-images.githubusercontent.com/48500149/194043247-2e5d5751-10da-437b-8892-921b19126b2a.png)
 <br/>
 
 ## 투두작성을 통해 목표를 달성할 수 있게 도와주는 서비스
+
 PLANIT은 계획을 뜻하는 PLAN 과 행성을 뜻하는 PLANET의 뜻을 포함한 이름으로, 목표를 계획하고 달성하는 기쁨을 줄 수 있도록 도와주는 서비스
 
 ## 📌 링크
-[Planit 링크](https://planit-todo.com)    
+
+[Planit 링크](https://planit-todo.com)  
 [Front-End Repo 링크](https://github.com/hanghae-w8-t4-plan-it/frontend)  
 [Back-End Repo 링크](https://github.com/hanghae-w8-t4-plan-it/backend)  
 [Notion 링크](https://www.notion.so/4-d8656c9684f5477c917a81a0747e5144)  
-[소개 영상](예정)  
+[소개 영상](예정)
 
 ## 🎬 프로젝트 소개
--  우리는 하루에도 수 많은 일들을 합니다. 할 일을 쉽게 기록하고 얼마나 잘 했는지 확인할 수 있는 것이 있다면 얼마나 좋을까요? 우리의 서비스 Planit은 TODO를 수행할 원동력을 제공할 수 있도록 도와주는 여러분들의 친구입니다.
+
+- 우리는 하루에도 수 많은 일들을 합니다. 할 일을 쉽게 기록하고 얼마나 잘 했는지 확인할 수 있는 것이 있다면 얼마나 좋을까요? 우리의 서비스 Planit은 TODO를 수행할 원동력을 제공할 수 있도록 도와주는 여러분들의 친구입니다.
 
 ## ⏳ 프로젝트 기간
+
 ### 2022년 9월 2일 - 2022년 10월 7일
 
 ## 💻 Stack
+
 <div>
   <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white">
   <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white">
@@ -29,16 +35,20 @@ PLANIT은 계획을 뜻하는 PLAN 과 행성을 뜻하는 PLANET의 뜻을 포�
   <br>
   <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">   
   <img src="https://img.shields.io/badge/kakao login-FFCD00?style=for-the-badge&logo=kakao&logoColor=black">
+  <img src="https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=Axios&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Amazon S3-569A31?style=for-the-badge&logo=Amazon S3&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Redux-764ABC?style=for-the-badge&logo=Redux&logoColor=white"/>
   <br>
 </div>
 
 <br/>
 
 ## 🧙 Team
-|신원혁|박종익|이길종|박준기|김자성
-|---|---|---|---|---|
-|[Github](https://github.com/god1hyuk)|[Github](https://github.com/ParkJong-ic)|[Github](https://github.com/Jongleee)|[Github](https://github.com/byjgpark)|[Github](https://github.com/jaseongkim)|
-|BE / Spring|BE / Spring|BE / Spring|FE / React|FE / React|
+
+| 신원혁                                | 박종익                                   | 이길종                                | 박준기                                | 김자성                                  |
+| ------------------------------------- | ---------------------------------------- | ------------------------------------- | ------------------------------------- | --------------------------------------- |
+| [Github](https://github.com/god1hyuk) | [Github](https://github.com/ParkJong-ic) | [Github](https://github.com/Jongleee) | [Github](https://github.com/byjgpark) | [Github](https://github.com/jaseongkim) |
+| BE / Spring                           | BE / Spring                              | BE / Spring                           | FE / React                            | FE / React                              |
 
 <br/>
 
@@ -48,14 +58,13 @@ PLANIT은 계획을 뜻하는 PLAN 과 행성을 뜻하는 PLANET의 뜻을 포�
 
 <br/>
 
-
-| 이름 | 사용 이유 |
-| --- | --- |
-| React | Component 단위의 작성을 통해 UI를 구성하는 개별적인 뷰단위의 개발을 하여 하나의 컴포넌트를 여러 부분에 다중 사용할수 있게 만들거 생산성과 유지 보수를 용이하게 하고 JSX를 사용해 컴포넌트를 쉽게 구성할수 있도록 해주며 Vitual DOM을 이용해 연산 비용을 줄일수 있기에 React 라이브러리를 사용하게 되었습니다. |
-| React-Redux Toolkit | React 상태관리를 전역으로 Redux store에 저장해 각각 기능 마다 Slice 로 구분해 서버에온 데이터들을 관리해주기 위해서 서 React-Redux ToolKit 을 사용했습니다.| 
-| Context API | 단순히 데이터를 Redux store와 Slice 로 dispatch 시킬필요 없이 하위 컴포넌트에 전역으로 데이터를 내려주기 위해서 Context API를 사용했습니다. |  
-| Styled-Component | CSS 를 컴포넌트 단위로 쪼갤수 있어 사용 빈도가 높은 CSS를 재사용할수 있고 다양한 스타일들을 분기처리를 할수있어 Styled-Component 를 사용했습니다. |
-| Axios | 우선 Fetch 같은 경우 호환성이 떨어져 웹브라우저가 구버전일 경우 지원하지 않는 경우가 있으며, Fetch에 비해 객체의 형태로 Param이나 Query를 성정할수 있어 가독성이 뛰어나며, 따로 JSON형태의 변환이 필요없이 자동 변환이 되고 개선된 error handling의 성능을 가지고 있기에 Axios를 사용하게 되었습니다. |
+| 이름                | 사용 이유                                                                                                                                                                                                                                                                                                     |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| React               | Component 단위의 작성을 통해 UI를 구성하는 개별적인 뷰단위의 개발을 하여 하나의 컴포넌트를 여러 부분에 다중 사용할수 있게 만들거 생산성과 유지 보수를 용이하게 하고 JSX를 사용해 컴포넌트를 쉽게 구성할수 있도록 해주며 Vitual DOM을 이용해 연산 비용을 줄일수 있기에 React 라이브러리를 사용하게 되었습니다. |
+| React-Redux Toolkit | React 상태관리를 전역으로 Redux store에 저장해 각각 기능 마다 Slice 로 구분해 서버에온 데이터들을 관리해주기 위해서 서 React-Redux ToolKit 을 사용했습니다.                                                                                                                                                   |
+| Context API         | 단순히 데이터를 Redux store와 Slice 로 dispatch 시킬필요 없이 하위 컴포넌트에 전역으로 데이터를 내려주기 위해서 Context API를 사용했습니다.                                                                                                                                                                   |
+| Styled-Component    | CSS 를 컴포넌트 단위로 쪼갤수 있어 사용 빈도가 높은 CSS를 재사용할수 있고 다양한 스타일들을 분기처리를 할수있어 Styled-Component 를 사용했습니다.                                                                                                                                                             |
+| Axios               | 우선 Fetch 같은 경우 호환성이 떨어져 웹브라우저가 구버전일 경우 지원하지 않는 경우가 있으며, Fetch에 비해 객체의 형태로 Param이나 Query를 성정할수 있어 가독성이 뛰어나며, 따로 JSON형태의 변환이 필요없이 자동 변환이 되고 개선된 error handling의 성능을 가지고 있기에 Axios를 사용하게 되었습니다.         |
 
 <br/>
 
@@ -68,5 +77,4 @@ PLANIT은 계획을 뜻하는 PLAN 과 행성을 뜻하는 PLANET의 뜻을 포�
 - 27가지 행성이미지 경우의 수를 행성을 렌더 시키기 위한 분기처리 [상세보기 - WIKI 이동](https://github.com/hanghae-w8-t4-plan-it/frontend/wiki/27%EA%B0%80%EC%A7%80-%ED%96%89%EC%84%B1%EB%93%A4%EC%9D%98-%EC%88%98%EB%A5%BC-%ED%96%89%EC%84%B1%EC%9D%84-%EB%A0%8C%EB%8D%94-%EC%8B%9C%ED%82%A4%EA%B8%B0-%EC%9C%84%ED%95%9C-%EB%B6%84%EA%B8%B0%EC%B2%98%EB%A6%AC)
 - 카카오 로그인 로그아웃 이후 비밀번호 없이 재로그인 [상세보기 - WIKI 이동](https://github.com/hanghae-w8-t4-plan-it/frontend/wiki/%EC%B9%B4%EC%B9%B4%EC%98%A4-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EB%A1%9C%EA%B7%B8%EC%95%84%EC%9B%83-%EC%9D%B4%ED%9B%84-%EB%B9%84%EB%B0%80%EB%B2%88%ED%98%B8-%EC%97%86%EC%9D%B4-%EC%9E%AC%EB%A1%9C%EA%B7%B8%EC%9D%B8)
 
-
-<br/> 
+<br/>
