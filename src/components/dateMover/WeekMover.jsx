@@ -1,10 +1,20 @@
-import React from "react";
-
+// React
+import React, {useContext } from "react";
 // Styled-Component
 import styled from "styled-components";
 import { prev_icon, next_icon } from "../../static/images/";
+// Context API
+import { AppContext } from "../../context";
 
-const WeekMover = ({ parsedDispDate, dateValue, setDateValue }) => {
+const WeekMover = () => {
+  
+  // Context API : To get the selected date && the parsedMondayOfWeekDate from the calendar
+  const { dateValue, setDateValue, getMondayOfWeek, weekNumberByMonth} = useContext(AppContext);
+
+  // Var ; A parsed date in format yy년 mm월 dd째주 to display on the WeekMover
+  const parsedWeekOfMonthDate = `${weekNumberByMonth(dateValue).month}월 
+  ${weekNumberByMonth(getMondayOfWeek(dateValue)).weekNo}째주`;
+
   // Var: Getting a local current time
   // appending subtrack or add 1 week depending on which the button get clicked
   const currDate = new Date(dateValue);
@@ -31,7 +41,7 @@ const WeekMover = ({ parsedDispDate, dateValue, setDateValue }) => {
       >
         <img src={prev_icon} alt="이전 아이콘 이미지" />
       </button>
-      <div>{parsedDispDate}</div>
+      <div>{parsedWeekOfMonthDate}</div>
       <button
         style={{ color: "rgba(177, 189, 207, 1)", marginLeft: "5px" }}
         onClick={() => {

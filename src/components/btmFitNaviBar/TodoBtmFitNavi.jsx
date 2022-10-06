@@ -1,13 +1,21 @@
 // React
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 // React-Router-Dom
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 // Styled-Component
 import styled, { css } from "styled-components";
+import TopButton from "../../element/TopButton";
+// Context API
+import { AppContext } from "../../context"
 
-const BtmFitNavi = ({ name, wkPlanets }) => {
+const TodoBtmFitNavi = ({ name, wkPlanets }) => {
+
   // Navigate
   const navigate = useNavigate();
+  const currentPath = useLocation().pathname;
+
+  // Context API : To update to a new date when havigating to dlytodo component
+  const { setDateValue } = useContext(AppContext);
 
   // Hook : getting initial state from props & change state for the navigation
   // Depending on the state, the UX will be rendered differently
@@ -21,15 +29,15 @@ const BtmFitNavi = ({ name, wkPlanets }) => {
         break;
       default:
         navigate("/dlytodo");
+        setDateValue(new Date())
         break;
     }
-  }, [activeTabs]);
+  }, [activeTabs, navigate, setDateValue]);
 
   // When the day navi btn get clicked, find current date's planet
   // If the planet's planetType is 0, navigate to creatplanet page
   // Else navigate to dlytodo page
   const onClickDay = () => {
-    console.log("Checking wkPlanets", wkPlanets);
     const currDate = new Date();
     const parsedCurrDate = `${currDate.getFullYear()}-${String(
       currDate.getMonth() + 1
@@ -38,7 +46,7 @@ const BtmFitNavi = ({ name, wkPlanets }) => {
       (planet) => planet.dueDate === parsedCurrDate
     );
 
-    if (currPlanet?.planetType === null || currPlanet?.planetType === 0) {
+    if (currPlanet?.planetType !== null || currPlanet?.planetType !== 0) {
       navigate("/createplanet");
     } else {
       setActiveTabs("dlytodo");
@@ -47,6 +55,7 @@ const BtmFitNavi = ({ name, wkPlanets }) => {
 
   return (
     <StyBtmNavi>
+      {currentPath === "/dlytodo" ? <TopButton y={-20} /> : null}
       <StyBtmTabCont>
         <StyBtmTabWrap>
           <StyBtmTab
@@ -69,7 +78,7 @@ const BtmFitNavi = ({ name, wkPlanets }) => {
   );
 };
 
-export default BtmFitNavi;
+export default TodoBtmFitNavi;
 
 const StyBtmNavi = styled.div`
   position: fixed;
@@ -78,13 +87,6 @@ const StyBtmNavi = styled.div`
   transform: translateX(-50%);
   max-width: 375px;
   width: 100%;
-  /* 비율 조정 할 것 */
-  /* background: linear-gradient(
-    0deg,
-    #2e5c97 0%,
-    #2e5c97 50%,
-    rgba(75, 145, 240, 0) 90%
-  ); */
   background: linear-gradient(
     0deg,
     #acd0fd 0%,
@@ -96,6 +98,7 @@ const StyBtmNavi = styled.div`
     max-width: none;
   }
 `;
+
 const StyBtmTabCont = styled.div`
   width: 100%;
   max-width: 375px;
@@ -108,7 +111,6 @@ const StyBtmTabWrap = styled.div`
   align-items: center;
   width: 100%;
   padding: 2.5px;
-  /* background: #95b1e689; */
   background: rgba(56, 106, 202, 0.4);
   border-radius: 10px;
 `;
@@ -133,6 +135,7 @@ const StyBtmTab = styled.button`
               0px 3px 1px rgba(0, 0, 0, 0.04);
           }
         `;
+
       default:
         return css`
           width: 50%;

@@ -1,11 +1,16 @@
 // React
-import React from "react";
+import React, { useContext } from "react";
 // Styled-Component
 import styled from "styled-components";
 // React Icon
 import { prev_icon, next_icon } from "../../static/images/";
+// Context API
+import { AppContext } from "../../context";
 
-const DayMover = ({ parsedParDate, setDateValue, dateValue }) => {
+const DayMover = () => {
+  // Context API : To get the selected date from the calendar
+  const { dateValue, setDateValue, parsedDayDate } = useContext(AppContext);
+
   // Var: Getting a local current time
   // appending subtrack or add 1 day depending on which the button get clicked
   const currDate = new Date(dateValue);
@@ -33,7 +38,7 @@ const DayMover = ({ parsedParDate, setDateValue, dateValue }) => {
       >
         <img src={prev_icon} alt="이전 아이콘 이미지" />
       </button>
-      <div>{parsedParDate}</div>
+      <div>{parsedDayDate}</div>
       <button
         className="arrow"
         style={{ color: "rgba(177, 189, 207, 1)", marginLeft: "5px" }}

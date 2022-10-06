@@ -8,11 +8,9 @@ import Router from "./Router";
 import Stars from "../element/stars/Stars";
 // Context API
 import { AppContext } from "../context";
-import useGaTracker from './useGaTracker'
+import useGaTracker from "./useGaTracker";
 
 export default function Browser() {
-
-
   useGaTracker();
   // Context API : opening & closing the burgar navi
   const { open, setOpen } = useContext(AppContext);
@@ -52,6 +50,8 @@ const MobileWrap = styled.div`
   max-width: 375px;
   height: calc(var(--vh, 1vh) * 100);
   overflow-x: hidden;
+  scroll-behavior: smooth;
+  overflow-y: ${(props) => (props.open === true ? "hidden" : "visible")};
   margin: 0 auto;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
     rgba(0, 0, 0, 0.22) 0px 10px 10px;

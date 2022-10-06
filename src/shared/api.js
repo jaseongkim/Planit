@@ -25,55 +25,41 @@ api.interceptors.response.use(
     // When 400 error occur, redirect to maintPage
     if (error.response.status === 404) {
       window.location.replace("/maintPage");
-    }
-    if (error.response.status === 501) {
+    } else if (error.response.status === 501) {
       window.location.replace("/notfound");
-    }
-    // console.log(error);
-    if (error.response.status === 401) {
+    } else if (error.response.status === 401) {
       try {
-        // const email = localStorage.getItem("email");
         const memberId = localStorage.getItem("memberId");
         const originalRequest = error.config;
-        // const data = await api.post("/members/refresh-token", { email: email });
-        const data = await api
-          .post("/members/refresh-token", {
-            memberId: memberId,
-          })
-          .then()
-          .catch((error) => {
-            localStorage.clear();
-            window.location.replace("/");
-          });
-        // const data = getRefreshToken({ email: email });
-        if (data) {
+        const data = await api.post("/members/refresh-token", {
+          memberId: memberId,
+        });
+        if (data.data.success === true) {
           const newToken = data.headers.authorization;
           const newAccesstokenexpiretime = data.headers.accesstokenexpiretime;
+          const refreshtoken = data.headers.refreshtoken;
           localStorage.removeItem("token");
           localStorage.removeItem("accesstokenexpiretime");
+          localStorage.removeItem("refreshToken");
           localStorage.setItem("token", newToken);
           localStorage.setItem(
             "accesstokenexpiretime",
             newAccesstokenexpiretime
           );
+          localStorage.setItem("refreshToken", refreshtoken);
           originalRequest.headers["Authorization"] = newToken;
           return await api.request(originalRequest);
         }
       } catch (error) {
         console.log(error);
+        localStorage.clear();
+        window.location.replace("/login");
       }
       return Promise.reject(error);
     }
-    // else if (error.response.status === 503) {
-    //   console.log("Checking error", error)
-    // }
     return Promise.reject(error);
   }
 );
-
-// const getRefreshToken = async (data) => {
-//   await api.post("/members/refresh-token", data);
-// };
 
 export const apis = {
   // SignUp
@@ -120,11 +106,7 @@ export const apis = {
   // Categories
   getCategories: (data) => api.get(`/categories?date=${data}`),
 
-  getOnlyCategorie: () => api.get(`/categories/menu`)
-  // .then(response =>{
-  //   console.log("Check getOnlyCate api resposne", response)
-  // })
-  ,
+  getOnlyCategorie: () => api.get(`/categories/menu`),
 
   postCategories: (data) => api.post("/categories", data),
 
@@ -176,4 +158,10 @@ export const apis = {
     ),
 
   updatePlanet: (data) => api.patch("/todo-list", data),
+
+  // Timer
+  postTimer: (data) => api.post("/timer", data),
+
+  // Report
+  getReport: (data) => api.get(`/report?month=${data}`),
 };

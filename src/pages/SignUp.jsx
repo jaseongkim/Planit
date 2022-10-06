@@ -132,7 +132,6 @@ const SignUp = () => {
     apis
       .checkEmail({ email: email })
       .then((response) => {
-        console.log(response);
         if (response.data.success === true) {
           setIsEmail(true);
           setEmailMessage(true);
@@ -140,7 +139,6 @@ const SignUp = () => {
         }
       })
       .catch((error) => {
-        console.log(error);
         if (error.response.status === 400) {
           setIsEmail(false);
           setEmailMessage(true);
@@ -250,12 +248,12 @@ const SignUp = () => {
                 {isPassword ? (
                   <span className="signup-item1" style={{ color: "#45bd92" }}>
                     <IoIosArrowDown style={{ marginRight: "3px" }} />
-                    영문/숫자/특수문자 중 2종류 이상 사용
+                    영문/숫자/특수문자(!@#$%^&*) 중 2종류 이상 사용
                   </span>
                 ) : (
                   <span className="signup-item1" style={{ color: "#8b98ac" }}>
                     <IoIosArrowDown style={{ marginRight: "3px" }} />
-                    영문/숫자/특수문자 중 2종류 이상 사용
+                    영문/숫자/특수문자(!@#$%^&*) 중 2종류 이상 사용
                   </span>
                 )}
 

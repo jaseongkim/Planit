@@ -35,8 +35,8 @@ export const createPlanetThunk = createAsyncThunk(
     try {
       const { data } = await apis.postPlanet(payload);
       // return thunkAPI.fulfillWithValue(data.data);
-      console.log(data.data);
-      // window.location.replace("/dlytodo");
+      // console.log(data.data);
+      window.location.replace("/dlytodo");
     } catch (e) {
       // return thunkAPI.rejectWithValue(e.code);
       console.log(e);
@@ -49,7 +49,7 @@ export const updatePlanetThunk = createAsyncThunk(
   "planet/updatePlanetThunk",
   async (payload, thunkAPI) => {
     try {
-      const { data } = await apis.updatePlanet(payload)
+      const { data } = await apis.updatePlanet(payload);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (e) {
       return thunkAPI.rejectWithValue(e.code);
@@ -95,21 +95,21 @@ const followSlice = createSlice({
       state.error = action.payload;
     },
 
-     // Updating planet from the edit mode
-     [updatePlanetThunk.pending]: (state) => {
+    // Updating planet from the edit mode
+    [updatePlanetThunk.pending]: (state) => {
       state.isLoading = true;
     },
     [updatePlanetThunk.fulfilled]: (state, action) => {
       state.isLoading = false;
-    
-      const planetIndex = state.planets.planets.findIndex((planet) => 
-        planet.dueDate === action.payload.dueDate        
-       )
-       
-       state.planets.planets[planetIndex].planetSize = action.payload.planetSize
 
-       state.planets.planets[planetIndex].planetColor = action.payload.planetColor
+      const planetIndex = state.planets.planets.findIndex(
+        (planet) => planet.dueDate === action.payload.dueDate
+      );
 
+      state.planets.planets[planetIndex].planetSize = action.payload.planetSize;
+
+      state.planets.planets[planetIndex].planetColor =
+        action.payload.planetColor;
     },
     [updatePlanetThunk.rejected]: (state, action) => {
       state.isLoading = false;

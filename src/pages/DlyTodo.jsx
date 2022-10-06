@@ -1,5 +1,5 @@
 // React
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 // BottomModalSheet
 import Sheet from "react-modal-sheet";
 // Calendar
@@ -20,8 +20,9 @@ import styled from "styled-components";
 // React Component
 import Header from "../components/Header";
 import TodoList from "../components/TodoList";
-import BtmFitNavi from "../components/btmFitNaviBar/BtmFitNavi.jsx";
+import TodoBtmFitNavi from "../components/btmFitNaviBar/TodoBtmFitNavi.jsx";
 import DayMover from "../components/dateMover/DayMover.jsx";
+import ModalInner from "../element/ModalInner";
 import ChgDateModal from "../components/chgDateModal/ChgDateModal.js";
 // Element
 import Circle from "../element/Circle.jsx";
@@ -36,10 +37,16 @@ import {
   calendar_icon_gray,
   edit_icon,
 } from "../static/images";
-// React Router Dom
+// React Router Dommmy UI 
 import { useNavigate } from "react-router-dom";
+// Context API
+import { AppContext } from "../context"
+
+// A counter for the dumppy data of todo
+let todoIdCounter = 1;
 
 const DlyTodo = () => {
+
   // React Router Dom
   const navigate = useNavigate();
 
@@ -55,11 +62,14 @@ const DlyTodo = () => {
   // Hook : whether to open the change date modal
   const [showModal, setShowModal] = useState(false);
 
+  // Hook : To open delete model
+  const [deleteModal, setDeleteModal] = useState(false);
+
   // Hook : whether to show bottom modal sheet
   const [openbtmSheet, setOpenBtmSheet] = useState(false);
 
-  // Hook : To get the selected date from the calendar
-  const [dateValue, setDateValue] = useState(new Date());
+  // Context API : To get the selected date && the prasedFullDate from the calendar
+  const { dateValue, setDateValue, parsedFullApiDate } = useContext(AppContext);
 
   // Hook : To get the clicked Memo info from the TodoList
   const [clickedMemo, setClickedMemo] = useState("");
@@ -79,24 +89,11 @@ const DlyTodo = () => {
   // UseRef : To get the selected date from the calendar
   const concatSelDate = useRef();
 
-  // Var ; A Parsed date in format yyyy/mm/dd from the calendar
-  var parsedFullDate = `${dateValue.getFullYear()}-${String(
-    dateValue.getMonth() + 1
-  ).padStart(2, "0")}-${String(dateValue.getDate()).padStart(2, "0")}`;
-
-  // Var : A Parsed date in format mm월 dd일 from the calendar
-  var parsedParDate = `${String(dateValue.getFullYear()).slice(
-    2,
-    4
-  )}년 ${String(dateValue.getMonth() + 1).padStart(2, "0")}월 ${String(
-    dateValue.getDate()
-  ).padStart(2, "0")}일`;
-
   // Var : Getting a current date
   const today = new Date();
 
   // Var : Parsing date string into date int format
-  const parsedCurrDate = Date.parse(parsedFullDate);
+  const parsedCurrDate = Date.parse(parsedFullApiDate);
 
   // Var : Parsinng a current date in format yyyy/mm/dd
   const parsedToday = Date.parse(
@@ -120,30 +117,29 @@ const DlyTodo = () => {
   // UseEffect : Getting categories & to-do lists as well as date from the calendar
   // Dispatchig PlanetThunk first => getCategThunk
   useEffect(() => {
-    concatSelDate.current = parsedFullDate;
+    concatSelDate.current = parsedFullApiDate;
     dispatch(getDayPlanetThunk(concatSelDate.current)).then((response) => {
       if (response.meta.requestStatus === "fulfilled") {
         dispatch(getCategThunk(concatSelDate.current));
       }
     });
-  }, [parsedFullDate, dispatch]);
+  }, [parsedFullApiDate, dispatch]);
 
   // Adding a new todo
   const addTodo = ({ input, index }) => {
-
     if (input.todos[input.todos.length - 1]?.title !== "") {
       const mtyCateg = {
         categIndex: index,
         categReq: {
+          todoId: todoIdCounter,
           todoListId: input.categoryId + 1,
           title: "",
           dueDate: concatSelDate.current,
         },
       };
       dispatch(addMtyTodo(mtyCateg));
-      console.log("Checking here", document.getElementById("disable133"));
+      todoIdCounter++;
     }
-  
   };
 
   // Enabling to edit todo by closing the modalSheet
@@ -156,8 +152,8 @@ const DlyTodo = () => {
   };
 
   // Deleting the clicked todo by closing the modalSheet
-  const clickDeleteTodo = () => {
-    setOpenBtmSheet(false);
+  const onDeleteHandler = () => {
+    setDeleteModal(false);
 
     const clickedTodoId = clickedTodo.todoInfo.todoId;
 
@@ -225,9 +221,6 @@ const DlyTodo = () => {
             <StyCircleWrap>
               <StyHeader showCalendar={showCalendar}>
                 <DayMover
-                  parsedParDate={parsedParDate}
-                  setDateValue={setDateValue}
-                  dateValue={dateValue}
                 />
                 <TodoStatus>
                   <div>
@@ -378,15 +371,6 @@ const DlyTodo = () => {
               <ContentHeader>
                 <EditTitleWrap>
                   <EditTitle>{clickedTodo.todoInfo.title}</EditTitle>
-                  {parsedCurrDate < parsedToday ? null : (
-                    <button
-                      onClick={() => {
-                        clickEditTodo();
-                      }}
-                    >
-                      <img src={edit_icon} alt="수정 아이콘 이미지" />
-                    </button>
-                  )}
                 </EditTitleWrap>
                 <EditSubmit onClick={() => setOpenBtmSheet(false)}>
                   확인
@@ -403,7 +387,16 @@ const DlyTodo = () => {
                 <ContentFooter>
                   <button
                     onClick={() => {
-                      clickDeleteTodo();
+                      clickEditTodo();
+                    }}
+                  >
+                    <img src={edit_icon} alt="수정 아이콘 이미지" />
+                    수정
+                  </button>
+                  <button
+                    onClick={() => {
+                      setOpenBtmSheet(false);
+                      setDeleteModal(true);
                     }}
                   >
                     <img src={delete_icon} alt="삭제 아이콘" />
@@ -424,7 +417,7 @@ const DlyTodo = () => {
           <Sheet.Backdrop />
         </CustomSheet>
       </StyContentWrap>
-      <BtmFitNavi name="dlytodo" />
+      <TodoBtmFitNavi name="dlytodo"/>
       {/* <ChgDateModal
         onClose={() => setShowModal(false)}
         showModal={showModal}
@@ -433,6 +426,20 @@ const DlyTodo = () => {
         clickedTodo={clickedTodo}
         clickedCategIndex={clickedCategIndex}
       ></ChgDateModal> */}
+      {deleteModal && (
+        <ModalInner
+          text1={"할 일을\n삭제하시겠어요?"}
+          onConfirm={onDeleteHandler}
+          onCancel={() => {
+            setOpenBtmSheet(true);
+            setDeleteModal(false);
+          }}
+          onClose={() => {
+            setOpenBtmSheet(true);
+            setDeleteModal(false);
+          }}
+        ></ModalInner>
+      )}
     </StyDlyTodoCon>
   );
 };
@@ -487,12 +494,24 @@ const CalendarWrap = styled.div`
       margin-bottom: 0;
 
       &__label {
+        position: relative;
         min-width: auto;
         line-height: 1;
         font-size: 18px;
         color: #fff;
         margin: 0 10px;
         background: transparent !important;
+        z-index: -1;
+
+        &::before {
+          content: "";
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 100px;
+          height: 100%;
+        }
 
         &__labelText {
           line-height: 1;
@@ -567,6 +586,10 @@ const CalendarWrap = styled.div`
         position: relative;
         font-weight: 400;
         font-size: 12px;
+
+        &--neighboringMonth {
+          opacity: 50%;
+        }
       }
 
       @media (max-width: 375px) {

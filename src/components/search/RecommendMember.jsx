@@ -7,9 +7,7 @@ export default function RecommendMember(props) {
 
   const onFollowHandler = (id) => {
     setFollow(!follow);
-    // apis.followMember(id).then((response) => {
-    //   console.log(response);
-    // });
+
   };
 
   return (

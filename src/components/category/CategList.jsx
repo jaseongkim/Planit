@@ -7,11 +7,10 @@ import { getOnlyCategThunk } from "../../redux/modules/categTodoSlice.js";
 import { apis } from "../../shared/api";
 
 const CategList = () => {
-
   // Navigate
   const navigate = useNavigate();
-  const location = useLocation(); 
-  
+  const location = useLocation();
+
   // Redux : dispatch
   const dispatch = useDispatch();
 
@@ -27,7 +26,6 @@ const CategList = () => {
 
   return (
     <CategoryContainer>
-      {console.log('Checking here', categories)}
       {categories?.length === 0 ? null : (
         <>
           <WorkingCategory>

@@ -47,6 +47,69 @@ const TodoList = ({
     dispatch(onChangeTodo(chgTodoObj));
   };
 
+  // When the enter key is pressed, add a new todo
+  // & if there is no typed string, remove the empty todo
+  const onMtyTodoKeyUp = (event, inputs, index, categId) => {
+    if (event.keyCode === 13) {
+      if (inputs.title === "") {
+        const mtyTodo = {
+          todoIndex: index,
+          categIndex: categIndex,
+        };
+        dispatch(delMtyTodo(mtyTodo));
+        event.target.blur = true;
+      } else {
+        const addTodoObj = {
+          categId: categId,
+          categIndex: categIndex,
+          todoIndex: index,
+          todoReq: {
+            title: inputs.title,
+            dueDate: selectedDate,
+          },
+        };
+
+        dispatch(
+          createTodoThunk({
+            addTodoObj,
+          })
+        );
+
+        const targetCheck = document.getElementById(
+          `disable${clickedTodo.todoInfo.todoId}`
+        );
+        if (targetCheck !== null) targetCheck.disabled = true;
+        event.target.blur = true;
+      }
+      // onLoginHandler();
+    }
+  };
+
+  // When the enter key is pressed, edit the todo
+  const naMtyTodoKeyUp = (event, inputs, index) => {
+    if (event.keyCode === 13) {
+      const updateTodoTiObj = {
+        todoId: inputs.todoId,
+        categIndex: categIndex,
+        todoIndex: index,
+        todoReq: {
+          title: inputs.title,
+          dueDate: selectedDate,
+        },
+      };
+      dispatch(
+        updateTodoTiThunk({
+          updateTodoTiObj,
+        })
+      );
+
+      const targetCheck = document.getElementById(
+        `disable${clickedTodo.todoInfo.todoId}`
+      );
+      if (targetCheck !== null) targetCheck.disabled = true;
+    }
+  };
+
   // If it is an empty inputs, send dispatch data
   // else delete the empty UX
   const mtyTiOutFocus = (inputs, index, categId) => {
@@ -55,7 +118,7 @@ const TodoList = ({
         todoIndex: index,
         categIndex: categIndex,
       };
-      // dispatch(delMtyTodo(mtyTodo));
+      dispatch(delMtyTodo(mtyTodo));
     } else {
       const addTodoObj = {
         categId: categId,
@@ -73,9 +136,10 @@ const TodoList = ({
         })
       );
 
-      document.getElementById(
+      const targetCheck = document.getElementById(
         `disable${clickedTodo.todoInfo.todoId}`
-      ).disabled = true;
+      );
+      if (targetCheck !== null) targetCheck.disabled = true;
     }
   };
 
@@ -97,9 +161,13 @@ const TodoList = ({
       })
     );
 
-    document.getElementById(
+    // document.getElementById(
+    //   `disable${clickedTodo.todoInfo.todoId}`
+    // ).disabled = true;
+    const targetCheck = document.getElementById(
       `disable${clickedTodo.todoInfo.todoId}`
-    ).disabled = true;
+    );
+    if (targetCheck !== null) targetCheck.disabled = true;
   };
 
   // Changing the clicked checkbox's check status & updating achievenment count and planet level
@@ -144,7 +212,7 @@ const TodoList = ({
                       onChange={() =>
                         onhandleCheckBox(inputs, categIndex, index)
                       }
-                      disabled={parsedCurrDate < parsedToday ? true : false}
+                      disabled={parsedCurrDate !== parsedToday ? true : false}
                       checked={true}
                     />
                   ) : (
@@ -154,13 +222,13 @@ const TodoList = ({
                       onChange={() =>
                         onhandleCheckBox(inputs, categIndex, index)
                       }
-                      disabled={parsedCurrDate < parsedToday ? true : false}
+                      disabled={parsedCurrDate !== parsedToday ? true : false}
                       checked={false}
                     />
                   )}
                   <div></div>
                 </CustomCheck>
-                {inputs.todoId === undefined ? (
+                {inputs.isAchieved === undefined ? (
                   <input
                     autoFocus
                     maxLength={20}
@@ -171,16 +239,21 @@ const TodoList = ({
                     value={inputs.title}
                     onChange={(event) => handleFormChange(index, event)}
                     onBlur={() => mtyTiOutFocus(inputs, index, categId)}
+                    onKeyUp={(event) =>
+                      onMtyTodoKeyUp(event, inputs, index, categId)
+                    }
                   />
                 ) : (
                   <input
                     id={`disable${inputs.todoId}`}
                     name="title"
                     type="text"
+                    maxLength={20}
                     placeholder="할 일을 입력하세요"
                     value={inputs.title}
                     onChange={(event) => handleFormChange(index, event)}
                     onBlur={() => naMtyTiOutFocus(inputs, index)}
+                    onKeyUp={(event) => naMtyTodoKeyUp(event, inputs, index)}
                     disabled
                   />
                 )}

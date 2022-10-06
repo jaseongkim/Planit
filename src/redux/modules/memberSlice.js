@@ -19,7 +19,7 @@ export const createMemberDB = (data) => {
               response.headers.accesstokenexpiretime
             ),
             localStorage.setItem("nickname", response.data.data.nickname),
-            window.location.replace("/welcome")
+            window.location.replace("/tutorial")
           );
         }
       })
@@ -39,7 +39,6 @@ export const loginMemberDB = createAsyncThunk(
       await apis.loginMember(payload).then((response) => {
         if (response.data.success === false) {
         } else {
-          console.log(response);
           return (
             thunkAPI.fulfillWithValue(false),
             localStorage.setItem("token", response.headers.authorization),
@@ -90,15 +89,6 @@ export const kakaoLoginDB = createAsyncThunk(
     }
   }
 );
-
-// export const kakaoLoginDB = (code) => {
-//   return async function () {
-//     console.log(code);
-//     await apis.loginKakao(code).then((response) => {
-//       console.log(response);
-//     });
-//   };
-// };
 
 export const updateMember = createAsyncThunk(
   "member/updatePassword",
