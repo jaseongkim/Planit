@@ -35,7 +35,7 @@ const WklyTodo = () => {
   const [planet, setPlanet] = useState(null);
   const [isEditOpen, setEditOpen] = useState(false);
 
-  // Redux : weeklyPlants useSelector
+  // Redux : weeklyPlants useSelector from WeekMover
   const wkPlanets = useSelector((state) => state.planetSlice.planets);
 
   const onEditSheetOpen = (planet) => {
@@ -73,11 +73,6 @@ const WklyTodo = () => {
   // when dateValue get updated, re-render WklyTodo after return
   useEffect(() => {
     dispatch(getWeekPlanetsThunk(parsedMondayOfWeekDate));
-
-    // wkPlanets.planets.forEach((planet) => {
-    //   if (planet.planetType !== null && planet.planetType !== 0)
-    //     planetCntRef.current++;
-    // });
   }, [parsedMondayOfWeekDate, dispatch]);
 
   return (
