@@ -28,8 +28,6 @@ const Tutorial = () => {
         navigation={true}
         slidesPerView={1}
         allowTouchMove={false}
-        onSlideChange={() => console.log("slide change")}
-        onSwiper={(swiper) => console.log(swiper)}
       >
         <SwiperSlide>
           <TutorialImg src={tutorialImg1} alt="튜토리얼 이미지1" />

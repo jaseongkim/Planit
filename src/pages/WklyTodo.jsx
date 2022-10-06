@@ -61,15 +61,6 @@ const WklyTodo = () => {
     setEditOpen(false);
   };
 
-  // Getting Monday of the week with a given date
-  // const getMondayOfWeek = (date) => {
-  //   const first =
-  //     date.getDate() - date.getDay() + (date.getDay() === 0 ? -6 : 1);
-  //   const monday = new Date(date.setDate(first));
-
-  //   return monday;
-  // };
-
   //Var ; A parsed date in format yyyy/mm/dd for API
   const parsedMondayOfWeekDate = `${getMondayOfWeek(
     dateValue

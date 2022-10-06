@@ -35,8 +35,6 @@ export const createCategThunk = createAsyncThunk(
   async (category, thunkAPI) => {
     await apis
       .postCategories(category)
-      // console.log
-      // return thunkAPI.fulfillWithValue(data.data);
       .then((response) => {
         if (response.data.success === false) {
         } else {
@@ -310,23 +308,6 @@ const categTodoSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
-
-    // // delete selected todo
-    // [updateTodoDateThunk.pending]: (state) => {
-    //   state.isLoading = true;
-    // },
-    // [updateTodoDateThunk.fulfilled]: (state, action) => {
-    //   state.isLoading = false;
-
-    //   // const categIndex = action.payload.categIndex;
-    //   // const todoIndex = action.payload.todoIndex;
-
-    //   // state.categories[categIndex].todos.splice(todoIndex, 1);
-    // },
-    // [updateTodoDateThunk.rejected]: (state, action) => {
-    //   state.isLoading = false;
-    //   state.error = action.payload;
-    // },
   },
 });
 
