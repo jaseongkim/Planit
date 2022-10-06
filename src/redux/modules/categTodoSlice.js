@@ -4,7 +4,7 @@ import { apis } from "../../shared/api";
 // Getting all categories & todos from server
 // If there is no todolist, then createTodoList
 export const getCategThunk = createAsyncThunk(
-  "category/getCategory",
+  "getCategory",
   async (date, thunkAPI) => {
     try {
       const { data } = await apis.getCategories(date);
@@ -17,7 +17,7 @@ export const getCategThunk = createAsyncThunk(
 );
 
 export const getOnlyCategThunk = createAsyncThunk(
-  "category/getOnlyCategory",
+  "getOnlyCategory",
   async (_, thunkAPI) => {
     try {
       const { data } = await apis.getOnlyCategorie();
@@ -31,7 +31,7 @@ export const getOnlyCategThunk = createAsyncThunk(
 
 // Adding category
 export const createCategThunk = createAsyncThunk(
-  "category/createCategory",
+  "createCategory",
   async (category, thunkAPI) => {
     await apis
       .postCategories(category)
@@ -47,7 +47,7 @@ export const createCategThunk = createAsyncThunk(
 
 // deleting category
 export const deleteCategThunk = createAsyncThunk(
-  "category/deleteCategory",
+  "deleteCategory",
   async (id, thunkAPI) => {
     try {
       await apis.deleteCategories(id).then((response) => {
@@ -66,7 +66,7 @@ export const deleteCategThunk = createAsyncThunk(
 
 // updating category
 export const updateCategThunk = createAsyncThunk(
-  "category/updateCategory",
+  "updateCategory",
   async (payload, thunkAPI) => {
     try {
       await apis
@@ -83,7 +83,7 @@ export const updateCategThunk = createAsyncThunk(
 
 // Posting the added todo to server
 export const createTodoThunk = createAsyncThunk(
-  "todo/createTodo",
+  "createTodo",
   async (payload, thunkAPI) => {
     try {
       const { data } = await apis.createTodo(payload);
@@ -99,7 +99,7 @@ export const createTodoThunk = createAsyncThunk(
 
 // Updating the added todo's title to server & state
 export const updateTodoTiThunk = createAsyncThunk(
-  "todo/updateTodoTitle",
+  "updateTodoTitle",
   async (payload, thunkAPI) => {
     try {
       const { data } = await apis.updateTodoTi(payload);
@@ -115,7 +115,7 @@ export const updateTodoTiThunk = createAsyncThunk(
 
 // Updating the added todo's checkbox status to server & state
 export const updateTodoCkThunk = createAsyncThunk(
-  "todo/updateTodoCheck",
+  "updateTodoCheck",
   async (payload, thunkAPI) => {
     try {
       const { data } = await apis.updateTodoCk(payload);
@@ -131,7 +131,7 @@ export const updateTodoCkThunk = createAsyncThunk(
 
 // Updating the added todo's due date to server
 export const updateTodoDateThunk = createAsyncThunk(
-  "todo/updateTodoCheck",
+  "updateTodoCheck",
   async (payload, thunkAPI) => {
     try {
       const { data } = await apis.updateTodoDate(payload);
@@ -144,7 +144,7 @@ export const updateTodoDateThunk = createAsyncThunk(
 
 // Updating the added todo's memo to server & state
 export const updateTodoMemoThunk = createAsyncThunk(
-  "todo/updateTodoMemo",
+  "updateTodoMemo",
   async (payload, thunkAPI) => {
     try {
       const { data } = await apis.updateTodoMemo(payload);
@@ -160,7 +160,7 @@ export const updateTodoMemoThunk = createAsyncThunk(
 
 // Deleting the added todo to server
 export const deleteTodoThunk = createAsyncThunk(
-  "todo/deleteTodo",
+  "deleteTodo",
   async (payload, thunkAPI) => {
     try {
       await apis.deleteTodo(payload.todoId);

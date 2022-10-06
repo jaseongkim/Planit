@@ -7,9 +7,7 @@ import {
   deleteCategThunk,
   updateCategThunk,
 } from "../../redux/modules/categTodoSlice";
-import { getOnlyCategThunk } from "../../redux/modules/categTodoSlice.js";
 import { select_arrow } from "../../static/images";
-import CategoryScope from "./CategoryScope";
 import CategoryColor from "./CategoryColor";
 import ModalInner from "../../element/ModalInner";
 import { useEffect } from "react";
