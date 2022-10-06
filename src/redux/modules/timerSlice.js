@@ -4,12 +4,12 @@ import { apis } from "../../shared/api";
 export const postTimer = createAsyncThunk(
   "postTimer",
   async (time, thunkAPI) => {
-    console.log(time);
+
     try {
       const { data } = await apis.postTimer(time);
-      // return thunkAPI.fulfillWithValue(data.data);
+
     } catch (e) {
-      // return thunkAPI.rejectWithValue(e.code);
+        console.log(e)
     }
   }
 );

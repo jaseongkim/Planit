@@ -90,15 +90,6 @@ export const kakaoLoginDB = createAsyncThunk(
   }
 );
 
-// export const kakaoLoginDB = (code) => {
-//   return async function () {
-//     console.log(code);
-//     await apis.loginKakao(code).then((response) => {
-//       console.log(response);
-//     });
-//   };
-// };
-
 export const updateMember = createAsyncThunk(
   "member/updatePassword",
   async (payload, thunkAPI) => {

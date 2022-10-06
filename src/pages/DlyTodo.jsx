@@ -151,16 +151,6 @@ const DlyTodo = () => {
     document.getElementById(`disable${clickedTodo.todoInfo.todoId}`).focus();
   };
 
-  // const onDeleteSelect = () => {
-  //   if (category.isEmpty === true) {
-  //     setSelect(1);
-  //     setModal(true);
-  //   } else {
-  //     setSelect(3);
-  //     setModal(true);
-  //   }
-  // };
-
   // Deleting the clicked todo by closing the modalSheet
   const onDeleteHandler = () => {
     setDeleteModal(false);

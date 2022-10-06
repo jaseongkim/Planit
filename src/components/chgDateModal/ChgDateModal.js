@@ -26,8 +26,6 @@ const ChgDateModal = ({
   // Redux : dispatch
   const dispatch = useDispatch();
 
-  // console.log("Check dateValue", dateValue)
-
   // Hook : To get the selected DateTodo from the calendar
   const [dateTodo, setDateTodo] = useState(dateValue);
 
@@ -42,10 +40,6 @@ const ChgDateModal = ({
   }
 
   const onClickHandler = () => {
-    // console.log("Check here in onCickHandler", dateTodo)
-    // console.log("Check parsedfullDate", parsedFullDate)
-
-    // console.log("Check ", clickedTodo)
 
     const updateTodoDateObj = {
       todoId: clickedTodo.todoInfo.todoId,
@@ -63,7 +57,6 @@ const ChgDateModal = ({
   return (
     <ModalCon>
       <ModalContent>
-        {/* {console.log("Check here", dateTodo)} */}
         <ModalHeader>
           <h4 className="modal-title">Modal title</h4>
         </ModalHeader>

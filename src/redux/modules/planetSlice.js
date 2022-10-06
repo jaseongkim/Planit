@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 // Getting all planets for WklyyTodo from the server
 export const getWeekPlanetsThunk = createAsyncThunk(
-  "planet/getWeekPlanetsThunk",
+  "getWeekPlanetsThunk",
   async (payload, thunkAPI) => {
     try {
       const { data } = await apis.getWeekPlanets(payload);
@@ -17,7 +17,7 @@ export const getWeekPlanetsThunk = createAsyncThunk(
 
 // Getting a planet for DlyTodo from the server
 export const getDayPlanetThunk = createAsyncThunk(
-  "planet/getDayPlanetsThunk",
+  "getDayPlanetsThunk",
   async (payload, thunkAPI) => {
     try {
       const { data } = await apis.getDayPlanet(payload);
@@ -30,23 +30,20 @@ export const getDayPlanetThunk = createAsyncThunk(
 
 // posting today's planet type to server
 export const createPlanetThunk = createAsyncThunk(
-  "planet/createPlanetThunk",
+  "createPlanetThunk",
   async (payload, thunkAPI) => {
     try {
-      const { data } = await apis.postPlanet(payload);
-      // return thunkAPI.fulfillWithValue(data.data);
-      // console.log(data.data);
-      window.location.replace("/dlytodo");
+      const { data } = await apis.postPlanet(payload);;
+      return thunkAPI.fulfillWithValue(data.data);
     } catch (e) {
-      // return thunkAPI.rejectWithValue(e.code);
-      console.log(e);
+      return thunkAPI.rejectWithValue(e.code);
     }
   }
 );
 
 // Updating planet from the edit mode
 export const updatePlanetThunk = createAsyncThunk(
-  "planet/updatePlanetThunk",
+  "updatePlanetThunk",
   async (payload, thunkAPI) => {
     try {
       const { data } = await apis.updatePlanet(payload);
@@ -78,6 +75,22 @@ const followSlice = createSlice({
       state.planets = action.payload;
     },
     [getWeekPlanetsThunk.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+
+   // posting today's planet type to server
+    [createPlanetThunk.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [createPlanetThunk.fulfilled]: (state, action) => {
+      state.isLoading = false;
+
+      state.planet.dueDate = action.payload.dueDate;
+      state.planet.planetType = action.payload.planetType;
+
+    },
+    [createPlanetThunk.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     },
@@ -118,5 +131,4 @@ const followSlice = createSlice({
   },
 });
 
-// export const { } = followSlice.actions;
 export default followSlice.reducer;

@@ -35,7 +35,7 @@ const WklyTodo = () => {
   const [planet, setPlanet] = useState(null);
   const [isEditOpen, setEditOpen] = useState(false);
 
-  // Redux : weeklyPlants useSelector
+  // Redux : weeklyPlants useSelector from WeekMover
   const wkPlanets = useSelector((state) => state.planetSlice.planets);
 
   const onEditSheetOpen = (planet) => {
@@ -61,15 +61,6 @@ const WklyTodo = () => {
     setEditOpen(false);
   };
 
-  // Getting Monday of the week with a given date
-  // const getMondayOfWeek = (date) => {
-  //   const first =
-  //     date.getDate() - date.getDay() + (date.getDay() === 0 ? -6 : 1);
-  //   const monday = new Date(date.setDate(first));
-
-  //   return monday;
-  // };
-
   //Var ; A parsed date in format yyyy/mm/dd for API
   const parsedMondayOfWeekDate = `${getMondayOfWeek(
     dateValue
@@ -82,11 +73,6 @@ const WklyTodo = () => {
   // when dateValue get updated, re-render WklyTodo after return
   useEffect(() => {
     dispatch(getWeekPlanetsThunk(parsedMondayOfWeekDate));
-
-    // wkPlanets.planets.forEach((planet) => {
-    //   if (planet.planetType !== null && planet.planetType !== 0)
-    //     planetCntRef.current++;
-    // });
   }, [parsedMondayOfWeekDate, dispatch]);
 
   return (
