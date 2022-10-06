@@ -13,7 +13,14 @@ PLANIT은 계획을 뜻하는 PLAN 과 행성을 뜻하는 PLANET의 뜻을 포�
 [소개 영상](예정)  
 
 ## 🎬 프로젝트 소개
--  우리는 하루에도 수 많은 일들을 합니다. 할 일을 쉽게 기록하고 얼마나 잘 했는지 확인할 수 있는 것이 있다면 얼마나 좋을까요? 우리의 서비스 Planit은 TODO를 수행할 원동력을 제공할 수 있도록 도와주는 여러분들의 친구입니다.
+우리는 하루에도 수 많은 일들을 합니다.<br>
+할 일을 쉽게 기록하고 얼마나 잘 했는지 확인할 수 있다면 얼마나 좋을까요?<br>
+Planit은 할 일을 완료할 때마다 행성이 자라나면서 동기부여를 제공하는 To-do list 서비스입니다.
+
+- 계획적인 하루를 보내고 싶으신가요?<br>
+- To-do list를 작성만 하고 실행하지 않은 적이 있나요?
+
+Planit에서 To-do를 완료하고 행성을 키워보세요!
 
 ## ⏳ 프로젝트 기간
 ### 2022년 9월 2일 - 2022년 10월 7일
@@ -29,6 +36,10 @@ PLANIT은 계획을 뜻하는 PLAN 과 행성을 뜻하는 PLANET의 뜻을 포�
   <br>
   <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">   
   <img src="https://img.shields.io/badge/kakao login-FFCD00?style=for-the-badge&logo=kakao&logoColor=black">
+  <img src="https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white">
+  <br>
+  <img src="https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white">
+  <img src="https://img.shields.io/badge/Axios-5A29E4?style=flat&logo=Axios&logoColor=white"/>
   <br>
 </div>
 
