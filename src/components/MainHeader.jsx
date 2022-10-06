@@ -9,7 +9,7 @@ export default function MainHeader(props) {
 
   // Getting Component's URL name
   let currentPath = useLocation();
-  
+
   return (
     <HeaderWrap {...props}>
       <HeaderTitle>
@@ -35,6 +35,8 @@ export default function MainHeader(props) {
             ? "타이머"
             : currentPath.pathname === "/report"
             ? `${localStorage.getItem("nickname")} 님의 리포트`
+            : currentPath.pathname === "/mypage"
+            ? "마이페이지"
             : `${localStorage.getItem("nickname")} 님의 통계`}
         </NicknameDiv>
       </HeaderTitle>
