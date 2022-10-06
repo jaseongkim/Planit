@@ -6,10 +6,14 @@ import { useNavigate, useLocation } from "react-router-dom";
 import styled, { css } from "styled-components";
 import TopButton from "../../element/TopButton";
 // Context API
-import { AppContext } from "../../context"
+import { AppContext } from "../../context";
+// Redux
+import { useDispatch, useSelector } from "react-redux";
+import { getWeekPlanetsThunk } from "../../redux/modules/planetSlice";
+// Axios
+import { apis } from "../../shared/api";
 
-const TodoBtmFitNavi = ({ name, wkPlanets }) => {
-
+const TodoBtmFitNavi = ({ name }) => {
   // Navigate
   const navigate = useNavigate();
   const currentPath = useLocation().pathname;
@@ -29,7 +33,7 @@ const TodoBtmFitNavi = ({ name, wkPlanets }) => {
         break;
       default:
         navigate("/dlytodo");
-        setDateValue(new Date())
+        setDateValue(new Date());
         break;
     }
   }, [activeTabs, navigate, setDateValue]);
@@ -42,15 +46,17 @@ const TodoBtmFitNavi = ({ name, wkPlanets }) => {
     const parsedCurrDate = `${currDate.getFullYear()}-${String(
       currDate.getMonth() + 1
     ).padStart(2, "0")}-${String(currDate.getDate()).padStart(2, "0")}`;
-    const currPlanet = wkPlanets?.planets.find(
-      (planet) => planet.dueDate === parsedCurrDate
-    );
 
-    if (currPlanet?.planetType !== null || currPlanet?.planetType !== 0) {
-      navigate("/createplanet");
-    } else {
-      setActiveTabs("dlytodo");
-    }
+    apis.getWeekPlanets(parsedCurrDate).then((response) => {
+      const currPlanet = response.data.data.planets.find(
+        (planet) => planet.dueDate === parsedCurrDate
+      );
+      if (currPlanet?.planetType === null || currPlanet?.planetType === 0) {
+        navigate("/createplanet");
+      } else {
+        setActiveTabs("dlytodo");
+      }
+    });
   };
 
   return (
